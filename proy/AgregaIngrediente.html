@@ -8,7 +8,9 @@
 	<!--<img add src="/res/add_button.png"> -->
 	<!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
             
@@ -94,16 +96,31 @@
           <label for="n_preparado">Nombre de Preparado</label>
         </div>
         </div>
-      	<div class="row">
-            <div class="input-field col s6">
-              <input type="text" id="autocomplete-ingrediente" class="autocomplete">
-              <label for="autocomplete-ingrediente">Ingrediente</label>
-            </div>
-        <div>
-        	<br>
-          <input id="addBu" type="button" name="addIn" value="Agregar Ingrediente" onclick="addInp()">
-        </div>
-          </div>
+      	
+
+         
+          <div class="form-group">  
+               <form name="add_name" id="add_name">  
+                    <div class="table-responsive">  
+                         <table class="table " id="dynamic_field">  
+                              <tr>  
+                                   <td>
+                                      <div class="input-field col s6">
+                                        <input type="text" id="autocomplete-ingrediente" class="autocomplete">
+                                        <label for="autocomplete-ingrediente">Ingrediente</label>
+                                      </div>
+                                     
+                                   
+                                      <input id="add" type="button" name="addIn" value="Agregar Ingrediente">
+                                   </td>  
+                              </tr>  
+                         </table>  
+                         <input type="button" name="submit" id="submit" class="btnAgregar" value="Guardar Ingrediente" />  
+                    </div>  
+               </form>  
+          </div>  
+           
+
         </div>
       </div>
 
@@ -111,7 +128,31 @@
 					<a class = "savebtn">Guardar</a>
     </form>
   </div>
-<script type="text/javascript" src="js/actions.js"></script>
+<script>
+$(document).ready(function(){  
+      var i=1;  
+      $('#add').click(function(){  
+           i++;  
+           $('#dynamic_field').append('<tr id="row'+i+'"><td><div class="input-field col s6"><input type="text" id="autocomplete-ingrediente" class="autocomplete"><label for="autocomplete-ingrediente">Ingrediente</label></div><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');  
+      });  
+      $(document).on('click', '.btn_remove', function(){  
+           var button_id = $(this).attr("id");   
+           $('#row'+button_id+'').remove();  
+      });  
+      $('#submit').click(function(){            
+           $.ajax({  
+                url:"name.php",  
+                method:"POST",  
+                data:$('#add_name').serialize(),  
+                success:function(data)  
+                {  
+                     alert(data);  
+                     $('#add_name')[0].reset();  
+                }  
+           });  
+      });  
+ });  
+ </script>
 </body>
 
 </html>
