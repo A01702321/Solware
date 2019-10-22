@@ -1,4 +1,4 @@
---Entidades
+
 CREATE TABLE Clientes
 (
 	IDCliente numeric not null,
@@ -6,7 +6,7 @@ CREATE TABLE Clientes
 	Tiempos varchar(10) not null,
 	NombreMenu varchar(10) not null,
 	PRIMARY KEY(IDCliente)
-)
+);
 
 CREATE TABLE Ingredientes
 (
@@ -14,14 +14,14 @@ CREATE TABLE Ingredientes
 	Nombre varchar(20) not null,
 	GrupoAlimenticio varchar(20) not null,
 	PRIMARY KEY(IDIngrediente)
-)
+);
 
 CREATE TABLE Preparados
 (
 	IDPreparado numeric not null,
 	Nombre varchar(20) not null,
 	PRIMARY KEY(IDPreparado)
-)
+);
 
 CREATE TABLE Receta
 (
@@ -30,14 +30,14 @@ CREATE TABLE Receta
 	Descripcion varchar(30),
 	Tiempo varchar(10) not null,
 	PRIMARY KEY(IDReceta)
-)
+);
 
 CREATE TABLE Categoria
 (
 	IDCategoria numeric not null,
 	Nombre varchar(20) not null,
 	PRIMARY KEY(IDCategoria)
-)
+);
 
 CREATE TABLE Platillo
 (
@@ -46,61 +46,61 @@ CREATE TABLE Platillo
 	Tiempo varchar(10) not null,
 	Fecha datetime not null,
 	PRIMARY KEY(IDPlatillo)
-)
+);
 
 CREATE TABLE Menus
 (
-	NombreMenu varchar(10)
+	NombreMenu varchar(10),
 	PRIMARY KEY(NombreMenu)
-)
+);
 
---Relaciones
-CREATE TABLE Restriccion --Clientes - Ingredientes
+
+CREATE TABLE Restriccion
 (
 	IDCliente numeric not null,
 	IDIngrediente numeric not null,
 	PRIMARY KEY (IDCliente, IDIngrediente),
 	FOREIGN KEY(IDCliente) references Clientes(IDCliente),
 	FOREIGN KEY(IDIngrediente) references Ingredientes(IDIngrediente)
-)
+);
 
-CREATE TABLE Pertenece --Ingrediente - Categoria
+CREATE TABLE Pertenece
 (
 	IDCategoria numeric not null,
 	IDIngrediente numeric not null,
 	PRIMARY KEY(IDCategoria, IDIngrediente),
 	FOREIGN KEY(IDCategoria) references Categoria(IDCategoria),
 	FOREIGN KEY(IDIngrediente) references Ingredientes(IDIngrediente)
-)
+);
 
-CREATE TABLE Conforman --Ingredientes - Preparados
+CREATE TABLE Conforman
 (
 	IDPreparado numeric not null,
 	IDIngrediente numeric not null,
 	PRIMARY KEY(IDPreparado, IDIngrediente),
 	FOREIGN KEY(IDPreparado) references Preparados(IDPreparado),
 	FOREIGN KEY(IDIngrediente) references Ingredientes(IDIngrediente)
-)
+);
 
-CREATE TABLE Hacen --Ingredientes - Receta
+CREATE TABLE Hacen
 (
 	IDReceta numeric not null,
 	IDIngrediente numeric not null,
 	PRIMARY KEY(IDReceta,IDIngrediente),
 	FOREIGN KEY(IDReceta) references Receta(IDReceta),
-	FOREIGN KEY(IDIngrediente) references Ingredientes(IDIngrediente),
-)
+	FOREIGN KEY(IDIngrediente) references Ingredientes(IDIngrediente)
+);
 
-CREATE TABLE HacenPR --Preparados	 - Receta
+CREATE TABLE HacenPR
 (
 	IDReceta numeric not null,
 	IDPreparado numeric not null,
 	PRIMARY KEY(IDReceta,IDPreparado),
 	FOREIGN KEY(IDReceta) references Receta(IDReceta),
-	FOREIGN KEY(IDPreparado) references Preparados(IDPreparado),
-)
+	FOREIGN KEY(IDPreparado) references Preparados(IDPreparado)
+);
 
-CREATE TABLE Compone --Platillo - Receta
+CREATE TABLE Compone
 (
 	IDPlatillo numeric not null,
 	IDReceta numeric not null,
@@ -108,9 +108,9 @@ CREATE TABLE Compone --Platillo - Receta
 	PRIMARY KEY (IDPlatillo, IDReceta),
 	FOREIGN KEY(IDPlatillo) references Platillo(IDPlatillo),
 	FOREIGN KEY(IDReceta) references Receta(IDReceta)
-)
+);
 
-CREATE TABLE Agendan --Clientes - Platillo
+CREATE TABLE Agendan
 (
 	IDCliente numeric not null,
 	IDPlatillo numeric not null,
@@ -119,14 +119,15 @@ CREATE TABLE Agendan --Clientes - Platillo
 	PRIMARY KEY (IDCliente,IDPlatillo),
 	FOREIGN KEY(IDCliente) references Clientes(IDCliente),
 	FOREIGN KEY(IDPlatillo) references Platillo(IDPlatillo)
-)
+);
 
-CREATE TABLE Contiene --Menu - Receta
+CREATE TABLE Contiene
 (
 	NombreMenu varchar(10) not null,
 	IDReceta numeric not null,
 	PRIMARY KEY (NombreMenu,IDReceta),
 	FOREIGN KEY(NombreMenu) references Menus(NombreMenu),
 	FOREIGN KEY(IDReceta) references Receta(IDReceta)
-)
+);
+
 
