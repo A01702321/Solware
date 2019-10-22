@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Agregar Receta</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="css/agregarStyle.css">
+	<link href="https://fonts.googleapis.com/css?family=Mina" rel="stylesheet"> 
+	<!--<img add src="/res/add_button.png"> -->
+</head>
+<body>
+	<div class="topnav">
+	<a href="menu.html" class="active">Home</a>
+	<a href="Consultar.html" class="active">Consultar</a>
+<!--	<div class="dropdown">
+	  <button class="dropbtn">Consultar</button>
+	  <div class="dropdown-content">
+		    <a href="">Cliente</a>
+		    <a href="">Ingredientes</a>
+		    <a href="">Preparados</a>
+		    <a href="">Platillos</a>
+			<a href="">Restricciones</a>
+			<a href="">Menu</a>
+	  </div>
+	</div>-->
+
+	<div class="dropdown">
+	  <button class="dropbtn">Agregar</button>
+	  <div class="dropdown-content">
+		    <a href="AgregaCliente.html">Cliente</a>
+		    <a href="AgregaIngrediente.html">Ingredientes</a>
+		    <a href="AgregaPreparado.html">Preparados</a>
+		    <a href="AgregaPlatillo.html">Platillos</a>
+			<a href="AgregaCategoria.html">Categorias</a>
+			<a href="AgregaMenu.html">Menu</a>
+	  </div>
+	</div>
+
+	</div>
+	<h2>Agrega Nueva Platillo</h2>
+	<div class="plat-form">
+		<form>
+			<h3>Nombre de Plaitllo:</h3>
+			<input type="text" name="Ingrediente">
+			<h3>Menus a los que pertenece:</h3>
+			<input type="checkbox" name="Menu1" value="" checked> Basico
+  			<input type="checkbox" name="Menu2" value=""> Elite
+  			<input type="checkbox" name="Menu3" value="" > Snacks<br>
+			<input type="checkbox" name="Menu1" value=""> Keto
+			<input type="checkbox" name="Menu1" value=""> Vegetariano
+			<h3>Ingrediente/Preparado:</h3>
+			<select>
+		  	<option value="volvo">Ingrediente</option>
+  			<option value="saab">Preparado</option>
+			</select><input type="" name="">
+		</form>
+	</div>
+	<div>
+		<br><input id="addBu" type="button" name="addIn" value="Agregar Ingrediente">
+		<input id="remBu" type="button" name="remIn" value="Eliminar Ingrediente" >
+		<a class = "savebtn">Guardar</a>
+	</div>
+	<script type="text/javascript" src="js/actions.js"></script>
+</body>
+
+</html>

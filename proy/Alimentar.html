@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Alimentar</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="css/agregarStyle.css">
+	<link href="https://fonts.googleapis.com/css?family=Mina" rel="stylesheet">
+</head>
+<body>
+	<div class="topnav">
+			<a href="menu.html" class="active" id="home">Home</a>
+				<div class="dropdown">
+		  <a href="Consultar.html" class="active">Consultar</a>
+		</div>
+
+		<div class="dropdown">
+		  <button class="dropbtn">Agregar</button>
+		  <div class="dropdown-content">
+			    <a href="AgregaCliente.html">Clientes</a>
+			    <a href="AgregaIngrediente.html">Ingredientes</a>
+			    <a href="AgregaPreparado.html">Preparados</a>
+			    <a href="AgregaReceta.html">Recetas</a>
+				<a href="AgregaCategoria.html">Categorias</a>
+				<a href="AgregaMenu.html">Menu</a>
+		  </div>
+		</div>
+		<button class="logout" onclick="logout()">Logout</button>
+	</div>
+	<div class="main-container">
+		<div class="row">
+				<form id="alimentar" class="alimentar">
+					<div class="column-al">
+					
+							Fecha:<br>
+							<input type="date" name="date">
+							<br><br>Menu:<br>
+							<select>
+								<option disabled selected value> -- Elige una opcion -- </option>
+							  	<option value="basico">Basico</option>
+					  			<option value="elite">Elite</option>
+					  			<option value="vegetariano">Vegetariano</option>
+					  			<option value="keto">Keto</option>
+							</select><br><br>
+							Tiempo:<br>
+							<select>
+								<option disabled selected value> -- Elige una opcion -- </option>
+							  	<option value="desayuno">Desayuno</option>
+					  			<option value="comida">Comida</option>
+					  			<option value="cena">Cena</option>
+							</select><br><br>
+							Nombre:<br>
+							<input type="text" name="name">
+							<br><br>
+							Notas extra:<br>
+							<textarea form="alimentar" cols="40" rows="6"></textarea>
+					
+					</div>
+					<div class="column-al">
+						Platillo principal:<br>
+						<select>
+							<option disabled selected value> -- Elige una opcion -- </option>
+							  	<option value="enchiladas">Enchiladas</option>
+					  			<option value="elite">Elite</option>
+					  			<option value="vegetariano">Vegetariano</option>
+					  			<option value="keto">Keto</option>
+							</select><br><br>
+							Guarnición:<br>
+							<select>
+								<option disabled selected value> -- Elige una opcion -- </option>
+							  	<option value="basico">Basico</option>
+					  			<option value="elite">Elite</option>
+					  			<option value="vegetariano">Vegetariano</option>
+					  			<option value="keto">Keto</option>
+							</select><br><br>
+							Platillo extra:<br>
+						<select>
+							<option disabled selected value> -- Elige una opcion -- </option>
+							<option value="empty">---</option>
+							  	<option value="enchiladas">Enchiladas</option>
+					  			<option value="elite">Elite</option>
+					  			<option value="vegetariano">Vegetariano</option>
+					  			<option value="keto">Keto</option>
+							</select><br><br>
+							Platillo extra:<br>
+						<select>
+							<option disabled selected value> -- Elige una opcion -- </option>
+							<option value="empty">---</option>
+							  	<option value="enchiladas">Enchiladas</option>
+					  			<option value="elite">Elite</option>
+					  			<option value="vegetariano">Vegetariano</option>
+					  			<option value="keto">Keto</option>
+							</select><br><br>
+							Snack/Fruta:<br>
+							<select>
+							<option disabled selected value> -- Elige una opcion -- </option>
+							<option value="empty">---</option>
+							  	<option value="enchiladas">Enchiladas</option>
+					  			<option value="elite">Elite</option>
+					  			<option value="vegetariano">Vegetariano</option>
+					  			<option value="keto">Keto</option>
+							</select><br><br>
+							Topping:<br>
+							<input type="checkbox" name="topping1" value="topping1"> topping1
+				  			<input type="checkbox" name="topping2" value="topping2"> topping2
+				  			<input type="checkbox" name="topping3" value="topping3"> topping3<br>
+							<input type="checkbox" name="topping4" value="topping4"> topping4
+							<input type="checkbox" name="topping5" value="topping5"> topping5
+							<input type="checkbox" name="topping6" value="topping6"> topping6
+							<br><br>
+							<input type="button" class = "al" name="ali" value="Alimentar">
+				</form>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/actions.js"></script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Agregar Ingrediente</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="css/AgregaCliente.css">
+	<link href="https://fonts.googleapis.com/css?family=Mina" rel="stylesheet"> 
+	<!--<img add src="/res/add_button.png"> -->
+	<!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+            
+
+<div class="topnav">
+
+		<img class = "logo" src="res/Logo_!.png">
+
+	</div>
+
+	<div class="topnav">
+	<a href="menu.html" class="active">Home</a>
+	<a href="Alimentar.html" class="active">Alimentar</a>	
+	<a href="Consultar.html" class="active">Consultar</a>
+<div class="h_dropdown">
+  <button class="h_dropbtn">Agregar</button>
+  <div class="h_dropdown-content">
+	    <a href="AgregaCliente.html">Cliente</a>
+	    <a href="AgregaIngrediente.html">Ingredientes/Preparados</a>
+	    <a href="AgregaReceta.html">Recetas</a>
+		<a href="AgregaMenu.html">Menu</a>
+  </div>
+</div>
+<div>
+		<a href="Index.html" class="logout" onclick="logout()">Logout</a>	
+</div>
+</div>
+
+</head>
+
+<body>	
+
+
+	 <div class="row">
+    <form class="col s6">
+      <div class="row">
+		<div>
+		<h5 class="col s6">Agregar Ingrediente</h5>
+		</div>
+	</div>
+      <div class="row">
+        <div class="input-field col s8">
+          <input id="n_ingrediente" type="text" class="validate">
+          <label for="n_ingrediente">Nombre de Ingrediente</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <h6><br><br>Grupo Alimenticio<br></h6>
+      	<div class="input-field col s5">
+              <input type="text" id="autocomplete-input" class="autocomplete">
+              <label for="autocomplete-input">Grupo Alimenticio</label>
+            </div>
+      </div>
+      <div class="row">
+        <h6><br><br>Categoria<br></h6>
+      	<div class="input-field col s5">
+              <input type="text" id="autocomplete-categoria" class="autocomplete">
+              <label for="autocomplete-categoria">Categoría</label>
+            </div>
+        <div>
+        	<br>
+          <input id="addBu" type="button" name="addIn" value="Agregar Categoría" onclick="addInp()">
+        </div>
+      </div>
+      	<div class="col s6">
+			<a class = "savebtn">Guardar</a>
+		</div>
+    </form>
+    <form class="col s6">
+      <div class="row">
+		<div>
+		<h5 class="col s6">Agregar Preparado</h5>
+		</div>
+	</div>
+      <div class="row">
+    
+    <div class="col s12">
+          <div class="row">
+      	<div class="row">
+        <div class="input-field col s8">
+          <input id="n_preparado" type="text" class="validate">
+          <label for="n_preparado">Nombre de Preparado</label>
+        </div>
+        </div>
+      	<div class="row">
+            <div class="input-field col s6">
+              <input type="text" id="autocomplete-ingrediente" class="autocomplete">
+              <label for="autocomplete-ingrediente">Ingrediente</label>
+            </div>
+        <div>
+        	<br>
+          <input id="addBu" type="button" name="addIn" value="Agregar Ingrediente" onclick="addInp()">
+        </div>
+          </div>
+        </div>
+      </div>
+
+      </div>
+					<a class = "savebtn">Guardar</a>
+    </form>
+  </div>
+<script type="text/javascript" src="js/actions.js"></script>
+</body>
+
+</html>

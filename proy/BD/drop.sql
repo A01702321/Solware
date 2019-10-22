@@ -1,0 +1,15 @@
+DROP TABLE Clientes
+DROP TABLE Ingredientes
+DROP TABLE Preparados
+DROP TABLE Receta
+DROP TABLE Categoria
+DROP TABLE Platillo
+DROP TABLE Menus
+DROP TABLE Restriccion
+DROP TABLE Pertenece
+DROP TABLE Conforman
+DROP TABLE Hacen
+DROP TABLE HacenPR
+DROP TABLE Compone
+DROP TABLE Agendan
+DROP TABLE Contiene

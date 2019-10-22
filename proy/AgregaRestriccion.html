@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Agregar Restricción</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="css/agregarStyle.css">
+	<link href="https://fonts.googleapis.com/css?family=Mina" rel="stylesheet"> 
+	<!--<img add src="/res/add_button.png"> -->
+</head>
+<body>
+	<div class="topnav">
+	<a href="menu.html" class="homebtn">Home</a>
+	<a href="" class="homebtn">Consultar</a>
+
+	<div class="dropdown">
+  		<button class="dropbtn">Agregar</button>
+  		<div class="dropdown-content">
+	    <a href="AgregaCliente.html">Cliente</a>
+	    <a href="AgregaIngrediente.html">Ingredientes</a>
+	    <a href="AgregaPreparado.html">Preparados</a>
+	    <a href="AgregaPlatillo.html">Platillos</a>
+		<a href="AgregaRestriccion.html">Restricciones</a>
+		<a href="AgregaMenu.html">Menu</a>
+  		</div>
+	</div>
+
+	</div>
+	<h2>Agrega Nueva Restricción</h2>
+	<div class="plat-form">
+		<form id="addForm">
+			<h3>Nombre de Restricción:</h3>
+			<input type="text" name="restriccion">
+			<h3>Ingrediente:</h3>
+			<input type="text" name="Ingrediente">
+		</form>
+	</div>
+	<div>
+		<br><input id="addBu" type="button" name="addIn" value="Agregar Ingrediente" onclick="addInp()">
+		<input id="remBu" type="button" name="remIn" value="Eliminar Ingrediente" onclick="remInp()">
+		<a class = "savebtn">Guardar</a>
+	</div>
+
+	<script type="text/javascript" src="js/actions.js"></script>	
+</body>
+
+</html>
