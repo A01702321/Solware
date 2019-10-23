@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="css/AgregaCliente.css">
 	<link href="https://fonts.googleapis.com/css?family=Mina" rel="stylesheet"> 
-	<!--<img add src="/res/add_button.png"> -->
+	<!--<img add src="/res/add_button.PNG"> -->
 	<!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
    
@@ -90,32 +90,34 @@
     
     <div class="col s12">
           <div class="row">
-      	<div class="row">
+
+      	<form name="add_name" id="add_name"> 
         <div class="input-field col s8">
           <input id="n_preparado" type="text" class="validate">
           <label for="n_preparado">Nombre de Preparado</label>
         </div>
-        </div>
+        </form>
       	
 
          
           <div class="form-group">  
-               <form name="add_name" id="add_name">  
-                    <div class="table-responsive">  
+               <form name="add_preparado" id="add_name">  
+                    <div class="table-responsive" vertical-align="center">  
                          <table class="table " id="dynamic_field">  
-                              <tr>  
-                                   <td>
-                                      <div class="input-field col s6">
+                              <tr id="row1">  
+                                   <td class="vert-aligned">
+                                      <div class="input-field col s6" id="">
                                         <input type="text" id="autocomplete-ingrediente" class="autocomplete">
                                         <label for="autocomplete-ingrediente">Ingrediente</label>
                                       </div>
                                      
-                                   
+                                    <div class="input-field col s6" id="">
                                      <input id="add" type="button" name="addIn" value="Agregar Ingrediente" >
+                                    </div>
                                    </td>  
                               </tr>  
                          </table>  
-                         <input type="button" name="submit" id="submit" class="btnAgregar" value="Guardar Ingrediente" />  
+                         <input id="submit" type="button" name="addIn" value="Guardar Preparado" onclick="addInp()">  
                     </div>  
                </form>  
           </div>  
@@ -133,17 +135,28 @@ $(document).ready(function(){
       var i=1;  
       $('#add').click(function(){  
            i++;  
-           $('#dynamic_field').append('<tr id="row'+i+'"><td><div class="input-field col s6"><input type="text" id="autocomplete-ingrediente" class="autocomplete"><label for="autocomplete-ingrediente">Ingrediente</label></div><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');  
+           $('#dynamic_field').append('<tr id="row'+i+'"><td><div class="input-field col s6"><input type="text" id="autocomplete-ingrediente" class="autocomplete"><label for="autocomplete-ingrediente">Ingrediente</label></div><div class="input-field col s6" id=""><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></div></td></tr>');  
       });  
       $(document).on('click', '.btn_remove', function(){  
            var button_id = $(this).attr("id");   
            $('#row'+button_id+'').remove();  
+           i--;
       });  
-      $('#submit').click(function(){            
+      $('#submit').click(function(){   
+          $.ajax({  
+                url:"preparadoNom.php",  
+                method:"POST",  
+                data:$('#add_name').serialize(),  
+                success:function(data)  
+                {  
+                     alert(data);  
+                     $('#add_name')[0].reset();  
+                }  
+           });
            $.ajax({  
                 url:"name.php",  
                 method:"POST",  
-                data:$('#add_name').serialize(),  
+                data:$('#add_preparado').serialize(),  
                 success:function(data)  
                 {  
                      alert(data);  

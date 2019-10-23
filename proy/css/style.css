@@ -78,9 +78,15 @@ footer{
 	border: none;
 	padding: 14px 16px;
 	font-size: 30px;
-  	position: absolute;
+  	position: relative;
   	bottom: 1em;
   	right: 1.5em;
+}
+.td-noBorder{
+	border: none;
+}
+tr{
+	border-bottom: 0;
 }
 .btnAgregar{
 	cursor: pointer;
