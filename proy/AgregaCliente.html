@@ -26,10 +26,10 @@
 <div class="h_dropdown">
   <button class="h_dropbtn">Agregar</button>
   <div class="h_dropdown-content">
-	    <a href="AgregaCliente.html">Cliente</a>
-	    <a href="AgregaIngrediente.html">Ingredientes/Preparados</a>
+	    <a href="AgregaCliente.php">Cliente</a>
+	    <a href="agIng.php">Ingredientes/Preparados</a>
 	    <a href="AgregaReceta.html">Recetas</a>
-		<a href="AgregaMenu.html">Menu</a>
+		<a href="agMenu.php">Menu</a>
   </div>
 </div>
 <div>
@@ -46,35 +46,35 @@
 	</div>
 
 	 <div class="row">
-    <form class="col s6">
+    <form class="col s6" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
       <div class="row">
         <div class="input-field col s6">
-          <input id="first_name" type="text" class="validate">
+          <input id="first_name" type="text" class="validate" name="name">
           <label for="first_name">Nombre</label>
         </div>
-        <div class="input-field col s6">
+      <!--  <div class="input-field col s6">
           <input id="last_name" type="text" class="validate">
           <label for="last_name">Apellido</label>
-        </div>
+        </div>-->
       </div>
 
       <div class="row">
       	<h6>Plan de Cliente</h6>
         <div class="input-field col s4">
       	<label>
-        	<input type="checkbox" class="filled-in" checked="unchecked" />
+        	<input type="checkbox" class="filled-in" checked="unchecked" name="time[]" value="DES" />
         	<span>Desayuno</span>
       	</label>
         </div>
         <div class="input-field col s4">
       	<label>
-        	<input type="checkbox" class="filled-in" checked="unchecked" />
+        	<input type="checkbox" class="filled-in" checked="unchecked" name="time[]" value="COM" />
         	<span>Comida</span>
       	</label>
         </div>
         <div class="input-field col s4">
       	<label>
-        	<input type="checkbox" class="filled-in" checked="unchecked" />
+        	<input type="checkbox" class="filled-in" checked="unchecked" name="time[]" value="CEN" />
         	<span>Cena</span>
       	</label>
         </div>
@@ -83,35 +83,36 @@
         <h6><br><br>Menú Inscrito<br><br></h6>
       	<p>
       <label>
-        <input name="group1" type="radio" checked />
+        <input name="menu" type="radio" value="Elemental" checked />
         <span>Elemental</span>
       </label>
     </p>
     <p>
       <label>
-        <input name="group1" type="radio" />
+        <input name="menu" type="radio" value="Elite" />
         <span>Elite</span>
       </label>
     </p>
     <p>
       <label>
-        <input name="group1" type="radio" />
+        <input name="menu" type="radio" value="Meatless" />
         <span>Meatless</span>
       </label>
     </p>
     <p>
       <label>
-        <input name="group1" type="radio" />
+        <input name="menu" type="radio" value="Keto" />
         <span>Keto</span>
       </label>
     </p>
     <p>
       <label>
-        <input name="group1" type="radio" />
+        <input name="menu" type="radio" value="Snacks" />
         <span>Snacks</span>
       </label>
     </p>
       </div>
+      <input type="submit" name="insertar" value="insertar">
     </form>
     <form class="col s6">
       <div class="row">

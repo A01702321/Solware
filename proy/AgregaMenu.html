@@ -26,10 +26,10 @@
 <div class="h_dropdown">
   <button class="h_dropbtn">Agregar</button>
   <div class="h_dropdown-content">
-	    <a href="AgregaCliente.html">Cliente</a>
-	    <a href="AgregaIngrediente.html">Ingredientes/Preparados</a>
+	    <a href="agCliente.php">Cliente</a>
+	    <a href="agIng.php">Ingredientes/Preparados</a>
 	    <a href="AgregaReceta.html">Recetas</a>
-		<a href="AgregaMenu.html">Menu</a>
+		<a href="agMenu.php">Menu</a>
   </div>
 </div>
 <div>
@@ -46,16 +46,17 @@
 	</div>
 
 	 <div class="row">
-    <form class="col s6">
+    <form class="col s6" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
       <div class="row">
         <div class="input-field col s10">
-          <input id="email" type="email" class="validate">
-          <label for="email">Nombre de Menú</label>
+          <input name="menu" id="menu" type="text" class="validate">
+          <label for="menu">Nombre de Menú</label>
           <span class="helper-text" data-error="Nombre ya existe" data-success="right">Helper text</span>
         </div>
       </div>
-
+ <input type="submit" name="insertar" value="insertar">
       </div>
+
     </form>
 					<a class = "savebtn">Guardar</a>
   </div>

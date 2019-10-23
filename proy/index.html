@@ -11,10 +11,11 @@
 	<!--<a href="" class="active">Home</a>
 	<a href="">Contacto</a>-->
 	<div class="login-container">
-		<form name="myForm" autocomplete="off" onsubmit="login(this)">
+		<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 			<input id="user" type="text" placeholder="Usuario" name="username" required>
 			<input id="pswrd" type="password" placeholder="Contraseña" name="psw" required>
-			<button type="submit">Login</button>
+			<button type="submit" name="login">Login</button>
+			<span class="error"> <?php echo $logErr;?></span><br>
 		</form>
 	</div>
 	<script type="text/javascript" src="js/actions.js"></script>
