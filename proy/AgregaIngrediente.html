@@ -26,10 +26,10 @@
 <div class="h_dropdown">
   <button class="h_dropbtn">Agregar</button>
   <div class="h_dropdown-content">
-	    <a href="agCliente.php">Cliente</a>
-	    <a href="agIng.php">Ingredientes/Preparados</a>
+	    <a href="AgregaCliente.html">Cliente</a>
+	    <a href="AgregaIngrediente.html">Ingredientes/Preparados</a>
 	    <a href="AgregaReceta.html">Recetas</a>
-		<a href="agMenu.php">Menu</a>
+		<a href="AgregaMenu.html">Menu</a>
   </div>
 </div>
 <div>
@@ -78,7 +78,7 @@
 			<a class = "savebtn">Guardar</a>
 		</div>
     </form>
-    <form class="col s6" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+    <form class="col s6">
       <div class="row">
 		<div>
 		<h5 class="col s6">Agregar Preparado</h5>
@@ -90,13 +90,13 @@
           <div class="row">
       	<div class="row">
         <div class="input-field col s8">
-          <input name="preparado" id="n_preparado" type="text" class="validate">
+          <input id="n_preparado" type="text" class="validate">
           <label for="n_preparado">Nombre de Preparado</label>
         </div>
         </div>
       	<div class="row">
             <div class="input-field col s6">
-              <input name="ingrediente" type="text" id="autocomplete-ingrediente" class="autocomplete">
+              <input type="text" id="autocomplete-ingrediente" class="autocomplete">
               <label for="autocomplete-ingrediente">Ingrediente</label>
             </div>
         <div>
@@ -108,7 +108,6 @@
       </div>
 
       </div>
-       <input type="submit" name="insertar" value="insertar">
 					<a class = "savebtn">Guardar</a>
     </form>
   </div>
