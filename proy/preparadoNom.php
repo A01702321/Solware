@@ -1,30 +1,21 @@
 <?php
- 	echo $_POST['nombre'];
-    //Connection to MySQL
-    $con = mysqli_connect('localhost', 'root', '');
+/* Attempt MySQL server connection. Assuming you are running MySQL
+server with default setting (user 'root' with no password) */
+$link = mysqli_connect("localhost", "root", "", "clase");
  
-    if(!$con) {
-        die('Not Connected To Server');
-    }
+// Check connection
+if($link === false){
+    die("ERROR: Could not connect. " . mysqli_connect_error());
+}
  
-    //Connection to database
-    if(!mysqli_select_db($con, 'clase')) {
-        echo 'Database Not Selected';
-    }
- 	
-    //Create variables
-    $nombre = $_POST['nombre'];
-    $sql = 'INSERT INTO Preparados (Nombre) VALUES ("hh")';
-  	$result = mysqli_query($con, $sql);
-    //Make sure name is valid
-    
-  
-    //Response
-    //Checking to see if name or email already exsist
-    
-   
+// Attempt insert query execution
+$sql = "INSERT INTO Preparados (Nombre) VALUES ('Parkerd')";
+if(mysqli_query($link, $sql)){
+    echo "Records inserted successfully.";
+} else{
+    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+}
  
-    //Close connection
-    mysqli_close($con);
- 
+// Close connection
+mysqli_close($link);
 ?>

@@ -1,7 +1,7 @@
 
 CREATE TABLE Clientes
 (
-	IDCliente numeric not null,
+	IDCliente int not null AUTO_INCREMENT,
 	Nombre varchar(20) not null,
 	Tiempos varchar(10) not null,
 	NombreMenu varchar(10) not null,
@@ -10,7 +10,7 @@ CREATE TABLE Clientes
 
 CREATE TABLE Ingredientes
 (
-	IDIngrediente numeric not null,
+	IDIngrediente int not null AUTO_INCREMENT,
 	Nombre varchar(20) not null,
 	GrupoAlimenticio varchar(20) not null,
 	PRIMARY KEY(IDIngrediente)
@@ -18,14 +18,14 @@ CREATE TABLE Ingredientes
 
 CREATE TABLE Preparados
 (
-	IDPreparado numeric not null,
+	IDPreparado int not null AUTO_INCREMENT,
 	Nombre varchar(20) not null,
 	PRIMARY KEY(IDPreparado)
 );
 
 CREATE TABLE Receta
 (
-	IDReceta numeric not null,
+	IDReceta int not null AUTO_INCREMENT,
 	Nombre varchar(20) not null,
 	Descripcion varchar(30),
 	Tiempo varchar(10) not null,
@@ -34,14 +34,14 @@ CREATE TABLE Receta
 
 CREATE TABLE Categoria
 (
-	IDCategoria numeric not null,
+	IDCategoria int not null AUTO_INCREMENT,
 	Nombre varchar(20) not null,
 	PRIMARY KEY(IDCategoria)
 );
 
 CREATE TABLE Platillo
 (
-	IDPlatillo numeric not null,
+	IDPlatillo int not null AUTO_INCREMENT,
 	NombreMenu varchar(10) not null,
 	Tiempo varchar(10) not null,
 	Fecha datetime not null,
@@ -57,8 +57,8 @@ CREATE TABLE Menus
 
 CREATE TABLE Restriccion
 (
-	IDCliente numeric not null,
-	IDIngrediente numeric not null,
+	IDCliente int not null,
+	IDIngrediente int not null,
 	PRIMARY KEY (IDCliente, IDIngrediente),
 	FOREIGN KEY(IDCliente) references Clientes(IDCliente),
 	FOREIGN KEY(IDIngrediente) references Ingredientes(IDIngrediente)
@@ -66,8 +66,8 @@ CREATE TABLE Restriccion
 
 CREATE TABLE Pertenece
 (
-	IDCategoria numeric not null,
-	IDIngrediente numeric not null,
+	IDCategoria int not null,
+	IDIngrediente int not null,
 	PRIMARY KEY(IDCategoria, IDIngrediente),
 	FOREIGN KEY(IDCategoria) references Categoria(IDCategoria),
 	FOREIGN KEY(IDIngrediente) references Ingredientes(IDIngrediente)
@@ -75,8 +75,8 @@ CREATE TABLE Pertenece
 
 CREATE TABLE Conforman
 (
-	IDPreparado numeric not null,
-	IDIngrediente numeric not null,
+	IDPreparado int not null,
+	IDIngrediente int not null,
 	PRIMARY KEY(IDPreparado, IDIngrediente),
 	FOREIGN KEY(IDPreparado) references Preparados(IDPreparado),
 	FOREIGN KEY(IDIngrediente) references Ingredientes(IDIngrediente)
@@ -84,8 +84,8 @@ CREATE TABLE Conforman
 
 CREATE TABLE Hacen
 (
-	IDReceta numeric not null,
-	IDIngrediente numeric not null,
+	IDReceta int not null,
+	IDIngrediente int not null,
 	PRIMARY KEY(IDReceta,IDIngrediente),
 	FOREIGN KEY(IDReceta) references Receta(IDReceta),
 	FOREIGN KEY(IDIngrediente) references Ingredientes(IDIngrediente)
@@ -93,8 +93,8 @@ CREATE TABLE Hacen
 
 CREATE TABLE HacenPR
 (
-	IDReceta numeric not null,
-	IDPreparado numeric not null,
+	IDReceta int not null,
+	IDPreparado int not null,
 	PRIMARY KEY(IDReceta,IDPreparado),
 	FOREIGN KEY(IDReceta) references Receta(IDReceta),
 	FOREIGN KEY(IDPreparado) references Preparados(IDPreparado)
@@ -102,8 +102,8 @@ CREATE TABLE HacenPR
 
 CREATE TABLE Compone
 (
-	IDPlatillo numeric not null,
-	IDReceta numeric not null,
+	IDPlatillo int not null,
+	IDReceta int not null,
 	PartePuzzle varchar(20),
 	PRIMARY KEY (IDPlatillo, IDReceta),
 	FOREIGN KEY(IDPlatillo) references Platillo(IDPlatillo),
@@ -112,8 +112,8 @@ CREATE TABLE Compone
 
 CREATE TABLE Agendan
 (
-	IDCliente numeric not null,
-	IDPlatillo numeric not null,
+	IDCliente int not null,
+	IDPlatillo int not null,
 	Fecha datetime not null,
 	Tiempo varchar(10) not null,
 	PRIMARY KEY (IDCliente,IDPlatillo),
@@ -124,10 +124,11 @@ CREATE TABLE Agendan
 CREATE TABLE Contiene
 (
 	NombreMenu varchar(10) not null,
-	IDReceta numeric not null,
+	IDReceta int not null,
 	PRIMARY KEY (NombreMenu,IDReceta),
 	FOREIGN KEY(NombreMenu) references Menus(NombreMenu),
 	FOREIGN KEY(IDReceta) references Receta(IDReceta)
 );
+
 
 
