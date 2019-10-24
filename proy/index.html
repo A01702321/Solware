@@ -9,12 +9,12 @@
 <body>
 	<img id="logo-index" src="img/logoh.png">
 	<!--<a href="" class="active">Home</a>
-	<a href="">Contacto</a>-->
+	<a href="">Contacto</a>http://localhost/proy/img/logoh.png-->
 	<div class="login-container">
-		<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+		<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>
 			<input id="user" type="text" placeholder="Usuario" name="username" required>
 			<input id="pswrd" type="password" placeholder="Contraseña" name="psw" required>
-			<button type="submit" name="login">Login</button>
+			<button class ="alimentar_btn" type="submit" name="login">Acceder</button>
 			<span class="error"> <?php echo $logErr;?></span><br>
 		</form>
 	</div>

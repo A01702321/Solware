@@ -183,7 +183,7 @@ button{
 }
 
 #home{
-	color:#00e664;
+	color:#f0ebdc;
 }
 
 .dropdown{
@@ -210,7 +210,7 @@ button{
  	float: none;
 }
 .dropdown-content a {
-  color: #00e664;
+  color: #f0ebdc;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
@@ -223,13 +223,14 @@ button{
 }
 .dropdown:hover .dropdown-content {
 	display: block;
+  color: #001437;
 }
 .logout{
 	font-family: 'Mina', sans-serif;
 	position: relative;
 	text-align: center;
 	cursor:pointer;
-	color: #00e664;
+	color: #f0ebdc;
 	background-color: #001437;
 	border: none;
     padding: 9px 16px;
@@ -358,6 +359,7 @@ textarea{
 }
 
 .column-al{
+  font-family: 'Mina', sans-serif;
   float: left;
   width: 50%;
   text-align: left;
@@ -370,7 +372,7 @@ textarea{
 	position: relative;
 	text-align: center;
 	cursor:pointer;
-	color: #00e664;
+	color: #f0ebdc;
 	background-color: #001437;
 	border: none;
     padding: 9px 16px;
@@ -394,6 +396,7 @@ textarea{
 }
 
 .tab button {
+  font-family: 'Mina', sans-serif;
   display: block;
   background-color: inherit;
   color: black;
@@ -429,4 +432,8 @@ textarea{
 	margin-left: 100px;
 	margin-right: 100px;
 
+}
+
+.alimentar_btn{
+  font-family: 'Mina', sans-serif;
 }
