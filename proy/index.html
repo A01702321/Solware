@@ -11,11 +11,18 @@
 	<!--<a href="" class="active">Home</a>
 	<a href="">Contacto</a>http://localhost/proy/img/logoh.png-->
 	<div class="login-container">
+<<<<<<< HEAD
 		<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>
 			<input id="user" type="text" placeholder="Usuario" name="username" required>
 			<input id="pswrd" type="password" placeholder="Contraseña" name="psw" required>
 			<button class ="alimentar_btn" type="submit" name="login">Acceder</button>
 			<span class="error"> <?php echo $logErr;?></span><br>
+=======
+		<form name="myForm" autocomplete="off" onsubmit="login(this)">
+			<input id="user" type="text" placeholder="Usuario" name="username" required>
+			<input id="pswrd" type="password" placeholder="Contraseña" name="psw" required>
+			<button type="submit">Login</button>
+>>>>>>> 220dac7e3b6eac25cfbec46a8112576531b4d835
 		</form>
 	</div>
 	<script type="text/javascript" src="js/actions.js"></script>

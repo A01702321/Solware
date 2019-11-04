@@ -12,7 +12,9 @@ if($link === false){
  
 // Attempt insert query execution
 $sql = "
+
 INSERT INTO Conforman (IDPreparado, IDIngrediente) VALUES ((SELECT p.IDPreparado FROM Preparados p WHERE p.Nombre = '$name'), (SELECT z.IDIngrediente FROM Ingredientes z WHERE z.Nombre = '$ing' ) )";
+
 
 
 if(mysqli_query($link, $sql)){

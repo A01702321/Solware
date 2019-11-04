@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,41 +46,52 @@
 
 
 	 <div class="row">
-    <form class="col s6">
-      <div class="row">
-		<div>
-		<h5 class="col s6">Agregar Ingrediente</h5>
-		</div>
-	</div>
-      <div class="row">
-        <div class="input-field col s8">
-          <input id="n_ingrediente" type="text" class="validate">
-          <label for="n_ingrediente">Nombre de Ingrediente</label>
-        </div>
-      </div>
+    <form class="col s6" id="agregar_ingrediente" >
+        <div class="row">
+      		<div>
+      		  <h5 class="col s6">Agregar Ingrediente</h5>
+      		</div>
+      	</div>
+        
+        <div class="table-responsive" vertical-align="center">  
+            <table class="table " id="dynamic_field2"> 
+                <div class="row">
+                    <div class="input-field col s8">
+                        <input id="nombreIng" type="text" class="validate" name="nombreIng">
+                        <label for="n_ingrediente">Nombre de Ingrediente</label>
+                    </div>
+                </div>
 
-      <div class="row">
-        <h6><br><br>Grupo Alimenticio<br></h6>
-      	<div class="input-field col s5">
-              <input type="text" id="autocomplete-input" class="autocomplete">
-              <label for="autocomplete-input">Grupo Alimenticio</label>
-            </div>
-      </div>
-      <div class="row">
-        <h6><br><br>Categoria<br></h6>
-      	<div class="input-field col s5">
-              <input type="text" id="autocomplete-categoria" class="autocomplete">
-              <label for="autocomplete-categoria">Categoría</label>
-            </div>
-        <div>
-        	<br>
-          <input id="addBu" type="button" name="addIn" value="Agregar Categoría" onclick="addInp()">
+                <div class="row">
+                    <h6><br><br>Grupo Alimenticio<br></h6>
+                  	<div class="input-field col s5">
+                        <input type="text" id="grupo" class="autocomplete" name="grupo">
+                        <label for="autocomplete-input">Grupo Alimenticio</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <h6><br><br>Categoria<br></h6>
+                  	<div class="input-field col s5">
+                        <input type="text" id="cat1" class="autocomplete" name ="cat1">
+                        <label for="autocomplete-categoria">Categoría</label>
+                    </div>
+                    <div>
+                      	<br>
+                        <input id="addCat" type="button" name="addCat" value="Agregar Categoría" >
+                    </div>
+                </div>
+                 
+          </table>
+          <input id="submitIng" type="button" name="submit" value="Guardar Ingrediente"> 
         </div>
-      </div>
-      	<div class="col s6">
-			<a class = "savebtn">Guardar</a>
-		</div>
     </form>
+
+
+
+
+
+
+
     <form class="col s6">
       <div class="row">
 		<div>
@@ -109,7 +119,7 @@
                                   </div>
                                 </td>
                               </tr>
-                              <tr id="row1">  
+                              <tr id="row">  
                                    <td class="vert-aligned">
                                       <div class="input-field col s6" id="">
                                         <input type="text" id="ing1" name="ing1" class="autocomplete">
@@ -117,7 +127,7 @@
                                       </div>
                                      
                                     <div class="input-field col s6" id="">
-                                     <input id="add" type="button" name="addIn" value="Agregar Ingrediente" >
+                                     <input id="add" type="button" name="addPrep" value="Agregar Ingrediente" >
                                     </div>
                                    </td>  
                               </tr>  
@@ -134,7 +144,7 @@
       </div>
 
       </div>
-					<a class = "savebtn">Guardar</a>
+					
     </form>
   </div>
 <script>
@@ -148,7 +158,18 @@ $(document).ready(function(){
            var button_id = $(this).attr("id");   
            $('#row'+button_id+'').remove();  
            i--;
+      }); 
+      var o=1;
+      $('#addCat').click(function(){  
+           o++;  
+           $('#dynamic_field2').append('<tr id="rowC'+o+'"><td><div class="input-field col s6"><input type="text" name="cat'+o+'" id="cat'+o+'" class="autocomplete"><label for="autocomplete-ingrediente">Categoria</label></div><div class="input-field col s6" id=""><button type="button" name="remove" id="'+o+'" class="btn btn-danger btn_removeC">X</button></div></td></tr>');  
       });  
+      $(document).on('click', '.btn_removeC', function(){  
+           var button_id = $(this).attr("id");   
+           $('#rowC'+button_id+'').remove();  
+           o--;
+      }); 
+
       $(document).on('click', '#submit', function(){ 
         alert("intento");
          /* stop form from submitting normally */
@@ -157,42 +178,67 @@ $(document).ready(function(){
          /* get the action attribute from the <form action=""> element */
         
         url = "preparadoNom.php";
-        for (x = 1; x<=i; x++){
-
-          
-          ing = $('#ing' + x).val();
-        }
+      
         /* Send the data using post with element id name and name2*/
+        var posting = $.post( url, { name: $('#nombreprep').val()} );
+        
+        /* Alerts the results */
+        posting.done(function( data ) {
+        alert('success');
+        });
+        });
+
+      $(document).on('click', '#submit', function(){ 
+      alert("intento");
+       /* stop form from submitting normally */
+       event.preventDefault();
+
+       /* get the action attribute from the <form action=""> element */
+      
+      url = "preparadoIng.php";
+      for (x = 1; x<=i; x++){
+
         var posting = $.post( url, { name: $('#nombreprep').val(), ingredient: $('#ing' + x).val()} );
         
-        /* Alerts the results */
-        posting.done(function( data ) {
-        alert('success');
-        });
-        });
-
-        $(document).on('click', '#submit', function(){ 
-        alert("intento");
-         /* stop form from submitting normally */
-         event.preventDefault();
-
-         /* get the action attribute from the <form action=""> element */
-        
-        url = "preparadoIng.php";
-        for (x = 1; x<=i; x++){
-
-          var posting = $.post( url, { name: $('#nombreprep').val(), ingredient: $('#ing' + x).val()} );
-          
-        };
-        /* Send the data using post with element id name and name2*/
-        
-        
-        /* Alerts the results */
-        posting.done(function( data ) {
-        alert('success');
-        });
-        });
+      };
+      /* Send the data using post with element id name and name2*/
       
+      
+      /* Alerts the results */
+      posting.done(function( data ) {
+      alert('success');
+      });
+      });
+
+
+      
+
+      $(document).on('click', '#submitIng', function(){ 
+      alert("intento");
+       /* stop form from submitting normally */
+       event.preventDefault();
+
+       /* get the action attribute from the <form action=""> element */
+      
+      url = "IngredienteNom.php";
+      for (x = 1; x<=o; x++){
+
+        var posting = $.post( url, { name: $('#nombreIng').val(), grupo: $('#grupo').val(), categoria: $('#cat' + x).val()} );
+        
+      };
+      /* Send the data using post with element id name and name2*/
+      
+      
+      /* Alerts the results */
+      posting.done(function( data ) {
+      alert('success');
+      });
+      });
+
+
+
+
+
 
 
  });  
