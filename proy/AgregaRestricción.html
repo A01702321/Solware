@@ -64,8 +64,8 @@
                               <tr>
                                 <td>
                                   <div class="input-field col s8">
-                                  <input id="nombreprep" type="text" name="nombreprep" class="validate">
-                                  <label for="nombreprep">Nombre de Preparado</label>
+                                  <input id="nombreprep" type="text" name="nombreRes" class="validate">
+                                  <label for="nombreprep">Nombre de Restricción </label>
                                   </div>
                                 </td>
                               </tr>
@@ -81,11 +81,28 @@
                                     </div>
                                    </td>  
                               </tr>  
-                         </table>  
+                         </table>
+				         <table class="table " id="dynamic_field2"> 
+				                
+				                <tr id="row">  
+                                   <td class="vert-aligned">
+                                      <div class="input-field col s6" id="">
+                                        <input type="text" id="cat1" class="autocomplete" name ="cat1">
+                       					<label for="autocomplete-categoria">Categoría</label>
+                                      </div>
+                                     
+                                    <div class="input-field col s6" id="">
+                                     	
+                        				<input id="addCat" type="button" name="addCat" value="Agregar Categoría" >
+                                    </div>
+                                   </td>  
+                              </tr>  
+				                 
+				          </table>  
                          
                     </div>  
                </form>  
-               <input id="submit" type="button" name="submit" value="Guardar Preparado">  
+               <input id="submit" type="button" name="submit" value="Guardar Restricción">  
 
 
           </div>  
@@ -98,8 +115,103 @@
 					
     
   </div>
+  <script>
 
-	<script type="text/javascript" src="js/actions.js"></script>	
+	$(document).ready(function(){  
+      var i=1;  
+      $('#add').click(function(){  
+           i++;  
+           $('#dynamic_field').append('<tr id="row'+i+'"><td><div class="input-field col s6"><input type="text" name="ing'+i+'" id="ing'+i+'" class="autocomplete"><label for="autocomplete-ingrediente">Ingrediente</label></div><div class="input-field col s6" id=""><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></div></td></tr>');  
+      });  
+      $(document).on('click', '.btn_remove', function(){  
+           var button_id = $(this).attr("id");   
+           $('#row'+button_id+'').remove();  
+           i--;
+      }); 
+      var o=1;
+      $('#addCat').click(function(){  
+           o++;  
+           $('#dynamic_field2').append('<tr id="rowC'+o+'"><td><div class="input-field col s6"><input type="text" name="cat'+o+'" id="cat'+o+'" class="autocomplete"><label for="autocomplete-ingrediente">Categoria</label></div><div class="input-field col s6" id=""><button type="button" name="remove" id="'+o+'" class="btn btn-danger btn_removeC">X</button></div></td></tr>');  
+      });  
+      $(document).on('click', '.btn_removeC', function(){  
+           var button_id = $(this).attr("id");   
+           $('#rowC'+button_id+'').remove();  
+           o--;
+      }); 
+
+      $(document).on('click', '#submit', function(){ 
+        alert("intento");
+         /* stop form from submitting normally */
+         event.preventDefault();
+
+         /* get the action attribute from the <form action=""> element */
+        
+        url = "preparadoNom.php";
+      
+        /* Send the data using post with element id name and name2*/
+        var posting = $.post( url, { name: $('#nombreprep').val()} );
+        
+        /* Alerts the results */
+        posting.done(function( data ) {
+        alert('success');
+        });
+        });
+
+      $(document).on('click', '#submit', function(){ 
+      alert("intento");
+       /* stop form from submitting normally */
+       event.preventDefault();
+
+       /* get the action attribute from the <form action=""> element */
+      
+      url = "preparadoIng.php";
+      for (x = 1; x<=i; x++){
+
+        var posting = $.post( url, { name: $('#nombreprep').val(), ingredient: $('#ing' + x).val()} );
+        
+      };
+      /* Send the data using post with element id name and name2*/
+      
+      
+      /* Alerts the results */
+      posting.done(function( data ) {
+      alert('success');
+      });
+      });
+
+
+      
+
+      $(document).on('click', '#submitIng', function(){ 
+      alert("intento");
+       /* stop form from submitting normally */
+       event.preventDefault();
+
+       /* get the action attribute from the <form action=""> element */
+      
+      url = "IngredienteNom.php";
+      for (x = 1; x<=o; x++){
+
+        var posting = $.post( url, { name: $('#nombreIng').val(), grupo: $('#grupo').val(), categoria: $('#cat' + x).val()} );
+        
+      };
+      /* Send the data using post with element id name and name2*/
+      
+      
+      /* Alerts the results */
+      posting.done(function( data ) {
+      alert('success');
+      });
+      });
+
+
+
+
+
+
+
+ });  
+ </script>
 </body>
 
 </html>
