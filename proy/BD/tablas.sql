@@ -55,14 +55,23 @@ CREATE TABLE Menus
 );
 
 
-CREATE TABLE Restriccion
+CREATE TABLE Cliente_Restriccion
 (
 	IDCliente int not null,
+	IDRestriccion int not null,
+	PRIMARY KEY (IDCliente, IDRestriccion),
+	FOREIGN KEY(IDCliente) references Clientes(IDCliente),
+	FOREIGN KEY(IDRestriccion) references Restricciones(IDRestriccion)
+);
+CREATE TABLE Restriccion_Ingrediente
+(
 	IDIngrediente int not null,
-	PRIMARY KEY (IDCliente, IDIngrediente),
+	IDRestriccion int not null,
+	PRIMARY KEY (IDIngrediente, IDRestriccion),
 	FOREIGN KEY(IDCliente) references Clientes(IDCliente),
 	FOREIGN KEY(IDIngrediente) references Ingredientes(IDIngrediente)
 );
+
 
 CREATE TABLE Pertenece
 (
@@ -129,6 +138,11 @@ CREATE TABLE Contiene
 	FOREIGN KEY(NombreMenu) references Menus(NombreMenu),
 	FOREIGN KEY(IDReceta) references Receta(IDReceta)
 );
-
+CREATE TABLE Restricciones
+(
+	IDRestriccion int not null AUTO_INCREMENT,
+	Nombre varchar(20) not null,
+	PRIMARY KEY(IDRestriccion)
+);
 
 

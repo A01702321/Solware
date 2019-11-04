@@ -64,8 +64,8 @@
                               <tr>
                                 <td>
                                   <div class="input-field col s8">
-                                  <input id="nombreprep" type="text" name="nombreRes" class="validate">
-                                  <label for="nombreprep">Nombre de Restricción </label>
+                                  <input id="nombreRes" type="text" name="nombreRes" class="validate">
+                                  <label for="nombreRes">Nombre de Restricción </label>
                                   </div>
                                 </td>
                               </tr>
@@ -102,7 +102,7 @@
                          
                     </div>  
                </form>  
-               <input id="submit" type="button" name="submit" value="Guardar Restricción">  
+               <input id="submitRes" type="button" name="submit" value="Guardar Restricción">  
 
 
           </div>  
@@ -139,35 +139,21 @@
            o--;
       }); 
 
-      $(document).on('click', '#submit', function(){ 
-        alert("intento");
-         /* stop form from submitting normally */
-         event.preventDefault();
-
-         /* get the action attribute from the <form action=""> element */
-        
-        url = "preparadoNom.php";
       
-        /* Send the data using post with element id name and name2*/
-        var posting = $.post( url, { name: $('#nombreprep').val()} );
-        
-        /* Alerts the results */
-        posting.done(function( data ) {
-        alert('success');
-        });
-        });
 
-      $(document).on('click', '#submit', function(){ 
+      
+
+      $(document).on('click', '#submitRes', function(){ 
       alert("intento");
        /* stop form from submitting normally */
        event.preventDefault();
 
        /* get the action attribute from the <form action=""> element */
       
-      url = "preparadoIng.php";
+      url = "restriccionNom.php";
       for (x = 1; x<=i; x++){
 
-        var posting = $.post( url, { name: $('#nombreprep').val(), ingredient: $('#ing' + x).val()} );
+        var posting = $.post( url, { name: $('#nombreRes').val(), ingrediente: $('#ing' + x).val()} );
         
       };
       /* Send the data using post with element id name and name2*/
@@ -179,20 +165,17 @@
       });
       });
 
-
-      
-
-      $(document).on('click', '#submitIng', function(){ 
+      $(document).on('click', '#submitRes', function(){ 
       alert("intento");
        /* stop form from submitting normally */
        event.preventDefault();
 
        /* get the action attribute from the <form action=""> element */
       
-      url = "IngredienteNom.php";
+      url = "restriccionCat.php";
       for (x = 1; x<=o; x++){
 
-        var posting = $.post( url, { name: $('#nombreIng').val(), grupo: $('#grupo').val(), categoria: $('#cat' + x).val()} );
+        var posting = $.post( url, { name: $('#nombreRes').val(), cat: $('#cat' + x).val()} );
         
       };
       /* Send the data using post with element id name and name2*/
