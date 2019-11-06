@@ -184,6 +184,18 @@ td {
     margin-left: 1rem;
     margin-top: 1rem;
 }
+.submit{
+	font-family: 'Mina', sans-serif;
+	text-align: center;
+	cursor:pointer;
+	color: black;
+	background-color: #e9e9e9;
+	border: none;
+	padding: 10px 10px;
+    font-size: 15px;
+    margin-left: 1rem;
+    margin-top: 1rem;
+}
 #submit{
 	font-family: 'Mina', sans-serif;
 	text-align: center;
@@ -196,18 +208,7 @@ td {
     margin-left: 1rem;
     margin-top: 1rem;
 }
-#submitIng{
-	font-family: 'Mina', sans-serif;
-	text-align: center;
-	cursor:pointer;
-	color: black;
-	background-color: #e9e9e9;
-	border: none;
-	padding: 10px 10px;
-    font-size: 15px;
-    margin-left: 1rem;
-    margin-top: 1rem;
-}
+
 #submitRes{
 	font-family: 'Mina', sans-serif;
 	text-align: center;
@@ -255,14 +256,16 @@ td {
 	background-color: green;
 	color: white;
 }
+
+.submit:hover{
+	background-color: green;
+	color: white;
+}
 #submit:hover{
 	background-color: green;
 	color: white;
 }
-#submitIng:hover{
-	background-color: green;
-	color: white;
-}
+
 #submitRes:hover{
 	background-color: green;
 	color: white;

@@ -2,12 +2,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Agregar Ingrediente</title>
-	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="css/AgregaCliente.css">
-	<link href="https://fonts.googleapis.com/css?family=Mina" rel="stylesheet"> 
-	<!--<img add src="/res/add_button.png"> -->
-	<!-- Compiled and minified CSS -->
+  <title>Agregar Ingrediente</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="css/AgregaCliente.css">
+  <link href="https://fonts.googleapis.com/css?family=Mina" rel="stylesheet"> 
+  <!--<img add src="/res/add_button.png"> -->
+  <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
    
   
@@ -18,41 +18,41 @@
 
 <div class="topnav">
 
-		<img class = "logo" src="res/Logo_!.png">
+    <img class = "logo" src="res/Logo_!.png">
 
-	</div>
+  </div>
 
-	<div class="topnav">
-	<a href="menu.html" class="active">Home</a>
-	<a href="Alimentar.html" class="active">Alimentar</a>	
-	<a href="Consultar.html" class="active">Consultar</a>
+  <div class="topnav">
+  <a href="menu.html" class="active">Home</a>
+  <a href="Alimentar.html" class="active">Alimentar</a> 
+  <a href="Consultar.html" class="active">Consultar</a>
 <div class="h_dropdown">
   <button class="h_dropbtn">Agregar</button>
   <div class="h_dropdown-content">
-	    <a href="AgregaCliente.html">Cliente</a>
-	    <a href="AgregaIngrediente.html">Ingredientes/Preparados</a>
-	    <a href="AgregaReceta.html">Recetas</a>
-      <a href="AgregaRestricción.html">Restricción</a>
-		<a href="AgregaMenu.html">Menu</a>
+      <a href="AgregaCliente.html">Cliente</a>
+      <a href="AgregaIngrediente.html">Ingredientes/Preparados</a>
+      <a href="AgregaReceta.html">Recetas</a>
+      <a href="AgregaRestriccion.html">Restricción</a>
+    <a href="AgregaMenu.html">Menu</a>
   </div>
 </div>
 <div>
-		<a href="Index.html" class="logout" onclick="logout()">Cerrar Sesión</a>	
+    <a href="Index.html" class="logout" onclick="logout()">Cerrar Sesión</a>  
 </div>
 </div>
 
 </head>
 
-<body>	
+<body>  
 
 
-	 <div class="row">
+   <div class="row">
     <form class="col s6" id="agregar_ingrediente" >
         <div class="row">
-      		<div>
-      		  <h5 class="col s6">Agregar Ingrediente</h5>
-      		</div>
-      	</div>
+          <div>
+            <h5 class="col s6">Agregar Ingrediente</h5>
+          </div>
+        </div>
         
         <div class="table-responsive" vertical-align="center">  
             <table class="table " id="dynamic_field2"> 
@@ -65,25 +65,25 @@
 
                 <div class="row">
                     <h6><br><br>Grupo Alimenticio<br></h6>
-                  	<div class="input-field col s5">
+                    <div class="input-field col s5">
                         <input type="text" id="grupo" class="autocomplete" name="grupo">
                         <label for="autocomplete-input">Grupo Alimenticio</label>
                     </div>
                 </div>
                 <div class="row">
                     <h6><br><br>Categoria<br></h6>
-                  	<div class="input-field col s5">
+                    <div class="input-field col s5">
                         <input type="text" id="cat1" class="autocomplete" name ="cat1">
                         <label for="autocomplete-categoria">Categoría</label>
                     </div>
                     <div>
-                      	<br>
-                        <input id="addCat" type="button" name="addCat" value="Agregar Categoría" >
+                        <br>
+                        <input class="submit" id="addCat" type="button" name="addCat" value="Agregar Categoría" >
                     </div>
                 </div>
                  
           </table>
-          <input id="submitIng" type="button" name="submit" value="Guardar Ingrediente"> 
+          <input class="submit" id="submitIng" type="button" name="submit" value="Guardar Ingrediente"> 
         </div>
     </form>
 
@@ -95,16 +95,16 @@
 
     <form class="col s6">
       <div class="row">
-		<div>
-		<h5 class="col s6">Agregar Preparado</h5>
-		</div>
-	</div>
+    <div>
+    <h5 class="col s6">Agregar Preparado</h5>
+    </div>
+  </div>
       <div class="row">
     
     <div class="col s12">
           <div class="row">
 
-      	
+        
 
          
           <div class="form-group">  
@@ -128,12 +128,12 @@
                                       </div>
                                      
                                     <div class="input-field col s6" id="">
-                                     <input id="add" type="button" name="addPrep" value="Agregar Ingrediente" >
+                                     <input class="submit" id="add" type="button" name="addPrep" value="Agregar Ingrediente" >
                                     </div>
                                    </td>  
                               </tr>  
                          </table>  
-                         <input id="submit" type="button" name="submit" value="Guardar Preparado">  
+                         <input class="submit" id="submit" type="button" name="submit" value="Guardar Preparado">  
                     </div>  
                </form>  
 
@@ -145,7 +145,7 @@
       </div>
 
       </div>
-					
+          
     </form>
   </div>
 <script>
