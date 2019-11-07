@@ -25,6 +25,12 @@ body{
 	background-color: #f0ebdc;
 }
 
+footer {
+    padding-top: 20px;
+    color: #fff;
+	background-color:#001437;
+  }
+
 button{
 	color: black;
 	font-size: 24px;
