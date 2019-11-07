@@ -3,6 +3,7 @@
 	$_SESSION["username"] = "";
 	$_SESSION["psw"] = "";
 	$logErr = "";
+	
 	include("index.html");
 
 	if(isset($_POST["login"	]) && !empty($_POST["username"]) &&  !empty($_POST["psw"])){
@@ -16,4 +17,6 @@
 			echo "Usuario o contraseña incorrecto";
 		}
 	}
+
+	include("footer.html");
 ?>
