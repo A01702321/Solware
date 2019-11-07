@@ -50,8 +50,6 @@ CREATE TABLE Ingredientes
 	FOREIGN KEY(GruposAlimenticios) references GruposAlimenticios(Nombre)
 )
 
-
-
 CREATE TABLE Preparados
 (
 	IDPreparado int not null AUTO_INCREMENT,
