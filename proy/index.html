@@ -13,17 +13,11 @@
 	<div class="login-container">
 
 		<form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
-			<input id="user" type="text" placeholder="Usuario" name="username" required>
-			<input id="pswrd" type="password" placeholder="Contraseña" name="psw" required>
+			<p class="f_log"> Usuario<br> <input id="user" type="text"  name="username" autocomplete="off" required><br>
+			Contraseña<br> <input id="pswrd" type="password" name="psw" autocomplete="off" required><br></p>
 			<button class ="alimentar_btn" type="submit" name="login">Acceder</button>
 			<span class="error"> <?php echo $logErr;?></span><br>
 
-		<form name="myForm" autocomplete="off" onsubmit="login(this)">
-			<input id="user" type="text" placeholder="Usuario" name="username" required>
-			<input id="pswrd" type="password" placeholder="Contraseña" name="psw" required>
-			<button type="submit">Login</button>
-
-		</form>
 	</div>
 	<script type="text/javascript" src="js/actions.js"></script>
 </body>

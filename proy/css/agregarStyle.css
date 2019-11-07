@@ -39,6 +39,19 @@ button{
 	position: static;
 	top: 0;
 }
+
+.f_log{
+  font-size: 25px;
+  margin-left: 9%;
+  font-family: 'Mina', sans-serif;
+}
+
+#user, #pswrd{
+  width: 30%;
+  padding: 4px 1  0px;
+  font-size: 25px;
+  font-family: 'Mina', sans-serif;
+}
 .topnav{
 	font-family: 'Mina', sans-serif;
 	font-size: 20px;
@@ -436,4 +449,5 @@ textarea{
 
 .alimentar_btn{
   font-family: 'Mina', sans-serif;
+  margin-left: 17%;
 }
