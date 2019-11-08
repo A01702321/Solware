@@ -1,19 +1,14 @@
 --Entidades
 CREATE TABLE Menus
 (
+	IDMenu int not null AUTO_INCREMENT,
 	NombreMenu varchar(10),
 	PRIMARY KEY(NombreMenu)
 )
 
-CREATE TABLE Planes
-(
-	NombrePlan varchar(10),
-	PRIMARY KEY(NombrePlan)
-)
-
 CREATE TABLE Tiempos
 (
-	NombreTiempo varchar(8) not null,
+	NombreTiempo varchar(10) not null,
 	PRIMARY KEY(NombreTiempo)
 )
 
@@ -21,10 +16,8 @@ CREATE TABLE Clientes
 (
 	IDCliente int not null AUTO_INCREMENT,
 	Nombre varchar(20) not null,
-	Plan varchar(10) not null,
 	NombreMenu varchar(10) not null,
 	PRIMARY KEY(IDCliente),
-	FOREIGN KEY(Plan) references Planes(NombrePlan),
 	FOREIGN KEY(NombreMenu) references Menus(NombreMenu)
 )
 
