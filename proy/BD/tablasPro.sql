@@ -23,42 +23,41 @@ CREATE TABLE Clientes
 
 CREATE TABLE GruposAlimenticios
 (
-	Nombre varchar(20) not null,
-	PRIMARY KEY(Nombre)
+	IDGrupoAl int not null AUTO_INCREMENT,
+	NombreGrupoAl varchar(20) not null,
+	PRIMARY KEY(IDGrupoAl)
 )
 
 CREATE TABLE Categorias
 (
 	IDCategoria int not null AUTO_INCREMENT,
-	Nombre varchar(20) not null,
+	NombreCategoria varchar(20) not null,
 	PRIMARY KEY(IDCategoria)
 )
 
 CREATE TABLE Ingredientes
 (
 	IDIngrediente int not null AUTO_INCREMENT,
-	Nombre varchar(20) not null,
+	NombreIngrediente varchar(20) not null,
 	GrupoAlimenticio varchar(20) not null,
 	PRIMARY KEY(IDIngrediente),
-	FOREIGN KEY(GruposAlimenticios) references GruposAlimenticios(Nombre)
+	FOREIGN KEY(GruposAlimenticios) references GruposAlimenticios(NombreGrupoAl)
 )
 
 CREATE TABLE Preparados
 (
 	IDPreparado int not null AUTO_INCREMENT,
-	Nombre varchar(20) not null,
+	NombrePreparado varchar(20) not null,
 	PRIMARY KEY(IDPreparado)
 )
 
 CREATE TABLE Recetas
 (
 	IDReceta int not null AUTO_INCREMENT,
-	Nombre varchar(20) not null,
+	NombreReceta varchar(20) not null,
 	Descripcion varchar(30),
 	PRIMARY KEY(IDReceta)
 )
-
-
 
 CREATE TABLE Platillos
 (
@@ -66,6 +65,7 @@ CREATE TABLE Platillos
 	NombreMenu varchar(10) not null,
 	Tiempo varchar(10) not null,
 	Fecha datetime not null,
+	-- Tal vez Notas
 	PRIMARY KEY(IDPlatillo),
 	FOREIGN KEY (NombreMenu) references Menus(NombreMenu)
 )
@@ -127,6 +127,14 @@ CREATE TABLE PlatilloReceta --Platillo - Receta
 	FOREIGN KEY(IDReceta) references Recetas(IDReceta)
 )
 
+CREATE TABLE RecetaReceta --Relacion de receta a receta para crear platillos alternos
+(
+	IDReceta int not null,
+	IDRecetaAlt int not null,
+	FOREIGN KEY(IDReceta) references Recetas(IDReceta),
+	FOREIGN KEY(IDRecetaAlt) references(IDReceta)
+)
+
 CREATE TABLE RecetaTiempo --Platillo - Receta
 (
 	IDTiempo int not null,
@@ -144,23 +152,25 @@ CREATE TABLE ClientePlatillo --Clientes - Platillo
 	Tiempo varchar(10) not null,
 	--PRIMARY KEY (IDCliente,IDPlatillo),
 	FOREIGN KEY(IDCliente) references Clientes(IDCliente),
-	FOREIGN KEY(IDPlatillo) references Platillos(IDPlatillo)
+	FOREIGN KEY(IDPlatillo) references Platillos(IDPlatillo),
+	FOREIGN KEY(Tiempo) references Tiempos(IDTiempo)
 )
 
+-- PREGUNTAR SI DEBE EXISTIR
 CREATE TABLE MenuReceta --Menu - Receta
 (
-	NombreMenu int(10) not null,
+	IDMenu int not null,
 	IDReceta int not null,
-	PRIMARY KEY (NombreMenu,IDReceta),
-	FOREIGN KEY(NombreMenu) references Menus(NombreMenu),
+	--PRIMARY KEY (IDMenu,IDReceta),
+	FOREIGN KEY(IDMenu) references Menus(IDMenu),
 	FOREIGN KEY(IDReceta) references Recetas(IDReceta)
 )
 
-CREATE TABLE PlanTiempo --Menu - Receta
+CREATE TABLE Plan --Clientes - Tiempos
 (
-	NombrePlan varchar(10) not null,
-	NombreTiempo varchar(8) not null,
+	IDCliente int not null,
+	NombreTiempo int not null,
 	--PRIMARY KEY (NombreMenu,IDReceta),
-	FOREIGN KEY(NombrePlan) references Planes(NombrePlan),
+	FOREIGN KEY(IDCliente) references Clientes(IDCliente),
 	FOREIGN KEY(NombreTiempo) references Tiempos(NombreTiempo)
 )
