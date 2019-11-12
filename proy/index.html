@@ -24,13 +24,38 @@
 	<a href="">Contacto</a>http://localhost/proy/img/logoh.png-->
 	<div class="login-container">
 
-		<form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
-			<p class="f_log"> Usuario<br> <input id="user" type="text"  name="username" autocomplete="off" required><br>
-			Contraseña<br> <input id="pswrd" type="password" name="psw" autocomplete="off" required><br></p>
-			<button class ="alimentar_btn" type="submit" name="login">Acceder</button>
-			<span class="error"> <?php echo $logErr;?></span><br>
+		<form method="POST" action="util/loginUser" id="userlogin">
+			<p class="f_log"> Usuario<br> <input id="user" type="text"  name="user" autocomplete="off" required><br>
+			Contraseña<br> <input id="pswrd" type="password" name="password" autocomplete="off" required><br></p>
+			<button id="subi" class ="alimentar_btn" type="button" name="login">Acceder</button>
+			
 
 	</div>
 	<script type="text/javascript" src="js/actions.js"></script>
+	<script>
+		$(document).on('click', '#subi', function(){ 
+      
+      
+       /* stop form from submitting normally */
+       event.preventDefault();
+
+       /* get the action attribute from the <form action=""> element */
+      
+      url = "loginUser.php";
+      
+
+        var posting = $.post( url, { user: $('#user').val(), password: $('#password').val()} );
+        
+      
+      /* Send the data using post with element id name and name2*/
+      
+      
+      /* Alerts the results */
+      posting.done(function( data ) {
+      alert('Mandado');
+      });
+      });
+
+	</script>
 </body>
 </html>
