@@ -7,10 +7,10 @@
 	    //PROD: Ambiente de producción
 	    //TEST: Ambiente de pruebas
 	    $environment = "DEV";
-	    $servername = "mysql1008.mochahost.com";
-	    $username = "dawbdorg_1701446";
-	    $password = "1701446";
-	    $dbname = "dawbdorg_A01701446";
+	    $servername = "localhost";
+	    $username = "root";
+	    $password = "";
+	    $dbname = "clase";
 
 	    
 	    if ($environment == "DEV") {
@@ -34,7 +34,7 @@
 	   
 	    return $bd;
 	}
-
+	$link = connectDB();
 
 	function closeDB($bd) {
 	    
@@ -102,5 +102,149 @@
 	   	closeDB($db);
 	   	echo $regresar;
 	}
+	function preparadoIng(){
+		
+		$name = $_POST['name'];
+		$ing = $_POST['ingredient'];
+		// Check connection
+		if($link === false){
+		    die("ERROR: Could not connect. " . mysqli_connect_error());
+		}
+		 
+		// Attempt insert query execution
+		$sql = "
+
+		INSERT INTO Conforman (IDPreparado, IDIngrediente) VALUES ((SELECT p.IDPreparado FROM Preparados p WHERE p.Nombre = '$name'), (SELECT z.IDIngrediente FROM Ingredientes z WHERE z.Nombre = '$ing' ) )";
+
+
+
+		if(mysqli_query($link, $sql)){
+		    echo "Records inserted successfully.";
+		} else{
+		    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+		}
+		
+	}
+	function preparadoNom(){
+		
+		$name = $_POST['name'];
+		// Check connection
+		if($link === false){
+		    die("ERROR: Could not connect. " . mysqli_connect_error());
+		}
+		 
+		// Attempt insert query execution
+		$sql = "
+		INSERT INTO Preparados (Nombre) VALUES ('$name')";
+
+		if(mysqli_query($link, $sql)){
+		    echo "Records inserted successfully.";
+		} else{
+		    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+		}
+		
+	}
+	function ingredienteNom(){
+		
+		$name = $_POST['name'];
+		$grupo = $_POST['grupo'];
+		$categoria = $_POST['categoria'];
+
+		// Check connection
+		if($link === false){
+		    die("ERROR: Could not connect. " . mysqli_connect_error());
+		}
+		 
+		// Attempt insert query execution
+		$sql = "
+		SELECT * FROM Ingredientes Where Nombre = '$name'";
+		$Result = mysqli_query($link, $sql);
+
+		if (mysqli_num_rows($Result) == 0) { 
+		   $sql = "INSERT INTO Ingredientes (Nombre, GrupoAlimenticio) VALUES ('$name', '$grupo')";
+		   $x = mysqli_query($link, $sql);
+		}
+
+		$sql = "
+		SELECT * FROM Categoria Where Nombre = '$categoria'";
+		$Result = mysqli_query($link, $sql);
+
+		if (mysqli_num_rows($Result) == 0) { 
+		   $sql = "INSERT INTO Categoria (Nombre) VALUES ('$categoria')";
+		   $x = mysqli_query($link, $sql);
+		}
+
+		$sql = "
+
+		INSERT INTO Pertenece (IDCategoria, IDIngrediente) VALUES ((SELECT p.IDCategoria FROM Categoria p WHERE p.Nombre = '$categoria'), (SELECT z.IDIngrediente FROM Ingredientes z WHERE z.Nombre = '$name' ) )";
+
+
+		if(mysqli_query($link, $sql)){
+		    echo "Categoria inserted successfully.";
+		} else{
+		    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+		}
+	}
+	function restriccionCat(){
+		$name = $_POST['name'];
+		$categoria = $_POST['cat'];
+
+		// Check connection
+		if($link === false){
+		    die("ERROR: Could not connect. " . mysqli_connect_error());
+		}
+		 
+		// Attempt insert query execution
+
+
+		$sql = "
+		SELECT IDIngrediente FROM Pertenece Where IDCategoria = (SELECT IDCategoria FROM Categoria Where Nombre = '$categoria');
+		";
+		$Result = mysqli_query($link, $sql);
+		while ($row = mysqli_fetch_array($Result)) {
+			$sql = "INSERT INTO Restriccion_Ingrediente (IDRestriccion, IDIngrediente) VALUES ((SELECT p.IDRestriccion FROM Restricciones p WHERE p.Nombre = '$name'), ( '$row[0]' ))";
+			if(mysqli_query($link, $sql)){
+		    echo "Categoria inserted successfully.";
+		} else{
+		    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+		}}
+
+
+		
+	}
+	function restriccionNom(){
+		
+		$name = $_POST['name'];
+		$ing = $_POST['ingrediente'];
+
+		// Check connection
+		if($link === false){
+		    die("ERROR: Could not connect. " . mysqli_connect_error());
+		}
+		 
+		// Attempt insert query execution
+		$sql = "
+		SELECT * FROM Restricciones Where Nombre = '$name'";
+		$Result = mysqli_query($link, $sql);
+
+		if (mysqli_num_rows($Result) == 0) { 
+		   $sql = "INSERT INTO Restricciones (Nombre) VALUES ('$name')";
+		   $x = mysqli_query($link, $sql);
+		}
+
+
+
+		$sql = "
+
+		INSERT INTO Restriccion_Ingrediente (IDRestriccion, IDIngrediente) VALUES ((SELECT p.IDRestriccion FROM Restricciones p WHERE p.Nombre = '$name'), (SELECT z.IDIngrediente FROM Ingredientes z WHERE z.Nombre = '$ing' ) )";
+
+
+		if(mysqli_query($link, $sql)){
+		    echo "Ingredientes inserted successfully.";
+		} else{
+		    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+		}
+	}
+
 
 ?>
