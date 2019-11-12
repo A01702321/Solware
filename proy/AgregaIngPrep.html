@@ -1,53 +1,52 @@
-
-<!DOCTYPE html>
-<html>
-<head>
-
-	<title>Agregar Ingrediente</title>
-
-</head>
-
 <body>  
 
 
-   <div class="row">
-    <form class="col s6" id="agregar_ingrediente" >
-        <div class="row">
+   <div class="row" style="   margin-left: 13%; margin-top: 5%;">
+
+    <form class="col s6" id="agregar_ingrediente" name="agregar_ingrediente">
+        <div class="row" style="  ">
           <div>
-            <h5 class="col s6">Agregar Ingrediente</h5>
+            <h5 class="col s8">Agregar Ingrediente</h5>
           </div>
         </div>
         
         <div class="table-responsive" vertical-align="center">  
             <table class="table " id="dynamic_field2"> 
-                <div class="row">
+                <tr>
+                  <td class="vert-aligned">
                     <div class="input-field col s8">
-                        <input id="nombreIng" type="text" class="validate" name="nombreIng">
+                        <input id="nombreIng" type="text" class="validate" name="nombreIng" data-error="wrong" required>
                         <label for="n_ingrediente">Nombre de Ingrediente</label>
+                        <span class="helper-text" data-error="Por favor introduce un nombre de ingrediente." data-success=""></span>
                     </div>
-                </div>
+                  </td>
+                </tr>
 
-                <div class="row">
-                    <h6><br><br>Grupo Alimenticio<br></h6>
-                    <div class="input-field col s5">
-                        <input type="text" id="grupo" class="autocomplete" name="grupo">
+                <tr>
+                    <td class="vert-aligned">
+                    <div class="input-field col s8">
+                        <input type="text" id="grupo" class="validate" name="grupo" data-error="wrong" required>
                         <label for="autocomplete-input">Grupo Alimenticio</label>
+                        <span class="helper-text" data-error="Por favor introduce un grupo alimenticio." data-success=""></span>
                     </div>
-                </div>
-                <div class="row">
-                    <h6><br><br>Categoria<br></h6>
-                    <div class="input-field col s5">
-                        <input type="text" id="cat1" class="autocomplete" name ="cat1">
+                  </td>
+                </tr>
+                <tr>
+                    <td class="vert-aligned">
+                    <div class="input-field col s7">
+                        <input type="text" id="cat1" class="validate" name ="cat1" data-error="wrong" required>
                         <label for="autocomplete-categoria">Categoría</label>
+                        <span class="helper-text" data-error="Por favor introduce un nombre de categoría." data-success=""></span>
                     </div>
                     <div>
                         <br>
-                        <input class="submit" id="addCat" type="button" name="addCat" value="Agregar Categoría" >
+                        <a id ="addCat" class="btn-floating btn-medium waves-effect waves-light "><i class="material-icons">add</i></a>
                     </div>
-                </div>
+                  </td>
+                </tr>
                  
           </table>
-          <input class="submit" id="submitIng" type="button" name="submit" value="Guardar Ingrediente"> 
+          <input style="   margin-left: 18%; " class="submit" id="submitIng" type="button" name="submit" value="Guardar Ingrediente"> 
         </div>
     </form>
 
@@ -57,67 +56,50 @@
 
 
 
-    <form class="col s6">
-      <div class="row">
-    <div>
-    <h5 class="col s6">Agregar Preparado</h5>
-    </div>
-  </div>
-      <div class="row">
-    
-    <div class="col s12">
-          <div class="row">
-
-        
-
-         
-          <div class="form-group">  
-
-               <form onsubmit="return false" id="add_preparado" action="preparadoNom.php" title="" method="post">  
+    <form class="col s6" id="add_preparado">
+            <div class="row" style="   ">
+                <div>
+                  <h5 class="col s8">Agregar Preparado</h5>
+                </div>
+            </div>
+       
                     <div class="table-responsive" vertical-align="center">  
                          <table class="table " id="dynamic_field">  
                               <tr>
                                 <td>
                                   <div class="input-field col s8">
-                                  <input id="nombreprep" type="text" name="nombreprep" class="validate">
+                                  <input id="nombreprep" type="text" name="nombreprep" class="validate" required>
                                   <label for="nombreprep">Nombre de Preparado</label>
+                                  <span class="helper-text" data-error="Por favor introduce un nombre de preparado." data-success=""></span>
                                   </div>
                                 </td>
                               </tr>
                               <tr id="row">  
                                    <td class="vert-aligned">
-                                      <div class="input-field col s6" id="">
-                                        <input type="text" id="ing1" name="ing1" class="autocomplete">
+                                      <div class="input-field col s7" id="">
+                                        <input type="text" id="ing1" name="ing1" class="validate" required>
                                         <label for="autocomplete-ingrediente">Ingrediente</label>
+                                        <span class="helper-text" data-error="Por favor introduce un nombre de ingrediente." data-success=""></span>
                                       </div>
                                      
-                                    <div class="input-field col s6" id="">
-                                     <input class="submit" id="add" type="button" name="addPrep" value="Agregar Ingrediente" >
+                                    <div id="">
+                                      <br>
+                                     <a id ="add" class="btn-floating btn-medium waves-effect waves-light "><i class="material-icons">add</i></a>
                                     </div>
                                    </td>  
                               </tr>  
                          </table>  
-                         <input class="submit" id="submit" type="button" name="submit" value="Guardar Preparado">  
+                         <input style="   margin-left: 20%; " class="submit" id="submit" type="button" name="submit" value="Guardar Preparado">  
                     </div>  
-               </form>  
-
-
-          </div>  
-           
-
-        </div>
-      </div>
-
-      </div>
-          
-    </form>
+      </form>
   </div>
+<script src="js/form-validation.js"></script>
 <script>
 $(document).ready(function(){  
       var i=1;  
       $('#add').click(function(){  
            i++;  
-           $('#dynamic_field').append('<tr id="row'+i+'"><td><div class="input-field col s6"><input type="text" name="ing'+i+'" id="ing'+i+'" class="autocomplete"><label for="autocomplete-ingrediente">Ingrediente</label></div><div class="input-field col s6" id=""><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></div></td></tr>');  
+           $('#dynamic_field').append('<tr id="row'+i+'"><td><div class="input-field col s7"><input type="text" name="ing'+i+'" id="ing'+i+'" class="validate" data-error="wrong" required><label for="validate-ingrediente">Ingrediente</label><span class="helper-text" data-error="Por favor introduce un nombre de ingrediente." data-success=""></span></div><div vertical-align: middle id=""><br><button type="button" name="remove" id="'+i+'" class="btn-small btn-danger btn_remove red">X</button></div></td></tr>');  
       });  
       $(document).on('click', '.btn_remove', function(){  
            var button_id = $(this).attr("id");   
@@ -127,7 +109,7 @@ $(document).ready(function(){
       var o=1;
       $('#addCat').click(function(){  
            o++;  
-           $('#dynamic_field2').append('<tr id="rowC'+o+'"><td><div class="input-field col s6"><input type="text" name="cat'+o+'" id="cat'+o+'" class="autocomplete"><label for="autocomplete-ingrediente">Categoria</label></div><div class="input-field col s6" id=""><button type="button" name="remove" id="'+o+'" class="btn btn-danger btn_removeC">X</button></div></td></tr>');  
+           $('#dynamic_field2').append('<tr id="rowC'+o+'"><td><div class="input-field col s7"><input type="text" name="cat'+o+'" id="cat'+o+'" class="validate" data-error="wrong" required><label for="validate-ingrediente">Categoria</label><span class="helper-text" data-error="Por favor introduce un nombre de categoría." data-success=""></span></div><div vertical-align: middle id=""><br><button type="button" name="remove" id="'+o+'" class="btn-small btn-danger btn_removeC red">X</button></div></td></tr>');  
       });  
       $(document).on('click', '.btn_removeC', function(){  
            var button_id = $(this).attr("id");   
@@ -136,7 +118,12 @@ $(document).ready(function(){
       }); 
 
       $(document).on('click', '#submit', function(){ 
-        alert("intento");
+        for (x = 1; x<=i; x++){
+        if($('#nombreprep').val() == "" || $('#ing' + x).val() == "" ){
+            alert("Por favor verifica los datos e intenta nuevamente");
+            return false;
+        }
+        }
          /* stop form from submitting normally */
          event.preventDefault();
 
@@ -149,12 +136,18 @@ $(document).ready(function(){
         
         /* Alerts the results */
         posting.done(function( data ) {
-        alert('success');
+        
         });
         });
 
       $(document).on('click', '#submit', function(){ 
-      alert("intento");
+      for (x = 1; x<=i; x++){
+        if($('#nombreprep').val() == "" || $('#ing' + x).val() == "" ){
+            
+            return false;
+        }
+      }
+      
        /* stop form from submitting normally */
        event.preventDefault();
 
@@ -171,7 +164,7 @@ $(document).ready(function(){
       
       /* Alerts the results */
       posting.done(function( data ) {
-      alert('success');
+      alert('Preparado agregado exitosamente');
       });
       });
 
@@ -179,7 +172,15 @@ $(document).ready(function(){
       
 
       $(document).on('click', '#submitIng', function(){ 
-      alert("intento");
+
+      for (x = 1; x<=o; x++){
+        if($('#nombreIng').val() == "" || $('#grupo').val() == "" || $('#cat' + x).val() == "" ){
+            alert("Por favor verifica los datos e intenta nuevamente");
+            return false;
+        }
+      }
+
+      alert('intento');
        /* stop form from submitting normally */
        event.preventDefault();
 
@@ -196,7 +197,7 @@ $(document).ready(function(){
       
       /* Alerts the results */
       posting.done(function( data ) {
-      alert('success');
+      alert('Ingrediente agregado exitosamente');
       });
       });
 
@@ -208,5 +209,3 @@ $(document).ready(function(){
 
  });  
  </script>
-</body>
-</html>
