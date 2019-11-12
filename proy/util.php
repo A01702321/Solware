@@ -51,16 +51,6 @@
 	    ";
 
 
-	IDCliente int not null AUTO_INCREMENT,
-	Nombre varchar(20) not null,
-	Plan varchar(10) not null,
-	NombreMenu varchar(10) not null,
-	PRIMARY KEY(IDCliente),
-	FOREIGN KEY(Plan) references Planes(NombrePlan),
-	FOREIGN KEY(NombreMenu) references Menus(NombreMenu)
-
-
-
 
 	    $registros = $db->query($query);
 	    
