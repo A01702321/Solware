@@ -8,9 +8,9 @@
 	    //TEST: Ambiente de pruebas
 	    $environment = "DEV";
 	    $servername = "mysql1008.mochahost.com";
-	    $username = "dawbdorg_1701446";
-	    $password = "1701446";
-	    $dbname = "dawbdorg_A01701446";
+	    $username = "dawbdorg_1702321";
+	    $password = "1702321";
+	    $dbname = "dawbdorg_A01702321";
 
 	    
 	    if ($environment == "DEV") {
@@ -46,9 +46,19 @@
 		$db = connectDB();
 	    $resultado = array();
 	    $query = "
-	    	SELECT C.Nombre, C.NombreMenu, 
-	    	FROM Clientes C, 
+	    	SELECT Nombre, NombreMenu, , 
+	    	FROM Clientes, 
 	    ";
+
+
+	IDCliente int not null AUTO_INCREMENT,
+	Nombre varchar(20) not null,
+	Plan varchar(10) not null,
+	NombreMenu varchar(10) not null,
+	PRIMARY KEY(IDCliente),
+	FOREIGN KEY(Plan) references Planes(NombrePlan),
+	FOREIGN KEY(NombreMenu) references Menus(NombreMenu)
+
 
 
 
