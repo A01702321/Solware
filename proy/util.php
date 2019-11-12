@@ -7,10 +7,12 @@
 	    //PROD: Ambiente de producción
 	    //TEST: Ambiente de pruebas
 	    $environment = "DEV";
+
 	    $servername = "localhost";
 	    $username = "root";
 	    $password = "";
 	    $dbname = "clase";
+
 
 	    
 	    if ($environment == "DEV") {
@@ -46,9 +48,10 @@
 		$db = connectDB();
 	    $resultado = array();
 	    $query = "
-	    	SELECT C.Nombre, C.NombreMenu, 
-	    	FROM Clientes C, 
+	    	SELECT Nombre, NombreMenu, , 
+	    	FROM Clientes, 
 	    ";
+
 
 
 
