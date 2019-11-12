@@ -4,13 +4,16 @@ h2{
 	position: relative;
 	text-align: center;
 }
-body{
+
+footer{
 	font-family: 'Mina', sans-serif;
 	margin: 0;
 	line-height: 1.5;
 	/*max-width: 80em;
 	margin:0 auto;*/
-	background-color: #f0ebdc;
+	background-color: #001437;
+  padding-top: 20px;
+  color:#fff;
 }
 
 button{
@@ -39,6 +42,19 @@ button{
 	position: static;
 	top: 0;
 }
+
+.f_log{
+  font-size: 25px;
+  margin-left: 9%;
+  font-family: 'Mina', sans-serif;
+}
+
+#user, #pswrd{
+  width: 30%;
+  padding: 4px 1  0px;
+  font-size: 25px;
+  font-family: 'Mina', sans-serif;
+}
 .topnav{
 	font-family: 'Mina', sans-serif;
 	font-size: 20px;
@@ -46,6 +62,23 @@ button{
 	background-color: #001437;
 	margin: 0;
 }
+
+.page-footer_h {
+    padding-top: 20px;
+    color: #fff;
+    background-color:#001437;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+
 .logo{
 	width: 250px;
 	text-align: center;
@@ -436,4 +469,5 @@ textarea{
 
 .alimentar_btn{
   font-family: 'Mina', sans-serif;
+  margin-left: 17%;
 }
