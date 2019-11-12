@@ -7,10 +7,12 @@
 	    //PROD: Ambiente de producción
 	    //TEST: Ambiente de pruebas
 	    $environment = "DEV";
+
 	    $servername = "localhost";
 	    $username = "root";
 	    $password = "";
 	    $dbname = "clase";
+
 
 	    
 	    if ($environment == "DEV") {
@@ -46,9 +48,19 @@
 		$db = connectDB();
 	    $resultado = array();
 	    $query = "
-	    	SELECT C.Nombre, C.NombreMenu, 
-	    	FROM Clientes C, 
+	    	SELECT Nombre, NombreMenu, , 
+	    	FROM Clientes, 
 	    ";
+
+
+	IDCliente int not null AUTO_INCREMENT,
+	Nombre varchar(20) not null,
+	Plan varchar(10) not null,
+	NombreMenu varchar(10) not null,
+	PRIMARY KEY(IDCliente),
+	FOREIGN KEY(Plan) references Planes(NombrePlan),
+	FOREIGN KEY(NombreMenu) references Menus(NombreMenu)
+
 
 
 
