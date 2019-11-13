@@ -1,44 +1,41 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Agregar Ingrediente</title>
   <meta charset="utf-8">
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <link href="https://fonts.googleapis.com/css?family=Mina" rel="stylesheet"> 
   <!--<img add src="/res/add_button.png"> -->
   <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
    
-
-<div class="topnav">
-
-    <img class = "logo" src="res/Logo_!.png">
-
+  <div class="topnav">
+    <div class="row">
+      <img class = "logo" src="res/Logo_!.png">
+    </div>
   </div>
 
   <div class="topnav">
-  <a href="menu.html" class="active">Home</a>
-  <a href="Alimentar.html" class="active">Alimentar</a> 
-  <a href="Consultar.html" class="active">Consultar</a>
-<div class="h_dropdown">
-  <button class="h_dropbtn">Agregar</button>
-  <div class="h_dropdown-content">
-      <a href="agregaCliente.php">Cliente</a>
-      <a href="agregaIngPrep.php">Ingredientes/Preparados</a>
-      <a href="agregaReceta.php">Recetas</a>
-      <a href="agregaRestriccion.php">Restricción</a>
-    <a href="agregaMenu.php">Menu</a>
+    <a href="menu.html" class="active">Home</a>
+    <a href="Alimentar.html" class="active">Alimentar</a> 
+    <a href="Consultar.html" class="active">Consultar</a>
+    <div class="h_dropdown">
+        <button class="h_dropbtn">Agregar</button>
+        <div class="h_dropdown-content">
+          <a href="agregaCliente.php">Cliente</a>
+          <a href="agregaIngrediente.php">Ingredientes</a>
+          <a href="agregaPreparado.php">Preparados</a>
+          <a href="agregaReceta.php">Recetas</a>
+          <a href="agregaRestriccion.php">Restricción</a>
+          <a href="agregaMenu.php">Menu</a>
+        </div>
+    </div>
+    <div>
+      <a href="Index.php" class="logout" onclick="logout()">Cerrar Sesión</a>  
+    </div>
   </div>
-</div>
-<div>
-    <a href="Index.php" class="logout" onclick="logout()">Cerrar Sesión</a>  
-</div>
-</div>
 
 </head>
