@@ -1,97 +1,97 @@
 
+  <title>Agregar Cliente</title>
+
 <body>	
 
-	<div>
-		<h2 class="col s6">Agregar Cliente</h2>
-	</div>
-
-	 <div class="row">
-    <form class="col s6">
-      <div class="row">
-        <div class="input-field col s6">
-          <input id="first_name" type="text" class="validate">
-          <label for="first_name">Nombre</label>
-        </div>
-        <div class="input-field col s6">
-          <input id="last_name" type="text" class="validate">
-          <label for="last_name">Apellido</label>
-        </div>
-      </div>
-
-      <div class="row">
-      	<h6>Plan de Cliente</h6>
-        <div class="input-field col s4">
-      	<label>
-        	<input type="checkbox" class="filled-in" checked="unchecked" />
-        	<span>Desayuno</span>
-      	</label>
-        </div>
-        <div class="input-field col s4">
-      	<label>
-        	<input type="checkbox" class="filled-in" checked="unchecked" />
-        	<span>Comida</span>
-      	</label>
-        </div>
-        <div class="input-field col s4">
-      	<label>
-        	<input type="checkbox" class="filled-in" checked="unchecked" />
-        	<span>Cena</span>
-      	</label>
-        </div>
-    </div>
-      <div class="row">
-        <h6><br><br>Menú Inscrito<br><br></h6>
-      	<p>
-      <label>
-        <input name="group1" type="radio" checked />
-        <span>Elemental</span>
-      </label>
-    </p>
-    <p>
-      <label>
-        <input name="group1" type="radio" />
-        <span>Elite</span>
-      </label>
-    </p>
-    <p>
-      <label>
-        <input name="group1" type="radio" />
-        <span>Meatless</span>
-      </label>
-    </p>
-    <p>
-      <label>
-        <input name="group1" type="radio" />
-        <span>Keto</span>
-      </label>
-    </p>
-    <p>
-      <label>
-        <input name="group1" type="radio" />
-        <span>Snacks</span>
-      </label>
-    </p>
-      </div>
-    </form>
-    <form class="col s6">
-      <div class="row">
-    
-    <div class="col s6">
-          <div class="row">
-            <div class="input-field col s12">
-              <input type="text" id="autocomplete-input" class="autocomplete">
-              <label for="autocomplete-input">Restricción</label>
-            </div>
-        <div>
-          <input id="addBu" type="button" name="addIn" value="Agregar Restricción" onclick="addInp()">
-        </div>
-          </div>
-      </div>
-
-      </div>
-    </form>
-					<a class = "savebtn">Guardar</a>
+  <div>
+    <h2 class="col s12">Agregar Cliente</h2>
   </div>
+
+  <div class="row">
+    <div class="col s12">
+      <ul class="tabs">
+        <li class="tab col s3"><a class="active" href="#DatosCliente">Datos de Cliente</a></li>
+        <li class="tab col s3"><a href="#AgregaRestricciones">Agrega Resticciones</a></li>
+        <li class="tab col s3 disabled"><a href="#test3">Tab 3</a></li>
+        <li class="tab col s3 disabled"><a href="#test4">tab 4</a></li>
+      </ul>
+      <div class="col s12 offset-s2" id="DatosCliente">
+        <div class="col s4 offset-s3">
+          <br>
+          <h5>Datos de Cliente</h5>
+        </div>
+        <div class="row">
+          <form class="col s8">
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="first_name" type="text" class="validate">
+                <label for="first_name">Nombre</label>
+              </div>
+              <div class="input-field col s6">
+                <input id="last_name" type="text" class="validate">
+                <label for="last_name">Apellido</label>
+              </div>
+            </div>
+            <div class="row">
+              <h6>Plan de Cliente</h6>
+              <div class="input-field col s4">
+                <label>
+                 <input type="checkbox" class="filled-in" checked="unchecked" />
+                 <span>Desayuno</span>
+                </label>
+              </div>
+              <div class="input-field col s4">
+                <label>
+                 <input type="checkbox" class="filled-in" checked="unchecked" />
+                 <span>Comida</span>
+                </label>
+              </div>
+              <div class="input-field col s4">
+                <label>
+                 <input type="checkbox" class="filled-in" checked="unchecked" />
+                 <span>Cena</span>
+                </label>
+              </div>
+            </div>
+            <div class="row">
+              <h6><br><br>Menú Inscrito<br><br></h6>
+              <div class="input-field col s8">
+                <select>
+                  <option value="" disabled selected>Selecciona una Opción de Menú</option>
+                  <option value="1">Elemental</option>
+                  <option value="2">Elite</option>
+                  <option value="3">Meatless</option>
+                  <option value="4">Keto</option>
+                  <option value="5">Snacks</option>
+                </select>
+                <label>Selecciona un Menú</label>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+      <div class="col s12 offset-s2" id="AgregaRestricciones">
+        <p>Agrega Restricciones</p>
+        <form class="col s6">
+          <div class="row">
+            <div class="col s6">
+              <div class="row">
+                <div class="input-field col s12">
+                  <input type="text" id="autocomplete-input" class="autocomplete">
+                  <label for="autocomplete-input">Restricción</label>
+                </div>
+                <div>
+                  <input id="addBu" type="button" name="addIn" value="Agregar Restricción" onclick="addInp()">
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
 <!--
 	<h2>Agrega Nuevo Cliente</h2>
 	<div class="plat-form">

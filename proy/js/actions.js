@@ -1,3 +1,6 @@
+$('.tabs').tabs();
+$('select').formSelect();
+
 var her = 0;
 var slideIndex = 1;
 showSlides(slideIndex);
@@ -200,6 +203,8 @@ $(document).ready(function(){
       alert('Ingrediente agregado exitosamente');
       });
       });
+
+
 
 
 
