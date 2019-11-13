@@ -1,37 +1,10 @@
-
 <body>
-	<div class="topnav">
-
-		<img class = "logo" src="res/Logo_!.png">
-
-	</div>
-	<div class="topnav">
-
-			<a href="menu.html" class="active">Home</a>
-			<a href="Alimentar.html" class="active">Alimentar</a>	
-		 
-
-		
-
-		<div class="dropdown">
-		  <button class="dropbtn">Agregar</button>
-		  <div class="dropdown-content">
-			    <a href="AgregaCliente.html">Clientes</a>
-			    <a href="AgregaIngrediente.html">Ingredientes</a>
-			    <a href="AgregaPreparado.html">Preparados</a>
-			    <a href="AgregaReceta.html">Recetas</a>
-				<a href="AgregaCategoria.html">Categorias</a>
-				<a href="AgregaMenu.html">Menu</a>
-		  </div>
-		</div>
-		<button class="logout" onclick="logout()">Cerrar Sesión</button>
-	</div>
 	<div class="consult-container">
 		<div class="tab">
-		  <button class="tablinks" onclick="consultData(event, 'clientes')">Clientes</button>
-		  <button class="tablinks" onclick="consultData(event, 'ingredientes')">Ingredientes</button>
-		  <button class="tablinks" onclick="consultData(event, 'preparados')">Preparados</button>
-		   <button class="tablinks" onclick="consultData(event, 'recetas')">Recetas</button>
+		  <button name="clientes" class="tablinks">Clientes</button>
+		  <button name="ingredientes" class="tablinks">Ingredientes</button>
+		  <button name="preparados" class="tablinks">Preparados</button>
+		   <button name="recetas" class="tablinks">Recetas</button>
 		</div>
 
 		<div id="clientes" class="tabcontent">
@@ -53,5 +26,4 @@
 		  <p>Recetas existentes</p>
 		</div>
 	</div>
-	<script type="text/javascript" src="js/actions.js"></script>
-
+</body>

@@ -6,13 +6,11 @@
 	    //DEV: Ambiente de desarrollo
 	    //PROD: Ambiente de producción
 	    //TEST: Ambiente de pruebas
-	    $environment = "DEV";
-
-	    $servername = "localhost";
-	    $username = "root";
-	    $password = "";
-	    $dbname = "clase";
-
+	      $environment = "DEV";
+	    $servername = "mysql1008.mochahost.com";
+	    $username = "dawbdorg_1702321";
+	    $password = "1702321";
+	    $dbname = "dawbdorg_A01702321";
 
 	    
 	    if ($environment == "DEV") {
@@ -249,5 +247,51 @@
 		}
 	}
 
+	function getClients(){
+		$db = connectDB();
 
+		$sql = "SELECT IDCliente, Nombre, NombreMenu FROM Clientes";
+
+		$result = mysqli_query($db, $sql);
+
+		closeDb($db);
+
+		return $result;
+	}
+
+	function getIngredientes(){
+		$db = connectDB();
+
+		$sql = "SELECT IDIngrediente, NombreIngrediente, GrupoAlimenticio FROM Ingredientes";
+
+		$result = mysqli_query($db, $sql);
+
+		closeDb($db);
+
+		return $result;
+	}
+
+	function getRecetas(){
+		$db = connectDB();
+
+		$sql = "SELECT IDReceta, NombreReceta, Descripcion FROM Recetas";
+
+		$result = mysqli_query($db, $sql);
+
+		closeDb($db);
+
+		return $result;
+	}
+
+	function getPreparados(){
+		$db = connectDB();
+
+		$sql = "SELECT IDPreparado, NombrePreparado FROM Preparados";
+
+		$result = mysqli_query($db, $sql);
+
+		closeDb($db);
+
+		return $result;
+	}
 ?>
