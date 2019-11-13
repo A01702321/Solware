@@ -1,5 +1,5 @@
 h2{
-	color: gray;
+	color: #001437;
 	font-size: 70px;	
 	position: relative;
 	text-align: center;
@@ -15,11 +15,11 @@ h6{
 
 h5{
   color: #001437;
-  text-align: center;
+  text-align: left;
+  font-weight: bold;
 }
 
 body{
-	font-family: 'Mina', sans-serif;
 	margin: 0;
 	line-height: 1.5;
 	background-color: #f0ebdc;
@@ -71,7 +71,6 @@ td {
 	top: 0;
 }
 .topnav{
-	font-family: 'Mina', sans-serif;
 	font-size: 20px;
 	overflow: hidden;
 	background-color: #001437;
@@ -86,7 +85,6 @@ td {
 	
 }
 .topnav a{
-	font-family: 'Mina', sans-serif;
     float: left;
     display: block;
     color: #f0ebdc;
@@ -103,13 +101,11 @@ td {
 }
 
 .topnav2{
-  font-family: 'Mina', sans-serif;
   font-size: 20px;
   overflow: hidden;
   background-color: #001437;
 }
 .topnav2 a{
-  font-family: 'Mina', sans-serif;
     float: left;
     display: block;
     color: #00e664;
@@ -164,7 +160,6 @@ td {
   background-image: add);
 }
 .savebtn{
-	font-family: 'Mina', sans-serif;
 	position: relative;
 	text-align: center;
 	cursor:pointer;
@@ -183,7 +178,6 @@ td {
 }
 
 #addBu{
-	font-family: 'Mina', sans-serif;
 	text-align: center;
 	cursor:pointer;
 	color: black;
@@ -195,7 +189,6 @@ td {
     margin-top: 1rem;
 }
 #submit{
-	font-family: 'Mina', sans-serif;
 	text-align: center;
 	cursor:pointer;
 	color: black;
@@ -207,7 +200,6 @@ td {
     margin-top: 1rem;
 }
 #submitIng{
-	font-family: 'Mina', sans-serif;
 	text-align: center;
 	cursor:pointer;
 	color: black;
@@ -219,7 +211,6 @@ td {
     margin-top: 1rem;
 }
 #submitRes{
-	font-family: 'Mina', sans-serif;
 	text-align: center;
 	cursor:pointer;
 	color: black;
@@ -231,7 +222,6 @@ td {
     margin-top: 1rem;
 }
 #add{
-	font-family: 'Mina', sans-serif;
 	text-align: center;
 	cursor:pointer;
 	position: relative;
@@ -244,7 +234,6 @@ td {
     font-size: 15px;
 }
 #addCat{
-	font-family: 'Mina', sans-serif;
 	text-align: center;
 	cursor:pointer;
 	position: relative;
@@ -286,7 +275,6 @@ td {
 }
 
 #remBu{
-	font-family: 'Mina', sans-serif;
 	text-align: center;
 	cursor:pointer;
 	color: black;
@@ -309,7 +297,6 @@ td {
 	float:left;
 }
 .h_dropbtn{
-	font-family: 'Mina', sans-serif;
 	position: relative;
 	text-align: center;
 	cursor:pointer;
@@ -344,7 +331,6 @@ td {
 	display: block;
 }
 .logout{
-	font-family: 'Mina', sans-serif;
 	position: relative;
 	text-align: center;
 	cursor:pointer;
@@ -367,6 +353,7 @@ td {
   color: #001437;
 }
 
+<<<<<<< HEAD
 /*style para la pag de consultar*/
 
 .tab {
@@ -432,3 +419,17 @@ td {
 
 .consult-table tr:hover {background-color:#f5f5f5;}
 
+.tab .indicator{
+	background-color: #001437;
+}
+
+.tabs .tab a{
+	color: #001437;
+}
+.tabs .tab a:hover, .tabs .tab a.active{
+	color: #001437;
+}
+.tabs .tab a:focus, .tabs .tab a:focus.active {
+    background-color: #00143715;
+    outline: none;
+}
