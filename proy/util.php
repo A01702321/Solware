@@ -36,7 +36,6 @@
 	   
 	    return $bd;
 	}
-	$link = connectDB();
 
 	function closeDB($bd) {
 	    
@@ -105,6 +104,8 @@
 	   	closeDB($db);
 	   	echo $regresar;
 	}
+
+
 	function preparadoIng(){
 		
 		$name = $_POST['name'];
@@ -148,11 +149,9 @@
 		}
 		
 	}
-	function ingredienteNom(){
+
+	function ingredienteNom($name, $grupo, $categoria){
 		
-		$name = $_POST['name'];
-		$grupo = $_POST['grupo'];
-		$categoria = $_POST['categoria'];
 
 		// Check connection
 		if($link === false){
@@ -188,7 +187,10 @@
 		} else{
 		    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
 		}
+
 	}
+
+
 	function restriccionCat(){
 		$name = $_POST['name'];
 		$categoria = $_POST['cat'];
@@ -261,7 +263,7 @@
 		$ing = $_POST['ingrediente'];
 
 		// Check connection
-		if($link === false){
+		if($link == false){
 		    die("ERROR: Could not connect. " . mysqli_connect_error());
 		}
 		 
