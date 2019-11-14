@@ -1,8 +1,9 @@
 <?php
+  require_once("util.php");
 /* Attempt MySQL server connection. Assuming you are running MySQL
 server with default setting (user 'root' with no password) */
 
-$link = mysqli_connect('localhost', 'root', '', 'clase');
+$link = connectDB();
 $name = $_POST['name'];
 $grupo = $_POST['grupo'];
 $categoria = $_POST['categoria'];
@@ -43,5 +44,5 @@ if(mysqli_query($link, $sql)){
 }
 	
 // Close connection
-mysqli_close($link);
+closeDB($link);
 ?>

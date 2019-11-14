@@ -164,7 +164,13 @@ CREATE TABLE Plan
 	FOREIGN KEY(IDCliente) references Clientes(IDCliente),
 	FOREIGN KEY(NombreTiempo) references Tiempos(NombreTiempo)
 )
-
+CREATE TABLE Usuarios
+(
+	id_Usuario int not null AUTO_INCREMENT,
+	usuario varchar(20) not null,
+	password varchar(20) not null,
+	PRIMARY KEY(id_Usuario)
+)
 
 
 

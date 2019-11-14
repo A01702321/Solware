@@ -1,22 +1,13 @@
 <?php
-	session_start();
-	$_SESSION["username"] = "";
-	$_SESSION["psw"] = "";
-	$logErr = "";
-	
-	include("index.html");
-
-	if(isset($_POST["login"	]) && !empty($_POST["username"]) &&  !empty($_POST["psw"])){
-
-		if ($_POST["username"] == "user" && $_POST["psw"] == '1234'){
-			# code...
-			header("Location: menu.html");
-		}
-		else {
-			$logErr = "Usuario o contraseña incorrecto";
-			echo "Usuario o contraseña incorrecto";
-		}
+	if (session_status() == PHP_SESSION_NONE) {
+    $SESSION = session_start();
 	}
-
-	include("footer.html");
+	if($SESSION["Habeats"]['id_Usuario']!= null){
+		redirect("menu.php");
+	}
+	else{
+	require_once "util.php";
+	include("index.html");
+	}
+	
 ?>

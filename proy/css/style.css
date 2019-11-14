@@ -221,30 +221,6 @@ td {
     margin-left: 1rem;
     margin-top: 1rem;
 }
-#add{
-	text-align: center;
-	cursor:pointer;
-	position: relative;
-	vertical-align: center;
-	top: 50%;
-	color: black;
-	background-color: #e9e9e9;
-	border: none;
-	padding: 10px 10px;
-    font-size: 15px;
-}
-#addCat{
-	text-align: center;
-	cursor:pointer;
-	position: relative;
-	vertical-align: center;
-	top: 50%;
-	color: black;
-	background-color: #e9e9e9;
-	border: none;
-	padding: 10px 10px;
-    font-size: 15px;
-}
 
 .table tbody > tr > td.vert-aligned {
     vertical-align: middle;
@@ -266,13 +242,7 @@ td {
 	background-color: green;
 	color: white;
 }
-#add:hover{
-	background-color: green;
-	color: white;
-}
-#addCat:hover{
-	background-color: green;
-}
+
 
 #remBu{
 	text-align: center;
