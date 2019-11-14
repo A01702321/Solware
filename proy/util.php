@@ -6,19 +6,21 @@
 	    //DEV: Ambiente de desarrollo
 	    //PROD: Ambiente de producción
 	    //TEST: Ambiente de pruebas
-	      $environment = "DEV";
-	    $servername = "mysql1008.mochahost.com";
-	    $username = "dawbdorg_1702321";
-	    $password = "1702321";
-	    $dbname = "dawbdorg_A01702321";
-
+	    $environment = "DEV";
 	    
 	    if ($environment == "DEV") {
-	         $bd = mysqli_connect($servername,$username,$password,$dbname);
+	        $servername = "localhost";
+	    	$username = "root";
+	    	$password = "";
+	    	$dbname = "clase";
 	    } else if($environment == "PROD") {
-	         //TODO: Cambiar la configuración de acuerdo al ambiente de producción
-	         $bd = mysqli_connect("localhost","root","passwdadmin","dawbdorg_A01701446");
+	    	$servername = "mysql1008.mochahost.com";
+	    	$username = "dawbdorg_1702321";
+	    	$password = "1702321";
+	    	$dbname = "dawbdorg_A01702321";
 	    }
+
+	    $bd = mysqli_connect($servername,$username,$password,$dbname);
 	    
 
 	    /*
@@ -335,6 +337,10 @@
 		closeDb($db);
 
 		return $result;
+	}
+
+	function crearIngrediente($name) {
+
 	}
 
 ?>

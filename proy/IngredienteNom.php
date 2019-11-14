@@ -7,20 +7,28 @@ $link = connectDB();
 $name = $_POST['name'];
 $grupo = $_POST['grupo'];
 $categoria = $_POST['categoria'];
+echo($name);
+$MVC =  0;
 
-// Check connection
-if($link === false){
-    die("ERROR: Could not connect. " . mysqli_connect_error());
-}
- 
-// Attempt insert query execution
-$sql = "
-SELECT * FROM Ingredientes Where Nombre = '$name'";
-$Result = mysqli_query($link, $sql);
+if ($MVC) {
+	crearIngrediente($name);
+} else {
+	// Check connection
+	if($link === false){
+	    die("ERROR: Could not connect. " . mysqli_connect_error());
+	}
+	 
+	// Attempt insert query execution
+	$sql = "
+	SELECT * FROM Ingredientes Where Nombre = '$name'";
 
-if (mysqli_num_rows($Result) == 0) { 
-   $sql = "INSERT INTO Ingredientes (Nombre, GrupoAlimenticio) VALUES ('$name', '$grupo')";
-   $x = mysqli_query($link, $sql);
+	$Result = mysqli_query($link, $sql);
+	var_dump($link);
+	if (mysqli_num_rows($Result) == 0) { 
+	   $sql = "INSERT INTO Ingredientes (Nombre, GrupoAlimenticio) VALUES ('$name', '$grupo')";
+	   $x = mysqli_query($link, $sql);
+	}
+
 }
 
 $sql = "
