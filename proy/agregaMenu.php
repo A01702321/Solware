@@ -15,7 +15,7 @@
              echo 'alert("Se requiere llenar el campo")';
              echo '</script>';
         }  
-       else if (!preg_match("/^[a-zA-Z ]*$/",$_POST["nombreMenu"])) {
+        else if (!preg_match("/^[a-zA-Z ]*$/",$_POST["nombreMenu"])) {
             echo '<script language="javascript">';
             echo 'alert("Solo se permiten letras y especios")';
             echo '</script>';
