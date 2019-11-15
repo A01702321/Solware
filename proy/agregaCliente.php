@@ -1,5 +1,5 @@
 <?php
 	include("header.html");
-	include("agregaCliente.html");
+	include("AgregaCliente.html");
 	include("footer.html");
 ?>
