@@ -1,10 +1,3 @@
-<?php
-	include("header.html");
-	include("AgregaMenu.html");
-	include("footer.html");
-?>
-
-
 <?php  
 	include_once("header.html");
     require_once("util.php");
@@ -22,12 +15,11 @@
         }else{
         	
             crearMenu($_POST["nombreMenu"]);
-            header("location:menu.php");
+            header("location:registroExitoso.php");
         }
     }
     else{
         include_once("AgregaMenu.html");
     }
     include_once("footer.html");
-
 ?>
