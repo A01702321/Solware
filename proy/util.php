@@ -6,7 +6,7 @@
 	    //DEV: Ambiente de desarrollo
 	    //PROD: Ambiente de producción
 	    //TEST: Ambiente de pruebas
-	    $environment = "DEV";
+	    $environment = "PROD";
 	    
 	    if ($environment == "DEV") {
 	        $servername = "localhost";
@@ -43,66 +43,24 @@
 	}
 
 
-	function consultarClientes() {
-		$db = connectDB();
-	    $resultado = array();
-	    $query = "
-	    	SELECT Nombre, NombreMenu, , 
-	    	FROM Clientes, 
-	    ";
+	function crearMenu($nombreMenu) {
+	    $db = connectDB();
+	    $query='INSERT INTO Menus (NombreMenu) VALUES (?)';
 
+	    if (!($statement = $db->prepare($query))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
 
+	    }
+	    if (!$statement->bind_param("s", $nombreMenu)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
 
-
-	    $registros = $db->query($query);
+	    }
 	    
-	    while ($fila = mysqli_fetch_array($registros, MYSQLI_BOTH)) {
-	       array_push($resultado, array($fila["ID"],$fila["Nombre"]));
-	    }
-	    $regresar='
-	    	<table class="striped">
-	    		<thead>
-	    			<tr>
-	    				<td><b>Nombre</b></td>
-	    				<td><b>Bitacora</b></td>
-	    			</tr>
-	    		</thead>
+	    if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
 
-	    		<tbody>';
-	    
-	    for($i = 0; $i < count($resultado); $i++){
-	        
-	        $ID=$resultado[$i][0];
-	        $query1 = "
-	        	SELECT Estado,Momento
-	        	FROM Bitacora,Estados
-	        	WHERE IDzombie='" . $ID . "' AND Estados.ID=IDestado
-	        ";
-
-	        $resultado2 = array();
-	        $registros2 = $db->query($query1);
-
-	    if($registros2){
-
-	        while ($fila = mysqli_fetch_array($registros2, MYSQLI_BOTH)) {
-	            array_push($resultado2, array($fila["Estado"],$fila["Momento"]));
-	        }
-	        $regresar .= "<tr><td>".$resultado[$i][1]."</td><td>";
-
-	        for($j=0; $j < count($resultado2); $j++){
-	            $regresar.= $resultado2[$j][0]."  ".$resultado2[$j][1]."<br/>";
-	        }
-	        $regresar.="</td></tr>";
-	    } else{
-	        	$regresar.="<tr><td>".$resultado[$i][1]."</td><td>";
-	            $regresar.="</td></tr>";
-	    }
-	    }
-
-    	$regresar.="</tbody></table>";
-  
-	   	closeDB($db);
-	   	echo $regresar;
+	    closeDB($db);
 	}
 
 
