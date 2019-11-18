@@ -4,48 +4,48 @@ $('select').formSelect();
 var her = 0;
 
 function logout(){
-	if(confirm("¿Quieres cerrar sesión?")){
-		window.location = "index.html";
-	}	
+  if(confirm("¿Quieres cerrar sesión?")){
+    window.location = "index.html";
+  } 
 }
 
 function login(form){
-	let usr = document.getElementById("user").value;
-	let pswrd = document.getElementById("pswrd").value;
-	
-	if (usr == "user" && pswrd == "1234") {
-		form.action = "menu.html";
-	}else
-		alert("Usuario o contraseña incorrectos");
+  let usr = document.getElementById("user").value;
+  let pswrd = document.getElementById("pswrd").value;
+  
+  if (usr == "user" && pswrd == "1234") {
+    form.action = "menu.html";
+  }else
+    alert("Usuario o contraseña incorrectos");
 }
 
 function addInp(){
-	let nInput = document.createElement("input");
-	let f = document.getElementById("addForm");
-	nInput.id = "addB"+her;
-	nInput.type = "text";
-	her++;
-	//alert(nInput.id);
+  let nInput = document.createElement("input");
+  let f = document.getElementById("addForm");
+  nInput.id = "addB"+her;
+  nInput.type = "text";
+  her++;
+  //alert(nInput.id);
 
-	f.appendChild(document.createElement('br'));
-	f.appendChild(nInput);
+  f.appendChild(document.createElement('br'));
+  f.appendChild(nInput);
 }
 
 function remInp(){
-	if (her == 0) {
-		her = 0;
-	}else
-		her--;
+  if (her == 0) {
+    her = 0;
+  }else
+    her--;
 
-	let idH = "addB"+her;
-	//alert(idH);
-	let element = document.getElementById(idH);
+  let idH = "addB"+her;
+  //alert(idH);
+  let element = document.getElementById(idH);
     element.parentNode.removeChild(element);
 
     
 }
 
-/*js para consultar*/
+/js para consultar/
 
 function consultData(evt, consult) {
   // Declare all variables
@@ -89,6 +89,14 @@ $(document).ready(function(){
         $('#dynamic_field2').append('<tr id="rowC'+o+'"><td><div class="input-field col s7"><input type="text" name="cat'+o+'" id="cat'+o+'" class="validate" data-error="wrong" required><label for="validate-ingrediente">Categoria</label><span class="helper-text" data-error="Por favor introduce un nombre de categoría." data-success=""></span></div><div vertical-align: middle id=""><br><button type="button" name="remove" id="'+o+'" class="btn-small btn-danger btn_removeC red">X</button></div></td></tr>');  
     });
 
+    var j=1;
+    
+    $('#anadirRestricciones').click(function(){  
+        j++;  
+       //$('#restricciones').append('<tr id="rowC'+j+'"><td><div class="input-field col s5"><input type="text" name="rest'+j+'" id="rest'+j+'" onkeyup="obtenIngrediente('+j+')" class="validate" required><label for="validate-ingrediente">Ingrediente</label></div><div vertical-align: middle id=""><br><button type="button" name="remove" id="'+j+'" class="btn-small btn-danger btn_removeC red">X</button></div></td></tr> <br> <div id="resultado'+j+'"></div>');  
+       $('#restricciones').append('<tr id="rowC'+j+'"><td><div class="input-field col s5"><input type="text" name="rest'+j+'" id="rest'+j+'" onkeyup="obtenIngrediente('+j+')" class="validate" required><label for="validate-ingrediente">Ingrediente</label> <br> <div id="resultado'+j+'"></div> </div> <div vertical-align: middle id=""><br><button type="button" name="remove" id="'+j+'" class="btn-small btn-danger btn_removeC red">X</button></div> </td></tr>');  
+    });
+
     $(document).on('click', '.btn_removeC', function(){  
         var button_id = $(this).attr("id");   
         $('#rowC'+button_id+'').remove();  
@@ -119,68 +127,67 @@ $(document).ready(function(){
     });
 
     $(document).on('click', '#submit', function(){ 
-      	for (x = 1; x<=i; x++){
-        	if($('#nombreprep').val() == "" || $('#ing' + x).val() == "" ){
+        for (x = 1; x<=i; x++){
+          if($('#nombreprep').val() == "" || $('#ing' + x).val() == "" ){
             
-            	return false;
-        	}
-      	}
+              return false;
+          }
+        }
       
        /* stop form from submitting normally */
        event.preventDefault();
 
        /* get the action attribute from the <form action=""> element */
       
-      	url = "preparadoIng.php";
-      	for (x = 1; x<=i; x++){
+        url = "preparadoIng.php";
+        for (x = 1; x<=i; x++){
 
-        	var posting = $.post( url, { name: $('#nombreprep').val(), ingredient: $('#ing' + x).val()} );
+          var posting = $.post( url, { name: $('#nombreprep').val(), ingredient: $('#ing' + x).val()} );
         
-      	};
-      	/* Send the data using post with element id name and name2*/
+        };
+        /* Send the data using post with element id name and name2*/
       
       
-      	/* Alerts the results */
-      	posting.done(function( data ) {
-      		alert('Preparado agregado exitosamente');
-      	});
+        /* Alerts the results */
+        posting.done(function( data ) {
+          alert('Preparado agregado exitosamente');
+        });
     });
 
 
       
 
     $(document).on('click', '#submitIng', function(){ 
-	    let DEBUG = 1;
-	      	/*
-		      for (x = 1; x<=o; x++){
-		        if($('#nombreIng').val() == "" || $('#grupo').val() == "" || $('#cat' + x).val() == "" ){
-		            alert("Por favor verifica los datos e intenta nuevamente");
-		            return false;
-		        }
-		      }
-		     */
-	      
-	    /* stop form from submitting normally */
-	    event.preventDefault();
-	      
-	    if (DEBUG) console.info('llamada asíncrona a IngredienteNom');
+      let DEBUG = 1;
+          /*
+          for (x = 1; x<=o; x++){
+            if($('#nombreIng').val() == "" || $('#grupo').val() == "" || $('#cat' + x).val() == "" ){
+                alert("Por favor verifica los datos e intenta nuevamente");
+                return false;
+            }
+          }
+         */
+        
+      /* stop form from submitting normally */
+      event.preventDefault();
+        
+      if (DEBUG) console.info('llamada asíncrona a IngredienteNom');
 
-	    /* get the action attribute from the <form action=""> element */
-	    url = "IngredienteNom.php";
+      /* get the action attribute from the <form action=""> element */
+      url = "IngredienteNom.php";
 
-	    for (x = 1; x<=o; x++){
-	      var posting = $.post( url, { name: $('#nombreIng').val(), grupo: $('#grupo').val(), categoria: $('#cat' + x).val()} );
-	        
-	    };
-	    /* Send the data using post with element id name and name2*/
-	      
-	    /* Alerts the results */
-	    posting.done(function( data ) {
-	      	alert('Ingrediente agregado exitosamente');
-	    });
+      for (x = 1; x<=o; x++){
+        var posting = $.post( url, { name: $('#nombreIng').val(), grupo: $('#grupo').val(), categoria: $('#cat' + x).val()} );
+          
+      };
+      /* Send the data using post with element id name and name2*/
+        
+      /* Alerts the results */
+      posting.done(function( data ) {
+          alert('Ingrediente agregado exitosamente');
+      });
     });
 
 
 
 });
-

@@ -6,7 +6,7 @@
 	    //DEV: Ambiente de desarrollo
 	    //PROD: Ambiente de producción
 	    //TEST: Ambiente de pruebas
-	    $environment = "PROD";
+	    $environment = "DEV";
 	    
 	    if ($environment == "DEV") {
 	        $servername = "localhost";
@@ -300,5 +300,86 @@
 	function crearIngrediente($name) {
 
 	}
+
+    function obtenerTiempos(){
+         $db=connectDB();
+    $query="SELECT * FROM Tiempos";
+    $registros = $db->query($query);
+    $consulta = "";
+    if(!$registros)
+    {
+       $consulta="No se encontraron tiempos";
+    }
+    $datos=array();
+    
+    if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+          array_push($datos, array($row["NombreTiempo"]));
+        } 
+    }
+    for($i=0; $i<count($datos); $i++)
+    {
+        $tiempo=$datos[$i][0];
+        
+        $consulta.='<tr> 
+        <td><p>
+            <label>
+            <input name="tiempomenu" type="checkbox" value="'.$tiempo.'"/>
+            <span></span>
+            </label>
+            </p></td>
+        <td>'.$tiempo.'</td></tr>';
+    }
+    closeDB($db);
+    mysqli_free_result($registros);
+    echo $consulta;   
+    }
+
+function obtenerMenu(){
+    $db = connectDB();
+    $query="SELECT * FROM Menus";
+    $registros = $db->query($query);
+    if (!$registros) {
+        return false;
+    }
+    $datos=array();
+    while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+      array_push($datos, array($row["IDMenu"],$row["NombreMenu"]));
+    }
+    for($i=0; $i<count($datos); $i++)
+
+    {
+        $id=$datos[$i][0];
+        $menu=$datos[$i][1];
+        echo"<option value='id'>$menu</option>";
+    }
+    closeDB($db);  
+}
+
+function obtenerIngredient(){
+	  $db =connectDB();
+     
+    
+        $query="SELECT NombreIngrediente,IDIngrediente FROM Ingredientes";
+     
+       $registros = $db->query($query);
+
+       $datos=array();
+
+       if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+        	array_push($datos,array($row["IDIngrediente"],$row["NombreIngrediente"]));
+        } 
+    }
+     
+        closeDb($db);
+     
+        return $datos;
+   
+}
+
+
+
+
 
 ?>
