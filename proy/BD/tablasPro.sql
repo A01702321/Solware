@@ -17,9 +17,9 @@ CREATE TABLE Clientes
 (
 	IDCliente int not null AUTO_INCREMENT,
 	Nombre varchar(20) not null,
-	NombreMenu varchar(10) not null,
+	Menu int not null,
 	PRIMARY KEY(IDCliente),
-	FOREIGN KEY(NombreMenu) references Menus(NombreMenu)
+	FOREIGN KEY(Menu) references Menus(IDMenu)
 )
 
 CREATE TABLE GruposAlimenticios
@@ -40,9 +40,9 @@ CREATE TABLE Ingredientes
 (
 	IDIngrediente int not null AUTO_INCREMENT,
 	NombreIngrediente varchar(20) not null,
-	GrupoAlimenticio varchar(20) not null,
+	GrupoAlimenticio int not null,
 	PRIMARY KEY(IDIngrediente),
-	FOREIGN KEY(GrupoAlimenticio) references GruposAlimenticios(NombreGrupoAl)
+	FOREIGN KEY(GrupoAlimenticio) references GruposAlimenticios(IDGrupoAl)
 )
 
 CREATE TABLE Preparados
@@ -63,12 +63,12 @@ CREATE TABLE Recetas
 CREATE TABLE Platillos
 (
 	IDPlatillo int not null AUTO_INCREMENT,
-	NombreMenu varchar(10) not null,
+	Menu int not null,
 	Tiempo varchar(10) not null,
 	Fecha datetime not null,
-	-- Tal vez Notas
+	Notas varchar(600) not null,
 	PRIMARY KEY(IDPlatillo),
-	FOREIGN KEY (NombreMenu) references Menus(NombreMenu)
+	FOREIGN KEY (Menu) references Menus(IDMenu)
 )
 
 
@@ -132,13 +132,13 @@ CREATE TABLE RecetaReceta
 
 CREATE TABLE RecetaTiempo
 (
-	IDTiempo int not null,
+	NombreTiempo varchar(10) not null,
 	IDReceta int not null,
-	FOREIGN KEY(IDTiempo) references Tiempos(IDTiempo),
+	FOREIGN KEY(NombreTiempo) references Tiempos(NombreTiempo),
 	FOREIGN KEY(IDReceta) references Recetas(IDReceta)
 )
 
-CREATE TABLE ClientePlatillo
+CREATE TABLE ClientePlatillo-----------------------------
 (
 	IDCliente int not null,
 	IDPlatillo int not null,
@@ -146,7 +146,7 @@ CREATE TABLE ClientePlatillo
 	Tiempo varchar(10) not null,
 	FOREIGN KEY(IDCliente) references Clientes(IDCliente),
 	FOREIGN KEY(IDPlatillo) references Platillos(IDPlatillo),
-	FOREIGN KEY(Tiempo) references Tiempos(IDTiempo)
+	FOREIGN KEY(Tiempo) references Tiempos(NombreTiempo)
 )
 
 CREATE TABLE MenuReceta
@@ -160,10 +160,11 @@ CREATE TABLE MenuReceta
 CREATE TABLE Plan
 (
 	IDCliente int not null,
-	NombreTiempo int not null,
+	NombreTiempo varchar(10) not null,
 	FOREIGN KEY(IDCliente) references Clientes(IDCliente),
 	FOREIGN KEY(NombreTiempo) references Tiempos(NombreTiempo)
 )
+
 CREATE TABLE Usuarios
 (
 	id_Usuario int not null AUTO_INCREMENT,
