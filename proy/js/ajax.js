@@ -1,3 +1,4 @@
+var valor=1;
 $(document).ready(function(){
   $(".tablinks").click(function(){
     var i, tabcontent, tablinks;
@@ -72,4 +73,9 @@ function selectValue() {
     userInput.value = list.options[list.selectedIndex].text;
     ajaxResponse.style.visibility = "hidden";
     userInput.focus();
+}
+
+function cambiarValor(){
+valor ++;
+document.getElementById("valorRestricciones").value=valor;
 }

@@ -5,168 +5,102 @@
   <div>
     <h2 class="col s12">Agregar Cliente</h2>
   </div>
-<form id="forma" method="POST" action="agregarCliente.php">
-    
+
+
+
   <div class="row">
+      <form id="forma" method="POST" action="agregaCliente.php">  
+
+    <div class="row">
     <div class="col s12">
       <ul class="tabs">
         <li class="tab col s3"><a class="active" href="#DatosCliente">Datos de Cliente</a></li>
         <li class="tab col s3"><a href="#AgregaRestricciones">Agrega Resticciones</a></li>
-        <li class="tab col s3 disabled"><a href="#test3">Registrar</a></li>
+        <li class="tab col s3"><a href="#Registrar">Registrar</a></li>
       </ul>
-      <div class="col s12 offset-s2" id="DatosCliente">
-        <div class="col s4 offset-s3">
-          <br>
-          <h5>Datos de Cliente</h5>
-        </div>
-        <div class="row">
-          <form class="col s8">
-            <div class="row">
-              <div class="input-field col s6">
-                <input id="first_name" type="text" class="validate">
-                <label for="first_name">Introduce el Nombre Completo:</label>
-              </div>
-            </div>
-            <div class="row">
-              <h6>Selecciona los Tiempos:</h6>
-              <div class="input-field col s4">
-                <?php
-                require_once("util.php");
-                echo obtenerTiempos();
-                ?>
-              </div>
-            </div>
-            <div class="row">
-              <h6><br><br>Menú Inscrito<br><br></h6>
-              <div class="input-field col s8">
-                <select required id="nombremenu" name="nombremenu">
-                  <option value="" disabled selected>Selecciona una Opción de Menú</option>
-                 <?php
-                require_once("util.php");
-                obtenerMenu();
-                ?>
-                </select>
-                <label>Selecciona un Menú</label>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-      
-      <div class="col s12 offset-s2" id="AgregaRestricciones">
-        
-        <div class="table-responsive" vertical-align="center">  
-            <table class="table " id="restricciones"> 
-                <tr>
-                    <td class="vert-aligned">
-                    <div class="input-field col s5">
-                        <input type="text" id="rest1" class="validate" name ="rest1" required onkeyup="obtenIngrediente(1)">
-                        <label for="autocomplete-categoria">Ingrediente</label>
-                        <div id="resultado1"></div>
-                    </div>
-                    <div>
-                        <br>
-                        <a id ="anadirRestricciones" class="btn-floating btn-medium waves-effect waves-light "><i class="material-icons">add</i></a>
-                    </div>
-                  </td>
-                </tr>
-                 
-          </table>
-        
-        </div>
-
-         
     </div>
-    </div>
-  </div>
-    </form>
-</body>
+</div>
 
 
-<!--
-	<title>Agregar Cliente</title>
 
-<body>  
 
-  <div>
-    <h2 class="col s12">Agregar Cliente</h2>
-  </div>
-<form id="forma" method="POST" action="agregarCliente.php">
-    
   <div class="row">
-    <div class="col s12">
-      <ul class="tabs">
-        <li class="tab col s3"><a class="active" href="#DatosCliente">Datos de Cliente</a></li>
-        <li class="tab col s3"><a href="#AgregaRestricciones">Agrega Resticciones</a></li>
-        <li class="tab col s3 disabled"><a href="#test3">Registrar</a></li>
-      </ul>
-      <div class="col s12 offset-s2" id="DatosCliente">
-        <div class="col s4 offset-s3">
-          <br>
-          <h5>Datos de Cliente</h5>
-        </div>
-        <div class="row">
-          <form class="col s8">
-            <div class="row">
-              <div class="input-field col s6">
-                <input id="first_name" type="text" class="validate">
-                <label for="first_name">Introduce el Nombre Completo:</label>
-              </div>
-            </div>
-            <div class="row">
-              <h6>Selecciona los Tiempos:</h6>
-              <div class="input-field col s4">
-                <?php 
-                require_once("util.php");
-                echo obtenerTiempos();
-                ?>
-              </div>
-            </div>
-            <div class="row">
-              <h6><br><br>Menú Inscrito<br><br></h6>
-              <div class="input-field col s8">
-                <select required id="nombremenu" name="nombremenu">
-                  <option value="" disabled selected>Selecciona una Opción de Menú</option>
-                <?php 
-                require_once("util.php");
-                obtenerMenu();
-                ?>
-                </select>
-                <label>Selecciona un Menú</label>
-              </div>
-            </div>
-          </form>
+    <div class="col s12 offset-s2" id="DatosCliente">
+      <div class="col s4 offset-s3">
+        <br>
+        <h5>Datos de Cliente</h5>
+      </div>
+    
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="first_name" name="first_name" type="text">
+          <label for="first_name">Introduce el Nombre Completo:</label>
         </div>
       </div>
-  
-      <div class="col s12 offset-s2" id="AgregaRestricciones">
-        
-        <div class="table-responsive" vertical-align="center">  
-            <table class="table " id="table-responsive"> 
-                <tr>
-                    <td class="vert-aligned">
-                    <div class="input-field col s5">
-                        <input type="text" id="rest1" class="validate" name ="rest1"  required>
-                        <label for="autocomplete-categoria">Ingrediente</label>
-                        <div id="resultado1"></div>
-                    </div>
-                    <div>
-                        <br>
-                        <a id ="añadirRestricciones" class="btn-floating btn-medium waves-effect waves-light "><i class="material-icons">add</i></a>
-                    </div>
-                  </td>
-                </tr>
-                 
-          </table>
-        
+
+        <div class="row">
+          <h6>Selecciona los Tiempos:</h6>
+          <div class="input-field col s4">
+            <?php
+              require_once("util.php");
+              echo obtenerTiempos();
+            ?>
+          </div>
         </div>
 
-         
+       
+       <div class="row">
+        <div class="input-field col s6">
+          <h6>Menú Inscrito</h6>
+          <select required id="nombremenu" name="nombremenu">
+            <option value="" disabled selected>Selecciona una Opción de Menú</option>
+            <?php
+              require_once("util.php");
+              obtenerMenu();
+            ?>
+          </select>
+          <label>Selecciona un Menú</label>
+        </div>
+      </div>      
+    </div>
+
+     
+
+  </div>
+  <div class="row">
+    <div class="col s12 offset-s2" id="AgregaRestricciones">
+      <div class="table-responsive" vertical-align="center">  
+        <table class="table " id="restricciones" > 
+          <tr>
+            <td class="vert-aligned">
+              <div class="input-field col s5">
+                <input type="text" id="rest1" class="validate" name ="rest1" onkeyup="obtenIngrediente(1)">
+                <label for="autocomplete-categoria">Ingrediente</label>
+                <div id="resultado1"></div>
+              </div>
+              <div>
+                <br>
+                <a id ="anadirRestricciones" class="btn-floating btn-medium waves-effect waves-light " onclick="cambiarValor()"><i class="material-icons">add</i></a>
+              </div>
+            </td>
+          </tr>      
+        </table>
+      </div>
+        <input type="hidden" value="" name="valorRestricciones" id="valorRestricciones"/>
     </div>
   </div>
-    </form>
+</form>
+    
+  </div>
+
+
+    <div class="col s12 offset-s2" id="Registrar">
+      <div class="col s4 offset-s3">
+        <br>
+        <button class="waves-effect waves-light btn lime" type="submit" form="forma">Registrar</button>  
+      </div>
+    </div>
+
+    
+
 </body>
-	
--->
-
-

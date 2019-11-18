@@ -320,11 +320,10 @@
     for($i=0; $i<count($datos); $i++)
     {
         $tiempo=$datos[$i][0];
-        
         $consulta.='<tr> 
         <td><p>
             <label>
-            <input name="tiempomenu" type="checkbox" value="'.$tiempo.'"/>
+            <input name="tiempomenu[]" id="tiempomenu[]" type="checkbox" value="'.$tiempo.'"/>
             <span></span>
             </label>
             </p></td>
@@ -351,7 +350,8 @@ function obtenerMenu(){
     {
         $id=$datos[$i][0];
         $menu=$datos[$i][1];
-        echo"<option value='id'>$menu</option>";
+        echo"$<option value=".$id.">$menu</option>";
+
     }
     closeDB($db);  
 }
@@ -378,8 +378,115 @@ function obtenerIngredient(){
    
 }
 
+function crearCliente($first_name, $nombremenu){
+
+	$db = connectDB();
+
+	$query='INSERT INTO Clientes(Nombre,Menu) VALUES (?,?)';
+
+	$registros = $db->query($query);
+
+	if(!$registros){
+		echo $registros;
+	}else return true;
+
+	if (!($statement = $db->prepare($query))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
+
+	    }
+	    if (!$statement->bind_param("ss", $first_name, $nombremenu)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
+
+	    }
+	    
+	    if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
+
+	    closeDB($db);
+	   
+}
+
+function agregarRestriccionACliente($IDCliente, $IDIngrediente){
+	$db = connectDB();
+
+	$query='INSERT INTO Restriccion(IDCliente,IDIngrediente) VALUES (?,?)';
+
+	$registros = $db->query($query);
+
+	if (!($statement = $db->prepare($query))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
+
+	    }
+	    if (!$statement->bind_param("ss", $IDCliente, $IDIngrediente)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
+
+	    }
+	    
+	    if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
+
+	    closeDB($db);
+}
+
+function agregarPlanACliente($IDCliente, $NombreTiempo){
+	$db = connectDB();
 
 
+	$query='INSERT INTO Plan(IDCliente,NombreTiempo) VALUES (?,?)';
 
+	$registros = $db->query($query);
+
+	if (!($statement = $db->prepare($query))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
+
+	    }
+	    if (!$statement->bind_param("ss", $IDCliente, $NombreTiempo)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
+
+	    }
+	    
+	    if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
+
+	    closeDB($db);
+}
+
+function existe($tabla,$nombreLlavePrimaria,$valorLlavePrimaria, $esString = false)
+{
+    $db = connectDB();
+    
+    if($esString)
+        $query = "SELECT EXISTS(SELECT $nombreLlavePrimaria FROM $tabla WHERE $nombreLlavePrimaria='$valorLlavePrimaria')";
+    else
+        $query = "SELECT EXISTS(SELECT $nombreLlavePrimaria FROM $tabla WHERE $nombreLlavePrimaria=$valorLlavePrimaria)";
+    
+    $registros = $db->query($query);
+    
+    $fila = mysqli_fetch_row($registros);
+
+    mysqli_free_result($registros);
+    closeDB($db);
+
+    return $fila[0];
+}
+
+function ultimoCliente(){
+	$db = connectDB();
+    $query="SELECT IDCliente FROM Clientes GROUP BY IDCliente DESC LIMIT 1";
+    $registros = $db->query($query);
+    $id=0;
+    
+    if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+          $id = $row["IDCliente"];
+        } 
+    }
+    closeDB($db);
+    mysqli_free_result($registros);
+    return $id;
+}
 
 ?>
