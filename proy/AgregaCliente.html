@@ -1,115 +1,106 @@
+<title>Agregar Cliente</title>
 
-  <title>Agregar Cliente</title>
-
-<body>	
+<body>  
 
   <div>
     <h2 class="col s12">Agregar Cliente</h2>
   </div>
 
+
+
   <div class="row">
+      <form id="forma" method="POST" action="agregaCliente.php">  
+
+    <div class="row">
     <div class="col s12">
       <ul class="tabs">
         <li class="tab col s3"><a class="active" href="#DatosCliente">Datos de Cliente</a></li>
         <li class="tab col s3"><a href="#AgregaRestricciones">Agrega Resticciones</a></li>
-        <li class="tab col s3 disabled"><a href="#test3">Tab 3</a></li>
-        <li class="tab col s3 disabled"><a href="#test4">tab 4</a></li>
+        <li class="tab col s3"><a href="#Registrar">Registrar</a></li>
       </ul>
-      <div class="col s12 offset-s2" id="DatosCliente">
-        <div class="col s4 offset-s3">
-          <br>
-          <h5>Datos de Cliente</h5>
+    </div>
+</div>
+
+
+
+
+  <div class="row">
+    <div class="col s12 offset-s2" id="DatosCliente">
+      <div class="col s4 offset-s3">
+        <br>
+        <h5>Datos de Cliente</h5>
+      </div>
+    
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="first_name" name="first_name" type="text">
+          <label for="first_name">Introduce el Nombre Completo:</label>
         </div>
+      </div>
+
         <div class="row">
-          <form class="col s8">
-            <div class="row">
-              <div class="input-field col s6">
-                <input id="first_name" type="text" class="validate">
-                <label for="first_name">Nombre</label>
-              </div>
-              <div class="input-field col s6">
-                <input id="last_name" type="text" class="validate">
-                <label for="last_name">Apellido</label>
-              </div>
-            </div>
-            <div class="row">
-              <h6>Plan de Cliente</h6>
-              <div class="input-field col s4">
-                <label>
-                 <input type="checkbox" class="filled-in" checked="unchecked" />
-                 <span>Desayuno</span>
-                </label>
-              </div>
-              <div class="input-field col s4">
-                <label>
-                 <input type="checkbox" class="filled-in" checked="unchecked" />
-                 <span>Comida</span>
-                </label>
-              </div>
-              <div class="input-field col s4">
-                <label>
-                 <input type="checkbox" class="filled-in" checked="unchecked" />
-                 <span>Cena</span>
-                </label>
-              </div>
-            </div>
-            <div class="row">
-              <h6><br><br>Menú Inscrito<br><br></h6>
-              <div class="input-field col s8">
-                <select>
-                  <option value="" disabled selected>Selecciona una Opción de Menú</option>
-                  <option value="1">Elemental</option>
-                  <option value="2">Elite</option>
-                  <option value="3">Meatless</option>
-                  <option value="4">Keto</option>
-                  <option value="5">Snacks</option>
-                </select>
-                <label>Selecciona un Menú</label>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-      
-      <div class="col s12 offset-s2" id="AgregaRestricciones">
-        <p>Agrega Restricciones</p>
-        <form class="col s6">
-          <div class="row">
-            <div class="col s6">
-              <div class="row">
-                <div class="input-field col s12">
-                  <input type="text" id="autocomplete-input" class="autocomplete">
-                  <label for="autocomplete-input">Restricción</label>
-                </div>
-                <div>
-                  <input id="addBu" type="button" name="addIn" value="Agregar Restricción" onclick="addInp()">
-                </div>
-              </div>
-            </div>
+          <h6>Selecciona los Tiempos:</h6>
+          <div class="input-field col s4">
+            <?php
+              require_once("util.php");
+              echo obtenerTiempos();
+            ?>
           </div>
-        </form>
+        </div>
+
+       
+       <div class="row">
+        <div class="input-field col s6">
+          <h6>Menú Inscrito</h6>
+          <select required id="nombremenu" name="nombremenu">
+            <option value="" disabled selected>Selecciona una Opción de Menú</option>
+            <?php
+              require_once("util.php");
+              obtenerMenu();
+            ?>
+          </select>
+          <label>Selecciona un Menú</label>
+        </div>
+      </div>      
+    </div>
+
+     
+
+  </div>
+  <div class="row">
+    <div class="col s12 offset-s2" id="AgregaRestricciones">
+      <div class="table-responsive" vertical-align="center">  
+        <table class="table " id="restricciones" > 
+          <tr>
+            <td class="vert-aligned">
+              <div class="input-field col s5">
+                <input type="text" id="rest1" class="validate" name ="rest1" onkeyup="obtenIngrediente(1)">
+                <label for="autocomplete-categoria">Ingrediente</label>
+                <div id="resultado1"></div>
+              </div>
+              <div>
+                <br>
+                <a id ="anadirRestricciones" class="btn-floating btn-medium waves-effect waves-light " onclick="cambiarValor()"><i class="material-icons">add</i></a>
+              </div>
+            </td>
+          </tr>      
+        </table>
       </div>
+        <input type="hidden" value="" name="valorRestricciones" id="valorRestricciones"/>
     </div>
   </div>
+</form>
+    
+  </div>
+
+
+    <div class="col s12 offset-s2" id="Registrar">
+      <div class="col s4 offset-s3">
+        <br>
+        <button class="waves-effect waves-light btn lime" type="submit" form="forma">Registrar</button>  
+      </div>
+    </div>
+
+    
+
 </body>
-<!--
-	<h2>Agrega Nuevo Cliente</h2>
-	<div class="plat-form">
-		<form id="addForm">
-			<h3>Nombre de Cliente:</h3>
-			<input type="text" name="Ingrediente">
-			<h3>Menu inscrito:</h3>
-			<input type="" name="">
-			<h3>Restricción:</h3>
-			<input type="" name="">
-		</form>
-	</div>
-	<div>
-		<br><input id="addBu" type="button" name="addIn" value="Agregar Restricción" onclick="addInp()">
-		<input id="remBu" type="button" name="remIn" value="Eliminar Restricción" onclick="remInp()">
-		<a class = "savebtn">Guardar</a>
-	</div>
-	
--->
-
-

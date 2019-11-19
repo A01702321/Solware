@@ -6,35 +6,32 @@
 	    //DEV: Ambiente de desarrollo
 	    //PROD: Ambiente de producción
 	    //TEST: Ambiente de pruebas
-	      $environment = "DEV";
-	    $servername = "mysql1008.mochahost.com";
-	    $username = "dawbdorg_1702321";
-	    $password = "1702321";
-	    $dbname = "dawbdorg_A01702321";
-
+	    $environment = "DEV";
 	    
 	    if ($environment == "DEV") {
-	         $bd = mysqli_connect($servername,$username,$password,$dbname);
+	        $servername = "localhost";
+	    	$username = "root";
+	    	$password = "";
+	    	$dbname = "clase";
 	    } else if($environment == "PROD") {
-	         //TODO: Cambiar la configuración de acuerdo al ambiente de producción
-	         $bd = mysqli_connect("localhost","root","passwdadmin","dawbdorg_A01701446");
+	    	$servername = "mysql1008.mochahost.com";
+	    	$username = "dawbdorg_1702321";
+	    	$password = "1702321";
+	    	$dbname = "dawbdorg_A01702321";
 	    }
-	    
 
-	    /*
-	    if ($environment == "DEV") {
-	         $bd = mysqli_connect("localhost","root","","ExamenParcial2");
-	    } else if($environment == "PROD") {
-	         //TODO: Cambiar la configuración de acuerdo al ambiente de producción
-	         $bd = mysqli_connect("localhost","root","passwdadmin","ExamenParcial2");
-	    }
-	    */
+	    $bd = mysqli_connect($servername,$username,$password,$dbname);
+	    
+	    // Check connection
+		if($bd === false){
+		    die("ERROR: Could not connect. " . mysqli_connect_error());
+		}
+	    
 	    // Change character set to utf8
 	    mysqli_set_charset($bd,"utf8");
 	   
 	    return $bd;
 	}
-	$link = connectDB();
 
 	function closeDB($bd) {
 	    
@@ -42,67 +39,27 @@
 	}
 
 
-	function consultarClientes() {
-		$db = connectDB();
-	    $resultado = array();
-	    $query = "
-	    	SELECT Nombre, NombreMenu, , 
-	    	FROM Clientes, 
-	    ";
+	function crearMenu($nombreMenu) {
+	    $db = connectDB();
+	    $query='INSERT INTO Menus (NombreMenu) VALUES (?)';
 
+	    if (!($statement = $db->prepare($query))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
 
+	    }
+	    if (!$statement->bind_param("s", $nombreMenu)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
 
-
-	    $registros = $db->query($query);
+	    }
 	    
-	    while ($fila = mysqli_fetch_array($registros, MYSQLI_BOTH)) {
-	       array_push($resultado, array($fila["ID"],$fila["Nombre"]));
-	    }
-	    $regresar='
-	    	<table class="striped">
-	    		<thead>
-	    			<tr>
-	    				<td><b>Nombre</b></td>
-	    				<td><b>Bitacora</b></td>
-	    			</tr>
-	    		</thead>
+	    if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
 
-	    		<tbody>';
-	    
-	    for($i = 0; $i < count($resultado); $i++){
-	        
-	        $ID=$resultado[$i][0];
-	        $query1 = "
-	        	SELECT Estado,Momento
-	        	FROM Bitacora,Estados
-	        	WHERE IDzombie='" . $ID . "' AND Estados.ID=IDestado
-	        ";
-
-	        $resultado2 = array();
-	        $registros2 = $db->query($query1);
-
-	    if($registros2){
-
-	        while ($fila = mysqli_fetch_array($registros2, MYSQLI_BOTH)) {
-	            array_push($resultado2, array($fila["Estado"],$fila["Momento"]));
-	        }
-	        $regresar .= "<tr><td>".$resultado[$i][1]."</td><td>";
-
-	        for($j=0; $j < count($resultado2); $j++){
-	            $regresar.= $resultado2[$j][0]."  ".$resultado2[$j][1]."<br/>";
-	        }
-	        $regresar.="</td></tr>";
-	    } else{
-	        	$regresar.="<tr><td>".$resultado[$i][1]."</td><td>";
-	            $regresar.="</td></tr>";
-	    }
-	    }
-
-    	$regresar.="</tbody></table>";
-  
-	   	closeDB($db);
-	   	echo $regresar;
+	    closeDB($db);
 	}
+
+
 	function preparadoIng(){
 		
 		$name = $_POST['name'];
@@ -126,6 +83,7 @@
 		}
 		
 	}
+
 	function preparadoNom(){
 		
 		$name = $_POST['name'];
@@ -145,11 +103,9 @@
 		}
 		
 	}
-	function ingredienteNom(){
+
+	function ingredienteNom($name, $grupo, $categoria){
 		
-		$name = $_POST['name'];
-		$grupo = $_POST['grupo'];
-		$categoria = $_POST['categoria'];
 
 		// Check connection
 		if($link === false){
@@ -185,7 +141,10 @@
 		} else{
 		    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
 		}
+
 	}
+
+
 	function restriccionCat(){
 		$name = $_POST['name'];
 		$categoria = $_POST['cat'];
@@ -213,13 +172,52 @@
 
 		
 	}
+
+	function loginUser(){
+
+		try {			
+			$userData 			=	$this->input->post("user",TRUE);
+			$userPassword 		=	$this->input->post("password",TRUE);
+			
+			$sql='SELECT * from Usuarios where usuario=? OR password=? ORDER By id_Usuario';
+			$user=$this->link->query($sql,array($userData,$userPassword));			
+			if($user->num_rows()>0){
+				if( $user->row()->password==$userPassword && $user->row()->usuario==$userData) {				
+					$data= array(
+						'id_Usuario' => $user->row()->id_Usuario,						
+						'nombre_Usuario' => $user->row()->nombre						
+					 );
+					$this->session->unset_userdata("Habeats");  /// elimino las sesiones anteriores y creo una nueva
+
+					$this->session->set_userdata("Habeats",$data);
+					return "success";
+				}	
+				else{
+					return "Verifique su contraseña"; //error en password 
+				}
+			}
+			else{
+				return "El usuario no está registrado"; //error usuario no existe
+			}
+			
+
+		} catch (Exception $e) {
+			return "error3";
+		}
+	}
+
+	function logout(){
+		$this->session->unset_userdata("Habeats");
+		return true;
+	}
+
 	function restriccionNom(){
 		
 		$name = $_POST['name'];
 		$ing = $_POST['ingrediente'];
 
 		// Check connection
-		if($link === false){
+		if($link == false){
 		    die("ERROR: Could not connect. " . mysqli_connect_error());
 		}
 		 
@@ -254,7 +252,7 @@
 
 		$result = mysqli_query($db, $sql);
 
-		closeDb($db);
+		closeDB($db);
 
 		return $result;
 	}
@@ -266,7 +264,7 @@
 
 		$result = mysqli_query($db, $sql);
 
-		closeDb($db);
+		closeDB($db);
 
 		return $result;
 	}
@@ -278,7 +276,7 @@
 
 		$result = mysqli_query($db, $sql);
 
-		closeDb($db);
+		closeDB($db);
 
 		return $result;
 	}
@@ -290,8 +288,324 @@
 
 		$result = mysqli_query($db, $sql);
 
-		closeDb($db);
+		closeDB($db);
 
 		return $result;
 	}
+
+	function crearIngrediente($name, $group) {
+
+		$link = connectDB();
+ 
+		// Attempt insert query execution
+		$sql = "SELECT * FROM Ingredientes Where Nombre = '$name'";
+
+		$result = mysqli_query($link, $sql);
+
+		if (mysqli_num_rows($result) == 0) { 
+		   $sql = "INSERT INTO Ingredientes (Nombre, GrupoAlimenticio) VALUES (?, ?)";
+		   // Preparing the statement 
+		    if (!($statement = $link->prepare($sql))) {
+		        die("No se pudo preparar la consulta para la bd: (" . $link->errno . ") " . $link->error);
+		    }
+		    // Binding statement params 
+		    if (!$statement->bind_param("ss", $name, $group)) {
+		        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error); 
+		    }
+		    
+		    // Executing the statement
+		    if (!$statement->execute()) {
+		        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+		    } 
+		   
+		}
+
+		closeDB($link);
+	}
+
+	function crearCategoria($category) {
+
+		$link = connectDB();
+ 
+		// Attempt insert query execution
+		$sql = "SELECT * FROM Categoria Where Nombre = '$category'";
+
+		$result = mysqli_query($link, $sql);
+
+		if (mysqli_num_rows($result) == 0) { 
+		   $sql = "INSERT INTO Categoria (Nombre) VALUES (?)";
+		   // Preparing the statement 
+		    if (!($statement = $link->prepare($sql))) {
+		        die("No se pudo preparar la consulta para la bd: (" . $link->errno . ") " . $link->error);
+		    }
+		    // Binding statement params 
+		    if (!$statement->bind_param("s", $category)) {
+		        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error); 
+		    }
+		    
+		    // Executing the statement
+		    if (!$statement->execute()) {
+		        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+		    } 
+		   
+		}
+
+		closeDB($link);
+	}
+	function agregarCategoriaIng($name, $category) {
+
+		$link = connectDB();
+ 
+		// Attempt insert query execution
+		
+		
+	   $sql = "
+
+		INSERT INTO Pertenece (IDCategoria, IDIngrediente) VALUES ((SELECT p.IDCategoria FROM Categoria p WHERE p.Nombre = ?), (SELECT z.IDIngrediente FROM Ingredientes z WHERE z.Nombre = ? ) )";
+
+	   // Preparing the statement 
+	    if (!($statement = $link->prepare($sql))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $link->errno . ") " . $link->error);
+	    }
+	    // Binding statement params 
+	    if (!$statement->bind_param("ss", $category, $name)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error); 
+	    }
+	    
+	    // Executing the statement
+	    if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
+	    else{
+	    	echo("Consulta agregada correctamente");
+	    }
+	   
+		
+
+		closeDB($link);
+	}
+	function crearIngCategoria($name, $categories, $group){
+
+
+		crearIngrediente($name, $group);
+		for ($i =0; $i<sizeof($categories); $i++){
+			$category = $categories[$i];
+			crearCategoria($category);
+			agregarCategoriaIng($name, $category);
+		}
+
+	}
+
+	function validateNullForm($name, $categories, $group){
+		
+		
+		if($name === ''){
+			return 1;
+		}
+		if($group === '' ){
+			return 2;
+		}
+
+		if(sizeof($categories) === 0){
+			return 3;
+		}
+		for($i=0; $i<sizeof($categories); $i++){
+			if($categories[$i]=== ''){
+				return 4;
+			}
+		}
+		
+		return 5;
+		
+	}
+
+
+    function obtenerTiempos(){
+         $db=connectDB();
+    $query="SELECT * FROM Tiempos";
+    $registros = $db->query($query);
+    $consulta = "";
+    if(!$registros)
+    {
+       $consulta="No se encontraron tiempos";
+    }
+    $datos=array();
+    
+    if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+          array_push($datos, array($row["NombreTiempo"]));
+        } 
+    }
+    for($i=0; $i<count($datos); $i++)
+    {
+        $tiempo=$datos[$i][0];
+        $consulta.='<tr> 
+        <td><p>
+            <label>
+            <input name="tiempomenu[]" id="tiempomenu[]" type="checkbox" value="'.$tiempo.'"/>
+            <span></span>
+            </label>
+            </p></td>
+        <td>'.$tiempo.'</td></tr>';
+    }
+    closeDB($db);
+    mysqli_free_result($registros);
+    echo $consulta;   
+    }
+
+function obtenerMenu(){
+    $db = connectDB();
+    $query="SELECT * FROM Menus";
+    $registros = $db->query($query);
+    if (!$registros) {
+        return false;
+    }
+    $datos=array();
+    while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+      array_push($datos, array($row["IDMenu"],$row["NombreMenu"]));
+    }
+    for($i=0; $i<count($datos); $i++)
+
+    {
+        $id=$datos[$i][0];
+        $menu=$datos[$i][1];
+        echo"$<option value=".$id.">$menu</option>";
+
+    }
+    closeDB($db);  
+}
+
+function obtenerIngredient(){
+	  $db =connectDB();
+     
+    
+        $query="SELECT NombreIngrediente,IDIngrediente FROM Ingredientes";
+     
+       $registros = $db->query($query);
+
+       $datos=array();
+
+       if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+        	array_push($datos,array($row["IDIngrediente"],$row["NombreIngrediente"]));
+        } 
+    }
+     
+        closeDb($db);
+     
+        return $datos;
+   
+}
+
+function crearCliente($first_name, $nombremenu){
+
+	$db = connectDB();
+
+	$query='INSERT INTO Clientes(Nombre,Menu) VALUES (?,?)';
+
+	$registros = $db->query($query);
+
+	if(!$registros){
+		echo $registros;
+	}else return true;
+
+	if (!($statement = $db->prepare($query))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
+
+	    }
+	    if (!$statement->bind_param("ss", $first_name, $nombremenu)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
+
+	    }
+	    
+	    if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
+
+	    closeDB($db);
+	   
+}
+
+function agregarRestriccionACliente($IDCliente, $IDIngrediente){
+	$db = connectDB();
+
+	$query='INSERT INTO Restriccion(IDCliente,IDIngrediente) VALUES (?,?)';
+
+	$registros = $db->query($query);
+
+	if (!($statement = $db->prepare($query))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
+
+	    }
+	    if (!$statement->bind_param("ss", $IDCliente, $IDIngrediente)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
+
+	    }
+	    
+	    if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
+
+	    closeDB($db);
+}
+
+function agregarPlanACliente($IDCliente, $NombreTiempo){
+	$db = connectDB();
+
+
+	$query='INSERT INTO Plan(IDCliente,NombreTiempo) VALUES (?,?)';
+
+	$registros = $db->query($query);
+
+	if (!($statement = $db->prepare($query))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
+
+	    }
+	    if (!$statement->bind_param("ss", $IDCliente, $NombreTiempo)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
+
+	    }
+	    
+	    if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
+
+	    closeDB($db);
+}
+
+function existe($tabla,$nombreLlavePrimaria,$valorLlavePrimaria, $esString = false)
+{
+    $db = connectDB();
+    
+    if($esString)
+        $query = "SELECT EXISTS(SELECT $nombreLlavePrimaria FROM $tabla WHERE $nombreLlavePrimaria='$valorLlavePrimaria')";
+    else
+        $query = "SELECT EXISTS(SELECT $nombreLlavePrimaria FROM $tabla WHERE $nombreLlavePrimaria=$valorLlavePrimaria)";
+    
+    $registros = $db->query($query);
+    
+    $fila = mysqli_fetch_row($registros);
+
+    mysqli_free_result($registros);
+    closeDB($db);
+
+    return $fila[0];
+}
+
+function ultimoCliente(){
+	$db = connectDB();
+    $query="SELECT IDCliente FROM Clientes GROUP BY IDCliente DESC LIMIT 1";
+    $registros = $db->query($query);
+    $id=0;
+    
+    if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+          $id = $row["IDCliente"];
+        } 
+    }
+    closeDB($db);
+    mysqli_free_result($registros);
+    return $id;
+}
+
 ?>

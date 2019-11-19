@@ -1,3 +1,4 @@
+var valor=1;
 $(document).ready(function(){
   $(".tablinks").click(function(){
     var i, tabcontent, tablinks;
@@ -49,3 +50,32 @@ $(document).ready(function(){
   	 xhttp.send();
   });
 });
+
+function obtenIngrediente(number) {
+        let nombre ="#rest";
+        let nombre1 ="#resultado";
+        let numero = number;
+        nombre += number;
+        nombre1 +=number;
+        $.get("obtenIngredientes.php", {
+            pattern: $(nombre).val(),
+            indice: numero
+        }).done(function (data) {
+            $(nombre1)[0].style.visibility = "visible";
+            $(nombre1).html(data);
+        }); 
+}
+function selectValue() {
+
+    var list = document.getElementById("list");
+    var userInput = document.getElementById("rest1");
+    var ajaxResponse = document.getElementById('resultado1');
+    userInput.value = list.options[list.selectedIndex].text;
+    ajaxResponse.style.visibility = "hidden";
+    userInput.focus();
+}
+
+function cambiarValor(){
+valor ++;
+document.getElementById("valorRestricciones").value=valor;
+}
