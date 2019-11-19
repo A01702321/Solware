@@ -10,8 +10,8 @@ $categories = $_POST['categorias'];
 
 $res = validateNullForm($name,$categories,$group);
 if($res == 5) {
-	echo("Validated");
-	crearIngCategoria($name, $categories, $group);
+	
+	$res = crearIngCategoria($name, $categories, $group);
 } else {
 	echo $res;
 	

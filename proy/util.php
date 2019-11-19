@@ -104,45 +104,8 @@
 		
 	}
 
-	function ingredienteNom($name, $grupo, $categoria){
-		
-
-		// Check connection
-		if($link === false){
-		    die("ERROR: Could not connect. " . mysqli_connect_error());
-		}
-		 
-		// Attempt insert query execution
-		$sql = "
-		SELECT * FROM Ingredientes Where Nombre = '$name'";
-		$Result = mysqli_query($link, $sql);
-
-		if (mysqli_num_rows($Result) == 0) { 
-		   $sql = "INSERT INTO Ingredientes (Nombre, GrupoAlimenticio) VALUES ('$name', '$grupo')";
-		   $x = mysqli_query($link, $sql);
-		}
-
-		$sql = "
-		SELECT * FROM Categoria Where Nombre = '$categoria'";
-		$Result = mysqli_query($link, $sql);
-
-		if (mysqli_num_rows($Result) == 0) { 
-		   $sql = "INSERT INTO Categoria (Nombre) VALUES ('$categoria')";
-		   $x = mysqli_query($link, $sql);
-		}
-
-		$sql = "
-
-		INSERT INTO Pertenece (IDCategoria, IDIngrediente) VALUES ((SELECT p.IDCategoria FROM Categoria p WHERE p.Nombre = '$categoria'), (SELECT z.IDIngrediente FROM Ingredientes z WHERE z.Nombre = '$name' ) )";
-
-
-		if(mysqli_query($link, $sql)){
-		    echo "Categoria inserted successfully.";
-		} else{
-		    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-		}
-
-	}
+	
+	
 
 
 	function restriccionCat(){
@@ -298,7 +261,7 @@
 		$link = connectDB();
  
 		// Attempt insert query execution
-		$sql = "SELECT * FROM Ingredientes Where Nombre = '$name'";
+		$sql = "SELECT * FROM Ingredientes Where NombreIngrediente = '$name'";
 
 		$result = mysqli_query($link, $sql);
 
@@ -328,12 +291,12 @@
 		$link = connectDB();
  
 		// Attempt insert query execution
-		$sql = "SELECT * FROM Categorias Where Nombre = '$category'";
+		$sql = "SELECT * FROM Categorias Where NombreCategoria = '$category'";
 
 		$result = mysqli_query($link, $sql);
 
 		if (mysqli_num_rows($result) == 0) { 
-		   $sql = "INSERT INTO Categoria (Nombre) VALUES (?)";
+		   $sql = "INSERT INTO Categorias (NombreCategoria) VALUES (?)";
 		   // Preparing the statement 
 		    if (!($statement = $link->prepare($sql))) {
 		        die("No se pudo preparar la consulta para la bd: (" . $link->errno . ") " . $link->error);
@@ -439,7 +402,7 @@
 	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
 	    } 
 	    else{
-	    	echo("Consulta agregada correctamente");
+	    	return 6;
 	    }
 	   
 		
