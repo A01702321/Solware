@@ -167,16 +167,34 @@ $(document).ready(function(){
 
 	    /* get the action attribute from the <form action=""> element */
 	    url = "IngredienteNom.php";
+	    let categories = [];
 
 	    for (x = 1; x<=o; x++){
-	      var posting = $.post( url, { name: $('#nombreIng').val(), grupo: $('#grupo').val(), categoria: $('#cat' + x).val()} );
-	        
+	      
+	        categories.push($('#cat' + x).val());
 	    };
+	    
+
+
+	    var posting = $.post( url, { name: $('#nombreIng').val(), grupo: $('#grupo').val(), categorias: categories} );
 	    /* Send the data using post with element id name and name2*/
 	      
 	    /* Alerts the results */
 	    posting.done(function( data ) {
-	      	alert('Ingrediente agregado exitosamente');
+	    	
+	    	if (data== 1){
+				alert('Por favor ingresa un nombre de ingrediente');
+	    	}
+	    	if (data== 2){
+				alert('Por favor ingresa un grupo alimenticio');
+	    	}
+	    	
+	    	if (data== 4){
+				alert('Asegurate de no tener categorías vacías');
+	    	}
+	    	if(data == 5){
+	    		alert('Función llamada correctamente');
+	    	}
 	    });
     });
 
