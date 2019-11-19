@@ -22,15 +22,11 @@
 
 	    $bd = mysqli_connect($servername,$username,$password,$dbname);
 	    
-
-	    /*
-	    if ($environment == "DEV") {
-	         $bd = mysqli_connect("localhost","root","","ExamenParcial2");
-	    } else if($environment == "PROD") {
-	         //TODO: Cambiar la configuración de acuerdo al ambiente de producción
-	         $bd = mysqli_connect("localhost","root","passwdadmin","ExamenParcial2");
-	    }
-	    */
+	    // Check connection
+		if($bd === false){
+		    die("ERROR: Could not connect. " . mysqli_connect_error());
+		}
+	    
 	    // Change character set to utf8
 	    mysqli_set_charset($bd,"utf8");
 	   
@@ -256,7 +252,7 @@
 
 		$result = mysqli_query($db, $sql);
 
-		closeDb($db);
+		closeDB($db);
 
 		return $result;
 	}
@@ -268,7 +264,7 @@
 
 		$result = mysqli_query($db, $sql);
 
-		closeDb($db);
+		closeDB($db);
 
 		return $result;
 	}
@@ -280,7 +276,7 @@
 
 		$result = mysqli_query($db, $sql);
 
-		closeDb($db);
+		closeDB($db);
 
 		return $result;
 	}
@@ -292,14 +288,137 @@
 
 		$result = mysqli_query($db, $sql);
 
-		closeDb($db);
+		closeDB($db);
 
 		return $result;
 	}
 
-	function crearIngrediente($name) {
+	function crearIngrediente($name, $group) {
+
+		$link = connectDB();
+ 
+		// Attempt insert query execution
+		$sql = "SELECT * FROM Ingredientes Where Nombre = '$name'";
+
+		$result = mysqli_query($link, $sql);
+
+		if (mysqli_num_rows($result) == 0) { 
+		   $sql = "INSERT INTO Ingredientes (Nombre, GrupoAlimenticio) VALUES (?, ?)";
+		   // Preparing the statement 
+		    if (!($statement = $link->prepare($sql))) {
+		        die("No se pudo preparar la consulta para la bd: (" . $link->errno . ") " . $link->error);
+		    }
+		    // Binding statement params 
+		    if (!$statement->bind_param("ss", $name, $group)) {
+		        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error); 
+		    }
+		    
+		    // Executing the statement
+		    if (!$statement->execute()) {
+		        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+		    } 
+		   
+		}
+
+		closeDB($link);
+	}
+
+	function crearCategoria($category) {
+
+		$link = connectDB();
+ 
+		// Attempt insert query execution
+		$sql = "SELECT * FROM Categoria Where Nombre = '$category'";
+
+		$result = mysqli_query($link, $sql);
+
+		if (mysqli_num_rows($result) == 0) { 
+		   $sql = "INSERT INTO Categoria (Nombre) VALUES (?)";
+		   // Preparing the statement 
+		    if (!($statement = $link->prepare($sql))) {
+		        die("No se pudo preparar la consulta para la bd: (" . $link->errno . ") " . $link->error);
+		    }
+		    // Binding statement params 
+		    if (!$statement->bind_param("s", $category)) {
+		        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error); 
+		    }
+		    
+		    // Executing the statement
+		    if (!$statement->execute()) {
+		        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+		    } 
+		   
+		}
+
+		closeDB($link);
+	}
+	function agregarCategoriaIng($name, $category) {
+
+		$link = connectDB();
+ 
+		// Attempt insert query execution
+		
+		
+	   $sql = "
+
+		INSERT INTO Pertenece (IDCategoria, IDIngrediente) VALUES ((SELECT p.IDCategoria FROM Categoria p WHERE p.Nombre = ?), (SELECT z.IDIngrediente FROM Ingredientes z WHERE z.Nombre = ? ) )";
+
+	   // Preparing the statement 
+	    if (!($statement = $link->prepare($sql))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $link->errno . ") " . $link->error);
+	    }
+	    // Binding statement params 
+	    if (!$statement->bind_param("ss", $category, $name)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error); 
+	    }
+	    
+	    // Executing the statement
+	    if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
+	    else{
+	    	echo("Consulta agregada correctamente");
+	    }
+	   
+		
+
+		closeDB($link);
+	}
+	function crearIngCategoria($name, $categories, $group){
+
+
+		crearIngrediente($name, $group);
+		for ($i =0; $i<sizeof($categories); $i++){
+			$category = $categories[$i];
+			crearCategoria($category);
+			agregarCategoriaIng($name, $category);
+		}
 
 	}
+
+	function validateNullForm($name, $categories, $group){
+		
+		
+		if($name === ''){
+			return 1;
+		}
+		if($group === '' ){
+			return 2;
+		}
+
+		if(sizeof($categories) === 0){
+			return 3;
+		}
+		for($i=0; $i<sizeof($categories); $i++){
+			if($categories[$i]=== ''){
+				return 4;
+			}
+		}
+		
+		return 5;
+		
+	}
+
 
     function obtenerTiempos(){
          $db=connectDB();
