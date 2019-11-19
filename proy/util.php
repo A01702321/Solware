@@ -6,7 +6,7 @@
 	    //DEV: Ambiente de desarrollo
 	    //PROD: Ambiente de producción
 	    //TEST: Ambiente de pruebas
-	    $environment = "DEV";
+	    $environment = "PROD";
 	    
 	    if ($environment == "DEV") {
 	        $servername = "localhost";
@@ -303,7 +303,7 @@
 		$result = mysqli_query($link, $sql);
 
 		if (mysqli_num_rows($result) == 0) { 
-		   $sql = "INSERT INTO Ingredientes (Nombre, GrupoAlimenticio) VALUES (?, ?)";
+		   $sql = "INSERT INTO Ingredientes (NombreIngrediente, GrupoAlimenticio) VALUES (?, (SELECT z.IDGrupoAl FROM GruposAlimenticios z WHERE z.NombreGrupoAl = ? ))";
 		   // Preparing the statement 
 		    if (!($statement = $link->prepare($sql))) {
 		        die("No se pudo preparar la consulta para la bd: (" . $link->errno . ") " . $link->error);
@@ -328,7 +328,7 @@
 		$link = connectDB();
  
 		// Attempt insert query execution
-		$sql = "SELECT * FROM Categoria Where Nombre = '$category'";
+		$sql = "SELECT * FROM Categorias Where Nombre = '$category'";
 
 		$result = mysqli_query($link, $sql);
 
@@ -352,6 +352,68 @@
 
 		closeDB($link);
 	}
+	function crearPreparado($name) {
+
+		$link = connectDB();
+ 
+		// Attempt insert query execution
+		$sql = "SELECT * FROM Preparados Where Nombre = '$name'";
+
+		$result = mysqli_query($link, $sql);
+
+		if (mysqli_num_rows($result) == 0) { 
+		   $sql = "INSERT INTO Preparados (Nombre) VALUES (?)";
+		   // Preparing the statement 
+		    if (!($statement = $link->prepare($sql))) {
+		        die("No se pudo preparar la consulta para la bd: (" . $link->errno . ") " . $link->error);
+		    }
+		    // Binding statement params 
+		    if (!$statement->bind_param("s", $name)) {
+		        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error); 
+		    }
+		    
+		    // Executing the statement
+		    if (!$statement->execute()) {
+		        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+		    } 
+		   
+		}
+
+		closeDB($link);
+	}
+	function agregarIngPreparado($name, $ingredient) {
+
+		$link = connectDB();
+ 
+		// Attempt insert query execution
+		
+		
+	   $sql = "
+
+		INSERT INTO Conforman (IDPreparado, IDIngrediente) VALUES ((SELECT p.IDPreparado FROM Preparados p WHERE p.Nombre = ?), (SELECT z.IDIngrediente FROM Ingredientes z WHERE z.Nombre = ? ) )";
+
+	   // Preparing the statement 
+	    if (!($statement = $link->prepare($sql))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $link->errno . ") " . $link->error);
+	    }
+	    // Binding statement params 
+	    if (!$statement->bind_param("ss", $name, $ingredient)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error); 
+	    }
+	    
+	    // Executing the statement
+	    if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
+	    else{
+	    	echo("Consulta agregada correctamente");
+	    }
+	   
+		
+
+		closeDB($link);
+	}
+
 	function agregarCategoriaIng($name, $category) {
 
 		$link = connectDB();
@@ -361,7 +423,7 @@
 		
 	   $sql = "
 
-		INSERT INTO Pertenece (IDCategoria, IDIngrediente) VALUES ((SELECT p.IDCategoria FROM Categoria p WHERE p.Nombre = ?), (SELECT z.IDIngrediente FROM Ingredientes z WHERE z.Nombre = ? ) )";
+		INSERT INTO IngredienteCategoria (IDCategoria, IDIngrediente) VALUES ((SELECT p.IDCategoria FROM Categorias p WHERE p.NombreCategoria = ?), (SELECT z.IDIngrediente FROM Ingredientes z WHERE z.NombreIngrediente = ? ) )";
 
 	   // Preparing the statement 
 	    if (!($statement = $link->prepare($sql))) {
@@ -384,6 +446,19 @@
 
 		closeDB($link);
 	}
+	
+	function crearPreparadoIngrediente($name, $ingredients){
+
+
+		crearPreparado($name);
+		for ($i =0; $i<sizeof($ingredients); $i++){
+			$ingredient = $ingredients[$i];
+			
+			agregarIngPreparado($name, $ingredient);
+		}
+	}
+
+
 	function crearIngCategoria($name, $categories, $group){
 
 
@@ -414,6 +489,34 @@
 				return 4;
 			}
 		}
+		
+		return 5;
+		
+	}
+	function validateNullFormPrep($name, $ingredients){
+		
+		
+		if($name === ''){
+			return 1;
+		}
+		
+		for($i=0; $i<sizeof($categories); $i++){
+			if($categories[$i]=== ''){
+				return 2;
+			}
+		}
+		$link = connectDB();
+ 
+		// Attempt insert query execution
+		$sql = "SELECT * FROM Ingredientes Where Nombre = '$name'";
+
+		$result = mysqli_query($link, $sql);
+		closeDB($link);
+		if (mysqli_num_rows($result) == 0) { 
+			return 4;
+		}
+
+
 		
 		return 5;
 		

@@ -1,24 +1,22 @@
 <?php
-/* Attempt MySQL server connection. Assuming you are running MySQL
-server with default setting (user 'root' with no password) */
 
-$link = mysqli_connect('localhost', 'root', '', 'clase');
+
+require_once("util.php");
+
+
 $name = $_POST['name'];
-// Check connection
-if($link === false){
-    die("ERROR: Could not connect. " . mysqli_connect_error());
-}
- 
-// Attempt insert query execution
-$sql = "
-INSERT INTO Preparados (Nombre) VALUES ('$name')";
+$ingredients = $_POST['ingredients'];
 
-if(mysqli_query($link, $sql)){
-    echo "Records inserted successfully.";
-} else{
-    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+
+
+$res = validateNullFormPrep($name,$ingredients);
+if($res == 5) {
+	echo("Validated");
+	crearPreparadoIngrediete($name, $ingredients);
+} else {
+	echo $res;
+	
 }
 	
-// Close connection
-mysqli_close($link);
+
 ?>

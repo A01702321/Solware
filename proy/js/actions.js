@@ -103,55 +103,44 @@ $(document).ready(function(){
         o--;
     }); 
 
+    
+
     $(document).on('click', '#submit', function(){ 
-        /*for (x = 1; x<=i; x++){
-        if($('#nombreprep').val() == "" || $('#ing' + x).val() == "" ){
-            alert("Por favor verifica los datos e intenta nuevamente");
-            return false;
-        }
-        }*/
-         /* stop form from submitting normally */
+       let DEBUG = 1;
+         
         event.preventDefault();
+          
+        if (DEBUG) console.info('llamada asíncrona a PreparadoNom');
 
-         /* get the action attribute from the <form action=""> element */
-        preparadoNom()
+        /* get the action attribute from the <form action=""> element */
         url = "preparadoNom.php";
-      
-        /* Send the data using post with element id name and name2*/
-        var posting = $.post( url, { name: $('#nombreprep').val()} );
-        
-        /* Alerts the results */
-        posting.done(function( data ) {
-        
-        });
-    });
+        let ingredients = [];
 
-    $(document).on('click', '#submit', function(){ 
         for (x = 1; x<=i; x++){
-          if($('#nombreprep').val() == "" || $('#ing' + x).val() == "" ){
-            
-              return false;
-          }
-        }
-      
-       /* stop form from submitting normally */
-       event.preventDefault();
-
-       /* get the action attribute from the <form action=""> element */
-      
-        url = "preparadoIng.php";
-        for (x = 1; x<=i; x++){
-
-          var posting = $.post( url, { name: $('#nombreprep').val(), ingredient: $('#ing' + x).val()} );
-        
+          
+            ingredients.push($('#ing' + x).val());
         };
-        /* Send the data using post with element id name and name2*/
-      
-      
-        /* Alerts the results */
-        posting.done(function( data ) {
-          alert('Preparado agregado exitosamente');
-        });
+        
+      var posting = $.post( url, { name: $('#nombreprep').val(),ingredients: ingredients} );
+      /* Send the data using post with element id name and name2*/
+        
+      /* Alerts the results */
+      posting.done(function( data ) {
+        
+        if (data== 1){
+        alert('Por favor ingresa un nombre de preparado');
+        }
+        if (data== 2){
+        alert('Por favor ingresa un ingrediente');
+        }
+        
+        if (data== 4){
+        alert('El ingrediente agregado no existe, por favor crea');
+        }
+        if(data == 5){
+          alert('Función llamada correctamente');
+        }
+      });
     });
 
 
