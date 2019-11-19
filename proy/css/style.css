@@ -117,12 +117,13 @@ td {
 
 .login-container {
 	margin-left: 35%;
+	margin-right: 35%;
 	font-size: 40px;
 	
 }
 #logo-index{
 	width: 600px;
-	margin-top: 15%;
+	margin-top: 10%;
 	margin-left: 28%;
 }
 .topnav input{
@@ -133,14 +134,15 @@ td {
   width:180px;
 }
 .login-container button{
-	padding: 6px 10px;
-  margin-top: 8px;
-  margin-right: 16px;
-  font-size: 19px;
-  color: white;
-  border: none;
-  background-color: #001437;
-  cursor: pointer;
+	padding: 15px 20px;
+	 margin-top: 8px;
+	 margin-right: 36%;
+	 margin-left: 36%;
+	 font-size: 22px;
+	 color: white;
+	 border: none;
+	 background-color: #001437;
+	 cursor: pointer;
 }
 
 .login-container button:hover {
