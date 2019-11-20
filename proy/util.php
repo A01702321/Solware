@@ -41,19 +41,33 @@
 
 	function crearMenu($nombreMenu) {
 	    $db = connectDB();
-	    $query='INSERT INTO Menus (NombreMenu) VALUES (?)';
 
-	    if (!($statement = $db->prepare($query))) {
-	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
+	    $sql = "SELECT * FROM Menus Where nombreMenu = '$nombreMenu'";
 
+		$result = mysqli_query($db, $sql);
+
+		if (mysqli_num_rows($result) == 0) { 
+		    $query='INSERT INTO Menus (NombreMenu) VALUES (?)';
+
+		    if (!($statement = $db->prepare($query))) {
+		        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
+
+		    }
+		    if (!$statement->bind_param("s", $nombreMenu)) {
+		        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
+
+		    }
+		    
+		    if (!$statement->execute()) {
+		        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+		    }
+		    
+            header("location:registroExitoso.php");
 	    }
-	    if (!$statement->bind_param("s", $nombreMenu)) {
-	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
-
-	    }
-	    
-	    if (!$statement->execute()) {
-	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    else{
+            echo '<script language="javascript">';
+            echo 'alert("Ese menú ya existe. Porfavor ingresa un menú nuevo.")';
+            echo '</script>';
 	    } 
 
 	    closeDB($db);
