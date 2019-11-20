@@ -54,7 +54,7 @@ CREATE TABLE `ClientePlatillo` (
 
 CREATE TABLE `Clientes` (
   `IDCliente` int(11) NOT NULL,
-  `Nombre` varchar(20) NOT NULL,
+  `Nombre` varchar(100) NOT NULL,
   `Menu` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -336,6 +336,7 @@ INSERT INTO `Restriccion` (`IDCliente`, `IDIngrediente`) VALUES
 --
 
 CREATE TABLE `Tiempos` (
+  `IDTiempos` int(11) NOT NULL,
   `NombreTiempo` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
