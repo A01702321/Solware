@@ -181,19 +181,20 @@ $(document).ready(function(){
 	    posting.done(function( data ) {
 	    	
 	    	if (data== 1){
-				alert('Por favor ingresa un nombre de ingrediente');
+        M.toast({html: 'Por favor ingresa un nombre de ingrediente', classes: 'red rounded'});
+				
 	    	}
 	    	if (data== 2){
-				alert('Por favor ingresa un grupo alimenticio');
-	    	}
+        M.toast({html: 'Por favor ingresa un grupo alimenticio', classes: 'red rounded'});
+					    	}
 	    	
 	    	if (data== 4){
-				alert('Asegurate de no tener categorías vacías');
+        M.toast({html: 'Asegurate de no tener categorías vacías', classes: 'red rounded'});
+				
 	    	}
-	    	if(data == 5){
-	    		alert('Función llamada correctamente');
-	    	}if(data == 6){
-          alert('Ingrediente creado exitosamente');
+	    	if(data == 6){
+          
+          M.toast({html: 'Ingrediente creado exitosamente', classes: 'red rounded'});
         }
 	    });
     });

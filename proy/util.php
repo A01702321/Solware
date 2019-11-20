@@ -392,7 +392,7 @@
 	}
 
 	function agregarCategoriaIng($name, $category) {
-
+		$worked = false;
 		$link = connectDB();
  
 		// Attempt insert query execution
@@ -416,12 +416,21 @@
 	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
 	    } 
 	    else{
-	    	return 6;
+	    	
+	    	$worked = true;
 	    }
 	   
 		
 
 		closeDB($link);
+		if ($worked){
+		
+		return 6;
+		}	
+		else{
+		return 0;
+		
+		}
 	}
 	
 	function crearPreparadoIngrediente($name, $ingredients){
@@ -443,7 +452,7 @@
 		for ($i =0; $i<sizeof($categories); $i++){
 			$category = $categories[$i];
 			crearCategoria($category);
-			agregarCategoriaIng($name, $category);
+			return agregarCategoriaIng($name, $category);
 		}
 
 	}
@@ -477,8 +486,8 @@
 			return 1;
 		}
 		
-		for($i=0; $i<sizeof($categories); $i++){
-			if($categories[$i]=== ''){
+		for($i=0; $i<sizeof($ingredients); $i++){
+			if($ingredies[$i]=== ''){
 				return 2;
 			}
 		}

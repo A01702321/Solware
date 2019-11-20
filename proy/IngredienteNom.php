@@ -11,9 +11,12 @@ $categories = $_POST['categorias'];
 $res = validateNullForm($name,$categories,$group);
 if($res == 5) {
 	
-	$res = crearIngCategoria($name, $categories, $group);
+	$rest = crearIngCategoria($name, $categories, $group);
+	
+	echo $rest;
 } else {
 	echo $res;
 	
 }
+
 ?>
