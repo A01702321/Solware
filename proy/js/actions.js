@@ -192,7 +192,9 @@ $(document).ready(function(){
 	    	}
 	    	if(data == 5){
 	    		alert('Función llamada correctamente');
-	    	}
+	    	}if(data == 6){
+          alert('Ingrediente creado exitosamente');
+        }
 	    });
     });
 

@@ -79,3 +79,21 @@ function cambiarValor(){
 valor ++;
 document.getElementById("valorRestricciones").value=valor;
 }
+
+
+$(document).on('click', '#subi', function(){ 
+       /* stop form from submitting normally */
+       event.preventDefault();
+       /* get the action attribute from the <form action=""> element */
+       
+      url = "loginUser.php";
+
+      var posting = $.post( url, { user: $('#user').val(), password: $('#password').val()} );
+        
+      /* Send the data using post with element id name and name2*/
+      
+      /* Alerts the results */
+      posting.done(function( data ) {
+      alert('Mandado');
+      });
+});
