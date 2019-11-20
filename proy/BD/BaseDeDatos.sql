@@ -54,7 +54,7 @@ CREATE TABLE `ClientePlatillo` (
 
 CREATE TABLE `Clientes` (
   `IDCliente` int(11) NOT NULL,
-  `Nombre` varchar(100) NOT NULL,
+  `Nombre` varchar(20) NOT NULL,
   `Menu` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -102,11 +102,11 @@ CREATE TABLE `GruposAlimenticios` (
 --
 -- Dumping data for table `GruposAlimenticios`
 --
-
+/*
 INSERT INTO `GruposAlimenticios` (`IDGrupoAl`, `NombreGrupoAl`) VALUES
-/*(1, 'Lacteos'),
-(2, 'Legrumbres');*/
-
+('Lacteos'),
+('Legrumbres');
+*/
 -- --------------------------------------------------------
 
 --
@@ -336,7 +336,6 @@ INSERT INTO `Restriccion` (`IDCliente`, `IDIngrediente`) VALUES
 --
 
 CREATE TABLE `Tiempos` (
-  `IDTiempos` int(11) NOT NULL,
   `NombreTiempo` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -643,3 +642,23 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+INSERT INTO `GruposAlimenticios` (`NombreGrupoAl`) VALUES
+('Verduras'),
+('Frutas'),
+('Cereales sin grasa'),
+('Leguminosas'),
+('A. O. A. muy bajo en grasa'),
+('A. O. A. bajo en grasa'),
+('A. O. A. moderado en grasa'),
+('A. O. A. alto en grasa'),
+('Leche descremada'),
+('Aceites y grasas'),
+('Aceites y grasas con proteina'),
+('Azucares sin grasa');
+
+INSERT INTO `Menus` (`NombreMenu`) VALUES
+('Elemental'),
+('Elite'),
+('Keto'),
+('Meatless');
