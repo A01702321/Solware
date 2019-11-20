@@ -6,7 +6,7 @@
 	    //DEV: Ambiente de desarrollo
 	    //PROD: Ambiente de producción
 	    //TEST: Ambiente de pruebas
-	    $environment = "PROD";
+	    $environment = "DEV";
 	    
 	    if ($environment == "DEV") {
 	        $servername = "localhost";

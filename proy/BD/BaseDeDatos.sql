@@ -62,7 +62,8 @@ CREATE TABLE `Clientes` (
 -- Dumping data for table `Clientes`
 --
 
-INSERT INTO `Clientes` (`IDCliente`, `Nombre`, `Menu`) VALUES
+/*INSERT INTO `Clientes` (`IDCliente`, `Nombre`, `Menu`) VALUES
+
 (2, 'lalo', 2),
 (3, 'fwf', 2),
 (4, 'vewgew', 5),
@@ -85,7 +86,7 @@ INSERT INTO `Clientes` (`IDCliente`, `Nombre`, `Menu`) VALUES
 (21, ' cvd', 2),
 (22, ' cv', 2),
 (23, 'Juanis', 1),
-(24, 'Chayo', 1);
+(24, 'Chayo', 1); */
 
 -- --------------------------------------------------------
 
@@ -103,8 +104,8 @@ CREATE TABLE `GruposAlimenticios` (
 --
 
 INSERT INTO `GruposAlimenticios` (`IDGrupoAl`, `NombreGrupoAl`) VALUES
-(1, 'Lacteos'),
-(2, 'Legrumbres');
+/*(1, 'Lacteos'),
+(2, 'Legrumbres');*/
 
 -- --------------------------------------------------------
 
@@ -155,10 +156,10 @@ CREATE TABLE `Ingredientes` (
 -- Dumping data for table `Ingredientes`
 --
 
-INSERT INTO `Ingredientes` (`IDIngrediente`, `NombreIngrediente`, `GrupoAlimenticio`) VALUES
+/*INSERT INTO `Ingredientes` (`IDIngrediente`, `NombreIngrediente`, `GrupoAlimenticio`) VALUES
 (1, 'Queso Oaxaca', 1),
 (2, 'Frijoles refritos', 2),
-(3, 'Queso Manchego', 1);
+(3, 'Queso Manchego', 1);*/
 
 -- --------------------------------------------------------
 
@@ -186,11 +187,11 @@ CREATE TABLE `Menus` (
 -- Dumping data for table `Menus`
 --
 
-INSERT INTO `Menus` (`IDMenu`, `NombreMenu`) VALUES
+/*INSERT INTO `Menus` (`IDMenu`, `NombreMenu`) VALUES
 (1, 'Elite'),
 (2, 'Basicon'),
 (5, 'Keto'),
-(6, 'Snax');
+(6, 'Snax');*/
 
 -- --------------------------------------------------------
 
@@ -207,7 +208,7 @@ CREATE TABLE `Plan` (
 -- Dumping data for table `Plan`
 --
 
-INSERT INTO `Plan` (`IDCliente`, `NombreTiempo`) VALUES
+/*INSERT INTO `Plan` (`IDCliente`, `NombreTiempo`) VALUES
 (12, 'Comida'),
 (12, 'Desayuno'),
 (13, 'Comida'),
@@ -222,7 +223,7 @@ INSERT INTO `Plan` (`IDCliente`, `NombreTiempo`) VALUES
 (22, 'Comida'),
 (23, 'Comida'),
 (23, 'Desayuno'),
-(24, 'Comida');
+(24, 'Comida');*/
 
 -- --------------------------------------------------------
 
@@ -246,7 +247,7 @@ CREATE TABLE `Platillos` (
   `Menu` int(11) NOT NULL,
   `Tiempo` varchar(10) NOT NULL,
   `Fecha` datetime NOT NULL,
-  `Notas` varchar(600) NOT NULL
+  `Notas` varchar(600) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -321,12 +322,12 @@ CREATE TABLE `Restriccion` (
 --
 
 INSERT INTO `Restriccion` (`IDCliente`, `IDIngrediente`) VALUES
-(22, 2),
+/*(22, 2),
 (23, 2),
 (23, 1),
 (23, 3),
 (24, 1),
-(24, 2);
+(24, 2);*/
 
 -- --------------------------------------------------------
 
@@ -343,8 +344,8 @@ CREATE TABLE `Tiempos` (
 --
 
 INSERT INTO `Tiempos` (`NombreTiempo`) VALUES
-('Comida'),
-('Desayuno');
+/*('Comida'),
+('Desayuno');*/
 
 --
 -- Indexes for dumped tables
