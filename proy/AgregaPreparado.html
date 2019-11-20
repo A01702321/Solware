@@ -5,7 +5,7 @@
 
 
    <div class="row" style="   margin-left: 33%; margin-top: 5%;">
-    <form class="col s8" id="add_preparado">
+    <form id="formprep" class="col s8" id="add_preparado" method="POST">
             <div class="row" style="   ">
                 <div>
                   <h5 class="col s8">Agregar Preparado</h5>
@@ -17,7 +17,7 @@
                               <tr>
                                 <td>
                                   <div class="input-field col s8">
-                                  <input id="nombreprep" type="text" name="nombreprep" class="validate" required>
+                                  <input id="nombreprep" type="text" name="nombreprep" class="validate" >
                                   <label for="nombreprep">Nombre de Preparado</label>
                                   <span class="helper-text" data-error="Por favor introduce un nombre de preparado." data-success=""></span>
                                   </div>
@@ -26,7 +26,7 @@
                               <tr id="row">  
                                    <td class="vert-aligned">
                                       <div class="input-field col s7" id="">
-                                        <input type="text" id="ing1" name="ing1" class="validate" required>
+                                        <input type="text" id="ing1" name="ing1" class="validate" >
                                         <label for="autocomplete-ingrediente">Ingrediente</label>
                                         <span class="helper-text" data-error="Por favor introduce un nombre de ingrediente." data-success=""></span>
                                       </div>
@@ -38,7 +38,7 @@
                                    </td>  
                               </tr>  
                          </table>  
-                         <input style="   margin-left: 20%; " class="submit" id="submit" type="button" name="submit" value="Guardar Preparado">  
+                         <button class="waves-effect waves-light btn lime" type="submit" form="formprep">Crear</button>
       <br>
       <br>
       <br>
