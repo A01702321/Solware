@@ -546,7 +546,7 @@
     echo $consulta;   
     }
 
-function obtenerMenu(){
+function obtenerMenu(){ // obtiene menus para poblar un dropdown
     $db = connectDB();
     $query="SELECT * FROM Menus";
     $registros = $db->query($query);
