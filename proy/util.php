@@ -108,7 +108,7 @@
 		 
 		// Attempt insert query execution
 		$sql = "
-		INSERT INTO Preparados (Nombre) VALUES ('$name')";
+		INSERT INTO Preparados (NombrePreparado) VALUES ('$name')";
 
 		if(mysqli_query($link, $sql)){
 		    echo "Records inserted successfully.";
@@ -334,12 +334,12 @@
 		$link = connectDB();
  
 		// Attempt insert query execution
-		$sql = "SELECT * FROM Preparados Where Nombre = '$name'";
+		$sql = "SELECT * FROM Preparados Where NombrePreparado = '$name'";
 
 		$result = mysqli_query($link, $sql);
 
 		if (mysqli_num_rows($result) == 0) { 
-		   $sql = "INSERT INTO Preparados (Nombre) VALUES (?)";
+		   $sql = "INSERT INTO Preparados (NombrePreparado) VALUES (?)";
 		   // Preparing the statement 
 		    if (!($statement = $link->prepare($sql))) {
 		        die("No se pudo preparar la consulta para la bd: (" . $link->errno . ") " . $link->error);
@@ -367,7 +367,7 @@
 		
 	   $sql = "
 
-		INSERT INTO Conforman (IDPreparado, IDIngrediente) VALUES ((SELECT p.IDPreparado FROM Preparados p WHERE p.Nombre = ?), (SELECT z.IDIngrediente FROM Ingredientes z WHERE z.Nombre = ? ) )";
+		INSERT INTO IngredientePreparado (IDPreparado, IDIngrediente) VALUES ((SELECT p.IDPreparado FROM Preparados p WHERE p.NombrePreparado = ?), (SELECT z.IDIngrediente FROM Ingredientes z WHERE z.NombreIngrediente = ? ) )";
 
 	   // Preparing the statement 
 	    if (!($statement = $link->prepare($sql))) {

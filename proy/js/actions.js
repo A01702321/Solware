@@ -105,7 +105,7 @@ $(document).ready(function(){
 
     
 
-    $(document).on('click', '#submit', function(){ 
+    /*$(document).on('click', '#submit', function(){ 
        let DEBUG = 1;
          
         event.preventDefault();
@@ -113,7 +113,7 @@ $(document).ready(function(){
         if (DEBUG) console.info('llamada asíncrona a PreparadoNom');
 
         /* get the action attribute from the <form action=""> element */
-        url = "preparadoNom.php";
+    /*    url = "preparadoNom.php";
         let ingredients = [];
 
         for (x = 1; x<=i; x++){
@@ -125,7 +125,7 @@ $(document).ready(function(){
       /* Send the data using post with element id name and name2*/
         
       /* Alerts the results */
-      posting.done(function( data ) {
+    /*  posting.done(function( data ) {
         
         if (data== 1){
         alert('Por favor ingresa un nombre de preparado');
@@ -141,7 +141,7 @@ $(document).ready(function(){
           alert('Función llamada correctamente');
         }
       });
-    });
+    });*/
 
 
       
