@@ -12,94 +12,86 @@
 
 
   <div class="row">
-      <form id="forma" method="POST" action="agregaCliente.php">  
+    <form id="forma" method="POST" action="agregaCliente.php">  
 
-    <div class="row">
-    <div class="col s12">
-      <ul class="tabs">
-        <li class="tab col s4"><a class="active" href="#DatosCliente">1. Datos de cliente</a></li>
-        <li class="tab col s4"><a href="#AgregaRestricciones">2. Resticciones</a></li>
-        <li class="tab col s4"><a href="#Registrar">3. Registrar</a></li>
-      </ul>
-    </div>
-</div>
-
-
-
-
-  <div class="row">
-    <div class="col s10 offset-s2" id="DatosCliente">
-      <div class="col s4 offset-s3">
-        <br>
-        <h5>Datos de Cliente</h5><br>
-      </div>
-    
       <div class="row">
-        <div class="input-field col s8">
-          <h6>* <b>1. Nombre completo del cliente:</b></h6><br><br>
-          <div>
-            <input id="first_name" name="first_name" type="text" placeholder="ex: Obi Wan Kenobi">
-          </div>
-          
+        <div class="col s12">
+          <ul class="tabs">
+            <li class="tab col s4"><a class="active" href="#DatosCliente">1. Datos de cliente</a></li>
+            <li class="tab col s4"><a href="#AgregaRestricciones">2. Resticciones</a></li>
+            <li class="tab col s4"><a href="#Registrar">3. Registrar</a></li>
+          </ul>
         </div>
-      </div>
-
         <div class="row">
-          <br>
-          <h6>* <b>2. Selecciona los tiempos que el cliente desea contratar:</b></h6>
-          <div class="input-field col s4">
-            <?php
-              require_once("util.php");
-              echo obtenerTiempos();
-            ?>
+          <div class="col s10 offset-s2" id="DatosCliente">
+            <div class="col s4 offset-s3">
+              <br>
+              <h5>Datos de Cliente</h5><br>
+            </div>
+          
+            <div class="row">
+              <div class="input-field col s8">
+                <h6>* <b>1. Nombre completo del cliente:</b></h6><br><br>
+                <div>
+                  <input id="first_name" name="first_name" type="text" placeholder="ex: Obi Wan Kenobi">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <br>
+              <h6>* <b>2. Selecciona los tiempos que el cliente desea contratar:</b></h6>
+              <div class="input-field col s4">
+                <?php
+                  require_once("util.php");
+                  echo obtenerTiempos();
+                ?>
+              </div>
+            </div>
+
+             <div class="row">
+              <div class="input-field col s8">
+                <h6>* <b>3. Selecciona el menú que el cliente desea contratar:</b></h6>
+                <br><br>
+                <select required id="nombremenu" name="nombremenu">
+                  <option value="" disabled selected>Selecciona...</option>
+                  <?php
+                    require_once("util.php");
+                    obtenerMenu();
+                  ?>
+                </select>
+              </div>
+            </div>      
           </div>
         </div>
-
-       
-       <div class="row">
-        <div class="input-field col s8">
-          <h6>* <b>3. Selecciona el menú que el cliente desea contratar:</b></h6>
-          <br><br>
-          <select required id="nombremenu" name="nombremenu">
-            <option value="" disabled selected>Selecciona...</option>
-            <?php
-              require_once("util.php");
-              obtenerMenu();
-            ?>
-          </select>
-        </div>
-      </div>      
-    </div>
-  </div>
-
   
-  <div class="row">
-    <div class="col s9 offset-s2" id="AgregaRestricciones">
-      <div class="col s10">
-        <h6><b>Selecciona los ingredientes que el cliente no puede o no quisiera comer en sus platillos:</b></h6><br>
+        <div class="row">
+          <div class="col s9 offset-s2" id="AgregaRestricciones">
+            <div class="col s10">
+              <h6><b>Selecciona los ingredientes que el cliente no puede o no quisiera comer en sus platillos:</b></h6><br>
+            </div>
+            <div class="table-responsive" vertical-align="center">  
+              <table class="table " id="restricciones" > 
+                <tr>
+                  <td class="vert-aligned">
+                    <div class="input-field col s8 offset-s1">
+                      <input type="text" id="rest1" class="validate" name ="rest1" onkeyup="obtenIngrediente(1)">
+                      <label>Ingrediente</label>
+                      <div id="resultado1"></div>
+                    </div>
+                    <div>
+                      <br>
+                      <a id ="anadirRestricciones" class="btn-floating btn-medium waves-effect waves-light " onclick="cambiarValor()"><i class="material-icons">add</i></a>
+                    </div>
+                  </td>
+                </tr>      
+              </table>
+            </div>
+            <input type="hidden" value="" name="valorRestricciones" id="valorRestricciones"/>
+          </div>
+        </div>
       </div>
-      <div class="table-responsive" vertical-align="center">  
-        <table class="table " id="restricciones" > 
-          <tr>
-            <td class="vert-aligned">
-              <div class="input-field col s8 offset-s1">
-                <input type="text" id="rest1" class="validate" name ="rest1" onkeyup="obtenIngrediente(1)">
-                <label>Ingrediente</label>
-                <div id="resultado1"></div>
-              </div>
-              <div>
-                <br>
-                <a id ="anadirRestricciones" class="btn-floating btn-medium waves-effect waves-light " onclick="cambiarValor()"><i class="material-icons">add</i></a>
-              </div>
-            </td>
-          </tr>      
-        </table>
-      </div>
-        <input type="hidden" value="" name="valorRestricciones" id="valorRestricciones"/>
-    </div>
-  </div>
-</form>
-    
+    </form>
   </div>
 
 
