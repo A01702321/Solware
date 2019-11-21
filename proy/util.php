@@ -528,14 +528,18 @@
     for($i=0; $i<count($datos); $i++)
     {
         $tiempo=$datos[$i][0];
-        $consulta.='<tr> 
-        <td><p>
-            <label>
-            <input name="tiempomenu[]" id="tiempomenu[]" type="checkbox" value="'.$tiempo.'"/>
-            <span></span>
-            </label>
-            </p></td>
-        <td>'.$tiempo.'</td></tr>';
+        $consulta.='
+        <tr> 
+        	<td>
+        		<p>
+		            <label>
+		            <input name="tiempomenu[]" id="tiempomenu[]" type="checkbox" value="'.$tiempo.'"/>
+		            <span></span>
+		            </label>
+		            '.$tiempo.'
+	            </p>
+	        </td>
+        </tr>';
     }
     closeDB($db);
     mysqli_free_result($registros);

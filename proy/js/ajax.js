@@ -56,7 +56,7 @@ function obtenIngrediente(number) {
         let nombre1 ="#resultado";
         let numero = number;
         nombre += number;
-        nombre1 +=number;
+        nombre1 += number;
         $.get("obtenIngredientes.php", {
             pattern: $(nombre).val(),
             indice: numero
