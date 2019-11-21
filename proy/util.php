@@ -74,6 +74,91 @@
 	}
 
 
+	function getMenus(){
+		$db = connectDB();
+
+		$sql = "SELECT IDMenu, NombreMenu FROM Menus";
+
+		$result = mysqli_query($db, $sql);
+
+		closeDB($db);
+
+		return $result;
+	}
+
+	function tablaMenus(){
+		$result = getMenus();
+				if (mysqli_num_rows($result) > 0 ) {
+					echo "<div class='row'>";
+	    				echo "<div class='col s3'>";
+		        			echo "<div class='row'>";
+							echo "<h5 class='table-title'>Menus</h5>";
+							echo "<table class='centered highlight dashboard-table'>";
+								echo "<thead>";
+								echo "<tr>";
+									echo "<th>Menu</th>";
+									echo "<th>No. de Clientes</th>";
+								echo "</tr>";
+								echo "</thead>";
+								echo "<tbody>";
+									while ($row = mysqli_fetch_assoc($result)) {
+										
+										//$num = mysqli_query(" SELECT COUNT(IDCliente, Menu) FROM Clientes WHERE Menu = (SELECT(IDMenu) FROM Menus M NombreMenu=M.NombreMenu)");
+
+										echo "<tr>";
+											echo "<td>" . $row["NombreMenu"] . "</td>";
+										    //echo "<td>" . $num  . "</td>";
+										echo "</tr>";
+									}
+								echo "</tbody>";
+							echo "</table>";
+							echo "</div>";
+							botonMenus();
+	    				echo "</div>";
+        			echo "</div>";
+					
+				}
+	}
+
+	function tablaMenusMod(){
+		$result = getMenus();
+				if (mysqli_num_rows($result) > 0 ) {
+					echo "<div class='row'>";
+	    				echo "<div class='col s4 offset-s4'>";
+		        			echo "<div class='row'>";
+							echo "<h5 class='table-title'>Menus</h5>";
+							echo "<table class='centered highlight dashboard-table'>";
+								echo "<thead>";
+								echo "<tr>";
+									echo "<th>ID</th>";
+									echo "<th>Menu</th>";
+									echo "<th>Eliminar</th>";
+								echo "</tr>";
+								echo "</thead>";
+								echo "<tbody>";
+									while ($row = mysqli_fetch_assoc($result)) {
+
+										echo "<tr>";
+											echo "<td>" . $row["IDMenu"] . "</td>";
+											echo "<td contenteditable = 'true'>" . $row["NombreMenu"] . "</td>";
+										    //echo "<td>" . $num  . "</td>";
+										echo "</tr>";
+									}
+								echo "</tbody>";
+							echo "</table>";
+							echo "</div>";
+	    				echo "</div>";
+        			echo "</div>";
+					
+				}
+	}
+
+	function botonMenus(){
+		echo " <a class='col offset-s3 waves-effect waves-light btn' href='modificarMenu.php'>Modificar Menus</a>";
+	}
+
+
+
 	function preparadoIng(){
 		
 		$name = $_POST['name'];
