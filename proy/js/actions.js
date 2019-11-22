@@ -32,6 +32,23 @@ function addInp(){
   f.appendChild(nInput);
 }
 
+function showDeleteBtns() {
+  
+  
+  var list = document.getElementsByClassName("btn-small btn-danger btn_removeC red");
+
+  for (let x of list) {
+    
+
+    if (x.style.display === "none") {
+      x.style.display = "";
+    } else {
+      x.style.display = "none";
+    }
+  }   
+}
+  
+
 function remInp(){
   if (her == 0) {
     her = 0;
