@@ -44,21 +44,20 @@
 					echo "<th>ID</th>";
 					echo "<th>Nombre</th>";
 					echo "<th>Grupo Alimenticio</th>";
-					echo "<div><th><a onclick='showDeleteBtns()' id ='erase' class='btn-floating btn-medium waves-effect waves-light grey'><i class='material-icons'>edit</i></a></th></div>";
+					echo "<div><th style='text-align: right;'><a onclick='showDeleteBtns()' id ='erase' class='btn-floating btn-medium waves-effect waves-light grey'><i class='material-icons'>edit</i></a></th></div>";
 					echo "</tr>";
 					echo "</thead>";
 					echo "<tbody>";
-					$i = 0;
+					
 					while ($row = mysqli_fetch_assoc($result)) {
 						
 						echo "<tr id='row". $row["IDIngrediente"] ."'>";
 						echo "<td>" . $row["IDIngrediente"] . "</td>";
 						echo "<td>" . $row["NombreIngrediente"] . "</td>";
 						echo "<td>" . $row["GrupoAlimenticio"] . "</td>";
-						echo "<td><button style='display: block;' name='remove' id='rem".$row["IDIngrediente"]."' class='btn-small btn-danger btn_removeC red'>X</button></td>";
+						echo "<td style='text-align: right;'><button style='display: none;' name='remove' id='rem".$row["IDIngrediente"]."' class='right btn-small btn-danger btn_removeC red'>X</button></td>";
 						echo "</tr>";
-						$i++;
-					}
+											}
 					echo "</tbody>";
 					echo "</table>";
 					

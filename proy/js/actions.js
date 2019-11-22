@@ -35,13 +35,13 @@ function addInp(){
 function showDeleteBtns() {
   
   
-  var list = document.getElementsByClassName("btn-small btn-danger btn_removeC red");
+  var list = document.getElementsByClassName("right btn-small btn-danger btn_removeC red");
 
   for (let x of list) {
     
 
     if (x.style.display === "none") {
-      x.style.display = "";
+      x.style.display = "block";
     } else {
       x.style.display = "none";
     }
