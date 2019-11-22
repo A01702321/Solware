@@ -552,13 +552,18 @@
 
 
 		crearIngrediente($name, $group);
+		$worked = 6;
 		if(sizeof($categories)>0){
 			for ($i =0; $i<sizeof($categories); $i++){
+				
 				$category = $categories[$i];
-				crearCategoria($category);
-				return agregarCategoriaIng($name, $category);
+				if($category != ""){
+					crearCategoria($category);
+					$worked = agregarCategoriaIng($name, $category);
+				}
 			}
 		}
+		return $worked;
 
 	}
 
