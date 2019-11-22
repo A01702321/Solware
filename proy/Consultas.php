@@ -24,7 +24,7 @@
 						echo "<tr>";
 						echo "<td>" . $row["IDCliente"] . "</td>";
 						echo "<td>" . $row["Nombre"] . "</td>";
-						echo "<td>" . $row["NombreMenu"] . "</td>";
+						echo "<td>" . $row["Menu"] . "</td>";
 						echo "</tr>";
 					}
 					echo "</tbody>";
