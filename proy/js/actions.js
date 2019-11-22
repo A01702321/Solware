@@ -1,5 +1,6 @@
 $('.tabs').tabs();
 $('select').formSelect();
+$('.modal').modal();
 
 var her = 0;
 
