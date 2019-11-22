@@ -6,7 +6,7 @@
 	    //DEV: Ambiente de desarrollo
 	    //PROD: Ambiente de producción
 	    //TEST: Ambiente de pruebas
-	    $environment = "DEV";
+	    $environment = "PROD";
 	    
 	    if ($environment == "DEV") {
 	        $servername = "localhost";
@@ -108,7 +108,7 @@
 		 
 		// Attempt insert query execution
 		$sql = "
-		INSERT INTO Preparados (NombrePreparado) VALUES ('$name')";
+		INSERT INTO Preparados (Nombre) VALUES ('$name')";
 
 		if(mysqli_query($link, $sql)){
 		    echo "Records inserted successfully.";
@@ -334,12 +334,12 @@
 		$link = connectDB();
  
 		// Attempt insert query execution
-		$sql = "SELECT * FROM Preparados Where NombrePreparado = '$name'";
+		$sql = "SELECT * FROM Preparados Where Nombre = '$name'";
 
 		$result = mysqli_query($link, $sql);
 
 		if (mysqli_num_rows($result) == 0) { 
-		   $sql = "INSERT INTO Preparados (NombrePreparado) VALUES (?)";
+		   $sql = "INSERT INTO Preparados (Nombre) VALUES (?)";
 		   // Preparing the statement 
 		    if (!($statement = $link->prepare($sql))) {
 		        die("No se pudo preparar la consulta para la bd: (" . $link->errno . ") " . $link->error);
@@ -367,7 +367,7 @@
 		
 	   $sql = "
 
-		INSERT INTO IngredientePreparado (IDPreparado, IDIngrediente) VALUES ((SELECT p.IDPreparado FROM Preparados p WHERE p.NombrePreparado = ?), (SELECT z.IDIngrediente FROM Ingredientes z WHERE z.NombreIngrediente = ? ) )";
+		INSERT INTO Conforman (IDPreparado, IDIngrediente) VALUES ((SELECT p.IDPreparado FROM Preparados p WHERE p.Nombre = ?), (SELECT z.IDIngrediente FROM Ingredientes z WHERE z.Nombre = ? ) )";
 
 	   // Preparing the statement 
 	    if (!($statement = $link->prepare($sql))) {
@@ -509,7 +509,7 @@
 	}
 
 
-    function obtenerTiempos(){
+function obtenerTiempos(){
          $db=connectDB();
     $query="SELECT * FROM Tiempos";
     $registros = $db->query($query);
@@ -567,6 +567,43 @@ function obtenerMenu(){ // obtiene menus para poblar un dropdown
     }
     closeDB($db);  
 }
+
+function obtenerMenuChecks(){
+         $db=connectDB();
+    $query="SELECT * FROM Menus";
+    $registros = $db->query($query);
+    $consulta = "";
+    if(!$registros)
+    {
+       $consulta="No se encontraron menus";
+    }
+    $datos=array();
+    
+    if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+          array_push($datos, array($row["IDMenu"]));
+        } 
+    }
+    for($i=0; $i<count($datos); $i++)
+    {
+        $tiempo=$datos[$i][0];
+        $consulta.='
+        <tr> 
+        	<td>
+        		<p>
+		            <label>
+		            <input name="tiempomenu[]" id="tiempomenu[]" type="checkbox" value="'.$tiempo.'"/>
+		            <span></span>
+		            </label>
+		            '.$tiempo.'
+	            </p>
+	        </td>
+        </tr>';
+    }
+    closeDB($db);
+    mysqli_free_result($registros);
+    echo $consulta;   
+    }
 
 function obtenerIngredient(){
 	  $db =connectDB();

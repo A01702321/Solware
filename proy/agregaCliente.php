@@ -54,7 +54,7 @@
         $nombre= $_POST["first_name"];
         $menu= $_POST["nombremenu"];
 
-        if(existe("Clientes","Nombre", $nombre, true)){
+        if(!existe("Clientes","Nombre", $nombre, true)){
             if(!crearCliente($nombre,$menu)){
                 $id=ultimoCliente();
             echo ($_POST["valorRestricciones"]);
