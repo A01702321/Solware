@@ -1,5 +1,114 @@
 
 
+<body>  
+
+  <div>
+    <h2 class="col s10">Agregar Receta</h2>
+    <br>
+  </div>
+
+
+
+  <div class="row">
+    <div class="col s12">
+      <form id="forma" method="POST" action="agregaReceta.php">  
+
+        <div class="row">
+          <div class="col s12">
+            <ul class="tabs">
+              <li class="tab col s3"><a class="active" href="#InfoGen">1. Información general</a></li>
+              <li class="tab col s3"><a href="#Componentes">2. Agregar componentes</a></li>
+              <li class="tab col s3"><a href="#RecetasAlt">3. Agregar recetas alternas</a></li>
+              <li class="tab col s3"><a href="#Registrar">4. Registrar</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col s10 offset-s2" id="InfoGen">
+            <div class="col s4 offset-s3">
+              <br>
+              <h5>Información general</h5><br>
+            </div>
+    
+            <div class="row">
+              <div class="input-field col s8">
+                <h6>* <b>1. Nombre de la receta:</b></h6><br><br>
+                <div>
+                  <input id="nombre_receta" name="nombre_receta" type="text" placeholder="ex: Tubbytoast">
+                </div>
+          
+              </div>
+            </div>
+
+            <div class="row">
+              <br>
+              <h6>* <b>2. Selecciona los tiempos en los que es apropiado comer esta receta:</b></h6>
+              <div class="input-field col s4">
+                <?php
+                  require_once("util.php");
+                  echo obtenerTiempos();
+                ?>
+              </div>
+            </div>
+
+       
+            <div class="row">
+              <div class="input-field col s8">
+                <h6>* <b>3. Selecciona el menú que el cliente desea contratar:</b></h6>
+                <br><br>
+                <select required id="nombremenu" name="nombremenu">
+                <option value="" disabled selected>Selecciona...</option>
+                <?php
+                  require_once("util.php");
+                  obtenerMenu();
+                ?>
+                </select>
+              </div>
+            </div>      
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col s9 offset-s2" id="Componentes">
+            <div class="col s10">
+              <h6><b>Selecciona los ingredientes que el cliente no puede o no quisiera comer en sus platillos:</b></h6><br>
+            </div>
+            <div class="table-responsive" vertical-align="center">  
+              <table class="table " id="restricciones" > 
+                <tr>
+                  <td class="vert-aligned">
+                    <div class="input-field col s8 offset-s1">
+                      <input type="text" id="rest1" class="validate" name ="rest1" onkeyup="obtenIngrediente(1)">
+                      <label>Ingrediente</label>
+                      <div id="resultado1"></div>
+                    </div>
+                    <div>
+                      <br>
+                      <a id ="anadirRestricciones" class="btn-floating btn-medium waves-effect waves-light " onclick="cambiarValor()"><i class="material-icons">add</i></a>
+                    </div>
+                  </td>
+                </tr>      
+              </table>
+            </div>
+          <input type="hidden" value="" name="valorRestricciones" id="valorRestricciones"/>
+          </div>
+  </div>        
+
+
+      </form>
+    </div>
+  </div>
+
+
+
+</body>
+
+
+
+
+<!-
+
 <body>	
 
 	<div>
@@ -94,8 +203,8 @@
 
       </div>
     </form>
-					<a class = "savebtn">Guardar</a>
+					<!--<a class = "savebtn">Guardar</a>-->
   </div>
 <script type="text/javascript" src="js/actions.js"></script>
 
-
+-->

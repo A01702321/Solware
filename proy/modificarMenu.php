@@ -1,11 +1,11 @@
 <?php
 	include("header.html");
-	include("menu.html");
+	include("ModificarMenu.html");
 
 	require_once "util.php";
 
 
-	tablaMenus();
+	tablaMenusMod();
 
 
 	include("footer.html");

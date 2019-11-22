@@ -1,5 +1,6 @@
 $('.tabs').tabs();
 $('select').formSelect();
+$('.modal').modal();
 
 var her = 0;
 
@@ -86,7 +87,7 @@ $(document).ready(function(){
     
     $('#addCat').click(function(){  
         o++;  
-        $('#dynamic_field2').append('<tr id="rowC'+o+'"><td><div class="input-field col s7"><input type="text" name="cat'+o+'" id="cat'+o+'" class="validate" data-error="wrong" required><label for="validate-ingrediente">Categoria</label><span class="helper-text" data-error="Por favor introduce un nombre de categoría." data-success=""></span></div><div vertical-align: middle id=""><br><button type="button" name="remove" id="'+o+'" class="btn-small btn-danger btn_removeC red">X</button></div></td></tr>');  
+        $('#dynamic_field2').append('<tr style="border:none;" id="rowC'+o+'"><td><div class="input-field col s7"><input type="text" name="cat'+o+'" id="cat'+o+'" class="validate" data-error="wrong" required><label for="validate-ingrediente">Categoria</label><span class="helper-text" data-error="Por favor introduce un nombre de categoría." data-success=""></span></div><div vertical-align: middle id=""><br><button type="button" name="remove" id="'+o+'" class="btn-small btn-danger btn_removeC red">X</button></div></td></tr>');  
     });
 
     var j=1;
@@ -94,7 +95,7 @@ $(document).ready(function(){
     $('#anadirRestricciones').click(function(){  
         j++;  
        //$('#restricciones').append('<tr id="rowC'+j+'"><td><div class="input-field col s5"><input type="text" name="rest'+j+'" id="rest'+j+'" onkeyup="obtenIngrediente('+j+')" class="validate" required><label for="validate-ingrediente">Ingrediente</label></div><div vertical-align: middle id=""><br><button type="button" name="remove" id="'+j+'" class="btn-small btn-danger btn_removeC red">X</button></div></td></tr> <br> <div id="resultado'+j+'"></div>');  
-       $('#restricciones').append('<tr id="rowC'+j+'"><td><div class="input-field col s5"><input type="text" name="rest'+j+'" id="rest'+j+'" onkeyup="obtenIngrediente('+j+')" class="validate"><label for="validate-ingrediente">Ingrediente</label> <br> <div id="resultado'+j+'"></div> </div> <div vertical-align: middle id=""><br><button type="button" name="remove" id="'+j+'" class="btn-small btn-danger btn_removeC red">X</button></div> </td></tr>');  
+       $('#restricciones').append('<tr id="rowC'+j+'"><td><div class="input-field col s8 offset-s1"><input type="text" name="rest'+j+'" id="rest'+j+'" onkeyup="obtenIngrediente('+j+')" class="validate"><label for="validate-ingrediente">Ingrediente</label> <br> <div id="resultado'+j+'"></div> </div> <div vertical-align: middle id=""><br><button type="button" name="remove" id="'+j+'" class="btn-small btn-danger btn_removeC red">X</button></div> </td></tr>');  
     });
 
     $(document).on('click', '.btn_removeC', function(){  
@@ -172,7 +173,7 @@ $(document).ready(function(){
 	        categories.push($('#cat' + x).val());
 	    };
 	    
-      alert($('#grupo').val());
+      
 
 	    var posting = $.post( url, { name: $('#nombreIng').val(), grupo: $('#grupo').val(), categorias: categories} );
 	    /* Send the data using post with element id name and name2*/
@@ -181,15 +182,15 @@ $(document).ready(function(){
 	    posting.done(function( data ) {
 	    	
 	    	if (data== 1){
-        M.toast({html: 'Por favor ingresa un nombre de ingrediente', classes: 'red rounded'});
+        M.toast({html: 'Por favor introduce un nombre de ingrediente', classes: 'red rounded'});
 				
 	    	}
 	    	if (data== 2){
-        M.toast({html: 'Por favor ingresa un grupo alimenticio', classes: 'red rounded'});
+        M.toast({html: 'Por favor selecciona un grupo alimenticio válido', classes: 'red rounded'});
 					    	}
 	    	
 	    	if (data== 4){
-        M.toast({html: 'Asegurate de no tener categorías vacías', classes: 'red rounded'});
+        M.toast({html: 'Por favor verifica que todos los campos estén correctos', classes: 'red rounded'});
         
 
 				
@@ -202,6 +203,8 @@ $(document).ready(function(){
         }
 	    });
     });
+
+    
 
 
 

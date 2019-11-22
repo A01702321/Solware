@@ -13,7 +13,7 @@
         
         <div class="table-responsive" vertical-align="center">  
             <table class="table " id="dynamic_field2"> 
-                <tr>
+                <tr style="border:none;">
                   <td class="vert-aligned">
                     <div class="input-field col s8">
                         <input id="nombreIng" type="text" class="validate" name="nombreIng" data-error="wrong" required>
@@ -23,7 +23,7 @@
                   </td>
                 </tr>
 
-                <tr>
+                <tr style="border:none;">
                     <td class="vert-aligned">
                     <div class="input-field col s8">
                         <!--<input type="text" id="grupo" class="validate" name="grupo" data-error="wrong" required>-->
@@ -31,7 +31,7 @@
                         <br>
                         <br>
                         <select id="grupo" name="grupo" class="required">
-                          <option selected value=""></option>
+                          <option selected value="">Selecciona un grupo alimenticio</option>
                           <?php
                             require_once("util.php");
                             obtenerGrupos();
@@ -41,10 +41,10 @@
                     </div>
                   </td>
                 </tr>
-                <tr>
+                <tr style="border:none;">
                     <td class="vert-aligned">
                     <div class="input-field col s7">
-                        <input type="text" id="cat1" class="validate" name ="cat1" data-error="wrong" required>
+                        <input type="text" id="cat1" class="validate" name ="cat1" data-error="wrong" >
                         <label for="autocomplete-categoria">Categoría</label>
                         <span class="helper-text" data-error="Por favor introduce un nombre de categoría." data-success=""></span>
                     </div>

@@ -74,6 +74,103 @@
 	}
 
 
+	function getMenus(){
+		$db = connectDB();
+
+		$sql = "SELECT IDMenu, NombreMenu FROM Menus";
+
+		$result = mysqli_query($db, $sql);
+
+		closeDB($db);
+
+		return $result;
+	}
+
+	function tablaMenus(){
+		$db = connectDB();
+		$result = getMenus();
+				if (mysqli_num_rows($result) > 0 ) {
+					echo "<div class='row'>";
+	    				echo "<div class='col s3'>";
+		        			echo "<div class='row'>";
+							echo "<h5 class='table-title'>Menus</h5>";
+							echo "<table class='centered highlight dashboard-table'>";
+								echo "<thead>";
+								echo "<tr>";
+									echo "<th>Menu</th>";
+									echo "<th>No. de Clientes</th>";
+								echo "</tr>";
+								echo "</thead>";
+								echo "<tbody>";
+									while ($row = mysqli_fetch_assoc($result)) {
+										
+										//$num = mysqli_query("SELECT COUNT(IDCliente) FROM Clientes as C, Menus as M WHERE C.Menu = M.IDMenu");
+
+										echo "<tr>";
+											echo "<td>" . $row["NombreMenu"] . "</td>";
+										    //echo "<td>" . $num  . "</td>";
+										echo "</tr>";
+									}
+								echo "</tbody>";
+								echo "<tfoot>";
+								echo "<tr>";
+									echo "<th>Clientes Totales: </th>";
+									$tot = mysqli_query($db,"SELECT COUNT(IDCliente) FROM Clientes");
+									$cli = mysqli_fetch_assoc($tot);
+									echo "<th>" . $cli["COUNT(IDCliente)"] . "</th>";
+								echo "</tr>";
+								echo "</tfoot>";
+							echo "</table>";
+							echo "</div>";
+							botonMenus();
+	    				echo "</div>";
+        			echo "</div>";
+					
+				}
+	}
+
+	function tablaMenusMod(){
+		$result = getMenus();
+				if (mysqli_num_rows($result) > 0 ) {
+					echo "<div class='row'>";
+	    				echo "<div class='col s4 offset-s4'>";
+		        			echo "<div class='row'>";
+							echo "<h5 class='table-title'>Menus</h5>";
+							echo "<table class='centered highlight dashboard-table'>";
+								echo "<thead>";
+								echo "<tr>";
+									echo "<th>ID</th>";
+									echo "<th>Menu</th>";
+									echo "<th>Editar</th>";
+									echo "<th>Eliminar</th>";
+								echo "</tr>";
+								echo "</thead>";
+								echo "<tbody>";
+									while ($row = mysqli_fetch_assoc($result)) {
+
+										echo "<tr>";
+											echo "<td>" . $row["IDMenu"] . "</td>";
+											echo "<td contenteditable = 'true'>" . $row["NombreMenu"] . "</td>";
+											echo "<th><button type='button' name='edit' id='edit' class='right btn-small btn-danger btn_remove green lighten-1'><i href='#mod' class='material-icons'>edit</i></button></th>";
+											echo "<th><button type='button' name='remove' id='rem' class='right btn-small btn-danger btn_remove red'>X</button></th>";
+										echo "</tr>";
+									}
+								echo "</tbody>";
+							echo "</table>";
+											echo "<div class='modal' id='mod'><div class='modal-content'><input' type='text' class='validate'><label for='nombreMenu'>Last Name</label></div><div class='modal-footer'><a href='#!' class='modal-close waves-effect waves-green btn-flat'>Aceptar</a><a href='#!' class='modal-close waves-effect waves-red btn-flat'>Cancelar</a></div></div>";
+							echo "</div>";
+	    				echo "</div>";
+        			echo "</div>";
+					
+				}
+	}
+
+	function botonMenus(){
+		echo " <a class='col offset-s3 waves-effect waves-light btn' href='modificarMenu.php'>Modificar Menus</a>";
+	}
+
+
+
 	function preparadoIng(){
 		
 		$name = $_POST['name'];
@@ -449,10 +546,12 @@
 
 
 		crearIngrediente($name, $group);
-		for ($i =0; $i<sizeof($categories); $i++){
-			$category = $categories[$i];
-			crearCategoria($category);
-			return agregarCategoriaIng($name, $category);
+		if(sizeof($categories)>0){
+			for ($i =0; $i<sizeof($categories); $i++){
+				$category = $categories[$i];
+				crearCategoria($category);
+				return agregarCategoriaIng($name, $category);
+			}
 		}
 
 	}
@@ -472,7 +571,7 @@
 		}
 		for($i=0; $i<sizeof($categories); $i++){
 			if($categories[$i]=== ''){
-				return 4;
+				return 5;
 			}
 		}
 		
@@ -509,7 +608,7 @@
 	}
 
 
-    function obtenerTiempos(){
+function obtenerTiempos(){
          $db=connectDB();
     $query="SELECT * FROM Tiempos";
     $registros = $db->query($query);
@@ -528,21 +627,25 @@
     for($i=0; $i<count($datos); $i++)
     {
         $tiempo=$datos[$i][0];
-        $consulta.='<tr> 
-        <td><p>
-            <label>
-            <input name="tiempomenu[]" id="tiempomenu[]" type="checkbox" value="'.$tiempo.'"/>
-            <span></span>
-            </label>
-            </p></td>
-        <td>'.$tiempo.'</td></tr>';
+        $consulta.='
+        <tr> 
+        	<td>
+        		<p>
+		            <label>
+		            <input name="tiempomenu[]" id="tiempomenu[]" type="checkbox" value="'.$tiempo.'"/>
+		            <span></span>
+		            </label>
+		            '.$tiempo.'
+	            </p>
+	        </td>
+        </tr>';
     }
     closeDB($db);
     mysqli_free_result($registros);
     echo $consulta;   
     }
 
-function obtenerMenu(){
+function obtenerMenu(){ // obtiene menus para poblar un dropdown
     $db = connectDB();
     $query="SELECT * FROM Menus";
     $registros = $db->query($query);
@@ -581,9 +684,49 @@ function obtenerGrupos(){
         $grupo=$datos[$i][1];
         echo"$<option value=".$id.">$grupo</option>";
 
+
     }
     closeDB($db);  
 }
+
+function obtenerMenuChecks(){
+         $db=connectDB();
+    $query="SELECT * FROM Menus";
+    $registros = $db->query($query);
+    $consulta = "";
+    if(!$registros)
+    {
+       $consulta="No se encontraron menus";
+    }
+    $datos=array();
+    
+    if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+          array_push($datos, array($row["IDMenu"]));
+        } 
+    }
+    for($i=0; $i<count($datos); $i++)
+    {
+        $tiempo=$datos[$i][0];
+        $consulta.='
+        <tr> 
+        	<td>
+        		<p>
+		            <label>
+		            <input name="tiempomenu[]" id="tiempomenu[]" type="checkbox" value="'.$tiempo.'"/>
+		            <span></span>
+		            </label>
+		            '.$tiempo.'
+	            </p>
+	        </td>
+        </tr>';
+    }
+    closeDB($db);
+    mysqli_free_result($registros);
+    echo $consulta;   
+    }
+
+
 function obtenerIngredient(){
 	  $db =connectDB();
      
