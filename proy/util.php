@@ -462,6 +462,7 @@
 		// Attempt insert query execution
 		
 		
+		
 	   $sql = "
 
 		INSERT INTO IngredientePreparado (IDPreparado, IDIngrediente) VALUES ((SELECT p.IDPreparado FROM Preparados p WHERE p.NombrePreparado = ?), (SELECT z.IDIngrediente FROM Ingredientes z WHERE z.NombreIngrediente = ? ) )";
@@ -531,13 +532,18 @@
 	}
 	
 	function crearPreparadoIngrediente($name, $ingredients){
-
-
-		crearPreparado($name);
-		for ($i =0; $i<sizeof($ingredients); $i++){
-			$ingredient = $ingredients[$i];
-			
-			agregarIngPreparado($name, $ingredient);
+		$bd = connectDB();
+		$bd->begin_Transaction();
+		try{
+			crearPreparado($name);
+			/*for ($i =0; $i<sizeof($ingredients); $i++){
+				$ingredient = $ingredients[$i];
+			*/	
+			agregarIngPreparado($name, $ingredients);
+			$bd->commit();
+			//}
+		}catch(Exception $e){
+			$bd->rollback();
 		}
 	}
 
