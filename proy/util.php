@@ -280,7 +280,7 @@
 		$result = mysqli_query($link, $sql);
 
 		if (mysqli_num_rows($result) == 0) { 
-		   $sql = "INSERT INTO Ingredientes (NombreIngrediente, GrupoAlimenticio) VALUES (?, (SELECT z.IDGrupoAl FROM GruposAlimenticios z WHERE z.NombreGrupoAl = ? ))";
+		   $sql = "INSERT INTO Ingredientes (NombreIngrediente, GrupoAlimenticio) VALUES (?, ?)";
 		   // Preparing the statement 
 		    if (!($statement = $link->prepare($sql))) {
 		        die("No se pudo preparar la consulta para la bd: (" . $link->errno . ") " . $link->error);
@@ -563,7 +563,27 @@ function obtenerMenu(){
     }
     closeDB($db);  
 }
+function obtenerGrupos(){
+    $db = connectDB();
+    $query="SELECT * FROM GruposAlimenticios";
+    $registros = $db->query($query);
+    if (!$registros) {
+        return false;
+    }
+    $datos=array();
+    while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+      array_push($datos, array($row["IDGrupoAl"],$row["NombreGrupoAl"]));
+    }
+    for($i=0; $i<count($datos); $i++)
 
+    {
+        $id=$datos[$i][0];
+        $grupo=$datos[$i][1];
+        echo"$<option value=".$id.">$grupo</option>";
+
+    }
+    closeDB($db);  
+}
 function obtenerIngredient(){
 	  $db =connectDB();
      

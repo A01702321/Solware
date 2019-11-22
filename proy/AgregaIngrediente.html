@@ -26,9 +26,18 @@
                 <tr>
                     <td class="vert-aligned">
                     <div class="input-field col s8">
-                        <input type="text" id="grupo" class="validate" name="grupo" data-error="wrong" required>
-                        <label for="autocomplete-input">Grupo Alimenticio</label>
-                        <span class="helper-text" data-error="Por favor introduce un grupo alimenticio." data-success=""></span>
+                        <!--<input type="text" id="grupo" class="validate" name="grupo" data-error="wrong" required>-->
+                        <label>Grupo Alimenticio</label>
+                        <br>
+                        <br>
+                        <select id="grupo" name="grupo" class="required">
+                          <option selected value=""></option>
+                          <?php
+                            require_once("util.php");
+                            obtenerGrupos();
+                          ?>
+                        </select>
+                        <span class="helper-text" data-error="Por favor selecciona un grupo alimenticio." data-success=""></span>
                     </div>
                   </td>
                 </tr>

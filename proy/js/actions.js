@@ -172,7 +172,7 @@ $(document).ready(function(){
 	        categories.push($('#cat' + x).val());
 	    };
 	    
-
+      alert($('#grupo').val());
 
 	    var posting = $.post( url, { name: $('#nombreIng').val(), grupo: $('#grupo').val(), categorias: categories} );
 	    /* Send the data using post with element id name and name2*/
@@ -190,11 +190,15 @@ $(document).ready(function(){
 	    	
 	    	if (data== 4){
         M.toast({html: 'Asegurate de no tener categorías vacías', classes: 'red rounded'});
+        
+
 				
 	    	}
 	    	if(data == 6){
           
-          M.toast({html: 'Ingrediente creado exitosamente', classes: 'red rounded'});
+          M.toast({html: 'Ingrediente creado exitosamente', classes: 'green rounded'});
+          var form = document.getElementById("agregar_ingrediente");
+          form.reset();
         }
 	    });
     });
