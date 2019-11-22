@@ -15,7 +15,7 @@
         }else{
         	$namep = preg_replace('/\s+/', ' ',$_POST["nombreprep"]);
         	$ing = preg_replace('/\s+/', ' ',$_POST["ing1"]);
-            agregarIngPreparado($namep,$ing);
+            crearPreparadoIngrediente($namep,$ing);
             header("location:registroExitoso.php");
         }
     }
