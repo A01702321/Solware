@@ -43,22 +43,12 @@ button{
 .input-field {
 	margin-bottom: 0px !important;
 }
-
+tr{
+	border: 0 !important;
+}
 td {
 	padding-top: 5px !important;
 	padding-bottom: 5px !important;
-}
-
-
-thead {
-
-    color:#001437a0 !important;
-
-}
-
-caption {
-	font-size: 25px;
-	color: #001437;
 }
 #welcome{
 	color: gray;
@@ -384,7 +374,7 @@ caption {
 	text-align: center;
 }
 
-.consult-table td th tr{
+.consult-table td, th, tr{
 	border: 1px solid #ddd;
   	text-align: left;
   	padding: 15px;
@@ -410,8 +400,4 @@ caption {
 .tabs .tab a:focus, .tabs .tab a:focus.active {
     background-color: #00143715 !important;
     outline: none; 
-}
-
-.dashboard-table {
-	border-bottom: 1px;
 }
