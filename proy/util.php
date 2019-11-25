@@ -12,7 +12,7 @@
 	        $servername = "localhost";
 	    	$username = "root";
 	    	$password = "";
-	    	$dbname = "clase2";
+	    	$dbname = "clase";
 	    } else if($environment == "PROD") {
 	    	$servername = "mysql1008.mochahost.com";
 	    	$username = "dawbdorg_1702321";
