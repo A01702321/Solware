@@ -12,7 +12,7 @@
 	        $servername = "localhost";
 	    	$username = "root";
 	    	$password = "";
-	    	$dbname = "clase";
+	    	$dbname = "clase2";
 	    } else if($environment == "PROD") {
 	    	$servername = "mysql1008.mochahost.com";
 	    	$username = "dawbdorg_1702321";
@@ -342,6 +342,18 @@
 
 		return $result;
 	}
+	function getGrupos($id){
+		$db = connectDB();
+		
+		$sql = "SELECT NombreGrupoAl FROM GruposAlimenticios Where IDGrupoAl = '$id'";
+
+		$result = mysqli_query($db, $sql);
+		$resArray = $result->fetch_assoc();
+		$name = $resArray['NombreGrupoAl'];
+		closeDB($db);
+
+		return $name;
+	}
 
 	function getRecetas(){
 		$db = connectDB();
@@ -395,6 +407,21 @@
 		}
 
 		closeDB($link);
+	}
+	function eliminarIngrediente($id) {
+		
+		$link = connectDB();
+
+ 		$res = 2;
+		
+		$sql = "DELETE FROM IngredienteCategoria Where IDIngrediente = '$id'";
+		mysqli_query($link, $sql);
+		$sql = "DELETE FROM Ingredientes Where IDIngrediente = '$id'";
+		if(mysqli_query($link, $sql)){
+			$res = 1;
+		}
+		closeDB($link);
+		return $res;
 	}
 
 	function crearCategoria($category) {
@@ -546,6 +573,7 @@
 			$bd->rollback();
 		}
 	}
+
 
 
 	function crearIngCategoria($name, $categories, $group){

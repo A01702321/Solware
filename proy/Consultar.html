@@ -1,12 +1,12 @@
 <body>
 	<div class="consult-container">
 		<div class="tab">
-		  <button name="clientes" class="tablinks">Clientes</button>
-		  <button name="ingredientes" class="tablinks">Ingredientes</button>
-		  <button name="preparados" class="tablinks">Preparados</button>
-		   <button name="recetas" class="tablinks">Recetas</button>
+		  <button id="showClientes" name="clientes" class="tablinks">Clientes</button>
+		  <button id="showIngredientes" name="ingredientes" class="tablinks">Ingredientes</button>
+		  <button id="showPreparados" name="preparados" class="tablinks">Preparados</button>
+		   <button  id="showRecetas"name="recetas" class="tablinks">Recetas</button>
 		</div>
-
+		
 		<div id="clientes" class="tabcontent">
 		  <h3>Clientes</h3>
 		  <p>Información de clientes</p>
@@ -21,9 +21,31 @@
 		  <h3>Preparados</h3>
 		  <p>Preparados existentes</p>
 		</div>
-		<div id="recetas" class="tabcontent">
+		<div id="recetas" class="tabcontent" onload="clickClientes()">
 		  <h3>Recetas</h3>
 		  <p>Recetas existentes</p>
+		</div>
+		<script>
+			function clickClientes(){
+				alert("lil bit");
+				document.getElementById('showClientes').click();
+			}
+		</script>
+		<div id="modalPlacement" >
+			<div id='removeModal' style="width: 30%;"class='modal center'>
+				
+				<div class='modal-content center'>
+					<h5 style="text-align: center;" >¿Estás seguro?</h5>
+					<br>
+					<h6 style="text-align: center;padding-left: 0;"  id="ingAEliminar" name="ingAEliminar" value="0"></h6>
+					
+					
+				</div>
+				<div class="modal-foote center">
+            		<a href="#!" class="modal-close waves-effect waves-grey btn-flat ">Cancelar</a>
+            		<a href="#!" id="confirmarEliminarIng" onclick="" class="modal-action modal-close waves-effect waves-red btn-flat ">Eliminar</a>
+   				</div>
+			</div>
 		</div>
 	</div>
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

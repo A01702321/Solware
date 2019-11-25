@@ -103,9 +103,21 @@ CREATE TABLE `GruposAlimenticios` (
 -- Dumping data for table `GruposAlimenticios`
 --
 /*
-INSERT INTO `GruposAlimenticios` (`IDGrupoAl`, `NombreGrupoAl`) VALUES
-('Lacteos'),
-('Legrumbres');
+INSERT INTO GruposAlimenticios (`NombreGrupoAl`) VALUES
+('Verduras'),
+('Frutas'),
+('Cereales sin grasa'),
+('Leguminosas'),
+('A.O.A muy bajo en grasa'),
+('A.O.A  bajo en grasa'),
+('A.O.A moderado en grasa'),
+('A.O.A alto en grasa'),
+('Leche descremada'),
+('Aceites y grasas'),
+('Aceites y grasas con proteina'),
+('Azucares sin grasa')
+
+;
 */
 -- --------------------------------------------------------
 

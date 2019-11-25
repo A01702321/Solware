@@ -35,7 +35,7 @@ function addInp(){
 function showDeleteBtns() {
   
   
-  var list = document.getElementsByClassName("right btn-small btn-danger btn_removeC red");
+  var list = document.getElementsByClassName("right  waves-effect waves-red btn-flat red-text");
 
   for (let x of list) {
     
@@ -47,7 +47,28 @@ function showDeleteBtns() {
     }
   }   
 }
-  
+function showDeleteModal(x, ing) {
+
+document.getElementById('ingAEliminar').setAttribute('value',x);
+document.getElementById('ingAEliminar').innerText = "Ingrediente a eliminar: " + ing;
+document.getElementById('confirmarEliminarIng').setAttribute('onclick','elimIng('+x+')');
+}
+function elimIng(x){
+  url = "eliminarIng.php";
+  var posting = $.post( url, { id: x});
+  posting.done(function( data ) {
+        
+        if (data== 1){
+        M.toast({html: 'Ingrediente eliminado exitosamente', classes: 'green rounded'});
+        document.getElementById('showIngredientes').click();
+        }
+        if (data== 2){
+        M.toast({html: 'No se pudo eliminar ingrediente por favor intenta de nuevo mas tarde', classes: 'grey rounded'});
+        document.getElementById('showIngredientes').click();
+                }
+  });
+
+}
 
 function remInp(){
   if (her == 0) {
