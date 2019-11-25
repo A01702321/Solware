@@ -35,6 +35,7 @@
 
 			if ($id == "ingredientes") {
 				$result = getIngredientes();
+
 				if (mysqli_num_rows($result) > 0 ) {
 					# code...
 					echo "<h3 class='table-title'>Lista de Ingredientes</h3>";
@@ -44,19 +45,19 @@
 					echo "<th>ID</th>";
 					echo "<th>Nombre</th>";
 					echo "<th>Grupo Alimenticio</th>";
-					echo "<div><th style='text-align: right;'><a onclick='showDeleteBtns()' id ='erase' class='btn-floating btn-medium waves-effect waves-light grey'><i class='material-icons'>edit</i></a></th></div>";
+					echo "<div><th style='text-align: right;'><a onclick='showDeleteBtns()' id ='erase' class='btn-floating btn-medium waves-effect waves-light grey'><i class='material-icons'>delete_outline</i></a></th></div>";
 					echo "</tr>";
 					echo "</thead>";
 					echo "<tbody>";
 					
 					while ($row = mysqli_fetch_assoc($result)) {
-						
-						echo "<tr id='row". $row["IDIngrediente"] ."'>";
+						$grupo = getGrupos($row["GrupoAlimenticio"]);
+						echo "<tr style='height: 47px;' id='row". $row["IDIngrediente"] ."'>";
 						echo "<td>" . $row["IDIngrediente"] . "</td>";
 						echo "<td>" . $row["NombreIngrediente"] . "</td>";
-						echo "<td>" . $row["GrupoAlimenticio"] . "</td>";
-						echo "<td style='text-align: right;'><button style='display: none;' name='remove' id='rem".$row["IDIngrediente"]."' class='right btn-small btn-danger btn_removeC red'>X</button></td>";
-						echo "</tr>";
+						echo "<td>" . $grupo . "</td>";
+						echo "<td style='text-align: right;     padding: 0px 0px; '><a onclick='showDeleteModal(".$row["IDIngrediente"].", &quot;".$row["NombreIngrediente"]."&quot; )' href='#removeModal' id='".$row["IDIngrediente"]."' style='display: none;' class='right  waves-effect waves-red btn-flat red-text modal-trigger'><i class='material-icons'>remove_circle</i></a></td>"
+							;
 											}
 					echo "</tbody>";
 					echo "</table>";
