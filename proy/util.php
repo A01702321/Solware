@@ -12,7 +12,7 @@
 	        $servername = "localhost";
 	    	$username = "root";
 	    	$password = "";
-	    	$dbname = "clase";
+	    	$dbname = "clase2";
 	    } else if($environment == "PROD") {
 	    	$servername = "mysql1008.mochahost.com";
 	    	$username = "dawbdorg_1702321";
@@ -334,7 +334,8 @@
 	function getIngredientes(){
 		$db = connectDB();
 
-		$sql = "SELECT IDIngrediente, NombreIngrediente, GrupoAlimenticio FROM Ingredientes";
+		$sql = "CALL getIngredientes();";
+		
 
 		$result = mysqli_query($db, $sql);
 

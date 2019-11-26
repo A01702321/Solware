@@ -175,6 +175,34 @@ CREATE TABLE Usuarios
 
 
 
+
+DELIMITER $$
+ 
+CREATE PROCEDURE getGrupoAt(
+    in  p_idGrupo int(11))
+BEGIN
+    
+ 
+    
+   
+    SELECT NombreGrupoAl
+    FROM GruposAlimenticios
+    WHERE IDGrupoAl = p_idGrupo;
+ 
+ 
+
+ 
+END$$
+
+DELIMITER $$
+ 
+CREATE PROCEDURE getIngredientes()
+
+BEGIN
+    SELECT IDIngrediente, NombreIngrediente, GrupoAlimenticio
+    FROM Ingredientes;
+    END$$
+
 -- ESTAS SON LAS TABLAS ANTES DE METERLAS EN MYSQL
 /*
 --Entidades
