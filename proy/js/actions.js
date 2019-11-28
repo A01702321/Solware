@@ -53,9 +53,25 @@ document.getElementById('ingAEliminar').setAttribute('value',x);
 document.getElementById('ingAEliminar').innerText = "Ingrediente a eliminar: " + ing;
 document.getElementById('confirmarEliminarIng').setAttribute('onclick','elimIng('+x+')');
 }
+
+function showDeleteModalMenu(x, menu) {
+
+document.getElementById('MenuAEliminar').setAttribute('value',x);
+document.getElementById('MenuAEliminar').innerText = "Menu a eliminar: " + menu;
+document.getElementById('confirmarEliminarMenu').setAttribute('onclick','elimMenu('+x+')');
+}
+
+function showModifyModalMenu(x, menu) {
+
+document.getElementById('MenuAModificar').setAttribute('value',x);
+document.getElementById('MenuAModificar').innerText = "Menu a modificar: " + menu;
+document.getElementById('confirmarModificarMenu').setAttribute('onclick','modMenu('+x+','+menu+')');
+}
+
+
 function elimIng(x){
   url = "eliminarIng.php";
-  var posting = $.post( url, { id: x});
+  var posting = $.post( url, { id: x}, { nomMenu: menu});
   posting.done(function( data ) {
         
         if (data== 1){
@@ -65,6 +81,40 @@ function elimIng(x){
         if (data== 2){
         M.toast({html: 'No se pudo eliminar ingrediente por favor intenta de nuevo mas tarde', classes: 'grey rounded'});
         document.getElementById('showIngredientes').click();
+                }
+  });
+
+}
+
+function elimMenu(x){
+  url = "eliminarMenu.php";
+  var posting = $.post( url, { id: x});
+  posting.done(function( data ) {
+        
+        if (data== 1){
+        M.toast({html: 'Menu eliminado exitosamente', classes: 'green rounded'});
+        document.location.reload();
+        }
+        if (data== 2){
+        M.toast({html: 'No se pudo eliminar menu por favor intenta de nuevo mas tarde', classes: 'yellow rounded'});
+                }
+        if (data== 3){
+        M.toast({html: 'No se pudo eliminar Menú. Asegurate de no tener clientes con ese menú.', classes: 'orange rounded'});                }
+  });
+
+}
+
+function modMenu(x, menu){
+  url = "modificaMenu.php";
+  var posting = $.post( url, { id: x});
+  posting.done(function( data ) {
+        
+        if (data== 1){
+        M.toast({html: 'Menu modificado exitosamente', classes: 'green rounded'});
+        document.location.reload();
+        }
+        if (data== 2){
+        M.toast({html: 'No se pudo modificar menu por favor intenta de nuevo mas tarde', classes: 'grey rounded'});
                 }
   });
 

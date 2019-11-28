@@ -6,7 +6,7 @@
 	    //DEV: Ambiente de desarrollo
 	    //PROD: Ambiente de producción
 	    //TEST: Ambiente de pruebas
-	    $environment = "DEV";
+	    $environment = "PROD";
 	    
 	    if ($environment == "DEV") {
 	        $servername = "localhost";
@@ -84,85 +84,6 @@
 		closeDB($db);
 
 		return $result;
-	}
-
-	function tablaMenus(){
-		$db = connectDB();
-		$result = getMenus();
-				if (mysqli_num_rows($result) > 0 ) {
-					echo "<div class='row'>";
-	    				echo "<div class='col s3'>";
-		        			echo "<div class='row'>";
-							echo "<h5 class='table-title'>Menus</h5>";
-							echo "<table class='centered highlight dashboard-table'>";
-								echo "<thead>";
-								echo "<tr>";
-									echo "<th>Menu</th>";
-									echo "<th>No. de Clientes</th>";
-								echo "</tr>";
-								echo "</thead>";
-								echo "<tbody>";
-									while ($row = mysqli_fetch_assoc($result)) {
-										
-										//$num = mysqli_query("SELECT COUNT(IDCliente) FROM Clientes as C, Menus as M WHERE C.Menu = M.IDMenu");
-
-										echo "<tr>";
-											echo "<td>" . $row["NombreMenu"] . "</td>";
-										    //echo "<td>" . $num  . "</td>";
-										echo "</tr>";
-									}
-								echo "</tbody>";
-								echo "<tfoot>";
-								echo "<tr>";
-									echo "<th>Clientes Totales: </th>";
-									$tot = mysqli_query($db,"SELECT COUNT(IDCliente) FROM Clientes");
-									$cli = mysqli_fetch_assoc($tot);
-									echo "<th>" . $cli["COUNT(IDCliente)"] . "</th>";
-								echo "</tr>";
-								echo "</tfoot>";
-							echo "</table>";
-							echo "</div>";
-							botonMenus();
-	    				echo "</div>";
-        			echo "</div>";
-					
-				}
-	}
-
-	function tablaMenusMod(){
-		$result = getMenus();
-				if (mysqli_num_rows($result) > 0 ) {
-					echo "<div class='row'>";
-	    				echo "<div class='col s4 offset-s4'>";
-		        			echo "<div class='row'>";
-							echo "<h5 class='table-title'>Menus</h5>";
-							echo "<table class='centered highlight dashboard-table'>";
-								echo "<thead>";
-								echo "<tr>";
-									echo "<th>ID</th>";
-									echo "<th>Menu</th>";
-									echo "<th>Editar</th>";
-									echo "<th>Eliminar</th>";
-								echo "</tr>";
-								echo "</thead>";
-								echo "<tbody>";
-									while ($row = mysqli_fetch_assoc($result)) {
-
-										echo "<tr>";
-											echo "<td>" . $row["IDMenu"] . "</td>";
-											echo "<td contenteditable = 'true'>" . $row["NombreMenu"] . "</td>";
-											echo "<th><button type='button' name='edit' id='edit' class='right btn-small btn-danger btn_remove green lighten-1'><i href='#mod' class='material-icons'>edit</i></button></th>";
-											echo "<th><button type='button' name='remove' id='rem' class='right btn-small btn-danger btn_remove red'>X</button></th>";
-										echo "</tr>";
-									}
-								echo "</tbody>";
-							echo "</table>";
-											echo "<div class='modal' id='mod'><div class='modal-content'><input' type='text' class='validate'><label for='nombreMenu'>Last Name</label></div><div class='modal-footer'><a href='#!' class='modal-close waves-effect waves-green btn-flat'>Aceptar</a><a href='#!' class='modal-close waves-effect waves-red btn-flat'>Cancelar</a></div></div>";
-							echo "</div>";
-	    				echo "</div>";
-        			echo "</div>";
-					
-				}
 	}
 
 	function botonMenus(){
@@ -421,6 +342,40 @@
 			$res = 1;
 		}
 		closeDB($link);
+		return $res;
+	}
+
+	function eliminarMenu($id) {
+		
+		$bd = connectDB();
+
+ 		$res = 2;
+ 		$sql = "SELECT IDMenu, NombreMenu FROM Menus";
+
+ 		$num = mysqli_query($bd, $sql);
+ 		if(mysqli_num_rows($num) > 0){
+			$res = 3;
+		}
+
+		$sql = "DELETE FROM Menus WHERE IDMenu = '$id'";
+		if(mysqli_query($bd, $sql)){
+			$res = 1;
+		}
+		closeDB($bd);
+		return $res;
+	}
+
+	function modificaMenu($id , $nomMenu) {
+		
+		$bd = connectDB();
+
+ 		$res = 2;
+
+		$sql = "UPDATE Menus SET NombreMenu = '$nomMenu' WHERE IDMenu = '$id'";
+		if(mysqli_query($bd, $sql)){
+			$res = 1;
+		}
+		closeDB($bd);
 		return $res;
 	}
 

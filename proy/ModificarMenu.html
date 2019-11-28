@@ -1,6 +1,44 @@
 <body>
   <main class="content center">
     <h2>Modificar Menú</h2>
-    
   </main>
+
+  <div id="modalPlacement" >
+		<div id='removeModal' style="width: 30%;"class='modal center'>
+			
+			<div class='modal-content center'>
+				<h5 style="text-align: center;" >¿Estás seguro?</h5>
+				<br>
+				<h6 style="text-align: center;padding-left: 0;"  id="MenuAEliminar" name="MenuAEliminar" value="0"></h6>
+					
+					
+			</div>
+			<div class="modal-foote center">
+           		<a href="#!" class="modal-close waves-effect waves-grey btn-flat ">Cancelar</a>
+           		<a href="#!" id="confirmarEliminarMenu" onclick="" class="modal-action modal-close waves-effect waves-red btn-flat ">Eliminar</a>
+   			</div>
+		</div>
+
+		<div id='editModal' style="width: 60%;"class='modal center'>
+			
+			<div class='modal-content center'>
+				<h5 style="text-align: center;" >Modificar Menu:</h5>
+				<br>
+				<h6 style="text-align: center;padding-left: 0;"  id="MenuAModificar" name="MenuAModificar" value="0"></h6>
+				<br>	
+				<div class="row">
+			     	<div class="col s8 offset-s2">
+				        <form id="forma" action="modificaMenu.php" method="POST">
+				          <input type="text" name="nombreMenu" placeholder="Menu"><br>
+				        </form>
+			        </div>
+			    </div>
+			</div>
+			<div class="modal-foote center">
+           		<a href="#!mod" class="modal-close waves-effect waves-red btn-flat ">Cancelar</a>
+           		<a href="#!mod" id="confirmarModificarMenu" onclick="" class="modal-action modal-close waves-effect waves-green btn-flat ">Aceptar</a>
+   			</div>
+		</div>
+	</div>
+
 </body>
