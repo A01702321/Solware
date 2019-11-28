@@ -45,18 +45,20 @@
 					echo "<th>ID</th>";
 					echo "<th>Nombre</th>";
 					echo "<th>Grupo Alimenticio</th>";
-					echo "<div><th style='text-align: right;'><a onclick='showDeleteBtns()' id ='erase' class='btn-floating btn-medium waves-effect waves-light grey'><i class='material-icons'>delete_outline</i></a></th></div>";
+					echo "<div><th style='text-align: right;'><a onclick='showDeleteBtns()' id ='erase' class='right btn-floating btn-medium waves-effect waves-light grey'><i class='material-icons'>delete_outline</i></a></th></div>";
 					echo "</tr>";
 					echo "</thead>";
 					echo "<tbody>";
-					
+					//LLenado de tabla con funciones con parametros correspondientes 
 					while ($row = mysqli_fetch_assoc($result)) {
 						$grupo = getGrupos($row["GrupoAlimenticio"]);
 						echo "<tr style='height: 47px;' id='row". $row["IDIngrediente"] ."'>";
 						echo "<td>" . $row["IDIngrediente"] . "</td>";
 						echo "<td>" . $row["NombreIngrediente"] . "</td>";
 						echo "<td>" . $grupo . "</td>";
-						echo "<td style='text-align: right;     padding: 0px 0px; '><a onclick='showDeleteModal(".$row["IDIngrediente"].", &quot;".$row["NombreIngrediente"]."&quot; )' href='#removeModal' id='".$row["IDIngrediente"]."' style='display: none;' class='right  waves-effect waves-red btn-flat red-text modal-trigger'><i class='material-icons'>remove_circle</i></a></td>"
+						echo "<td style='text-align: right;     padding: 0px 0px; width:10%; '><a onclick='showDeleteModal(".$row["IDIngrediente"].", &quot;".$row["NombreIngrediente"]."&quot; )' href='#modifyModal' id='".$row["IDIngrediente"]."' style='display: block;' class='right  waves-effect waves-grey btn-flat grey-text modal-trigger'><i class='material-icons'>create</i></a>"
+							;
+						echo "<a onclick='showDeleteModal(".$row["IDIngrediente"].", &quot;".$row["NombreIngrediente"]."&quot; )' href='#removeModal' id='".$row["IDIngrediente"]."' style='display: none;' class='right  waves-effect waves-red btn-flat red-text modal-trigger'><i class='material-icons'>remove_circle</i></a></td>"
 							;
 											}
 					echo "</tbody>";

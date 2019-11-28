@@ -394,15 +394,18 @@
 		   // Preparing the statement 
 		    if (!($statement = $link->prepare($sql))) {
 		        die("No se pudo preparar la consulta para la bd: (" . $link->errno . ") " . $link->error);
+		        echo(7);
 		    }
 		    // Binding statement params 
 		    if (!$statement->bind_param("ss", $name, $group)) {
 		        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error); 
+		        echo(7);
 		    }
 		    
 		    // Executing the statement
 		    if (!$statement->execute()) {
 		        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+		        echo(7);
 		    } 
 		   
 		}
@@ -439,15 +442,21 @@
 		   // Preparing the statement 
 		    if (!($statement = $link->prepare($sql))) {
 		        die("No se pudo preparar la consulta para la bd: (" . $link->errno . ") " . $link->error);
+		        echo(7);
+
 		    }
 		    // Binding statement params 
 		    if (!$statement->bind_param("s", $category)) {
-		        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error); 
+		        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
+		        echo(7);
+ 
 		    }
 		    
 		    // Executing the statement
 		    if (!$statement->execute()) {
 		        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+		        echo(7);
+
 		    } 
 		   
 		}
@@ -602,6 +611,11 @@
 		if($name === ''){
 			return 1;
 		}
+		$array = str_split($name);
+		foreach ($array as $char) {
+			 if($char == ";");
+			 return 1;
+		}	
 		if($group === '' ){
 			return 2;
 		}

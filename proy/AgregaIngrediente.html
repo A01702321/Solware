@@ -2,61 +2,59 @@
   <title>Agregar Ingrediente</title>
 
 <body>  
-   <div class="row" style="   margin-left: 33%; margin-top: 5%;">
+   <div class="row" style="  margin-top: 5%; width:40%; ">
 
-    <form class="col s8" id="agregar_ingrediente" name="agregar_ingrediente">
-        <div class="row" style="  ">
-          <div>
-            <h5 class="col s8">Agregar Ingrediente</h5>
-          </div>
-        </div>
-        
-        <div class="table-responsive" vertical-align="center">  
-            <table class="table " id="dynamic_field2"> 
-                <tr style="border:none;">
-                  <td class="vert-aligned">
-                    <div class="input-field col s8">
-                        <input id="nombreIng" type="text" class="validate" name="nombreIng" data-error="wrong" required>
-                        <label for="n_ingrediente">Nombre de Ingrediente</label>
-                        <span class="helper-text" data-error="Por favor introduce un nombre de ingrediente." data-success=""></span>
-                    </div>
-                  </td>
-                </tr>
+              <form id="agregar_ingrediente" name="agregar_ingrediente">
+                  <div>
+                      <h5 style="text-align: center;">Agregar Ingrediente</h5>
+                   </div>
+                  
+                  <div class="table-responsive" vertical-align="center">  
+                      <table class="table " id="dynamic_field2"> 
+                          <tr style="border:none;">
+                            <td class="vert-aligned">
+                              <div class="input-field col" style=" width: 100%;">
+                                  <input id="nombreIng" type="text" class="validate invalid" name="nombreIng" data-error="wrong" required="">
+                                  <label for="n_ingrediente" class="">Nombre de Ingrediente</label>
+                                  <span class="helper-text" data-error="Por favor introduce un nombre de ingrediente." data-success=""></span>
+                              </div>
+                            </td>
+                          </tr>
 
-                <tr style="border:none;">
-                    <td class="vert-aligned">
-                    <div class="input-field col s8">
-                        <!--<input type="text" id="grupo" class="validate" name="grupo" data-error="wrong" required>-->
-                        <label>Grupo Alimenticio</label>
-                        <br>
-                        <br>
-                        <select id="grupo" name="grupo" class="required">
-                          <option selected value="">Selecciona un grupo alimenticio</option>
-                          <?php
-                            require_once("util.php");
-                            obtenerGrupos();
-                          ?>
-                        </select>
-                        <span class="helper-text" data-error="Por favor selecciona un grupo alimenticio." data-success=""></span>
-                    </div>
-                  </td>
-                </tr>
-                <tr style="border:none;">
-                    <td class="vert-aligned">
-                    <div class="input-field col s7">
-                        <input type="text" id="cat1" class="validate" name ="cat1" data-error="wrong" >
-                        <label for="autocomplete-categoria">Categoría</label>
-                        <span class="helper-text" data-error="Por favor introduce un nombre de categoría." data-success=""></span>
-                    </div>
-                    <div>
-                        <br>
-                        <a id ="addCat" class="btn-floating btn-medium waves-effect waves-light "><i class="material-icons">add</i></a>
-                    </div>
-                  </td>
-                </tr>
-                 
-          </table>
-          <input style="   margin-left: 18%; " class="submit" id="submitIng" type="button" name="submit" value="Guardar Ingrediente"> 
+                          <tr style="border:none;">
+                              <td class="vert-aligned">
+                              <div class="input-field col" style=" width: 100%;">
+                                  <!--<input type="text" id="grupo" class="validate" name="grupo" data-error="wrong" required>-->
+                                  <label>Grupo Alimenticio</label>
+                                  <br>
+                                  <br>
+                                  <select id="grupo" name="grupo" class="required">
+                                    <option selected value="">Selecciona un grupo alimenticio</option>
+                                    <?php
+                                      require_once("util.php");
+                                      obtenerGrupos();
+                                    ?>
+                                  </select>
+                                  <span class="helper-text" data-error="Por favor selecciona un grupo alimenticio." data-success=""></span>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr style="border:none;">
+                              <td>
+                              <div class="input-field col s10">
+                                  <input type="text" id="cat1" class="validate" name ="cat1" data-error="wrong" >
+                                  <label for="autocomplete-categoria">Categoría</label>
+                                  <span class="helper-text" data-error="Por favor introduce un nombre de categoría." data-success=""></span>
+                              </div>
+                              <div class="col s2" style="padding-right: .5rem;">
+                                  <br>
+                                  <a id="addCat" class="right btn-floating btn-medium waves-effect waves-light "><i class="material-icons">add</i></a>
+                              </div>
+                            </td>
+                          </tr>
+                           
+                    </table>
+          <input style="   margin-left: 30%; width:40%" class="submit" id="submitIng" type="button" name="submit" value="Guardar Ingrediente"> 
         </div>
     </form>
   </div>

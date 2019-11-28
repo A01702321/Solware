@@ -31,9 +31,10 @@
 				document.getElementById('showClientes').click();
 			}
 		</script>
+		<!--LLenado de modal básico con campos vacios a ser cambiados con js-->
 		<div id="modalPlacement" >
 			<div id='removeModal' style="width: 30%;"class='modal center'>
-				
+				 <h5 style="margin-right:20px;" class="right modal-close">&#10005;</h5>
 				<div class='modal-content center'>
 					<h5 style="text-align: center;" >¿Estás seguro?</h5>
 					<br>
@@ -42,8 +43,86 @@
 					
 				</div>
 				<div class="modal-foote center">
-            		<a href="#!" class="modal-close waves-effect waves-grey btn-flat ">Cancelar</a>
+            		
             		<a href="#!" id="confirmarEliminarIng" onclick="" class="modal-action modal-close waves-effect waves-red btn-flat ">Eliminar</a>
+   				</div>
+			</div>
+		</div>
+		<div id="modalPlacement" >
+			<div id='modifyModal' style="width: 40%;"class='modal center'>
+				 <h5 style="margin-right:20px;" class="right modal-close">&#10005;</h5>
+				<div class='modal-content center'>
+
+					<div class="row" style="  margin-top: 5%;">
+
+					    <form id="agregar_ingrediente" name="agregar_ingrediente">
+					        <div>
+					            <h5 style="text-align: center;">Modificar Ingrediente</h5>
+					         </div>
+					        
+					        <div class="table-responsive" vertical-align="center">  
+					            <table class="table " id="dynamic_field2"> 
+					                <tr style="border:none;">
+					                  <td class="vert-aligned">
+					                    <div class="input-field col" style=" width: 100%;">
+					                        <input id="nombreIng" type="text" class="validate invalid" name="nombreIng" data-error="wrong" required="">
+					                        <label for="n_ingrediente" class="">Nombre de Ingrediente</label>
+					                        <span class="helper-text" data-error="Por favor introduce un nombre de ingrediente." data-success=""></span>
+					                    </div>
+					                  </td>
+					                </tr>
+
+					                <tr style="border:none;">
+					                    <td class="vert-aligned">
+					                    <div class="input-field col" style=" width: 100%;">
+					                        <!--<input type="text" id="grupo" class="validate" name="grupo" data-error="wrong" required>-->
+					                        <label>Grupo Alimenticio</label>
+					                        <br>
+					                        <br>
+					                        <select id="grupo" name="grupo" class="required">
+					                          <option selected value="">Selecciona un grupo alimenticio</option>
+					                          <?php
+					                            require_once("util.php");
+					                            obtenerGrupos();
+					                          ?>
+					                        </select>
+					                        <span class="helper-text" data-error="Por favor selecciona un grupo alimenticio." data-success=""></span>
+					                    </div>
+					                  </td>
+					                </tr>
+					                <tr style="border:none;" id="rowC1">
+					                    <td>
+					                    <div class="input-field col s10">
+					                        <input type="text" id="cat1" class="validate" name ="cat1" data-error="wrong" >
+					                        <label for="autocomplete-categoria">Categoría</label>
+					                        <span class="helper-text" data-error="Por favor introduce un nombre de categoría." data-success=""></span>
+					                    </div>
+					                    <div class="col s2">
+					                        <br>
+					                        <a id="1" class="right btn-floating btn-medium btn-danger btn_removeC waves-effect waves-light red"><i class="material-icons center">remove</i></a>
+					                    </div>
+					                  </td>
+					                </tr>
+
+					                 
+					          </table>
+					          <tr style="border:none;" >
+					               	<td>
+						                <div class="col s12" style="padding-right: .5rem;">
+		                                  <br>
+		                                  <a id="addCat" class="center btn-floating btn-medium waves-effect waves-light "><i class="material-icons">add</i></a>
+		                              	</div>
+	                              	</td>
+	                          <tr>
+					          
+					        </div>
+					    </form>
+					  </div>
+					
+				</div>
+				<div class="modal-foote center">
+            		
+            		<a href="#!" id="modifyIng"  class="modal-action modal-close waves-effect waves-green btn-flat grey">Modificar Ingrediente</a>
    				</div>
 			</div>
 		</div>

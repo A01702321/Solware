@@ -3,20 +3,20 @@
 CREATE TABLE Menus
 (
 	IDMenu int not null AUTO_INCREMENT,
-	NombreMenu varchar(10),
+	NombreMenu varchar(100),
 	PRIMARY KEY(IDMenu)
 )
 
 CREATE TABLE Tiempos
 (
-	NombreTiempo varchar(10) not null,
+	NombreTiempo varchar(100) not null,
 	PRIMARY KEY(NombreTiempo)
 )
 
 CREATE TABLE Clientes
 (
 	IDCliente int not null AUTO_INCREMENT,
-	Nombre varchar(20) not null,
+	Nombre varchar(100) not null,
 	Menu int not null,
 	PRIMARY KEY(IDCliente),
 	FOREIGN KEY(Menu) references Menus(IDMenu)
@@ -25,21 +25,21 @@ CREATE TABLE Clientes
 CREATE TABLE GruposAlimenticios
 (
 	IDGrupoAl int not null AUTO_INCREMENT,
-	NombreGrupoAl varchar(20) not null,
+	NombreGrupoAl varchar(100) not null,
 	PRIMARY KEY(IDGrupoAl)
 )
 
 CREATE TABLE Categorias
 (
 	IDCategoria int not null AUTO_INCREMENT,
-	NombreCategoria varchar(20) not null,
+	NombreCategoria varchar(100) not null,
 	PRIMARY KEY(IDCategoria)
 )
 
 CREATE TABLE Ingredientes
 (
 	IDIngrediente int not null AUTO_INCREMENT,
-	NombreIngrediente varchar(20) not null,
+	NombreIngrediente varchar(100) not null,
 	GrupoAlimenticio int not null,
 	PRIMARY KEY(IDIngrediente),
 	FOREIGN KEY(GrupoAlimenticio) references GruposAlimenticios(IDGrupoAl)
@@ -48,14 +48,14 @@ CREATE TABLE Ingredientes
 CREATE TABLE Preparados
 (
 	IDPreparado int not null AUTO_INCREMENT,
-	NombrePreparado varchar(20) not null,
+	NombrePreparado varchar(100) not null,
 	PRIMARY KEY(IDPreparado)
 )
 
 CREATE TABLE Recetas
 (
 	IDReceta int not null AUTO_INCREMENT,
-	NombreReceta varchar(20) not null,
+	NombreReceta varchar(100) not null,
 	Descripcion varchar(30),
 	PRIMARY KEY(IDReceta)
 )
@@ -64,7 +64,7 @@ CREATE TABLE Platillos
 (
 	IDPlatillo int not null AUTO_INCREMENT,
 	Menu int not null,
-	Tiempo varchar(10) not null,
+	Tiempo varchar(100) not null,
 	Fecha datetime not null,
 	Notas varchar(600) not null,
 	PRIMARY KEY(IDPlatillo),
@@ -132,7 +132,7 @@ CREATE TABLE RecetaReceta
 
 CREATE TABLE RecetaTiempo
 (
-	NombreTiempo varchar(10) not null,
+	NombreTiempo varchar(100) not null,
 	IDReceta int not null,
 	FOREIGN KEY(NombreTiempo) references Tiempos(NombreTiempo),
 	FOREIGN KEY(IDReceta) references Recetas(IDReceta)
@@ -143,7 +143,7 @@ CREATE TABLE ClientePlatillo-----------------------------
 	IDCliente int not null,
 	IDPlatillo int not null,
 	Fecha datetime not null,
-	Tiempo varchar(10) not null,
+	Tiempo varchar(100) not null,
 	FOREIGN KEY(IDCliente) references Clientes(IDCliente),
 	FOREIGN KEY(IDPlatillo) references Platillos(IDPlatillo),
 	FOREIGN KEY(Tiempo) references Tiempos(NombreTiempo)
@@ -160,7 +160,7 @@ CREATE TABLE MenuReceta
 CREATE TABLE Plan
 (
 	IDCliente int not null,
-	NombreTiempo varchar(10) not null,
+	NombreTiempo varchar(100) not null,
 	FOREIGN KEY(IDCliente) references Clientes(IDCliente),
 	FOREIGN KEY(NombreTiempo) references Tiempos(NombreTiempo)
 )
@@ -168,8 +168,8 @@ CREATE TABLE Plan
 CREATE TABLE Usuarios
 (
 	id_Usuario int not null AUTO_INCREMENT,
-	usuario varchar(20) not null,
-	password varchar(20) not null,
+	usuario varchar(100) not null,
+	password varchar(100) not null,
 	PRIMARY KEY(id_Usuario)
 )
 
@@ -222,7 +222,7 @@ CREATE TABLE Tiempos
 CREATE TABLE Clientes
 (
 	IDCliente int not null AUTO_INCREMENT,
-	Nombre varchar(20) not null,
+	Nombre varchar(100) not null,
 	NombreMenu varchar(10) not null,
 	PRIMARY KEY(IDCliente),
 	FOREIGN KEY(NombreMenu) references Menus(NombreMenu)
@@ -231,22 +231,22 @@ CREATE TABLE Clientes
 CREATE TABLE GruposAlimenticios
 (
 	IDGrupoAl int not null AUTO_INCREMENT,
-	NombreGrupoAl varchar(20) not null,
+	NombreGrupoAl varchar(100) not null,
 	PRIMARY KEY(IDGrupoAl)
 )
 
 CREATE TABLE Categorias
 (
 	IDCategoria int not null AUTO_INCREMENT,
-	NombreCategoria varchar(20) not null,
+	NombreCategoria varchar(100) not null,
 	PRIMARY KEY(IDCategoria)
 )
 
 CREATE TABLE Ingredientes
 (
 	IDIngrediente int not null AUTO_INCREMENT,
-	NombreIngrediente varchar(20) not null,
-	GrupoAlimenticio varchar(20) not null,
+	NombreIngrediente varchar(100) not null,
+	GrupoAlimenticio varchar(100) not null,
 	PRIMARY KEY(IDIngrediente),
 	FOREIGN KEY(GrupoAlimenticio) references GruposAlimenticios(NombreGrupoAl)
 )
@@ -254,14 +254,14 @@ CREATE TABLE Ingredientes
 CREATE TABLE Preparados
 (
 	IDPreparado int not null AUTO_INCREMENT,
-	NombrePreparado varchar(20) not null,
+	NombrePreparado varchar(100) not null,
 	PRIMARY KEY(IDPreparado)
 )
 
 CREATE TABLE Recetas
 (
 	IDReceta int not null AUTO_INCREMENT,
-	NombreReceta varchar(20) not null,
+	NombreReceta varchar(100) not null,
 	Descripcion varchar(30),
 	PRIMARY KEY(IDReceta)
 )

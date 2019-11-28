@@ -31,7 +31,7 @@ function addInp(){
   f.appendChild(document.createElement('br'));
   f.appendChild(nInput);
 }
-
+//Funcion para toggle de delete buttons
 function showDeleteBtns() {
   
   
@@ -47,12 +47,15 @@ function showDeleteBtns() {
     }
   }   
 }
+//funcion para llenado de modal con parametros individuales y linkeo de funcion elimIng
 function showDeleteModal(x, ing) {
 
 document.getElementById('ingAEliminar').setAttribute('value',x);
 document.getElementById('ingAEliminar').innerText = "Ingrediente a eliminar: " + ing;
 document.getElementById('confirmarEliminarIng').setAttribute('onclick','elimIng('+x+')');
 }
+
+//función de llamado al controlador de borrado de ingredientes
 function elimIng(x){
   url = "eliminarIng.php";
   var posting = $.post( url, { id: x});
@@ -64,7 +67,7 @@ function elimIng(x){
         }
         if (data== 2){
         M.toast({html: 'No se pudo eliminar ingrediente por favor intenta de nuevo mas tarde', classes: 'grey rounded'});
-        document.getElementById('showIngredientes').click();
+        
                 }
   });
 
@@ -125,7 +128,7 @@ $(document).ready(function(){
     
     $('#addCat').click(function(){  
         o++;  
-        $('#dynamic_field2').append('<tr style="border:none;" id="rowC'+o+'"><td><div class="input-field col s7"><input type="text" name="cat'+o+'" id="cat'+o+'" class="validate" data-error="wrong" required><label for="validate-ingrediente">Categoria</label><span class="helper-text" data-error="Por favor introduce un nombre de categoría." data-success=""></span></div><div vertical-align: middle id=""><br><button type="button" name="remove" id="'+o+'" class="btn-small btn-danger btn_removeC red">X</button></div></td></tr>');  
+        $('#dynamic_field2').append('<tr style="border:none;" id="rowC'+o+'"><td><div class="input-field col s10" ><input type="text" name="cat'+o+'" id="cat'+o+'" class="validate" data-error="wrong" required><label for="validate-ingrediente">Categoria</label><span class="helper-text" data-error="Por favor introduce un nombre de categoría." data-success=""></span></div><div class="col s2"><br><a id="'+o+'" class="right btn-floating btn-medium btn-danger btn_removeC waves-effect waves-light red"><i class="material-icons center">remove</i></a></div></td></tr>');  
     });
 
     var j=1;
@@ -220,7 +223,7 @@ $(document).ready(function(){
 	    posting.done(function( data ) {
 	    	
 	    	if (data== 1){
-        M.toast({html: 'Por favor introduce un nombre de ingrediente', classes: 'red rounded'});
+        M.toast({html: 'Por favor introduce un nombre de ingrediente correcto', classes: 'red rounded'});
 				
 	    	}
 	    	if (data== 2){
@@ -238,6 +241,9 @@ $(document).ready(function(){
           M.toast({html: 'Ingrediente creado exitosamente', classes: 'green rounded'});
           var form = document.getElementById("agregar_ingrediente");
           form.reset();
+        }
+        else{
+          M.toast({html: 'Error insertando a la base de datos por favor verifica los datos', classes: 'red rounded'});
         }
 	    });
     });
