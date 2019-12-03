@@ -54,11 +54,13 @@ function tablaMenusMod(){
 								echo "<tbody>";
 									while ($row = mysqli_fetch_assoc($result)) {
 										
-										//$num = mysqli_query("SELECT COUNT(IDCliente) FROM Clientes as C, Menus as M WHERE C.Menu = M.IDMenu AND M.NombreMenu = NombreMenu");
+										$nomMenu = $row["NombreMenu"];
+										$clientes = mysqli_query( $db , "SELECT COUNT(IDCliente) FROM Clientes as C, Menus as M WHERE C.Menu = M.IDMenu AND M.NombreMenu = NombreMenu");
+										$num = mysqli_fetch_assoc($clientes);
 
 										echo "<tr>";
 											echo "<td>" . $row["NombreMenu"] . "</td>";
-										    //echo "<td>" . $num  . "</td>";
+										    echo "<td>" . $num["COUNT(IDCliente)"]  . "</td>";
 										echo "</tr>";
 									}
 								echo "</tbody>";

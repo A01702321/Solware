@@ -4,10 +4,10 @@ require_once("util.php");
 server with default setting (user 'root' with no password) */
 
 $id = $_POST['id'];
-$nomMenu = $_POST['nombreMenu'];
-
+$nomMenu = $_POST['nomMenu'];
 $rest = modificaMenu($id,$nomMenu);
-echo $rest;
+
+	echo $rest;
 
 
 ?>

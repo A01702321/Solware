@@ -62,7 +62,7 @@
 		        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
 		    }
 		    
-            header("location:registroExitoso.php");
+            
 	    }
 	    else{
             echo '<script language="javascript">';

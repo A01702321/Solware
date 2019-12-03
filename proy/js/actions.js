@@ -65,7 +65,10 @@ function showModifyModalMenu(x, menu) {
 
 document.getElementById('MenuAModificar').setAttribute('value',x);
 document.getElementById('MenuAModificar').innerText = "Menu a modificar: " + menu;
-document.getElementById('confirmarModificarMenu').setAttribute('onclick','modMenu('+x+','+menu+')');
+document.getElementById('menuModInput').setAttribute('value',menu);
+var variable = document.getElementById('menuModInput');
+document.getElementById('confirmarModificarMenu').setAttribute('onclick','modMenu('+x+')');
+//document.getElementById('cancelarModificarMenu').setAttribute('onclick',document.getElementById('menuModInput').setAttribute('value',menu));
 }
 
 
@@ -93,7 +96,7 @@ function elimMenu(x){
         
         if (data== 1){
         M.toast({html: 'Menu eliminado exitosamente', classes: 'green rounded'});
-        document.location.reload();
+        document.location = 'menu.php';
         }
         if (data== 2){
         M.toast({html: 'No se pudo eliminar menu por favor intenta de nuevo mas tarde', classes: 'yellow rounded'});
@@ -106,12 +109,16 @@ function elimMenu(x){
 
 function modMenu(x, menu){
   url = "modificaMenu.php";
-  var posting = $.post( url, { id: x});
+  var form = document.getElementById('menuModInput');
+
+  var nomMenu = form.getAttribute('value');
+  var nombre = form.value;
+  var posting = $.post( url, { id: x , nomMenu: nombre});
   posting.done(function( data ) {
         
         if (data== 1){
         M.toast({html: 'Menu modificado exitosamente', classes: 'green rounded'});
-        document.location.reload();
+        document.location = 'menu.php';
         }
         if (data== 2){
         M.toast({html: 'No se pudo modificar menu por favor intenta de nuevo mas tarde', classes: 'grey rounded'});
