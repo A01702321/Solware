@@ -20,16 +20,25 @@
 					echo "</tr>";
 					echo "</thead>";
 					echo "<tbody>";
+					
+					$bd = connectDB();
 					while ($row = mysqli_fetch_assoc($result)) {
 						
+						$nomMenu = $row["Menu"];
+						$sql = "SELECT NombreMenu FROM Menus Where IDMenu = '$nomMenu'";
+						$menus = mysqli_query($bd, $sql);
+						$menu = mysqli_fetch_assoc($menus);
+
 						echo "<tr>";
 						echo "<td>" . $row["IDCliente"] . "</td>";
 						echo "<td>" . $row["Nombre"] . "</td>";
-						echo "<td>" . $row["Menu"] . "</td>";
+						echo "<td>" . $menu["NombreMenu"] . "</td>";
 						echo "<td style='text-align: right;     padding: 0px 0px; '><a onclick='showDeleteModalCliente(".$row["IDCliente"].", &quot;".$row["Nombre"]."&quot; )' href='#removeModalCliente' id='".$row["IDCliente"]."' style='display: none;' class='right  waves-effect waves-red btn-flat red-text modal-trigger'><i class='material-icons'>remove_circle</i></a></td>"
 							;
 						echo "</tr>";
 					}
+					closeDB($bd);
+
 					echo "</tbody>";
 					echo "</table>";
 					
