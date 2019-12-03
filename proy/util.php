@@ -345,6 +345,26 @@
 		return $res;
 	}
 
+	function eliminarCliente($id) {
+		
+		$db = connectDB();
+
+ 		$res = 2;
+
+		$sql = "DELETE FROM Restriccion Where IDCliente = '$id'";
+		mysqli_query($db, $sql);
+		$sql = "DELETE FROM Plan Where IDCliente = '$id'";
+		mysqli_query($db, $sql);
+		$sql = "DELETE FROM ClientePlatillo Where IDCliente = '$id'";
+		mysqli_query($db, $sql);
+		$sql = "DELETE FROM Clientes Where IDCliente = '$id'";
+		if(mysqli_query($db, $sql)){
+			$res = 1;
+		}
+		closeDB($db);
+		return $res;
+	}
+
 	function eliminarMenu($id) {
 		
 		$bd = connectDB();

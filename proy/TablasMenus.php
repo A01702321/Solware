@@ -55,7 +55,7 @@ function tablaMenusMod(){
 									while ($row = mysqli_fetch_assoc($result)) {
 										
 										$nomMenu = $row["NombreMenu"];
-										$clientes = mysqli_query( $db , "SELECT COUNT(IDCliente) FROM Clientes as C, Menus as M WHERE C.Menu = M.IDMenu AND M.NombreMenu = NombreMenu");
+										$clientes = mysqli_query( $db , "SELECT COUNT(IDCliente) FROM Clientes as C, Menus as M WHERE C.Menu = M.IDMenu AND M.NombreMenu = '$nomMenu'");
 										$num = mysqli_fetch_assoc($clientes);
 
 										echo "<tr>";
