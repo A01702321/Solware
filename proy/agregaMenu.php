@@ -1,6 +1,10 @@
 <?php  
+    session_start();
+
+    require_once "util.php";
+
+    if(isset($_SESSION["User"])){
 	include_once("header.html");
-    require_once("util.php");
     include_once("AgregaMenu.html");
     
     if(isset($_POST["nombreMenu"])){
@@ -18,4 +22,10 @@
         }
     }
     include_once("footer.html");
+
+    }
+
+    else{
+        header("location:../proy/index.php");
+    }
 ?>

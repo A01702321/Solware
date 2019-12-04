@@ -1,5 +1,10 @@
 <?php
    
+   session_start();
+
+    require_once "util.php";
+
+    if(isset($_SESSION["User"])){
     /*require_once("util.php");
     if(isset($_POST["first_name"]) && isset($_POST["tiempomenu"]) && isset($_POST["nombremenu"])){
         $nombre= $_POST["first_name"];
@@ -48,8 +53,6 @@
     }
     include_once("footer.html");*/
 
-
-    require_once("util.php");
     if(isset($_POST["first_name"]) && isset($_POST["tiempomenu"]) && isset($_POST["nombremenu"])){
         $nombre= $_POST["first_name"];
         $menu= $_POST["nombremenu"];
@@ -90,4 +93,9 @@
         include_once("AgregaCliente.html");
     }
     include_once("footer.html");
+    }
+
+    else{
+        header("location:../proy/index.php");
+    }
 ?>

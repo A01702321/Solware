@@ -12,7 +12,7 @@ if($pwd == getQuery($user)){
 } else {
 	echo "<script> 
             alert('El usuario o contraseña son incorrectos'); 
-            window.location.href='Login.html'; 
+            window.location.href='index.php'; 
           </script>";
 }
 

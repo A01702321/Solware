@@ -17,6 +17,6 @@
 	}
 
 	else{
-		header("location:../proy/Login.html");
+		header("location:../proy/index.php");
 	}
 ?>
