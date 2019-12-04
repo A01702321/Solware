@@ -13,12 +13,16 @@
 	    	$username = "root";
 	    	$password = "";
 	    	$dbname = "clase";
-	    } else if($environment == "PROD") {
+	    } else if($environment == "TEST") {
 	    	$servername = "mysql1008.mochahost.com";
 	    	$username = "dawbdorg_1702321";
 	    	$password = "1702321";
 	    	$dbname = "dawbdorg_A01702321";
-	    }
+	    } else if($environment == "PROD") {
+	    	$servername = "mysql1008.mochahost.com";
+	    	$username = "habeatsg_solware";
+	    	$password = "S0lware_1234!?"; // S0lware_1234!?
+	    	$dbname = "habeatsg_db";
 
 	    $bd = mysqli_connect($servername,$username,$password,$dbname);
 	    
