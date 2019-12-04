@@ -6,7 +6,7 @@
 	    //DEV: Ambiente de desarrollo
 	    //PROD: Ambiente de producción
 	    //TEST: Ambiente de pruebas
-	    $environment = "PROD";
+	    $environment = "TEST";
 	    
 	    if ($environment == "DEV") {
 	        $servername = "localhost";
@@ -23,6 +23,7 @@
 	    	$username = "habeatsg_solware";
 	    	$password = "S0lware_1234!?"; // S0lware_1234!?
 	    	$dbname = "habeatsg_db";
+	    }
 
 	    $bd = mysqli_connect($servername,$username,$password,$dbname);
 	    

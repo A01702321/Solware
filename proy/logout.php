@@ -4,6 +4,6 @@
     session_unset();
     session_destroy();
     
-    header("location:Login.html");
+    header("location:index.php");
         
 ?>
