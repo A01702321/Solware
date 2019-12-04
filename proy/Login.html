@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Habeats</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="css/agregarStyle.css">
+	<meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Mina" rel="stylesheet"> 
+  <!--<img add src="/res/add_button.png"> -->
+  <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+            
+</head>
+
+<body>
+	<img id="logo-index" src="img/logoh.png">
+	<!--<a href="" class="active">Home</a>
+	<a href="">Contacto</a>http://localhost/proy/img/logoh.png-->
+
+<!--
+	<div class="login-container">
+		<form method="POST" action="util/loginUser" id="userlogin">
+			<p class="login">Usuario:
+				<input id="user" type="text"  name="user" placeholder="Usuario" autocomplete="off" required> 
+			</p>
+			<p class="login">Contraseña: 
+				<input id="pswrd" type="password" name="password" placeholder="Contraseña" autocomplete="off" required>
+			</p>
+			<button id="subi" class ="alimentar_btn" type="button" name="login">Acceder</button>
+    </form>
+	</div>
+
+-->
+    <div class="container">
+            <form class="col s12" method=POST action="../proy/login.php">
+                <div class="row">
+                    <div class="input-field col s6 offset-s3">
+                        <input id="user" type="text" name="User" class="validate" required>
+                        <label for="user">Usuario</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6 offset-s3">
+                        <input id="password" type="password" name="Contraseña" class="validate" required>
+                        <label for="password">Contraseña</label>
+                    </div>
+                </div>
+                <br>
+                <div class="container center-align">
+                    <button class="btn waves-effect waves-light center-align loginButton alimentar_btn" type="submit" name="login">Acceder
+                    <i class="fas fa-tint loginIcon"></i>
+                    </button>
+                </div>
+                <br>
+            </form>
+        </div>
+	<script type="text/javascript" src="js/actions.js"></script>
+  <script type="text/javascript" src="js/ajax.js"></script>
+</body>
+</html>

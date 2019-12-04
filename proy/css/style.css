@@ -76,6 +76,12 @@ td {
 	background-color: #001437;
 	margin: 0;
 }
+
+.login{
+	font-size: 18px;
+    color: #001437;
+}
+
 .logo{
 	width: 250px;
 	float: left;
