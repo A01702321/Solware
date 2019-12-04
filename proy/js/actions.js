@@ -53,9 +53,35 @@ document.getElementById('ingAEliminar').setAttribute('value',x);
 document.getElementById('ingAEliminar').innerText = "Ingrediente a eliminar: " + ing;
 document.getElementById('confirmarEliminarIng').setAttribute('onclick','elimIng('+x+')');
 }
+
+function showDeleteModalMenu(x, menu) {
+
+document.getElementById('MenuAEliminar').setAttribute('value',x);
+document.getElementById('MenuAEliminar').innerText = "Menu a eliminar: " + menu;
+document.getElementById('confirmarEliminarMenu').setAttribute('onclick','elimMenu('+x+')');
+}
+
+function showModifyModalMenu(x, menu) {
+
+document.getElementById('MenuAModificar').setAttribute('value',x);
+document.getElementById('MenuAModificar').innerText = "Menu a modificar: " + menu;
+document.getElementById('menuModInput').setAttribute('value',menu);
+var variable = document.getElementById('menuModInput');
+document.getElementById('confirmarModificarMenu').setAttribute('onclick','modMenu('+x+')');
+//document.getElementById('cancelarModificarMenu').setAttribute('onclick',document.getElementById('menuModInput').setAttribute('value',menu));
+}
+
+function showDeleteModalCliente(x, cliente) {
+
+document.getElementById('ClienteAEliminar').setAttribute('value',x);
+document.getElementById('ClienteAEliminar').innerText = "Cliente a eliminar: " + cliente;
+document.getElementById('confirmarEliminarCliente').setAttribute('onclick','elimCliente('+x+')');
+}
+
+
 function elimIng(x){
   url = "eliminarIng.php";
-  var posting = $.post( url, { id: x});
+  var posting = $.post( url, { id: x}, { nomMenu: menu});
   posting.done(function( data ) {
         
         if (data== 1){
@@ -65,6 +91,61 @@ function elimIng(x){
         if (data== 2){
         M.toast({html: 'No se pudo eliminar ingrediente por favor intenta de nuevo mas tarde', classes: 'grey rounded'});
         document.getElementById('showIngredientes').click();
+                }
+  });
+
+}
+
+function elimCliente(x){
+  url = "eliminarCliente.php";
+  var posting = $.post( url, { id: x});
+  posting.done(function( data ) {
+        
+        if (data== 1){
+        M.toast({html: 'Cliente eliminado exitosamente', classes: 'green rounded'});
+        document.getElementById('showClientes').click();
+        }
+        if (data== 2){
+        M.toast({html: 'No se pudo eliminar cliente por favor intenta de nuevo mas tarde', classes: 'red rounded'});
+        document.getElementById('showClientes').click();
+                }
+  });
+
+}
+
+function elimMenu(x){
+  url = "eliminarMenu.php";
+  var posting = $.post( url, { id: x});
+  posting.done(function( data ) {
+        
+        if (data== 1){
+        M.toast({html: 'Menu eliminado exitosamente', classes: 'green rounded'});
+        document.location = 'menu.php';
+        }
+        if (data== 2){
+        M.toast({html: 'No se pudo eliminar menu por favor intenta de nuevo mas tarde', classes: 'red rounded'});
+                }
+        if (data== 3){
+        M.toast({html: 'No se pudo eliminar Menú. Asegurate de no tener clientes con ese menú.', classes: 'orange rounded'});                }
+  });
+
+}
+
+function modMenu(x, menu){
+  url = "modificaMenu.php";
+  var form = document.getElementById('menuModInput');
+
+  var nomMenu = form.getAttribute('value');
+  var nombre = form.value;
+  var posting = $.post( url, { id: x , nomMenu: nombre});
+  posting.done(function( data ) {
+        
+        if (data== 1){
+        M.toast({html: 'Menu modificado exitosamente', classes: 'green rounded'});
+        document.location = 'menu.php';
+        }
+        if (data== 2){
+        M.toast({html: 'No se pudo modificar menu por favor intenta de nuevo mas tarde', classes: 'grey rounded'});
                 }
   });
 

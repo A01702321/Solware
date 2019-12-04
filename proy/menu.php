@@ -3,6 +3,7 @@
 	include("menu.html");
 
 	require_once "util.php";
+	require_once "TablasMenus.php";
 
 
 	tablaMenus();

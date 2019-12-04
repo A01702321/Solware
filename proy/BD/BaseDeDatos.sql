@@ -192,7 +192,7 @@ CREATE TABLE `MenuReceta` (
 
 CREATE TABLE `Menus` (
   `IDMenu` int(11) NOT NULL,
-  `NombreMenu` varchar(10) DEFAULT NULL
+  `NombreMenu` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
