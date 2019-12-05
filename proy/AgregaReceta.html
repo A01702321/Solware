@@ -9,83 +9,74 @@
 
 
 
-  <div class="row">
-    <div class="col s12">
-      <form id="forma" method="POST" action="agregaReceta.php">  
-
-        <div class="row">
-          <div class="col s12">
-            <ul class="tabs">
-              <li class="tab col s3"><a class="active" href="#InfoGen">1. Información general</a></li>
-              <li class="tab col s3"><a href="#Componentes">2. Agregar componentes</a></li>
-              <li class="tab col s3"><a href="#RecetasAlt">3. Agregar recetas alternas</a></li>
-              <li class="tab col s3"><a href="#Registrar">4. Registrar</a></li>
-            </ul>
-          </div>
-        </div>
-
 <!-- 1. Informacion general -->
-        <div class="row">
-          <div class="col s10 offset-s2" id="InfoGen">
-            <div class="col s4 offset-s3">
-              <br>
-              <h5>Información general</h5><br>
-            </div>
-    
-            <div class="row">
-              <div class="input-field col s8">
-                <h6>* <b>1. Nombre de la receta:</b></h6><br><br>
-                <div>
-                  <input id="nombre_receta" name="nombre_receta" type="text" placeholder="ex: Telepapilla">
-                </div>
-          
-              </div>
-            </div>
 
-            <div class="row">
-              <br>
-              <h6>* <b>2. Selecciona los tiempos en los que es apropiado comer esta receta:</b></h6>
-              <div class="input-field col s4">
-                <?php
-                  require_once("util.php");
-                  obtenerTiempos();
-                ?>
-              </div>
-            </div>
+  <form id="forma" method="POST" action="agregaCliente.php">
 
-       
-            <div class="row">
-              <div class="input-field col s8">
-                <h6>* <b>3. Selecciona el menú que el cliente desea contratar:</b></h6>
-                <br><br>
-                <select required id="nombremenu" name="nombremenu">
-                <option value="" disabled selected>Selecciona...</option>
-                <?php
-                  require_once("util.php");
-                  obtenerMenu();
-                ?>
-                </select>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="input-field col s8">
-                <br>
-                <h6> <b>4. Introduce una descripción si lo crees necesario:</b></h6>
-                <br><br>
-                <textarea id="descReceta" class="materialize-textarea" placeholder="ex: Hello world!"></textarea>
-              </div>
-            </div>
-            <br><br><br>
-            <main class="center">
-              <div class="col s10">
-              <!-- BUSCAR COMO USAR ESTE BOTON PARA CAMBIAR A LA SIGUIENTE TAB -->
-              <a class="waves-effect waves-light btn blue darken-4"  ><i class="material-icons left">arrow_forward</i></a>
-            </div>
-            </main> 
-
-          </div>
+    <div class="row">
+      <div class="col s10 offset-s2">
+        <div class="col s4 offset-s3">
+          <br>
+          <h5>Información general</h5><br>
         </div>
+      </div>
+
+      
+    </div>
+    
+
+    <div class="row">
+      <div class="input-field col s9 offset-s1">
+        <h6>* <b>1. Nombre de la receta</b></h6><br><br>
+        <div>
+          <input id="nombre_receta" name="nombre_receta" type="text" placeholder="ex: Scooby galletas">
+        </div>
+      </div>
+    </div>
+
+    <br><br><br><br><br>
+
+    <div class="row">
+      <div class="col s6">
+        <h6>* <b>2. Selecciona los tiempos que el cliente desea contratar:</b></h6>
+        <div class="input-field col s4 offset-s2">
+          <?php
+            require_once("util.php");
+            obtenerTiempos();
+          ?>
+        </div>
+      </div>
+      <div class="col s5">
+        <h6>* <b>3. Selecciona el menú que se desee contratar:</b></h6>
+        <br><br>
+        <select required id="nombremenu" name="nombremenu">
+          <option value="" disabled selected>Selecciona...</option>
+              <?php
+                require_once("util.php");
+                obtenerMenu();
+              ?>
+        </select>
+      </div>
+    </div>
+    
+    <br><br><br><br>
+
+    <div class="row">
+      <div class="input-field col s9 offset-s1">
+        <h6> <b>4. Introduce una descripción si lo crees necesario:</b></h6>
+        <br><br>
+        <textarea id="descReceta" class="materialize-textarea" placeholder="ex: Hello world!"></textarea>
+      </div>
+    </div>
+
+
+  </form>
+        
+
+            
+            <br><br><br>
+            
+
 
         
 <!-- 2. Componentes -->
@@ -115,13 +106,7 @@
             <input type="hidden" value="" name="valorRestricciones" id="valorRestricciones"/>
             <div class="row">
               <br><br><br><br>
-              <main class="center">
-                <div class="col s10">
-                  <!-- BUSCAR COMO USAR ESTE BOTON PARA CAMBIAR A LA SIGUIENTE TAB -->
-                  <a class="waves-effect waves-light btn blue darken-4"  ><i class="material-icons left">arrow_back</i></a>
-                  <a class="waves-effect waves-light btn blue darken-4"  ><i class="material-icons left">arrow_forward</i></a>
-                </div>  
-              </main>
+              
             
             </div>
           </div>
@@ -155,13 +140,7 @@
             <input type="hidden" value="" name="valorRestricciones" id="valorRestricciones"/>
             <div class="row">
               <br><br><br><br>
-              <main class="center">
-                <div class="col s10">
-                  <!-- BUSCAR COMO USAR ESTE BOTON PARA CAMBIAR A LA SIGUIENTE TAB -->
-                  <a class="waves-effect waves-light btn blue darken-4"  ><i class="material-icons left">arrow_back</i></a>
-                  <a class="waves-effect waves-light btn blue darken-4"  ><i class="material-icons left">arrow_forward</i></a>
-                </div>  
-              </main>
+              
             
             </div>
           </div>
@@ -177,13 +156,7 @@
       <div class="col s6 offset-s3">
         <br>
         <br><br><br>
-          <main class="center">
-            <div class="col s10">
-              <!-- BUSCAR COMO USAR ESTE BOTON PARA CAMBIAR A LA SIGUIENTE TAB -->
-              <a class="waves-effect waves-light btn blue darken-4"  ><i class="material-icons left">arrow_back</i></a>
-              <button class="waves-effect waves-light btn light-green lighten-2" type="submit" form="forma">Finalizar</button>  
-            </div>  
-          </main>
+          
         
       </div>
       <br><br><br>
@@ -199,105 +172,3 @@
 
 
 
-
-<!--
-
-<body>	
-
-	<div>
-		<h2 class="col s6">Agregar Receta</h2>
-	</div>
-
-	 <div class="row">
-    <form class="col s6">
-      <div class="row">
-        <div class="input-field col s8">
-          <input id="last_name" type="text" class="validate">
-          <label for="last_name">Nombre de Receta</label>
-        </div>
-      </div>
-
-      <div class="row">
-      	<h6>Descripción de Receta</h6>
-        
-        <div class="input-field col s12">
-          <textarea id="textarea1" class="materialize-textarea"></textarea>
-          <label for="textarea1">Descripción</label>
-        </div>
-
-    </div>
-      <div class="row">
-        <h6><br>Menús a los que Pertenece<br><br></h6>
-        <div class="row">
-        <div class="input-field col s4">
-      	<label>
-        	<input type="checkbox" class="filled-in" checked="unchecked" />
-        	<span>Elemental</span>
-      	</label>
-        </div>
-        <div class="input-field col s4">
-      	<label>
-        	<input type="checkbox" class="filled-in" checked="unchecked" />
-        	<span>Elite</span>
-      	</label>
-        </div>
-        <div class="input-field col s4">
-      	<label>
-        	<input type="checkbox" class="filled-in" checked="unchecked" />
-        	<span>Meatless</span>
-      	</label>
-        </div><br>
-    </div>
-        <dir class="row">
-        <div class="input-field col s4">
-      	<label>
-        	<input type="checkbox" class="filled-in" checked="unchecked" />
-        	<span>Keto</span>
-      	</label>
-        </div>
-        <div class="input-field col s4">
-      	<label>
-        	<input type="checkbox" class="filled-in" checked="unchecked" />
-        	<span>Snacks</span>
-      	</label>
-        </div>
-        </dir>
-      </div>
-    </form>
-    <form class="col s6">
-    	<div class="row">
-    		<div class="col s12">
-    			<h5>Componentes de Receta</h5>
-    		</div>
-    	</div>
-      <div class="row">
-    <div class="col s6">
-          <div class="row">
-            <div class="input-field col s12">
-              <input type="text" id="autocomplete-ingrediente" class="autocomplete">
-              <label for="autocomplete-ingrediente">Ingrediente</label>
-            </div>
-        <div>
-          <input id="addBu" type="button" name="addIn" value="Agregar Ingrediente" onclick="addInp()">
-        </div>
-          </div>
-      </div>
-      <div class="col s6">
-          <div class="row">
-            <div class="input-field col s12">
-              <input type="text" id="autocomplete-preparado" class="autocomplete">
-              <label for="autocomplete-preparado">Preparado</label>
-            </div>
-        <div>
-          <input id="addBu" type="button" name="addIn" value="Agregar Preparado" onclick="addInp()">
-        </div>
-          </div>
-      </div>
-
-      </div>
-    </form>
-					<a class = "savebtn">Guardar</a>
-  </div>
-<script type="text/javascript" src="js/actions.js"></script>
-
--->
