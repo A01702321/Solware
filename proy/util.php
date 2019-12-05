@@ -355,6 +355,37 @@
 
 		return $name;
 	}
+	function getCategorias($id){
+		$db = connectDB();
+		
+		$sql = "SELECT IDCategoria FROM IngredienteCategoria Where IDIngrediente = '$id'";
+		$cats = array();
+
+
+		$result = mysqli_query($db, $sql);
+		while ($row = mysqli_fetch_assoc($result)) {
+			$nombreCat = getNombreCategoria($row['IDCategoria']);
+			array_push($cats, $nombreCat);
+
+		}
+		closeDB($db);
+		
+		return ($cats);
+	}
+
+	function getNombreCategoria($id){
+		$db = connectDB();
+		
+		$sql = "SELECT NombreCategoria FROM Categorias Where IDCategoria = '$id'";
+
+		$result = mysqli_query($db, $sql);
+		$resArray = $result->fetch_assoc();
+		$name = $resArray['NombreCategoria'];
+		closeDB($db);
+
+		return $name;
+	}
+
 
 	function getRecetas(){
 		$db = connectDB();

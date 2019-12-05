@@ -50,19 +50,42 @@ function showDeleteBtns() {
 //funcion para llenado de modal con parametros individuales y linkeo de funcion elimIng
 function showDeleteModal(x, ing) {
 
-document.getElementById('ingAEliminar').setAttribute('value',x);
-document.getElementById('ingAEliminar').innerText = "Ingrediente a eliminar: " + ing;
-document.getElementById('confirmarEliminarIng').setAttribute('onclick','elimIng('+x+')');
+  document.getElementById('ingAEliminar').setAttribute('value',x);
+  document.getElementById('ingAEliminar').innerText = "Ingrediente a eliminar: " + ing;
+  document.getElementById('confirmarEliminarIng').setAttribute('onclick','elimIng('+x+')');
 }
 
 
-function showModifyModal(name, id, grupo) {
+function showModifyModal(name, id, grupo, categorias) {
 
-document.getElementById('nombreIng').setAttribute('value',name);
-M.updateTextFields();
-document.getElementById('nombreIng').focus();
-document.getElementById('opt'+id).setAttribute('selected',true);
+  var elems = document.getElementsByClassName('catego');
+  let len = elems.length
+  
+  for (i=0;i<len;i++){
+    
+    elems[0].outerHTML = "";
+  }
+  
+  document.getElementById('nombreIng').setAttribute('value',name);
+  M.updateTextFields();
 
+  
+
+  document.getElementById('opt'+id).setAttribute('selected',true);
+  o=0;
+  if(categorias.length>0){
+    
+    for (x=0; x<categorias.length;x++){
+      
+      document.getElementById('afterthis').insertAdjacentHTML("afterend", '<tr class="catego" style="border:none;" id="rowC'+o+'"><td><div class="input-field col s10" ><input type="text" name="cat'+o+'" id="cat'+o+'"><label for="validate-ingrediente">Categoria</label></div><div class="col s2"><br><a id="'+o+'" class="right btn-floating btn-medium btn-danger btn_removeC waves-effect waves-light red"><i class="material-icons center">remove</i></a></div></td></tr>');
+      document.getElementById('cat' + x).setAttribute('value',categorias[x]);
+      document.getElementById('cat' + x).focus();
+      o+=1;
+    }
+  }
+  M.updateTextFields();
+
+  
 }
 
 
@@ -143,7 +166,7 @@ $(document).ready(function(){
     
     $('#addCat').click(function(){  
         o++;  
-        $('#dynamic_field2').append('<tr style="border:none;" id="rowC'+o+'"><td><div class="input-field col s10" ><input type="text" name="cat'+o+'" id="cat'+o+'" class="validate" data-error="wrong" required><label for="validate-ingrediente">Categoria</label><span class="helper-text" data-error="Por favor introduce un nombre de categoría." data-success=""></span></div><div class="col s2"><br><a id="'+o+'" class="right btn-floating btn-medium btn-danger btn_removeC waves-effect waves-light red"><i class="material-icons center">remove</i></a></div></td></tr>');  
+        $('#dynamic_field2').append('<tr class="catego" style="border:none;" id="rowC'+o+'"><td><div class="input-field col s10" ><input type="text" name="cat'+o+'" id="cat'+o+'" class="validate" data-error="wrong" ><label for="validate-ingrediente">Categoria</label><span class="helper-text" data-error="Por favor introduce un nombre de categoría." data-success=""></span></div><div class="col s2"><br><a id="'+o+'" class="right btn-floating btn-medium btn-danger btn_removeC waves-effect waves-light red"><i class="material-icons center">remove</i></a></div></td></tr>');  
     });
 
     var j=1;

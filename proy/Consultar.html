@@ -57,28 +57,28 @@
 
 					    <form id="agregar_ingrediente" name="agregar_ingrediente">
 					        <div>
-					            <h5 style="text-align: center;">Modificar Ingrediente</h5>
+					            <h5 id="modifyIngTitle" style="text-align: center;">Modificar Ingrediente</h5>
 					         </div>
 					        
 					        <div class="table-responsive" vertical-align="center">  
 					            <table class="table " id="dynamic_field2"> 
+					            	
 					                <tr style="border:none;">
 					                  <td class="vert-aligned">
 					                    <div class="input-field col" style=" width: 100%;">
-					                        <input id="nombreIng" type="text" class="validate invalid" name="nombreIng" data-error="wrong" required="">
+					                        <input id="nombreIng" type="text" class="validate" name="nombreIng" data-error="wrong" required>
 					                        <label  for="n_ingrediente" class="">Nombre de Ingrediente</label>
 					                        <span class="helper-text" data-error="Por favor introduce un nombre de ingrediente." data-success=""></span>
 					                    </div>
 					                  </td>
 					                </tr>
 
-					                <tr style="border:none;">
+					                <tr style="border:none;" id ="afterthis">
 					                    <td class="vert-aligned">
-					                    <div class="input-field col" style=" width: 100%;">
-					                        <!--<input type="text" id="grupo" class="validate" name="grupo" data-error="wrong" required>-->
-					                        <label>Grupo Alimenticio</label>
-					                        <br>
-					                        <br>
+					                    <div class="input-field col" style="width: 100%;margin-top: 0;">
+					                        
+					                        <p>Grupo alimenticio</p>
+					                        
 					                        <select id="grupo" name="grupo" class="required">
 					                          <option value="">Selecciona un grupo alimenticio</option>
 					                          <?php
@@ -90,30 +90,20 @@
 					                    </div>
 					                  </td>
 					                </tr>
-					                <!--<tr style="border:none;" id="rowC1">
-					                    <td>
-					                    <div class="input-field col s10">
-					                        <input type="text" id="cat1" class="validate" name ="cat1" data-error="wrong" >
-					                        <label for="autocomplete-categoria">Categoría</label>
-					                        <span class="helper-text" data-error="Por favor introduce un nombre de categoría." data-success=""></span>
-					                    </div>
-					                    <div class="col s2">
-					                        <br>
-					                        <a id="1" class="right btn-floating btn-medium btn-danger btn_removeC waves-effect waves-light red"><i class="material-icons center">remove</i></a>
-					                    </div>
-					                  </td>
-					                </tr>-->
+					                
+					                
 
-					                 
+					               
 					          </table>
 					          <tr style="border:none;" >
 					               	<td>
 						                <div class="col s12" style="padding-right: .5rem;">
 		                                  <br>
+		                                  <p>Agregar Categoría</p>
 		                                  <a id="addCat" class="center btn-floating btn-medium waves-effect waves-light "><i class="material-icons">add</i></a>
 		                              	</div>
 	                              	</td>
-	                          <tr>
+	                          </tr>
 					          
 					        </div>
 					    </form>
