@@ -10,15 +10,12 @@
     	include_once("AgregaPreparado.html");
     	  if(isset($_POST["nombreprep"])){
              if (empty($_POST["nombreprep"]) || empty($_POST["ing1"])) {
-             //    echo '<script language="javascript">';
-               //  echo 'alert("Se requiere llenar el campo")';
-                // echo '</script>';
                 echo "<script>M.toast({html: 'No puede haber campos vacios', classes: 'red rounded'});</script>";
             }  
             else if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+[a-zA-ZáéíóúÁÉÍÓÚñÑ ]*+[a-zA-ZáéíóúÁÉÍÓÚñÑ]*$/",$_POST["nombreprep"])) {
-                echo '<script language="javascript">';
-                echo 'alert("Solo se permiten letras y espacios \nNo se puede iniciar con espacio")';
-                echo '</script>';
+               
+                 echo "<script>M.toast({html: 'Solo se permiten letras y espacios', classes: 'red rounded'});</script>";
+                 echo "<script>M.toast({html: 'No se puede iniciar ni terminar con espacio', classes: 'red rounded'});</script>";
             }else{
             	$namep = preg_replace('/\s+/', ' ',$_POST["nombreprep"]);
             	if(!existe("Preparados","NombrePreparado", $namep, true)){
@@ -30,7 +27,7 @@
 	    	             		 	$temp = 1;
 	    	             		 	$not = $ing;
 	    	             		 	// echo("<br>No Existe el Ingrediente: <strong>". $not ."</strong> en la base de datos");
-                                     echo "<script>M.toast({html: 'No Existe el Ingrediente: <strong>". $not ."</strong>  en la base de Datos', classes: 'red rounded'});</script>";
+                                     echo "<script>M.toast({html: 'No Existe en la base de datos el Ingrediente : <strong>". $not ."</strong>', classes: 'red rounded'});</script>";
 	    	             		 }
 	    	             	}
 	    	         }
@@ -57,7 +54,7 @@
               //  include_once("header.html");
                // echo("Existe ya el Preparado: <strong>". $namep ."</strong> en la base de Datos");
                
-                echo "<script>M.toast({html: 'Existe ya el Preparado:  <strong>". $namep ."</strong>  en la base de Datos', classes: 'red rounded'});</script>";
+                echo "<script>M.toast({html: 'Ya Existe en la base de Datos el Preparado :  <strong>". $namep ." </strong>', classes: 'red rounded'});</script>";
                 //include_once("AgregaPreparado.html");
             } 
             }
