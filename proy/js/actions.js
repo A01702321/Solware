@@ -121,7 +121,7 @@ function elimMenu(x){
         
         if (data== 1){
         M.toast({html: 'Menu eliminado exitosamente', classes: 'green rounded'});
-        document.location = 'menu.php';
+        location.reload();
         }
         if (data== 2){
         M.toast({html: 'No se pudo eliminar menu por favor intenta de nuevo mas tarde', classes: 'red rounded'});
@@ -145,8 +145,17 @@ function modMenu(x, menu){
         M.toast({html: 'Menu modificado exitosamente', classes: 'green rounded'});
         document.location = 'menu.php';
         }
-        if (data== 2){
+        else if (data== 2){
         M.toast({html: 'No se pudo modificar menu por favor intenta de nuevo mas tarde', classes: 'grey rounded'});
+                }
+        else if (data== 3){
+        M.toast({html: 'Se requiere llenar el campo.', classes: 'red rounded'});
+                }
+        else if (data== 4){
+        M.toast({html: 'Solo se permiten letras y espacios <br> No se puede iniciar con espacio', classes: 'red rounded'});
+                }
+        else if (data== 5){
+        M.toast({html: 'Ya existe un menú con ese nombre', classes: 'red rounded'});
                 }
   });
 
