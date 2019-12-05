@@ -79,6 +79,13 @@ document.getElementById('ClienteAEliminar').innerText = "Cliente a eliminar: " +
 document.getElementById('confirmarEliminarCliente').setAttribute('onclick','elimCliente('+x+')');
 }
 
+function showDeleteModalPreparado(x, preparado) {
+
+document.getElementById('PreparadoAEliminar').setAttribute('value',x);
+document.getElementById('PreparadoAEliminar').innerText = "Preparado a eliminar: " + preparado;
+document.getElementById('confirmarEliminarPreparado').setAttribute('onclick','elimPreparado('+x+')');
+}
+
 
 function elimIng(x){
   url = "eliminarIng.php";
@@ -128,6 +135,22 @@ function elimMenu(x){
                 }
         if (data== 3){
         M.toast({html: 'No se pudo eliminar Menú. Asegurate de no tener clientes con ese menú.', classes: 'orange rounded'});                }
+  });
+
+}
+
+function elimPreparado(x){
+  url = "eliminarPreparado.php";
+  var posting = $.post( url, { id: x});
+  posting.done(function( data ) {
+        
+        if (data== 1){
+        M.toast({html: 'Preparado eliminado exitosamente', classes: 'green rounded'});
+        document.getElementById("showPreparados").click();
+        }
+        if (data== 2){
+          M.toast({html: 'No se pudo eliminar menu por favor intenta de nuevo mas tarde', classes: 'red rounded'});
+        }
   });
 
 }
