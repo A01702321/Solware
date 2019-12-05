@@ -87,6 +87,7 @@
 					echo "<tr>";
 					echo "<th>ID</th>";
 					echo "<th>Nombre</th>";
+					echo "<div><th style='text-align: right;'><a onclick='showDeleteBtns()' id ='erase' class='btn-floating btn-medium waves-effect waves-light grey'><i class='material-icons'>delete_outline</i></a></th></div>";
 					echo "</tr>";
 					echo "</thead>";
 					echo "<tbody>";
@@ -95,6 +96,9 @@
 						echo "<tr>";
 						echo "<td>" . $row["IDPreparado"] . "</td>";
 						echo "<td>" . $row["NombrePreparado"] . "</td>";
+							echo "<td style='text-align: right;     padding: 0px 0px; '><a onclick='showDeleteModalCliente(".$row["IDPreparado"].", &quot;".$row["NombrePreparado"]."&quot; 
+						)' href='#removeModal' id='".$row["IDPreparado"]."' style='display: none;' class='right  waves-effect waves-red btn-flat red-text modal-trigger'><i class='material-icons'>remove_circle</i></a></td>"
+							;
 						echo "</tr>";
 					}
 					echo "</tbody>";
