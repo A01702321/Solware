@@ -19,22 +19,39 @@
                 echo '</script>';
             }else{
             	$namep = preg_replace('/\s+/', ' ',$_POST["nombreprep"]);
-            	if(!existe("preparados","NombrePreparado", $namep, true)){
-    	        	crearPreparado($namep);
-    	        	
-    	             foreach ($_POST as $ings) {
-    	             	# code...
-    	             	$ing = preg_replace('/\s+/', ' ',$ings);
-    	             	if($ing != $namep && $ing != ""){
-    	             		 agregarIngPreparado($namep, $ing);
-    	             	}
-    	             }
+            	if(!existe("Preparados","NombrePreparado", $namep, true)){
+            		$temp = 0;
+            		 foreach ($_POST as $ings) {
+	    	             	$ing = preg_replace('/\s+/', ' ',$ings);
+	    	             	if($ing != $namep && $ing != ""){
+	    	             		 if(!existe("Ingredientes","NombreIngrediente", $ing, true)){
+	    	             		 	$temp = 1;
+	    	             		 	$not = $ing;
+	    	             		 	 echo("<br>No Existe el Ingrediente: <strong>". $not ."</strong> en la base de datos");
+	    	             		 }
+	    	             	}
+	    	         }
+	    	         if($temp == 0){
+	    	        	crearPreparado($namep);
+	    	        	
+	    	             foreach ($_POST as $ings) {
+	    	             	# code...
+	    	             	$ing = preg_replace('/\s+/', ' ',$ings);
+	    	             	if($ing != $namep && $ing != ""){
+	    	             		 agregarIngPreparado($namep, $ing);
+	    	             	}
+	    	             }
 
-    	        	//echo "hola ". $_POST["valorIngredientes"];
-    	            header("location:registroExitoso.php");
+	    	        	//echo "hola ". $_POST["valorIngredientes"];
+	    	            header("location:registroExitoso.php");
+	    	        }else{
+	    	        	include_once("header.html");
+		               
+		                include_once("AgregaPreparado.html");
+	    	        }
     	        }else {
                 include_once("header.html");
-                echo("Existe ya un preparado con los datos introducidos");
+                echo("Existe ya el Preparado: <strong>". $namep ."</strong> en la base de Datos");
                 include_once("AgregaPreparado.html");
             } 
             }
