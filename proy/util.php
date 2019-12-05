@@ -6,7 +6,7 @@
 	    //DEV: Ambiente de desarrollo
 	    //PROD: Ambiente de producción
 	    //TEST: Ambiente de pruebas
-	    $environment = "TEST";
+	    $environment = "PROD";
 	    
 	    if ($environment == "DEV") {
 	        $servername = "localhost";
@@ -20,8 +20,8 @@
 	    	$dbname = "dawbdorg_A01702321";
 	    } else if($environment == "PROD") {
 	    	$servername = "mysql1008.mochahost.com";
-	    	$username = "habeatsg_solware";
-	    	$password = "S0lware_1234!?";
+	    	$username = "habeatsg_max";
+	    	$password = "12Qw-12qw12qw";
 	    	$dbname = "habeatsg_db";
 	    }
 
