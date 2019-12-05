@@ -21,7 +21,7 @@
 	    } else if($environment == "PROD") {
 	    	$servername = "mysql1008.mochahost.com";
 	    	$username = "habeatsg_solware";
-	    	$password = "S0lware_1234!?"; // S0lware_1234!?
+	    	$password = "S0lware_1234!?";
 	    	$dbname = "habeatsg_db";
 	    }
 
@@ -433,6 +433,7 @@
 
 		closeDB($link);
 	}
+	
 	function crearPreparado($name) {
 
 		$link = connectDB();
@@ -543,12 +544,12 @@
 		$bd->begin_Transaction();
 		try{
 			crearPreparado($name);
-			/*for ($i =0; $i<sizeof($ingredients); $i++){
+			for ($i =0; $i<sizeof($ingredients); $i++){
 				$ingredient = $ingredients[$i];
-			*/	
+			
 			agregarIngPreparado($name, $ingredients);
 			$bd->commit();
-			//}
+			}
 		}catch(Exception $e){
 			$bd->rollback();
 		}
@@ -878,5 +879,4 @@ function ultimoCliente(){
     mysqli_free_result($registros);
     return $id;
 }
-
 ?>
