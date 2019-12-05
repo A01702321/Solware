@@ -390,6 +390,22 @@
 		return $res;
 	}
 
+	function eliminarPreparado($id) {
+		
+		$db = connectDB();
+
+ 		$res = 2;
+
+		$sql = "DELETE FROM IngredientePreparado Where IDPreparado = '$id'";
+		mysqli_query($db, $sql);
+		$sql = "DELETE FROM Preparados Where IDPreparado = '$id'";
+		if(mysqli_query($db, $sql)){
+			$res = 1;
+		}
+		closeDB($db);
+		return $res;
+	}
+
 	function modificaMenu($id , $nomMenu) {
 		
 		$bd = connectDB();
