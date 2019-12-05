@@ -5,7 +5,7 @@ server with default setting (user 'root' with no password) */
 
 $id = $_POST['id'];
 
-
+//Llamado a funciones php para eliminado de ingredientes
 $rest = eliminarIngrediente($id);	
 echo $rest;
 

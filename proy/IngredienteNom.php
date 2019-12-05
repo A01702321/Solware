@@ -9,7 +9,7 @@ $categories = $_POST['categorias'];
 
 
 $res = validateNullForm($name,$categories,$group);
-if($res == 5) {
+if($res === 5) {
 	
 	$rest = crearIngCategoria($name, $categories, $group);
 	
