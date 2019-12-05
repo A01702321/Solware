@@ -120,7 +120,7 @@ function elimMenu(x){
         
         if (data== 1){
         M.toast({html: 'Menu eliminado exitosamente', classes: 'green rounded'});
-        document.location = 'menu.php';
+        location.reload();
         }
         if (data== 2){
         M.toast({html: 'No se pudo eliminar menu por favor intenta de nuevo mas tarde', classes: 'red rounded'});
