@@ -55,6 +55,21 @@ document.getElementById('ingAEliminar').innerText = "Ingrediente a eliminar: " +
 document.getElementById('confirmarEliminarIng').setAttribute('onclick','elimIng('+x+')');
 }
 
+
+function showModifyModal(name, id, grupo) {
+
+document.getElementById('nombreIng').setAttribute('value',name);
+M.updateTextFields();
+document.getElementById('nombreIng').focus();
+document.getElementById('opt'+id).setAttribute('selected',true);
+
+}
+
+
+
+
+
+
 //función de llamado al controlador de borrado de ingredientes
 function elimIng(x){
   url = "eliminarIng.php";
@@ -214,7 +229,6 @@ $(document).ready(function(){
 	        categories.push($('#cat' + x).val());
 	    };
 	    
-      
 
 	    var posting = $.post( url, { name: $('#nombreIng').val(), grupo: $('#grupo').val(), categorias: categories} );
 	    /* Send the data using post with element id name and name2*/
@@ -226,17 +240,17 @@ $(document).ready(function(){
         M.toast({html: 'Por favor introduce un nombre de ingrediente correcto', classes: 'red rounded'});
 				
 	    	}
-	    	if (data== 2){
+	    	else if (data== 2){
         M.toast({html: 'Por favor selecciona un grupo alimenticio válido', classes: 'red rounded'});
 					    	}
 	    	
-	    	if (data== 4){
+	    	else if (data== 4){
         M.toast({html: 'Por favor verifica que todos los campos estén correctos', classes: 'red rounded'});
         
 
 				
 	    	}
-	    	if(data == 6){
+	    	else if(data == 6){
           
           M.toast({html: 'Ingrediente creado exitosamente', classes: 'green rounded'});
           var form = document.getElementById("agregar_ingrediente");

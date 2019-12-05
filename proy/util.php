@@ -607,13 +607,14 @@
 
 	function validateNullForm($name, $categories, $group){
 		
-		
+		$forbidden = ';';
 		if($name === ''){
 			return 1;
 		}
 		$array = str_split($name);
 		foreach ($array as $char) {
-			 if($char == ";");
+			
+			 if($char === $forbidden)
 			 return 1;
 		}	
 		if($group === '' ){
@@ -736,7 +737,7 @@ function obtenerGrupos(){
     {
         $id=$datos[$i][0];
         $grupo=$datos[$i][1];
-        echo"$<option value=".$id.">$grupo</option>";
+        echo"$<option id='opt".$id."'' value=".$id.">$grupo</option>";
 
 
     }
