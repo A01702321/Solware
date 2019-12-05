@@ -1,5 +1,5 @@
 <?php
-   
+    
     /*require_once("util.php");
     if(isset($_POST["first_name"]) && isset($_POST["tiempomenu"]) && isset($_POST["nombremenu"])){
         $nombre= $_POST["first_name"];
@@ -90,4 +90,6 @@
         include_once("AgregaCliente.html");
     }
     include_once("footer.html");
+
+    
 ?>
