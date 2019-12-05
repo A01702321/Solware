@@ -124,6 +124,20 @@ function remInp(){
 
     
 }
+function getMax(){
+  var list = document.getElementsByClassName("right btn-floating btn-medium btn-danger btn_removeC waves-effect waves-light red");
+  
+  if(list.length > 0){
+    alert(list.length);
+    for (let x of list) {
+      if(x.id > o){
+        o = x.id;
+        
+      }
+    }
+  }
+  return o;
+}
 
 /js para consultar/
 
@@ -165,7 +179,10 @@ $(document).ready(function(){
     var o=1;
     
     $('#addCat').click(function(){  
-        o++;  
+        
+        
+        let o = getMax();
+
         $('#dynamic_field2').append('<tr class="catego" style="border:none;" id="rowC'+o+'"><td><div class="input-field col s10" ><input type="text" name="cat'+o+'" id="cat'+o+'" class="validate" data-error="wrong" ><label for="validate-ingrediente">Categoria</label><span class="helper-text" data-error="Por favor introduce un nombre de categoría." data-success=""></span></div><div class="col s2"><br><a id="'+o+'" class="right btn-floating btn-medium btn-danger btn_removeC waves-effect waves-light red"><i class="material-icons center">remove</i></a></div></td></tr>');  
     });
 
