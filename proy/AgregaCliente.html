@@ -83,23 +83,23 @@
       <div class="col s10 offset-s1">
         <h6><b>Selecciona los ingredientes que el cliente no puede o no quisiera comer en sus platillos:</b></h6><br>
         <div class="table-responsive" vertical-align="center">  
-              <table class="table " id="restricciones" > 
-                <tr>
-                  <td class="vert-aligned">
-                    <div class="input-field col s10">
-                      <input type="text" id="rest1" class="validate" name ="rest1" onkeyup="obtenIngrediente(1)">
-                      <label>Ingrediente</label>
-                      <div id="resultado1"></div>
-                    </div>
-                    <div>
-                      <br>
-                      <a id ="anadirRestricciones" class="btn-floating btn-medium waves-effect waves-light " onclick="cambiarValor()"><i class="material-icons">add</i></a>
-                    </div>
-                  </td>
-                </tr>      
-              </table>
-            </div>
-            <input type="hidden" value="" name="valorRestricciones" id="valorRestricciones"/>
+          <table class="table " id="restricciones" > 
+            <tr>
+              <td class="vert-aligned">
+                <div class="input-field col s10">
+                  <input type="text" id="rest1" class="validate" name ="rest1" onkeyup="obtenIngrediente(1)">
+                  <label>Introduce el nombre...</label>
+                  <div id="resultado1"></div>
+                </div>
+                <div>
+                  <br>
+                  <a id ="anadirRestricciones" class="btn-floating btn-medium waves-effect waves-light " onclick="cambiarValor()"><i class="material-icons">add</i></a>
+                </div>
+              </td>
+            </tr>      
+          </table>
+        </div>
+        <input type="hidden" value="" name="valorRestricciones" id="valorRestricciones"/>
       </div>
     </div>
   </form>
