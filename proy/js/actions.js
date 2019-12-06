@@ -69,7 +69,7 @@ function showModifyModal(name, id, idg, grupo, categorias) {
   document.getElementById('nombreIng').setAttribute('value',name);
   M.updateTextFields();
   document.getElementById('opt'+idg).setAttribute('selected',true);
-  document.getElementById("grupo").selectedIndex = 2;
+  
   o=0;
   if(categorias.length>0){
     
