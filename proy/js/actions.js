@@ -216,7 +216,7 @@ function modifyIng(y){
           M.toast({html: 'Error insertando a la base de datos por favor verifica los datos', classes: 'red rounded'});
         }
       });
-
+}
 
 
 
