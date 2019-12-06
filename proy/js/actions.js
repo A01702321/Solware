@@ -2,6 +2,9 @@ $('.tabs').tabs();
 
 $('select').formSelect();
 $('.modal').modal();
+$('.datepicker').datepicker({
+  
+});
 
 var her = 0;
 
