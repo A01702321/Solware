@@ -56,10 +56,9 @@ function showDeleteModal(x, ing) {
 }
 
 
-function showModifyModal(name, id, grupo, categorias) {
-
+function showModifyModal(name, id, idg, grupo, categorias) {
   var elems = document.getElementsByClassName('catego');
-  let len = elems.length
+  let len = elems.length;
   
   for (i=0;i<len;i++){
     
@@ -68,10 +67,7 @@ function showModifyModal(name, id, grupo, categorias) {
   
   document.getElementById('nombreIng').setAttribute('value',name);
   M.updateTextFields();
-
-  
-
-  document.getElementById('opt'+id).setAttribute('selected',true);
+  document.getElementById('opt'+idg).setAttribute('selected',true);
   o=0;
   if(categorias.length>0){
     
@@ -84,8 +80,7 @@ function showModifyModal(name, id, grupo, categorias) {
     }
   }
   M.updateTextFields();
-
-  
+  document.getElementById('modifyIngButt').setAttribute('onclick','modifyIng('+id+')');
 }
 
 
@@ -115,9 +110,10 @@ document.getElementById('confirmarEliminarCliente').setAttribute('onclick','elim
 
 //función de llamado al controlador de borrado de ingredientes
 
+
 function elimIng(x){
   url = "eliminarIng.php";
-  var posting = $.post( url, { id: x}, { nomMenu: menu});
+  var posting = $.post( url, { id: x});
   posting.done(function( data ) {
         
         if (data== 1){
@@ -131,6 +127,7 @@ function elimIng(x){
   });
 
 }
+
 
 function elimCliente(x){
   url = "eliminarCliente.php";
@@ -164,6 +161,56 @@ function elimMenu(x){
         if (data== 3){
         M.toast({html: 'No se pudo eliminar Menú. Asegurate de no tener clientes con ese menú.', classes: 'orange rounded'});                }
   });
+
+}
+
+function modifyIng(y){
+
+      url = "modificarIng.php";
+      let categories = [""];
+      var p = getMax();
+      
+      for (r = 0; r<=p; r++){
+        
+          categories.push($('#cat' + r).val());
+      };
+      
+      
+
+      var posting = $.post( url, { name: $('#nombreIng').val(), grupo: $('#grupo').val(), categorias: categories, id: y} );
+      /* Send the data using post with element id name and name2*/
+        
+      /* Alerts the results */
+      posting.done(function( data ) {
+        
+        if (data== 0){
+        M.toast({html: 'Por favor introduce un nombre de ingrediente correcto', classes: 'red rounded'});
+        
+        }
+        else if (data== 22){
+        M.toast({html: 'Por favor selecciona un grupo alimenticio válido', classes: 'red rounded'});
+                }
+        
+        else if (data== 4){
+        M.toast({html: 'Por favor verifica que todos los campos estén correctos', classes: 'red rounded'});
+        
+
+        
+        }
+        else if(data == 5){
+          
+          M.toast({html: 'Ingrediente modificado exitosamente', classes: 'green rounded'});
+          var form = document.getElementById("agregar_ingrediente");
+          form.reset();
+          document.getElementById('showIngredientes').click();
+        }
+        else{
+          M.toast({html: 'Error insertando a la base de datos por favor verifica los datos', classes: 'red rounded'});
+        }
+      });
+
+
+
 
 }
 
@@ -202,10 +249,11 @@ function remInp(){
 }
 function getMax(){
   var list = document.getElementsByClassName("right btn-floating btn-medium btn-danger btn_removeC waves-effect waves-light red");
-  
+  var o = 0;
   if(list.length > 0){
-    alert(list.length);
+    
     for (let x of list) {
+      
       if(x.id > o){
         o = x.id;
         
@@ -257,7 +305,8 @@ $(document).ready(function(){
     $('#addCat').click(function(){  
         
         
-        let o = getMax();
+        let o = +getMax();
+        o += 1;
 
         $('#dynamic_field2').append('<tr class="catego" style="border:none;" id="rowC'+o+'"><td><div class="input-field col s10" ><input type="text" name="cat'+o+'" id="cat'+o+'" class="validate" data-error="wrong" ><label for="validate-ingrediente">Categoria</label><span class="helper-text" data-error="Por favor introduce un nombre de categoría." data-success=""></span></div><div class="col s2"><br><a id="'+o+'" class="right btn-floating btn-medium btn-danger btn_removeC waves-effect waves-light red"><i class="material-icons center">remove</i></a></div></td></tr>');  
     });
@@ -339,8 +388,8 @@ $(document).ready(function(){
 	    /* get the action attribute from the <form action=""> element */
 	    url = "IngredienteNom.php";
 	    let categories = [];
-
-	    for (x = 1; x<=o; x++){
+      var p = getMax();
+	    for (x = 0; x<=p; x++){
 	      
 	        categories.push($('#cat' + x).val());
 	    };
@@ -371,6 +420,14 @@ $(document).ready(function(){
           M.toast({html: 'Ingrediente creado exitosamente', classes: 'green rounded'});
           var form = document.getElementById("agregar_ingrediente");
           form.reset();
+          var elems = document.getElementsByClassName('catego');
+          let len = elems.length;
+          
+          for (i=0;i<len;i++){
+            
+            elems[0].outerHTML = "";
+          }
+
         }
         else{
           M.toast({html: 'Error insertando a la base de datos por favor verifica los datos', classes: 'red rounded'});

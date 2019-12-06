@@ -84,6 +84,7 @@
 					                <tr style="border:none;">
 					                  <td class="vert-aligned">
 					                    <div class="input-field col" style=" width: 100%;">
+					                    	<p>*1. Nombre de el ingrediente</p>
 					                        <input id="nombreIng" type="text" class="validate" name="nombreIng" data-error="wrong" required>
 					                        <label  for="n_ingrediente" class="">Nombre de Ingrediente</label>
 					                        <span class="helper-text" data-error="Por favor introduce un nombre de ingrediente." data-success=""></span>
@@ -95,10 +96,10 @@
 					                    <td class="vert-aligned">
 					                    <div class="input-field col" style="width: 100%;margin-top: 0;">
 					                        
-					                        <p>Grupo alimenticio</p>
+					                        <p>*2. Selecciona un grupo Alimenticio</p>
 					                        
 					                        <select id="grupo" name="grupo" class="required">
-					                          <option value="">Selecciona un grupo alimenticio</option>
+					                          <option value="">Seleccionar</option>
 					                          <?php
 					                            require_once("util.php");
 					                            obtenerGrupos();
@@ -130,7 +131,7 @@
 				</div>
 				<div class="modal-foote center">
             		
-            		<a href="#!" id="modifyIng"  class="modal-action modal-close waves-effect waves-green btn-flat grey">Modificar Ingrediente</a>
+            		<a style="margin-bottom: 1rem;" href="#!" onclick="" id="modifyIngButt"  class="modal-action modal-close waves-effect waves-light btn-flat green">Modificar Ingrediente</a>
 
    				</div>
 			</div>
