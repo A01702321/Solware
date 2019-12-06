@@ -6,7 +6,10 @@
 	    //DEV: Ambiente de desarrollo
 	    //PROD: Ambiente de producción
 	    //TEST: Ambiente de pruebas
-	    $environment = "DEV";
+
+
+	    $environment = "PROD";
+
 	    
 	    if ($environment == "DEV") {
 	        $servername = "localhost";
@@ -22,8 +25,8 @@
 
 	    } else if($environment == "PROD") {
 	    	$servername = "mysql1008.mochahost.com";
-	    	$username = "habeatsg_solware";
-	    	$password = "S0lware_1234!?"; // S0lware_1234!?
+	    	$username = "habeatsg_max";
+	    	$password = "12Qw-12qw12qw";
 	    	$dbname = "habeatsg_db";
 	    }
 
@@ -525,6 +528,22 @@
 		return $res;
 	}
 
+	function eliminarPreparado($id) {
+		
+		$db = connectDB();
+
+ 		$res = 2;
+
+		$sql = "DELETE FROM IngredientePreparado Where IDPreparado = '$id'";
+		mysqli_query($db, $sql);
+		$sql = "DELETE FROM Preparados Where IDPreparado = '$id'";
+		if(mysqli_query($db, $sql)){
+			$res = 1;
+		}
+		closeDB($db);
+		return $res;
+	}
+
 	function modificaMenu($id , $nomMenu) {
 		
 		$bd = connectDB();
@@ -574,6 +593,7 @@
 
 		closeDB($link);
 	}
+	
 	function crearPreparado($name) {
 
 		$link = connectDB();
@@ -684,12 +704,12 @@
 		$bd->begin_Transaction();
 		try{
 			crearPreparado($name);
-			/*for ($i =0; $i<sizeof($ingredients); $i++){
+			for ($i =0; $i<sizeof($ingredients); $i++){
 				$ingredient = $ingredients[$i];
-			*/	
+			
 			agregarIngPreparado($name, $ingredients);
 			$bd->commit();
-			//}
+			}
 		}catch(Exception $e){
 			$bd->rollback();
 		}
@@ -1025,5 +1045,4 @@ function ultimoCliente(){
     mysqli_free_result($registros);
     return $id;
 }
-
 ?>

@@ -100,8 +100,8 @@
 						echo "<tr>";
 						echo "<td>" . $row["IDPreparado"] . "</td>";
 						echo "<td>" . $row["NombrePreparado"] . "</td>";
-							echo "<td style='text-align: right;     padding: 0px 0px; '><a onclick='showDeleteModalCliente(".$row["IDPreparado"].", &quot;".$row["NombrePreparado"]."&quot; 
-						)' href='#removeModal' id='".$row["IDPreparado"]."' style='display: none;' class='right  waves-effect waves-red btn-flat red-text modal-trigger'><i class='material-icons'>remove_circle</i></a></td>"
+							echo "<td style='text-align: right;     padding: 0px 0px; '><a onclick='showDeleteModalPreparado(".$row["IDPreparado"].", &quot;".$row["NombrePreparado"]."&quot; 
+						)' href='#removeModalPreparado' id='".$row["IDPreparado"]."' style='display: none;' class='right  waves-effect waves-red btn-flat red-text modal-trigger'><i class='material-icons'>remove_circle</i></a></td>"
 							;
 						echo "</tr>";
 					}

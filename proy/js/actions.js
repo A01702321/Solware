@@ -1,4 +1,5 @@
 $('.tabs').tabs();
+
 $('select').formSelect();
 $('.modal').modal();
 
@@ -108,7 +109,13 @@ document.getElementById('ClienteAEliminar').innerText = "Cliente a eliminar: " +
 document.getElementById('confirmarEliminarCliente').setAttribute('onclick','elimCliente('+x+')');
 }
 
-//función de llamado al controlador de borrado de ingredientes
+function showDeleteModalPreparado(x, preparado) {
+
+document.getElementById('PreparadoAEliminar').setAttribute('value',x);
+document.getElementById('PreparadoAEliminar').innerText = "Preparado a eliminar: " + preparado;
+document.getElementById('confirmarEliminarPreparado').setAttribute('onclick','elimPreparado('+x+')');
+}
+
 
 
 function elimIng(x){
@@ -153,7 +160,7 @@ function elimMenu(x){
         
         if (data== 1){
         M.toast({html: 'Menu eliminado exitosamente', classes: 'green rounded'});
-        document.location = 'menu.php';
+        location.reload();
         }
         if (data== 2){
         M.toast({html: 'No se pudo eliminar menu por favor intenta de nuevo mas tarde', classes: 'red rounded'});
@@ -163,6 +170,7 @@ function elimMenu(x){
   });
 
 }
+
 
 function modifyIng(y){
 
@@ -212,6 +220,21 @@ function modifyIng(y){
 
 
 
+function elimPreparado(x){
+  url = "eliminarPreparado.php";
+  var posting = $.post( url, { id: x});
+  posting.done(function( data ) {
+        
+        if (data== 1){
+        M.toast({html: 'Preparado eliminado exitosamente', classes: 'green rounded'});
+        document.getElementById("showPreparados").click();
+        }
+        if (data== 2){
+          M.toast({html: 'No se pudo eliminar menu por favor intenta de nuevo mas tarde', classes: 'red rounded'});
+        }
+  });
+
+
 }
 
 function modMenu(x, menu){
@@ -227,8 +250,17 @@ function modMenu(x, menu){
         M.toast({html: 'Menu modificado exitosamente', classes: 'green rounded'});
         document.location = 'menu.php';
         }
-        if (data== 2){
+        else if (data== 2){
         M.toast({html: 'No se pudo modificar menu por favor intenta de nuevo mas tarde', classes: 'grey rounded'});
+                }
+        else if (data== 3){
+        M.toast({html: 'Se requiere llenar el campo.', classes: 'red rounded'});
+                }
+        else if (data== 4){
+        M.toast({html: 'Solo se permiten letras y espacios <br> No se puede iniciar con espacio', classes: 'red rounded'});
+                }
+        else if (data== 5){
+        M.toast({html: 'Ya existe un menú con ese nombre', classes: 'red rounded'});
                 }
   });
 
@@ -316,7 +348,7 @@ $(document).ready(function(){
     $('#anadirRestricciones').click(function(){  
         j++;  
        //$('#restricciones').append('<tr id="rowC'+j+'"><td><div class="input-field col s5"><input type="text" name="rest'+j+'" id="rest'+j+'" onkeyup="obtenIngrediente('+j+')" class="validate" required><label for="validate-ingrediente">Ingrediente</label></div><div vertical-align: middle id=""><br><button type="button" name="remove" id="'+j+'" class="btn-small btn-danger btn_removeC red">X</button></div></td></tr> <br> <div id="resultado'+j+'"></div>');  
-       $('#restricciones').append('<tr id="rowC'+j+'"><td><div class="input-field col s8 offset-s1"><input type="text" name="rest'+j+'" id="rest'+j+'" onkeyup="obtenIngrediente('+j+')" class="validate"><label for="validate-ingrediente">Ingrediente</label> <br> <div id="resultado'+j+'"></div> </div> <div vertical-align: middle id=""><br><button type="button" name="remove" id="'+j+'" class="btn-small btn-danger btn_removeC red">X</button></div> </td></tr>');  
+       $('#restricciones').append('<tr id="rowC'+j+'"><td><div class="input-field col s10"><input type="text" name="rest'+j+'" id="rest'+j+'" onkeyup="obtenIngrediente('+j+')" class="validate"><label for="validate-ingrediente">Ingrediente</label> <br> <div id="resultado'+j+'"></div> </div> <div vertical-align: middle id=""><br><button type="button" name="remove" id="'+j+'" class="btn-small btn-danger btn_removeC red">X</button></div> </td></tr>');  
     });
 
     $(document).on('click', '.btn_removeC', function(){  

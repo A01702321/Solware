@@ -6,82 +6,87 @@
 
   <div>
     <h2 class="col s10">Agregar Cliente</h2>
-    <br>
+    <br><br>
   </div>
 
+  <form id="forma" method="POST" action="agregaCliente.php">  
 
-
-  <div class="row">
-    <form id="forma" method="POST" action="agregaCliente.php">  
-
-      <div class="row">
-        <div class="col s12">
-          <ul class="tabs">
-            <li class="tab col s4"><a class="active" href="#DatosCliente">1. Datos de cliente</a></li>
-            <li class="tab col s4"><a href="#AgregaRestricciones">2. Resticciones</a></li>
-            <li class="tab col s4"><a href="#Registrar">3. Registrar</a></li>
-          </ul>
-        </div>
-        <div class="row">
-          <div class="col s10 offset-s2" id="DatosCliente">
-            <div class="col s4 offset-s3">
-              <br>
-              <h5>Datos de Cliente</h5><br>
+    <!--<div class="row">
+      <div class="col s12">
+        <nav>
+          <div class="nav-wrapper">
+            <div class="col s12">
+              <a href="#DatosCliente" class="breadcrumb">Información del cliente</a>
+              <a href="#AgregaRestricciones" class="breadcrumb">Restricciones</a>
+              <a href="#Registrar" class="breadcrumb">Registro</a>
             </div>
-          
-            <div class="row">
-              <div class="input-field col s8">
-                <h6>* <b>1. Nombre completo del cliente:</b></h6><br><br>
-                <div>
-                  <input id="first_name" name="first_name" type="text" placeholder="ex: Obi Wan Kenobi">
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <br>
-              <h6>* <b>2. Selecciona los tiempos que el cliente desea contratar:</b></h6>
-              <div class="input-field col s4">
-                <?php
-                  require_once("util.php");
-                  obtenerTiempos();
-                ?>
-              </div>
-            </div>
-
-             <div class="row">
-              <div class="input-field col s8">
-                <h6>* <b>3. Selecciona el menú que el cliente desea contratar:</b></h6>
-                <br><br>
-                <select required id="nombremenu" name="nombremenu">
-                  <option value="" disabled selected>Selecciona...</option>
-                  <?php
-                    require_once("util.php");
-                    obtenerMenu();
-                  ?>
-                </select>
-              </div>
-            </div>
-            <br><br><br>
-            <main class="center">
-              <div class="col s10">
-              <!-- BUSCAR COMO USAR ESTE BOTON PARA CAMBIAR A LA SIGUIENTE TAB -->
-              <a class="waves-effect waves-light btn blue darken-4"  ><i class="material-icons left">arrow_forward</i></a>
-            </div>
-            </main>    
           </div>
+        </nav>
+      </div>
+    </div>
+
+    <div id="DatosCliente">
+      <div class="row">
+        <div class="col s4 offset-s5">
+          <br>
+          <h5>Datos de Cliente</h5><br>
         </div>
-  
-        <div class="row">
-          <div class="col s9 offset-s2" id="AgregaRestricciones">
-            <div class="col s10">
-              <h6><b>Selecciona los ingredientes que el cliente no puede o no quisiera comer en sus platillos:</b></h6><br>
-            </div>
-            <div class="table-responsive" vertical-align="center">  
+      </div>
+    </div>   -->   
+
+    <div class="row">
+      <div class="input-field col s9 offset-s1">
+        <h6>* <b>1. Nombre completo del cliente:</b></h6><br><br>
+        <div>
+          <input id="first_name" name="first_name" type="text" placeholder="ex: Obi Wan Kenobi">
+        </div>
+      </div>
+    </div>
+
+    <br><br><br><br><br>
+
+    <div class="row">
+      <div class="col s6">
+        <h6>* <b>2. Selecciona los tiempos que el cliente desea contratar:</b></h6>
+        <div class="input-field col s4 offset-s2">
+          <?php
+            require_once("util.php");
+            obtenerTiempos();
+          ?>
+        </div>
+      </div>
+      <div class="col s5">
+        <h6>* <b>3. Selecciona el menú que se desee contratar:</b></h6>
+        <br><br>
+        <select required id="nombremenu" name="nombremenu">
+          <option value="" disabled selected>Selecciona...</option>
+              <?php
+                require_once("util.php");
+                obtenerMenu();
+              ?>
+        </select>
+      </div>
+    </div>
+    
+    <br><br><br><br>
+
+
+    <div class="row">
+      <div class="col s5 offset-s4">
+        <h4>Agregar restricciones</h4>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col s10 offset-s1">
+        <h6><b>Selecciona los ingredientes que el cliente no puede o no quisiera comer en sus platillos:</b></h6><br>
+        <div class="table-responsive" vertical-align="center">  
               <table class="table " id="restricciones" > 
                 <tr>
                   <td class="vert-aligned">
-                    <div class="input-field col s8 offset-s1">
+                    <div class="input-field col s10">
                       <input type="text" id="rest1" class="validate" name ="rest1" onkeyup="obtenIngrediente(1)">
                       <label>Ingrediente</label>
                       <div id="resultado1"></div>
@@ -95,44 +100,25 @@
               </table>
             </div>
             <input type="hidden" value="" name="valorRestricciones" id="valorRestricciones"/>
-            <div class="row">
-          <br><br><br><br>
-          <main class="center">
-            <div class="col s10">
-              <!-- BUSCAR COMO USAR ESTE BOTON PARA CAMBIAR A LA SIGUIENTE TAB -->
-              <a class="waves-effect waves-light btn blue darken-4"  ><i class="material-icons left">arrow_back</i></a>
-              <a class="waves-effect waves-light btn blue darken-4"  ><i class="material-icons left">arrow_forward</i></a>
-            </div>  
-          </main>
-            
-        </div>
-          </div>
+      </div>
+    </div>
+  </form>
+
+  <br><br><br><br>
+
+  <div class="row">
+    <div class="col s4 offset-s5">
+      <h6><b>¿Terminaste?</b></h6><br>
+      <div class="row">
+        <div class="col s3">
+          <button class="waves-effect waves-light btn light-green lighten-2" type="submit" form="forma">Finalizar</button>
         </div>
       </div>
-    </form>
+    </div>
   </div>
 
+  
 
-    <div class="row" id="Registrar">
-      <div class="row">
-        <div class="col s2 offset-s5">
-          <h6><b>¿Terminaste?</b></h6>
-        </div>
-      </div>
-      <div class="col s6 offset-s3">
-        <br>
-        <br><br><br>
-          <main class="center">
-            <div class="col s10">
-              <!-- BUSCAR COMO USAR ESTE BOTON PARA CAMBIAR A LA SIGUIENTE TAB -->
-              <a class="waves-effect waves-light btn blue darken-4"  ><i class="material-icons left">arrow_back</i></a>
-              <button class="waves-effect waves-light btn light-green lighten-2" type="submit" form="forma">Finalizar</button>  
-            </div>  
-          </main>
-        
-      </div>
-      <br><br><br>
-    </div>
 
     <br><br><br><br><br><br>
 
