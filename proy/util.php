@@ -6,18 +6,23 @@
 	    //DEV: Ambiente de desarrollo
 	    //PROD: Ambiente de producción
 	    //TEST: Ambiente de pruebas
-	    $environment = "PROD";
+
+
+	    $environment = "DEV";
+
 	    
 	    if ($environment == "DEV") {
 	        $servername = "localhost";
 	    	$username = "root";
 	    	$password = "";
-	    	$dbname = "clase";
+	    	$dbname = "clase2";
 	    } else if($environment == "TEST") {
+
 	    	$servername = "mysql1008.mochahost.com";
 	    	$username = "dawbdorg_1702321";
 	    	$password = "1702321";
 	    	$dbname = "dawbdorg_A01702321";
+
 	    } else if($environment == "PROD") {
 	    	$servername = "mysql1008.mochahost.com";
 	    	$username = "habeatsg_max";
@@ -260,7 +265,8 @@
 	function getIngredientes(){
 		$db = connectDB();
 
-		$sql = "SELECT IDIngrediente, NombreIngrediente, GrupoAlimenticio FROM Ingredientes";
+		$sql = "CALL getIngredientes();";
+		
 
 		$result = mysqli_query($db, $sql);
 
@@ -280,6 +286,135 @@
 
 		return $name;
 	}
+	function getCategorias($id){
+		$db = connectDB();
+		
+		$sql = "SELECT IDCategoria FROM IngredienteCategoria Where IDIngrediente = '$id'";
+		$cats = array();
+
+
+		$result = mysqli_query($db, $sql);
+		while ($row = mysqli_fetch_assoc($result)) {
+			$nombreCat = getNombreCategoria($row['IDCategoria']);
+			array_push($cats, $nombreCat);
+
+		}
+		closeDB($db);
+		
+		return ($cats);
+	}
+	function modifyIngCat($id,$name,$categories,$group){
+
+		$link = connectDB();
+		$res = 0;
+		$sql = "START TRANSACTION";
+		mysqli_query($link, $sql);
+		$res += modifyIng($id,$name,$group);
+		$res += modifyCategorias($name,$id,$categories);
+		$sql = "COMMIT";
+		mysqli_query($link, $sql);
+		closeDB($link);
+		return $res;
+
+
+	}
+
+	function modifyCategorias($name,$id,$categories){
+		$link = connectDB();
+
+ 		$res = 0;
+ 		$sql = "START TRANSACTION";
+ 		if(mysqli_query($link, $sql)){
+		    
+		} else{
+		    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+		}
+
+
+		$sql = "DELETE FROM IngredienteCategoria Where IDIngrediente = '$id'";
+	
+		if(mysqli_query($link, $sql)){
+			$res = 1;
+		}
+		else{
+		    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+		}
+		$worked = 6;
+		
+		if(sizeof($categories)>0){
+			
+			for ($i =0; $i<sizeof($categories); $i++){
+				
+				$category = $categories[$i];
+				if($category != ""){
+					crearCategoria($category);
+					$worked = agregarCategoriaIng($name, $category);
+				}
+			}
+		}
+
+		if(($res + $worked) === 7){
+			$res = 5;
+		}
+		$sql = "COMMIT";
+		if(mysqli_query($link, $sql)){
+		    
+		} else{
+		    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+		}
+		
+		closeDB($link);
+		return $res;
+
+	}
+
+	function modifyIng($id, $name, $group){
+		$link = connectDB();
+
+ 		$res = 0;
+
+ 		$sql = "UPDATE `Ingredientes` SET `NombreIngrediente` = ?, `GrupoAlimenticio` = ? WHERE `Ingredientes`.`IDIngrediente` = ?;";
+		   // Preparing the statement 
+	    if (!($statement = $link->prepare($sql))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $link->errno . ") " . $link->error);
+	        echo(7);
+	    }
+	    // Binding statement params 
+	    if (!$statement->bind_param("sss", $name, $group, $id)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error); 
+	        echo(7);
+	    }
+	    
+	    // Executing the statement
+	    if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	        echo(7);
+	    } 
+
+		if(mysqli_query($link, $sql)){
+			$res = 1;
+		}
+
+		closeDB($link);
+		return $res;
+
+	}
+
+
+
+	function getNombreCategoria($id){
+		$db = connectDB();
+		
+		$sql = "SELECT NombreCategoria FROM Categorias Where IDCategoria = '$id'";
+
+		$result = mysqli_query($db, $sql);
+		$resArray = $result->fetch_assoc();
+		$name = $resArray['NombreCategoria'];
+		closeDB($db);
+
+		return $name;
+	}
+
 
 	function getRecetas(){
 		$db = connectDB();
@@ -319,15 +454,18 @@
 		   // Preparing the statement 
 		    if (!($statement = $link->prepare($sql))) {
 		        die("No se pudo preparar la consulta para la bd: (" . $link->errno . ") " . $link->error);
+		        echo(7);
 		    }
 		    // Binding statement params 
 		    if (!$statement->bind_param("ss", $name, $group)) {
 		        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error); 
+		        echo(7);
 		    }
 		    
 		    // Executing the statement
 		    if (!$statement->execute()) {
 		        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+		        echo(7);
 		    } 
 		   
 		}
@@ -434,15 +572,21 @@
 		   // Preparing the statement 
 		    if (!($statement = $link->prepare($sql))) {
 		        die("No se pudo preparar la consulta para la bd: (" . $link->errno . ") " . $link->error);
+		        echo(7);
+
 		    }
 		    // Binding statement params 
 		    if (!$statement->bind_param("s", $category)) {
-		        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error); 
+		        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
+		        echo(7);
+ 
 		    }
 		    
 		    // Executing the statement
 		    if (!$statement->execute()) {
 		        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+		        echo(7);
+
 		    } 
 		   
 		}
@@ -594,16 +738,22 @@
 
 	function validateNullForm($name, $categories, $group){
 		
-		
+		$forbidden = ';';
 		if($name === ''){
-			return 1;
+			return 11;
 		}
+		$array = str_split($name);
+		foreach ($array as $char) {
+			
+			 if($char === $forbidden)
+			 return 11;
+		}	
 		if($group === '' ){
-			return 2;
+			return 22;
 		}
 
 		if(sizeof($categories) === 0){
-			return 3;
+			return 33;
 		}
 		for($i=0; $i<sizeof($categories); $i++){
 			if($categories[$i]=== ''){
@@ -718,7 +868,7 @@ function obtenerGrupos(){
     {
         $id=$datos[$i][0];
         $grupo=$datos[$i][1];
-        echo"$<option value=".$id.">$grupo</option>";
+        echo"$<option id='opt".$id."'' value=".$id.">$grupo</option>";
 
 
     }
