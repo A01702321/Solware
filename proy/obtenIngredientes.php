@@ -19,21 +19,26 @@ $size=0;
 
 for($i=0; $i<count($result); $i++){
         $id=$result[$i][0];
-        $menu=$result[$i][1];
+        $ingrediente=$result[$i][1];
 
-   $pos=stripos(strtolower($menu),$pattern);
+   $pos=stripos(strtolower($ingrediente),$pattern);
    if(!($pos===false))
    {
-     $size++;
+      $size++;
       $mensaje.="<tr>
-                <td><p>
-                        <label>
-                        <input name='$nombre' type='radio' value='$id' />
+                  <td>
+                    <p>
+                      <label>
+                        <input name='$nombre' type='checkbox' value='$id' />
                         <span></span>
-                        </label>
-                    </p></td> 
-                <td>".$menu.'</td>
+                      </label>
+                    </p>
+                  </td> 
+                  <td>".$ingrediente.'</td>
                 </tr>';
+
+      $seleccionados=$id;
+      echo $id;
    }
 }
 $mensaje.='</tbody> </table>';
@@ -44,5 +49,12 @@ if($size>0){
 }else{
   echo "No se encontro ningun resultado";
 }
+
+
+
+
+
+
+
 ?>
 

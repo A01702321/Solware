@@ -8,7 +8,7 @@
 	    //TEST: Ambiente de pruebas
 
 
-	    $environment = "DEV";
+	    $environment = "PROD";
 
 	    
 	    if ($environment == "DEV") {
@@ -891,7 +891,7 @@ function obtenerMenuChecks(){
     
     if(($registros->num_rows) > 0){
         while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
-          array_push($datos, array($row["IDMenu"]));
+          array_push($datos, array($row["NombreMenu"]));
         } 
     }
     for($i=0; $i<count($datos); $i++)

@@ -7,10 +7,6 @@
     <br>
   </div>
 
-
-
-<!-- 1. Informacion general -->
-
   <form id="forma" method="POST" action="agregaCliente.php">
 
     <div class="row">
@@ -38,7 +34,7 @@
 
     <div class="row">
       <div class="col s6">
-        <h6>* <b>2. Selecciona los tiempos que el cliente desea contratar:</b></h6>
+        <h6>* <b>2. Selecciona los tiempos en los que se apropiado comer esta receta:</b></h6>
         <div class="input-field col s4 offset-s2">
           <?php
             require_once("util.php");
@@ -47,13 +43,13 @@
         </div>
       </div>
       <div class="col s5">
-        <h6>* <b>3. Selecciona el menú que se desee contratar:</b></h6>
+        <h6>* <b>3. Selecciona los menus a los que pertenezca esta receta:</b></h6>
         <br><br>
         <select required id="nombremenu" name="nombremenu">
           <option value="" disabled selected>Selecciona...</option>
               <?php
                 require_once("util.php");
-                obtenerMenu();
+                obtenerMenuChecks();
               ?>
         </select>
       </div>
@@ -69,102 +65,103 @@
       </div>
     </div>
 
+    <br><br><br><br>
 
-  </form>
-        
-
-            
-
-
-        
-<!-- 2. Componentes -->
-        <div class="row">
-          <div class="col s9 offset-s2" id="Componentes">
-            <div class="col s10">
-              <h6><b>Selecciona los ingredientes que el cliente no puede o no quisiera comer en sus platillos:</b></h6><br>
-            </div>
-
-            <div class="table-responsive" vertical-align="center">  
-              <table class="table " id="restricciones" > 
-                <tr>
-                  <td class="vert-aligned">
-                    <div class="input-field col s8 offset-s1">
-                      <input type="text" id="rest1" class="validate" name ="rest1" onkeyup="obtenIngrediente(1)">
-                      <label>Ingrediente</label>
-                      <div id="resultado1"></div>
-                    </div>
-                    <div>
-                      <br>
-                      <a id ="anadirRestricciones" class="btn-floating btn-medium waves-effect waves-light " onclick="cambiarValor()"><i class="material-icons">add</i></a>
-                    </div>
-                  </td>
-                </tr>      
-              </table>
-            </div>
-            <input type="hidden" value="" name="valorRestricciones" id="valorRestricciones"/>
-            <div class="row">
-              <br><br><br><br>
-              
-            
-            </div>
-          </div>
-        </div>  
-
-
-<!-- 3. Recetas alternas -->
-        <div class="row">
-          <div class="col s9 offset-s2" id="RecetasAlt">
-            <div class="col s10">
-              <h6><b>Selecciona los ingredientes que el cliente no puede o no quisiera comer en sus platillos:</b></h6><br>
-            </div>
-
-            <div class="table-responsive" vertical-align="center">  
-              <table class="table " id="restricciones" > 
-                <tr>
-                  <td class="vert-aligned">
-                    <div class="input-field col s8 offset-s1">
-                      <input type="text" id="rest1" class="validate" name ="rest1" onkeyup="obtenIngrediente(1)">
-                      <label>Ingrediente</label>
-                      <div id="resultado1"></div>
-                    </div>
-                    <div>
-                      <br>
-                      <a id ="anadirRestricciones" class="btn-floating btn-medium waves-effect waves-light " onclick="cambiarValor()"><i class="material-icons">add</i></a>
-                    </div>
-                  </td>
-                </tr>      
-              </table>
-            </div>
-            <input type="hidden" value="" name="valorRestricciones" id="valorRestricciones"/>
-            <div class="row">
-              <br><br><br><br>
-              
-            
-            </div>
-          </div>
-        </div>  
-
-<!-- 4. Registrar -->
-        <div class="row" id="Registrar">
-      <div class="row">
-        <div class="col s2 offset-s5">
-          <h6><b>¿Terminaste?</b></h6>
-        </div>
+    <div class="row">
+      <div class="col s5 offset-s4">
+        <h4>Agregar componentes</h4>
       </div>
-      <div class="col s6 offset-s3">
-        <br>
-        <br><br><br>
-          
-        
-      </div>
-      <br><br><br>
     </div>
 
-      </form>
+    <br>
+
+    <div class="row">
+      <div class="col s10 offset-s2">
+        <h6>* <b>Selecciona los ingredientes y/o preparados que componen esta receta:</b></h6><br>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col s6">
+        <div class="row">
+          <div class="col s11 offset-s1">
+            <h5>Ingredientes</h5><br>
+            <div class="table-responsive" vertical-align="center">  
+              <table class="table " id="restricciones" > 
+                <tr>
+                  <td class="vert-aligned">
+                    <div class="input-field col s10">
+                      <input type="text" id="rest1" class="validate" name ="rest1" onkeyup="obtenIngrediente(1)">
+                      <label>Introduce el nombre...</label>
+                      <div id="resultado1"></div>
+                    </div>
+                    <div>
+                      <br>
+                      <a id ="anadirRestricciones" class="btn-floating btn-medium waves-effect waves-light " onclick="cambiarValor()"><i class="material-icons">add</i></a>
+                    </div>
+                  </td>
+                </tr>      
+              </table>
+            </div>
+            <input type="hidden" value="" name="valorRestricciones" id="valorRestricciones"/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br><br><br><br>
+
+    <div class="row">
+      <div class="col s5 offset-s4">
+        <h4>Agregar recetas alternas</h4>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col s9 offset-s2" id="RecetasAlt">
+        <div class="col s7 offset-s2">
+          <h6><b>Selecciona las recetas alternas para esta receta:</b></h6><br>
+        </div>
+
+        <div class="table-responsive" vertical-align="center">  
+          <table class="table " id="restricciones" > 
+            <tr>
+              <td class="vert-aligned">
+                <div class="input-field col s8 offset-s1">
+                  <input type="text" id="rest1" class="validate" name ="rest1" onkeyup="obtenIngrediente(1)">
+                  <label>Ingrediente</label>
+                  <div id="resultado1"></div>
+                </div>
+                <div>
+                  <br>
+                  <a id ="anadirRestricciones" class="btn-floating btn-medium waves-effect waves-light " onclick="cambiarValor()"><i class="material-icons">add</i></a>
+                </div>
+              </td>
+            </tr>      
+          </table>
+        </div>
+        <input type="hidden" value="" name="valorRestricciones" id="valorRestricciones"/>
+      </div>
+    </div>
+
+  </form>
+
+  <br><br><br><br>
+
+  <div class="row">
+    <div class="col s4 offset-s5">
+      <h6><b>¿Terminaste?</b></h6><br>
+      <div class="row">
+        <div class="col s3">
+          <button class="waves-effect waves-light btn light-green lighten-2" type="submit" form="forma">Finalizar</button>
+        </div>
+      </div>
     </div>
   </div>
 
-
+  <br><br><br><br>
 
 </body>
 
