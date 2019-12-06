@@ -12,6 +12,7 @@ $id = $_POST['id'];
 
 $res = validateNullForm($name,$categories,$group);
 if($res === 5) {
+	
 	$rest = modifyIngCat($id,$name,$categories,$group);
 	echo $rest;
 } else {

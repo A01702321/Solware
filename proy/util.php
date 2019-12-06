@@ -323,12 +323,15 @@
 		$link = connectDB();
 
  		$res = 0;
+ 		/*
  		$sql = "START TRANSACTION";
  		if(mysqli_query($link, $sql)){
 		    
 		} else{
 		    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
 		}
+		*/
+
 
 
 		$sql = "DELETE FROM IngredienteCategoria Where IDIngrediente = '$id'";
@@ -356,12 +359,14 @@
 		if(($res + $worked) === 7){
 			$res = 5;
 		}
+		/*
 		$sql = "COMMIT";
 		if(mysqli_query($link, $sql)){
 		    
 		} else{
 		    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
 		}
+		*/
 		
 		closeDB($link);
 		return $res;
@@ -390,10 +395,10 @@
 	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
 	        echo(7);
 	    } 
-
-		if(mysqli_query($link, $sql)){
+		else {
 			$res = 1;
 		}
+		
 
 		closeDB($link);
 		return $res;
@@ -588,7 +593,7 @@
 		        echo(7);
 
 		    } 
-		   
+
 		}
 
 		closeDB($link);
@@ -752,9 +757,7 @@
 			return 22;
 		}
 
-		if(sizeof($categories) === 0){
-			return 33;
-		}
+		
 		for($i=0; $i<sizeof($categories); $i++){
 			if($categories[$i]=== ''){
 				return 5;

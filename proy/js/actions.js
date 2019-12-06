@@ -69,6 +69,7 @@ function showModifyModal(name, id, idg, grupo, categorias) {
   document.getElementById('nombreIng').setAttribute('value',name);
   M.updateTextFields();
   document.getElementById('opt'+idg).setAttribute('selected',true);
+  document.getElementById("grupo").selectedIndex = 2;
   o=0;
   if(categorias.length>0){
     
@@ -175,11 +176,11 @@ function elimMenu(x){
 function modifyIng(y){
 
       url = "modificarIng.php";
-      let categories = [];
+      let categories = [''];
       var p = getMax();
       for (x = 0; x<=p; x++){
           if($('#cat' + x).val() !== ""){
-          alert("pene");
+          
           categories.push($('#cat' + x).val());}
       };
       
@@ -205,7 +206,7 @@ function modifyIng(y){
 
         
         }
-        else if(data == 5){
+        else if(data == 6){
           
           M.toast({html: 'Ingrediente modificado exitosamente', classes: 'green rounded'});
           var form = document.getElementById("agregar_ingrediente");
@@ -419,7 +420,7 @@ $(document).ready(function(){
 
 	    /* get the action attribute from the <form action=""> element */
 	    url = "IngredienteNom.php";
-	    let categories = [];
+	    let categories = [''];
       var p = getMax();
 	    for (x = 0; x<=p; x++){
 	      
