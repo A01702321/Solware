@@ -175,12 +175,12 @@ function elimMenu(x){
 function modifyIng(y){
 
       url = "modificarIng.php";
-      let categories = [""];
+      let categories = [];
       var p = getMax();
-      
-      for (r = 0; r<=p; r++){
-        
-          categories.push($('#cat' + r).val());
+      for (x = 0; x<=p; x++){
+          if($('#cat' + x).val() !== ""){
+          alert("pene");
+          categories.push($('#cat' + x).val());}
       };
       
       

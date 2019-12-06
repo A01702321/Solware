@@ -7,7 +7,7 @@ $name = $_POST['name'];
 $group = $_POST['grupo'];
 $categories = $_POST['categorias'];
 $id = $_POST['id'];
-$idg = $_POST['idg'];
+
 
 
 $res = validateNullForm($name,$categories,$group);
