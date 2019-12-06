@@ -296,7 +296,7 @@ function getMax(){
   return o;
 }
 
-/js para consultar/
+//js para consultar/
 
 function consultData(evt, consult) {
   // Declare all variables

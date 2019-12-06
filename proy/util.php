@@ -8,7 +8,7 @@
 	    //TEST: Ambiente de pruebas
 
 
-	    $environment = "PROD";
+	    $environment = "DEV";
 
 	    
 	    if ($environment == "DEV") {
@@ -798,7 +798,7 @@
 
 
 function obtenerTiempos(){
-         $db=connectDB();
+     $db=connectDB();
     $query="SELECT * FROM Tiempos";
     $registros = $db->query($query);
     $consulta = "";
@@ -832,7 +832,7 @@ function obtenerTiempos(){
     closeDB($db);
     mysqli_free_result($registros);
     echo $consulta;   
-    }
+}
 
 function obtenerMenu(){ // obtiene menus para poblar un dropdown
     $db = connectDB();
@@ -891,7 +891,7 @@ function obtenerMenuChecks(){
     
     if(($registros->num_rows) > 0){
         while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
-          array_push($datos, array($row["NombreMenu"]));
+          array_push($datos, array($row["IDMenu"]));
         } 
     }
     for($i=0; $i<count($datos); $i++)
