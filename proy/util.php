@@ -8,7 +8,7 @@
 	    //TEST: Ambiente de pruebas
 
 
-	    $environment = "DEV";
+	    $environment = "PROD";
 
 	    
 	    if ($environment == "DEV") {
@@ -48,6 +48,20 @@
 	    mysqli_close($bd);
 	}
 
+
+	function alimentarClientes($IDMenu, $tiempo){
+		$db = connectDB();
+
+		$sql = "SELECT C.IDCliente, Nombre FROM Clientes as C, Plan as P WHERE C.Menu = '$IDMenu' AND P.NombreTiempo = '$tiempo'";
+
+		$res1 = mysqli_query($db, $sql);
+
+		$sql = "SELECT IDCliente, Nombre ";
+
+		closeDB($db);
+
+		return $result;
+	}
 
 	function crearMenu($nombreMenu) {
 	    $db = connectDB();
@@ -809,9 +823,8 @@
 		
 	}
 
-
-function obtenerTiempos(){
-     $db=connectDB();
+function obtenerTiempos(){ // obtiene tiempos para llenar checks
+         $db=connectDB();
     $query="SELECT * FROM Tiempos";
     $registros = $db->query($query);
     $consulta = "";
@@ -847,6 +860,48 @@ function obtenerTiempos(){
     echo $consulta;   
 }
 
+function obtenTiempos(){ // obtiene tiempos para poblar un dropdown
+    $db = connectDB();
+    $query="SELECT * FROM Tiempos";
+    $registros = $db->query($query);
+    if (!$registros) {
+        return false;
+    }
+    $datos=array();
+    while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+      array_push($datos, array($row["NombreTiempo"]));
+    }
+    for($i=0; $i<count($datos); $i++)
+
+    {
+        $tiempo=$datos[$i][0];
+        echo"$<option value=".$id.">$tiempo</option>";
+
+    }
+    closeDB($db);  
+}
+
+function obtenerPlatillos(){ // obtiene menus para poblar un dropdown
+    $db = connectDB();
+    $query="SELECT NombrePlatillo FROM Platillos WHERE Menu = '$IDMenu' AND Tiempo = '$tiempo'";
+    $registros = $db->query($query);
+    if (!$registros) {
+        return false;
+    }
+    $datos=array();
+    while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+      array_push($datos, array($row["NombrePlatillo"]));
+    }
+    for($i=0; $i<count($datos); $i++)
+
+    {
+        $platillo=$datos[$i][0];
+        echo"$<option value=".$id.">$platillo</option>";
+
+    }
+    closeDB($db);  
+}
+
 function obtenerMenu(){ // obtiene menus para poblar un dropdown
     $db = connectDB();
     $query="SELECT * FROM Menus";
@@ -866,8 +921,9 @@ function obtenerMenu(){ // obtiene menus para poblar un dropdown
         echo"$<option value=".$id.">$menu</option>";
 
     }
-    closeDB($db);  
+    closeDB($db);
 }
+
 function obtenerGrupos(){
     $db = connectDB();
     $query="SELECT * FROM GruposAlimenticios";
