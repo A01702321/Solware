@@ -8,7 +8,7 @@
 	    //TEST: Ambiente de pruebas
 
 
-	    $environment = "DEV";
+	    $environment = "PROD";
 
 	    
 	    if ($environment == "DEV") {
@@ -913,38 +913,13 @@ function obtenerMenu(){ // obtiene menus para poblar un dropdown
     while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
       array_push($datos, array($row["IDMenu"],$row["NombreMenu"]));
     }
-    for($i=0; $i<count($datos); $i++)
-
-    {
+    for($i=0; $i<count($datos); $i++){
         $id=$datos[$i][0];
         $menu=$datos[$i][1];
         echo"$<option value=".$id.">$menu</option>";
 
     }
     closeDB($db);
-}
-
-function obtenerGrupos(){
-    $db = connectDB();
-    $query="SELECT * FROM GruposAlimenticios";
-    $registros = $db->query($query);
-    if (!$registros) {
-        return false;
-    }
-    $datos=array();
-    while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
-      array_push($datos, array($row["IDGrupoAl"],$row["NombreGrupoAl"]));
-    }
-    for($i=0; $i<count($datos); $i++)
-
-    {
-        $id=$datos[$i][0];
-        $grupo=$datos[$i][1];
-        echo"$<option id='opt".$id."'' value=".$id.">$grupo</option>";
-
-
-    }
-    closeDB($db);  
 }
 
 function obtenerMenuChecks(){
@@ -983,6 +958,30 @@ function obtenerMenuChecks(){
     mysqli_free_result($registros);
     echo $consulta;   
     }
+
+
+function obtenerGrupos(){
+    $db = connectDB();
+    $query="SELECT * FROM GruposAlimenticios";
+    $registros = $db->query($query);
+    if (!$registros) {
+        return false;
+    }
+    $datos=array();
+    while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+      array_push($datos, array($row["IDGrupoAl"],$row["NombreGrupoAl"]));
+    }
+    for($i=0; $i<count($datos); $i++)
+
+    {
+        $id=$datos[$i][0];
+        $grupo=$datos[$i][1];
+        echo"$<option id='opt".$id."'' value=".$id.">$grupo</option>";
+
+
+    }
+    closeDB($db);  
+}
 
 
 function obtenerIngredient(){
