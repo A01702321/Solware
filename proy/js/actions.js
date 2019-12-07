@@ -58,8 +58,12 @@ function showDeleteModal(x, ing) {
 
 
 function showModifyModal(name, id, idg, grupo, categorias) {
+  var instance =M.Modal.getInstance(document.getElementById('modifyModal'));
+  instance.open();
   document.getElementById("afterScr").style.display = "none";
   document.getElementById("beforeScr").style.display = "none";
+  document.getElementById("grupoHelper").style.display = 'none';
+  document.getElementById("nombreIng").className = "";
   var elems = document.getElementsByClassName('catego');
   document.getElementsByClassName("select-dropdown dropdown-trigger")[0].setAttribute('style',"border-bottom-width: 1px;border-bottom-style: solid;border-bottom-color: #9e9e9e");
   let len = elems.length;
@@ -86,8 +90,7 @@ function showModifyModal(name, id, idg, grupo, categorias) {
   }
   M.updateTextFields();
   document.getElementById('modifyIngButt').setAttribute('onclick','modifyIng('+id+')');
-  var instance =M.Modal.getInstance(document.getElementById('modifyModal'));
-  instance.open();
+  
   var scr = document.getElementById("scrollable");
   
   if (scr.scrollHeight > 400){
