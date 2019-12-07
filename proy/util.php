@@ -747,21 +747,34 @@
 		if($name === ''){
 			return 11;
 		}
+		if(1 === preg_match('~[0-9]~', $name)){
+            return 14;
+		}
 		$array = str_split($name);
 		foreach ($array as $char) {
 			
 			 if($char === $forbidden)
-			 return 11;
+			 return 12;
 		}	
 		if($group === '' ){
-			return 22;
+			return 21;
 		}
 
 		
 		for($i=0; $i<sizeof($categories); $i++){
-			if($categories[$i]=== ''){
-				return 5;
+
+			$cat = $categories[$i];
+
+			$array = str_split($cat);
+			foreach ($array as $char) {
+		
+		 		if($char === $forbidden)
+		 		return 30;
+				}
+			if(1 === preg_match('~[0-9]~', $cat)){
+            return 31;
 			}
+			
 		}
 		
 		return 5;

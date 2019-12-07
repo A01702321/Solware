@@ -173,7 +173,64 @@ function elimMenu(x){
 }
 
 
+
+
+function validateIngForm(name, group, categories){
+        var forbidden = ';';
+        var hasNumber = /\d/;
+        if(name === ''){
+          M.toast({html: 'Por favor introduce un nombre de ingrediente correcto', classes: 'red rounded'});
+          document.getElementById("nombreIng").className = "invalid";
+          document.getElementById("nombreIng").focus();
+          return false;
+        }
+        if(hasNumber.test(name)){
+          M.toast({html: 'El nombre de ingrediente no puede incluir números', classes: 'red rounded'});
+          document.getElementById("nombreIng").className = "invalid";
+          document.getElementById("nombreIng").focus();
+          return false;
+        }
+        document.getElementById("nombreIng").className = "valid";
+
+        if(name.includes(';')){
+           M.toast({html: 'El nombre de ingrediente no puede incluir ";"', classes: 'red rounded'});
+           document.getElementById("nombreIng").className = "invalid";
+          document.getElementById("nombreIng").focus();
+          return false;
+        }
+        if(group === '' ){
+          M.toast({html: 'Por favor selecciona un grupo alimenticio válido', classes: 'red rounded'});
+
+          document.getElementsByClassName("select-dropdown dropdown-trigger")[0].setAttribute('style',"1px solid #f44336;");
+          document.getElementById("grupo").focus();
+          
+          return false;
+        }
+
+        
+        for(i=0; i<categories.length; i++){
+
+          var cat = categories[i];
+
+          if(cat.includes(';')){
+            M.toast({html: 'Las categorías no pueden incluir ";"', classes: 'red rounded'});
+            return false;
+            }
+          if(hasNumber.test(cat)){
+               M.toast({html: 'Las categorías no pueden incluir números', classes: 'red rounded'});
+               return false;
+            }
+          
+        }
+        
+        return true;
+
+
+}
+
 function modifyIng(y){
+
+
 
       url = "modificarIng.php";
       let categories = [''];
@@ -184,7 +241,11 @@ function modifyIng(y){
           categories.push($('#cat' + x).val());}
       };
       
-      
+      if(!validateIngForm($('#nombreIng').val(), $('#grupo').val(), categories)){
+        
+        console.info("form wasn't valid");
+        return 0;
+      }
 
       var posting = $.post( url, { name: $('#nombreIng').val(), grupo: $('#grupo').val(), categorias: categories, id: y} );
       /* Send the data using post with element id name and name2*/
@@ -192,11 +253,27 @@ function modifyIng(y){
       /* Alerts the results */
       posting.done(function( data ) {
         
-        if (data== 0){
+        if (data== 11){
         M.toast({html: 'Por favor introduce un nombre de ingrediente correcto', classes: 'red rounded'});
         
         }
-        else if (data== 22){
+        else if (data== 14){
+        M.toast({html: 'El nombre de ingrediente no puede incluir números', classes: 'red rounded'});
+        
+        }
+        else if (data== 31){
+        M.toast({html: 'Las categorías no pueden incluir números', classes: 'red rounded'});
+        
+        }
+        else if (data== 30){
+        M.toast({html: 'Las categorías no pueden incluir ";"', classes: 'red rounded'});
+        
+        }
+        else if (data== 12){
+        M.toast({html: 'El nombre de ingrediente no puede incluir ";"', classes: 'red rounded'});
+        
+        }
+        else if (data== 21){
         M.toast({html: 'Por favor selecciona un grupo alimenticio válido', classes: 'red rounded'});
                 }
         
@@ -204,14 +281,18 @@ function modifyIng(y){
         M.toast({html: 'Por favor verifica que todos los campos estén correctos', classes: 'red rounded'});
         
 
-        
         }
+        
         else if(data == 6){
           
           M.toast({html: 'Ingrediente modificado exitosamente', classes: 'green rounded'});
           var form = document.getElementById("agregar_ingrediente");
           form.reset();
+          
+          var instance =M.Modal.getInstance(document.getElementById('modifyModal'));
+          instance.close();
           document.getElementById('showIngredientes').click();
+
         }
         else{
           M.toast({html: 'Error insertando a la base de datos por favor verifica los datos', classes: 'red rounded'});
@@ -320,7 +401,9 @@ function consultData(evt, consult) {
 }
 
 $(document).ready(function(){  
-    
+
+
+        
     var i=1;  
     $('#add').click(function(){  
         i++;  
@@ -434,19 +517,35 @@ $(document).ready(function(){
 	    /* Alerts the results */
 	    posting.done(function( data ) {
 	    	
-	    	if (data== 1){
-        M.toast({html: 'Por favor introduce un nombre de ingrediente correcto', classes: 'red rounded'});
-				
-	    	}
-	    	else if (data== 2){
-        M.toast({html: 'Por favor selecciona un grupo alimenticio válido', classes: 'red rounded'});
-					    	}
 	    	
-	    	else if (data== 4){
+        if (data== 11){
+        M.toast({html: 'Por favor introduce un nombre de ingrediente correcto', classes: 'red rounded'});
+        
+        }
+        if (data== 14){
+        M.toast({html: 'El nombre de ingrediente no puede incluir números', classes: 'red rounded'});
+        
+        }
+        if (data== 31){
+        M.toast({html: 'Las categorías no pueden incluir números', classes: 'red rounded'});
+        
+        }
+        if (data== 30){
+        M.toast({html: 'Las categorías no pueden incluir ";"', classes: 'red rounded'});
+        
+        }
+        if (data== 12){
+        M.toast({html: 'El nombre de ingrediente no puede incluir ";"', classes: 'red rounded'});
+        
+        }
+        else if (data== 21){
+        M.toast({html: 'Por favor selecciona un grupo alimenticio válido', classes: 'red rounded'});
+                }
+        
+        else if (data== 4){
         M.toast({html: 'Por favor verifica que todos los campos estén correctos', classes: 'red rounded'});
         
 
-				
 	    	}
 	    	else if(data == 6){
           
