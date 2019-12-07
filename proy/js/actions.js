@@ -2,9 +2,6 @@ $('.tabs').tabs();
 
 $('select').formSelect();
 $('.modal').modal();
-$('.datepicker').datepicker({
-  
-});
 
 var her = 0;
 
@@ -58,39 +55,6 @@ document.getElementById('ingAEliminar').innerText = "Ingrediente a eliminar: " +
 document.getElementById('confirmarEliminarIng').setAttribute('onclick','elimIng('+x+')');
 }
 
-<<<<<<< HEAD
-
-function showModifyModal(name, id, idg, grupo, categorias) {
-  var elems = document.getElementsByClassName('catego');
-  let len = elems.length;
-  
-  for (i=0;i<len;i++){
-    
-    elems[0].outerHTML = "";
-  }
-  
-  document.getElementById('nombreIng').setAttribute('value',name);
-  M.updateTextFields();
-  document.getElementById('opt'+idg).setAttribute('selected',true);
-  
-  o=0;
-  if(categorias.length>0){
-    
-    for (x=0; x<categorias.length;x++){
-      
-      document.getElementById('afterthis').insertAdjacentHTML("afterend", '<tr class="catego" style="border:none;" id="rowC'+o+'"><td><div class="input-field col s10" ><input type="text" name="cat'+o+'" id="cat'+o+'"><label for="validate-ingrediente">Categoria</label></div><div class="col s2"><br><a id="'+o+'" class="right btn-floating btn-medium btn-danger btn_removeC waves-effect waves-light red"><i class="material-icons center">remove</i></a></div></td></tr>');
-      document.getElementById('cat' + x).setAttribute('value',categorias[x]);
-      document.getElementById('cat' + x).focus();
-      o+=1;
-    }
-  }
-  M.updateTextFields();
-  document.getElementById('modifyIngButt').setAttribute('onclick','modifyIng('+id+')');
-}
-
-
-=======
->>>>>>> arregloInsercionClientes
 function showDeleteModalMenu(x, menu) {
 
 document.getElementById('MenuAEliminar').setAttribute('value',x);
@@ -168,73 +132,6 @@ function elimMenu(x){
 
 }
 
-
-function modifyIng(y){
-
-      url = "modificarIng.php";
-      let categories = [''];
-      var p = getMax();
-      for (x = 0; x<=p; x++){
-          if($('#cat' + x).val() !== ""){
-          
-          categories.push($('#cat' + x).val());}
-      };
-      
-      
-
-      var posting = $.post( url, { name: $('#nombreIng').val(), grupo: $('#grupo').val(), categorias: categories, id: y} );
-      /* Send the data using post with element id name and name2*/
-        
-      /* Alerts the results */
-      posting.done(function( data ) {
-        
-        if (data== 0){
-        M.toast({html: 'Por favor introduce un nombre de ingrediente correcto', classes: 'red rounded'});
-        
-        }
-        else if (data== 22){
-        M.toast({html: 'Por favor selecciona un grupo alimenticio válido', classes: 'red rounded'});
-                }
-        
-        else if (data== 4){
-        M.toast({html: 'Por favor verifica que todos los campos estén correctos', classes: 'red rounded'});
-        
-
-        
-        }
-        else if(data == 6){
-          
-          M.toast({html: 'Ingrediente modificado exitosamente', classes: 'green rounded'});
-          var form = document.getElementById("agregar_ingrediente");
-          form.reset();
-          document.getElementById('showIngredientes').click();
-        }
-        else{
-          M.toast({html: 'Error insertando a la base de datos por favor verifica los datos', classes: 'red rounded'});
-        }
-      });
-}
-
-
-
-function elimPreparado(x){
-  url = "eliminarPreparado.php";
-  var posting = $.post( url, { id: x});
-  posting.done(function( data ) {
-        
-        if (data== 1){
-        M.toast({html: 'Preparado eliminado exitosamente', classes: 'green rounded'});
-        document.getElementById("showPreparados").click();
-        }
-        if (data== 2){
-          M.toast({html: 'No se pudo eliminar menu por favor intenta de nuevo mas tarde', classes: 'red rounded'});
-        }
-  });
-
-
-}
-
-arregloInsercionClientes
 function modMenu(x, menu){
   url = "modificaMenu.php";
   var form = document.getElementById('menuModInput');
@@ -269,7 +166,7 @@ function remInp(){
     
 }
 
-//js para consultar/
+/js para consultar/
 
 function consultData(evt, consult) {
   // Declare all variables
@@ -389,15 +286,9 @@ $(document).ready(function(){
 
 	    /* get the action attribute from the <form action=""> element */
 	    url = "IngredienteNom.php";
-<<<<<<< HEAD
-	    let categories = [''];
-      var p = getMax();
-	    for (x = 0; x<=p; x++){
-=======
 	    let categories = [];
 
 	    for (x = 1; x<=o; x++){
->>>>>>> arregloInsercionClientes
 	      
 	        categories.push($('#cat' + x).val());
 	    };
