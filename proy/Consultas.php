@@ -70,7 +70,7 @@
 						echo "<td>" . $row["IDIngrediente"] . "</td>";
 						echo "<td>" . $row["NombreIngrediente"] . "</td>";
 						echo "<td>" . $grupo . "</td>";
-						echo "<td style='text-align: right;     padding: 0px 0px; width:10%; '><a onclick='showModifyModal(&quot;".$row["NombreIngrediente"]."&quot;,".$row["IDIngrediente"].",".$row["GrupoAlimenticio"].", &quot;".$grupo."&quot;, ".$categorias."  )' href='#modifyModal' id='".$row["IDIngrediente"]."' style='display: block;' class='right  waves-effect waves-grey btn-flat grey-text modal-trigger'><i class='material-icons'>create</i></a>"
+						echo "<td style='text-align: right;     padding: 0px 0px; width:10%; '><a onclick='showModifyModal(&quot;".$row["NombreIngrediente"]."&quot;,".$row["IDIngrediente"].",".$row["GrupoAlimenticio"].", &quot;".$grupo."&quot;, ".$categorias."  )' href='#modifyModal' id='".$row["IDIngrediente"]."' style='display: block;' class='right  waves-effect waves-grey btn-flat grey-text '><i class='material-icons'>create</i></a>"
 							;
 						echo "<a onclick='showDeleteModal(".$row["IDIngrediente"].", &quot;".$row["NombreIngrediente"]."&quot; )' href='#removeModal' id='".$row["IDIngrediente"]."' style='display: none;' class='right  waves-effect waves-red btn-flat red-text modal-trigger'><i class='material-icons'>remove_circle</i></a></td>"
 							;
