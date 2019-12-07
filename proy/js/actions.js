@@ -59,6 +59,7 @@ function showDeleteModal(x, ing) {
 
 function showModifyModal(name, id, idg, grupo, categorias) {
   var elems = document.getElementsByClassName('catego');
+ document.getElementsByClassName("select-dropdown dropdown-trigger")[0].setAttribute('style',"border-bottom-width: 1px;border-bottom-style: solid;border-bottom-color: #9e9e9e");
   let len = elems.length;
   
   for (i=0;i<len;i++){
@@ -178,54 +179,65 @@ function elimMenu(x){
 function validateIngForm(name, group, categories){
         var forbidden = ';';
         var hasNumber = /\d/;
+        var passed1 = true;
+        passed = true;
+
+        document.getElementById("grupoHelper").style.display = 'none';
         if(name === ''){
           M.toast({html: 'Por favor introduce un nombre de ingrediente correcto', classes: 'red rounded'});
           document.getElementById("nombreIng").className = "invalid";
           document.getElementById("nombreIng").focus();
-          return false;
+          passed1 = false;
         }
         if(hasNumber.test(name)){
           M.toast({html: 'El nombre de ingrediente no puede incluir números', classes: 'red rounded'});
           document.getElementById("nombreIng").className = "invalid";
           document.getElementById("nombreIng").focus();
-          return false;
+          passed1 = false;
         }
-        document.getElementById("nombreIng").className = "valid";
+        
+        if(passed1){document.getElementById("nombreIng").className = "valid";}
 
         if(name.includes(';')){
            M.toast({html: 'El nombre de ingrediente no puede incluir ";"', classes: 'red rounded'});
            document.getElementById("nombreIng").className = "invalid";
           document.getElementById("nombreIng").focus();
-          return false;
+          passed = false;
         }
+        else passed=true;
         if(group === '' ){
           M.toast({html: 'Por favor selecciona un grupo alimenticio válido', classes: 'red rounded'});
 
-          document.getElementsByClassName("select-dropdown dropdown-trigger")[0].setAttribute('style',"1px solid #f44336;");
-          document.getElementById("grupo").focus();
+          document.getElementsByClassName("select-dropdown dropdown-trigger")[0].setAttribute('style',"border-bottom-width: 1.5px;border-bottom-style: solid;border-bottom-color: red");
+          document.getElementById("grupoHelper").style.display = 'block';
+          document.getElementById("grupoHelper").focus();
           
-          return false;
+          passed =  false;
         }
+
+        if(passed)document.getElementsByClassName("select-dropdown dropdown-trigger")[0].setAttribute('style',"border-bottom-width: 1.5px;border-bottom-style: solid;border-bottom-color: #4CAF50");
 
         
         for(i=0; i<categories.length; i++){
+          try{
+            var cat = categories[i];
+            if(cat.includes(';')){
+              M.toast({html: 'Las categorías no pueden incluir ";"', classes: 'red rounded'});
+              passed =  false;
+              }
+            if(hasNumber.test(cat)){
+                 M.toast({html: 'Las categorías no pueden incluir números', classes: 'red rounded'});
+                 passed =  false;
+              }
+          }
+          catch{
 
-          var cat = categories[i];
-
-          if(cat.includes(';')){
-            M.toast({html: 'Las categorías no pueden incluir ";"', classes: 'red rounded'});
-            return false;
-            }
-          if(hasNumber.test(cat)){
-               M.toast({html: 'Las categorías no pueden incluir números', classes: 'red rounded'});
-               return false;
-            }
-          
+          }
+                      
         }
         
-        return true;
-
-
+        
+        return passed & passed1;
 }
 
 function modifyIng(y){
@@ -510,6 +522,12 @@ $(document).ready(function(){
 	        categories.push($('#cat' + x).val());
 	    };
 	    
+      if(!validateIngForm($('#nombreIng').val(), $('#grupo').val(), categories)){
+        
+        console.info("form wasn't valid");
+        return 0;
+      }
+
 
 	    var posting = $.post( url, { name: $('#nombreIng').val(), grupo: $('#grupo').val(), categorias: categories} );
 	    /* Send the data using post with element id name and name2*/
