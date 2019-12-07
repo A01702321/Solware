@@ -32,7 +32,7 @@ function addInp(){
   f.appendChild(document.createElement('br'));
   f.appendChild(nInput);
 }
-//Funcion para toggle de delete buttons
+
 function showDeleteBtns() {
   
   
@@ -48,42 +48,12 @@ function showDeleteBtns() {
     }
   }   
 }
-//funcion para llenado de modal con parametros individuales y linkeo de funcion elimIng
 function showDeleteModal(x, ing) {
 
-  document.getElementById('ingAEliminar').setAttribute('value',x);
-  document.getElementById('ingAEliminar').innerText = "Ingrediente a eliminar: " + ing;
-  document.getElementById('confirmarEliminarIng').setAttribute('onclick','elimIng('+x+')');
+document.getElementById('ingAEliminar').setAttribute('value',x);
+document.getElementById('ingAEliminar').innerText = "Ingrediente a eliminar: " + ing;
+document.getElementById('confirmarEliminarIng').setAttribute('onclick','elimIng('+x+')');
 }
-
-
-function showModifyModal(name, id, idg, grupo, categorias) {
-  var elems = document.getElementsByClassName('catego');
-  let len = elems.length;
-  
-  for (i=0;i<len;i++){
-    
-    elems[0].outerHTML = "";
-  }
-  
-  document.getElementById('nombreIng').setAttribute('value',name);
-  M.updateTextFields();
-  document.getElementById('opt'+idg).setAttribute('selected',true);
-  o=0;
-  if(categorias.length>0){
-    
-    for (x=0; x<categorias.length;x++){
-      
-      document.getElementById('afterthis').insertAdjacentHTML("afterend", '<tr class="catego" style="border:none;" id="rowC'+o+'"><td><div class="input-field col s10" ><input type="text" name="cat'+o+'" id="cat'+o+'"><label for="validate-ingrediente">Categoria</label></div><div class="col s2"><br><a id="'+o+'" class="right btn-floating btn-medium btn-danger btn_removeC waves-effect waves-light red"><i class="material-icons center">remove</i></a></div></td></tr>');
-      document.getElementById('cat' + x).setAttribute('value',categorias[x]);
-      document.getElementById('cat' + x).focus();
-      o+=1;
-    }
-  }
-  M.updateTextFields();
-  document.getElementById('modifyIngButt').setAttribute('onclick','modifyIng('+id+')');
-}
-
 
 function showDeleteModalMenu(x, menu) {
 
@@ -109,18 +79,10 @@ document.getElementById('ClienteAEliminar').innerText = "Cliente a eliminar: " +
 document.getElementById('confirmarEliminarCliente').setAttribute('onclick','elimCliente('+x+')');
 }
 
-function showDeleteModalPreparado(x, preparado) {
-
-document.getElementById('PreparadoAEliminar').setAttribute('value',x);
-document.getElementById('PreparadoAEliminar').innerText = "Preparado a eliminar: " + preparado;
-document.getElementById('confirmarEliminarPreparado').setAttribute('onclick','elimPreparado('+x+')');
-}
-
-
 
 function elimIng(x){
   url = "eliminarIng.php";
-  var posting = $.post( url, { id: x});
+  var posting = $.post( url, { id: x}, { nomMenu: menu});
   posting.done(function( data ) {
         
         if (data== 1){
@@ -129,12 +91,11 @@ function elimIng(x){
         }
         if (data== 2){
         M.toast({html: 'No se pudo eliminar ingrediente por favor intenta de nuevo mas tarde', classes: 'grey rounded'});
-        
+        document.getElementById('showIngredientes').click();
                 }
   });
 
 }
-
 
 function elimCliente(x){
   url = "eliminarCliente.php";
@@ -160,7 +121,7 @@ function elimMenu(x){
         
         if (data== 1){
         M.toast({html: 'Menu eliminado exitosamente', classes: 'green rounded'});
-        location.reload();
+        document.location = 'menu.php';
         }
         if (data== 2){
         M.toast({html: 'No se pudo eliminar menu por favor intenta de nuevo mas tarde', classes: 'red rounded'});
@@ -168,72 +129,6 @@ function elimMenu(x){
         if (data== 3){
         M.toast({html: 'No se pudo eliminar Menú. Asegurate de no tener clientes con ese menú.', classes: 'orange rounded'});                }
   });
-
-}
-
-
-function modifyIng(y){
-
-      url = "modificarIng.php";
-      let categories = [""];
-      var p = getMax();
-      
-      for (r = 0; r<=p; r++){
-        
-          categories.push($('#cat' + r).val());
-      };
-      
-      
-
-      var posting = $.post( url, { name: $('#nombreIng').val(), grupo: $('#grupo').val(), categorias: categories, id: y} );
-      /* Send the data using post with element id name and name2*/
-        
-      /* Alerts the results */
-      posting.done(function( data ) {
-        
-        if (data== 0){
-        M.toast({html: 'Por favor introduce un nombre de ingrediente correcto', classes: 'red rounded'});
-        
-        }
-        else if (data== 22){
-        M.toast({html: 'Por favor selecciona un grupo alimenticio válido', classes: 'red rounded'});
-                }
-        
-        else if (data== 4){
-        M.toast({html: 'Por favor verifica que todos los campos estén correctos', classes: 'red rounded'});
-        
-
-        
-        }
-        else if(data == 5){
-          
-          M.toast({html: 'Ingrediente modificado exitosamente', classes: 'green rounded'});
-          var form = document.getElementById("agregar_ingrediente");
-          form.reset();
-          document.getElementById('showIngredientes').click();
-        }
-        else{
-          M.toast({html: 'Error insertando a la base de datos por favor verifica los datos', classes: 'red rounded'});
-        }
-      });
-}
-
-
-
-function elimPreparado(x){
-  url = "eliminarPreparado.php";
-  var posting = $.post( url, { id: x});
-  posting.done(function( data ) {
-        
-        if (data== 1){
-        M.toast({html: 'Preparado eliminado exitosamente', classes: 'green rounded'});
-        document.getElementById("showPreparados").click();
-        }
-        if (data== 2){
-          M.toast({html: 'No se pudo eliminar menu por favor intenta de nuevo mas tarde', classes: 'red rounded'});
-        }
-  });
-
 
 }
 
@@ -250,17 +145,8 @@ function modMenu(x, menu){
         M.toast({html: 'Menu modificado exitosamente', classes: 'green rounded'});
         document.location = 'menu.php';
         }
-        else if (data== 2){
+        if (data== 2){
         M.toast({html: 'No se pudo modificar menu por favor intenta de nuevo mas tarde', classes: 'grey rounded'});
-                }
-        else if (data== 3){
-        M.toast({html: 'Se requiere llenar el campo.', classes: 'red rounded'});
-                }
-        else if (data== 4){
-        M.toast({html: 'Solo se permiten letras y espacios <br> No se puede iniciar con espacio', classes: 'red rounded'});
-                }
-        else if (data== 5){
-        M.toast({html: 'Ya existe un menú con ese nombre', classes: 'red rounded'});
                 }
   });
 
@@ -278,21 +164,6 @@ function remInp(){
     element.parentNode.removeChild(element);
 
     
-}
-function getMax(){
-  var list = document.getElementsByClassName("right btn-floating btn-medium btn-danger btn_removeC waves-effect waves-light red");
-  var o = 0;
-  if(list.length > 0){
-    
-    for (let x of list) {
-      
-      if(x.id > o){
-        o = x.id;
-        
-      }
-    }
-  }
-  return o;
 }
 
 /js para consultar/
@@ -335,12 +206,8 @@ $(document).ready(function(){
     var o=1;
     
     $('#addCat').click(function(){  
-        
-        
-        let o = +getMax();
-        o += 1;
-
-        $('#dynamic_field2').append('<tr class="catego" style="border:none;" id="rowC'+o+'"><td><div class="input-field col s10" ><input type="text" name="cat'+o+'" id="cat'+o+'" class="validate" data-error="wrong" ><label for="validate-ingrediente">Categoria</label><span class="helper-text" data-error="Por favor introduce un nombre de categoría." data-success=""></span></div><div class="col s2"><br><a id="'+o+'" class="right btn-floating btn-medium btn-danger btn_removeC waves-effect waves-light red"><i class="material-icons center">remove</i></a></div></td></tr>');  
+        o++;  
+        $('#dynamic_field2').append('<tr style="border:none;" id="rowC'+o+'"><td><div class="input-field col s7"><input type="text" name="cat'+o+'" id="cat'+o+'" class="validate" data-error="wrong" required><label for="validate-ingrediente">Categoria</label><span class="helper-text" data-error="Por favor introduce un nombre de categoría." data-success=""></span></div><div vertical-align: middle id=""><br><button type="button" name="remove" id="'+o+'" class="btn-small btn-danger btn_removeC red">X</button></div></td></tr>');  
     });
 
     var j=1;
@@ -420,12 +287,13 @@ $(document).ready(function(){
 	    /* get the action attribute from the <form action=""> element */
 	    url = "IngredienteNom.php";
 	    let categories = [];
-      var p = getMax();
-	    for (x = 0; x<=p; x++){
+
+	    for (x = 1; x<=o; x++){
 	      
 	        categories.push($('#cat' + x).val());
 	    };
 	    
+      
 
 	    var posting = $.post( url, { name: $('#nombreIng').val(), grupo: $('#grupo').val(), categorias: categories} );
 	    /* Send the data using post with element id name and name2*/
@@ -434,35 +302,24 @@ $(document).ready(function(){
 	    posting.done(function( data ) {
 	    	
 	    	if (data== 1){
-        M.toast({html: 'Por favor introduce un nombre de ingrediente correcto', classes: 'red rounded'});
+        M.toast({html: 'Por favor introduce un nombre de ingrediente', classes: 'red rounded'});
 				
 	    	}
-	    	else if (data== 2){
+	    	if (data== 2){
         M.toast({html: 'Por favor selecciona un grupo alimenticio válido', classes: 'red rounded'});
 					    	}
 	    	
-	    	else if (data== 4){
+	    	if (data== 4){
         M.toast({html: 'Por favor verifica que todos los campos estén correctos', classes: 'red rounded'});
         
 
 				
 	    	}
-	    	else if(data == 6){
+	    	if(data == 6){
           
           M.toast({html: 'Ingrediente creado exitosamente', classes: 'green rounded'});
           var form = document.getElementById("agregar_ingrediente");
           form.reset();
-          var elems = document.getElementsByClassName('catego');
-          let len = elems.length;
-          
-          for (i=0;i<len;i++){
-            
-            elems[0].outerHTML = "";
-          }
-
-        }
-        else{
-          M.toast({html: 'Error insertando a la base de datos por favor verifica los datos', classes: 'red rounded'});
         }
 	    });
     });
