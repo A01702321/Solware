@@ -27,7 +27,34 @@ body{
 	margin-right: auto;
 }
 
-
+#beforeScr {
+        content: "";
+        height: 15px;
+        position: absolute;
+        top: 0;
+        left:0;
+        bottom: auto;
+        width: 100%;
+        background-image: -webkit-linear-gradient(#c1bcbc7a, rgba(255, 255, 255, 0));
+        background-image: -moz-linear-gradient(#c1bcbc7a, rgba(255, 255, 255, 0));
+        background-image: -o-linear-gradient(#c1bcbc7a, rgba(255, 255, 255, 0));
+        background-image: linear-gradient(#c1bcbc7a, rgba(255, 255, 255, 0));
+        z-index: 1;
+    }
+#afterScr{
+        content: "";
+        height: 15px;
+        width: 100%;
+        position: absolute;
+        top: auto;
+        bottom: 0;
+        left:0;
+        background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), #c1bcbc21);
+        background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), #c1bcbc7a);
+        background-image: -o-linear-gradient(rgba(255, 255, 255, 0), #c1bcbc7a);
+        background-image: linear-gradient(rgba(255, 255, 255, 0), #c1bcbc7a);
+        z-index: 1;
+    }
 
 button{
 	color: black;

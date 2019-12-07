@@ -58,8 +58,10 @@ function showDeleteModal(x, ing) {
 
 
 function showModifyModal(name, id, idg, grupo, categorias) {
+  document.getElementById("afterScr").style.display = "none";
+  document.getElementById("beforeScr").style.display = "none";
   var elems = document.getElementsByClassName('catego');
- document.getElementsByClassName("select-dropdown dropdown-trigger")[0].setAttribute('style',"border-bottom-width: 1px;border-bottom-style: solid;border-bottom-color: #9e9e9e");
+  document.getElementsByClassName("select-dropdown dropdown-trigger")[0].setAttribute('style',"border-bottom-width: 1px;border-bottom-style: solid;border-bottom-color: #9e9e9e");
   let len = elems.length;
   
   for (i=0;i<len;i++){
@@ -84,6 +86,14 @@ function showModifyModal(name, id, idg, grupo, categorias) {
   }
   M.updateTextFields();
   document.getElementById('modifyIngButt').setAttribute('onclick','modifyIng('+id+')');
+  var instance =M.Modal.getInstance(document.getElementById('modifyModal'));
+  instance.open();
+  var scr = document.getElementById("scrollable");
+  
+  if (scr.scrollHeight > 400){
+    document.getElementById("afterScr").style.display = "block";
+  }
+  
 }
 
 
@@ -238,6 +248,26 @@ function validateIngForm(name, group, categories){
         
         
         return passed & passed1;
+}
+
+function scrolled(){
+  var scr = document.getElementById("scrollable");
+  
+  if(scr.scrollTop === 0){
+    document.getElementById("beforeScr").style.display = "none";
+    
+  }
+  else { 
+    document.getElementById("beforeScr").style.display = "block";
+  }
+  if (scr.scrollTop === scr.scrollHeight - 400){
+    document.getElementById("afterScr").style.display = "none";
+  }
+  else { 
+    document.getElementById("afterScr").style.display = "block";
+  }
+  
+  
 }
 
 function modifyIng(y){
@@ -415,7 +445,9 @@ function consultData(evt, consult) {
 $(document).ready(function(){  
 
 
-        
+    
+    
+
     var i=1;  
     $('#add').click(function(){  
         i++;  
@@ -436,7 +468,10 @@ $(document).ready(function(){
         let o = +getMax();
         o += 1;
 
-        $('#dynamic_field2').append('<tr class="catego" style="border:none;" id="rowC'+o+'"><td><div class="input-field col s10" ><input type="text" name="cat'+o+'" id="cat'+o+'" class="validate" data-error="wrong" ><label for="validate-ingrediente">Categoria</label><span class="helper-text" data-error="Por favor introduce un nombre de categoría." data-success=""></span></div><div class="col s2"><br><a id="'+o+'" class="right btn-floating btn-medium btn-danger btn_removeC waves-effect waves-light red"><i class="material-icons center">remove</i></a></div></td></tr>');  
+        $('#dynamic_field2').append('<tr class="catego" style="border:none;" id="rowC'+o+'"><td><div class="input-field col s10" ><input type="text" name="cat'+o+'" id="cat'+o+'" class="validate" data-error="wrong" ><label for="validate-ingrediente">Categoria</label><span class="helper-text" data-error="Por favor introduce un nombre de categoría." data-success=""></span></div><div class="col s2"><br><a id="'+o+'" class="right btn-floating btn-medium btn-danger btn_removeC waves-effect waves-light red"><i class="material-icons center">remove</i></a></div></td></tr>'); 
+
+        document.getElementById("afterScr").style.display = "block";
+        
     });
 
     var j=1;
@@ -449,8 +484,11 @@ $(document).ready(function(){
 
     $(document).on('click', '.btn_removeC', function(){  
         var button_id = $(this).attr("id");   
+        var scr = document.getElementById("scrollable");
         $('#rowC'+button_id+'').remove();  
-        o--;
+        document.getElementById("afterScr").style.display = "none";
+        document.getElementById("beforeScr").style.display = "none";
+        
     }); 
 
     

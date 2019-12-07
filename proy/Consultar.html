@@ -67,18 +67,21 @@
 		</div>
 
 		<div id="modalPlacement" >
-			<div id='modifyModal' style="width: 40%"class='modal center'>
+			<div id='modifyModal' style="width: 40%; height: 900px;"class='modal center'>
 				 <h5 style="margin-right:20px;" class="right modal-close">&#10005;</h5>
 				<div class='modal-content center' style=" padding-bottom: 0;  ">
 
-					<div class="row">
+					<div class="row" style="margin-bottom:1px;">
 
 					    <form id="agregar_ingrediente" name="agregar_ingrediente">
 					        <div>
 					            <h5 id="modifyIngTitle" style="text-align: center; margin: 0">Modificar Ingrediente</h5>
 					         </div>
 					        
-					        <div class="table-responsive" vertical-align="center">  
+					        <div class="table-responsive" vertical-align="center" style="width:100%; overflow-y:scroll; position:relative;height: 400px;" onscroll="scrolled();" id="scrollable"> 
+					        <div id="beforeScr" style="display: none; position: fixed; top: 49px; width: 80%; left: 10%;">
+					        	
+					        </div> 
 					            <table class="table " id="dynamic_field2"> 
 					            	
 					                <tr style="border:none;">
@@ -91,7 +94,7 @@
 					                  </td>
 					                </tr>
 
-					                <tr style="border:none;" id ="afterthis">
+					                <tr style="border:none;" >
 					                    <td class="vert-aligned">
 					                    <div class="input-field col" style="width: 100%;margin-top: 0;">
 					                        
@@ -108,7 +111,7 @@
 					                    </div>
 					                  </td>
 					                </tr>
-					                <tr>
+					                <tr id ="afterthis">
 					                	 <td class="vert-aligned" style="margin: 0;padding-left: 1rem;">
 
 
@@ -117,19 +120,22 @@
 					                </tr>
 					                
 					                
+					                
 
 					               
 					          </table>
 					          <tr style="border:none;" >
 					               	<td>
-						                <div class="col s12" style="padding-right: .5rem;">
+						                <div class="col s12" style="padding-right: .5rem;margin-bottom: 1rem;">
 		                                  
-		                                  <p style="margin-top: 0">Agregar Categoría</p>
+		                                  <p style="margin-top: 0;">Agregar Categoría</p>
 		                                  <a id="addCat" class="center btn-floating btn-medium waves-effect waves-light "><i class="material-icons">add</i></a>
 		                              	</div>
 	                              	</td>
 	                          </tr>
-					          
+					        <div id="afterScr" display ="none" style="display: none; position: fixed; bottom: 37px; width: 80%; left: 10%;">
+					        	
+					        </div> 
 					        </div>
 					    </form>
 					  </div>
@@ -137,7 +143,7 @@
 				</div>
 				
             		
-            	<a style="margin-bottom: 1rem; position: relative: bottom:0;" href="#!" onclick="" id="modifyIngButt"  class="modal-action waves-effect floating waves-light btn-flat green">Modificar Ingrediente</a>
+            	<a style=" position: relative; bottom:0; " href="#!" onclick="" id="modifyIngButt"  class="modal-action waves-effect floating waves-light btn-flat green">Modificar Ingrediente</a>
 
    				
 			</div>
