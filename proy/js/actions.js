@@ -604,7 +604,8 @@ $(document).ready(function(){
           form.reset();
           var elems = document.getElementsByClassName('catego');
           let len = elems.length;
-          
+          document.getElementsByClassName("select-dropdown dropdown-trigger")[0].setAttribute('style',"border-bottom-width: 1px;border-bottom-style: solid;border-bottom-color: #9e9e9e");
+  
           for (i=0;i<len;i++){
             
             elems[0].outerHTML = "";
