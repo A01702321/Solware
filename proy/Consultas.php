@@ -9,7 +9,34 @@
 				$result = getClients();
 				if (mysqli_num_rows($result) > 0 ) {
 					# code...
+
 					echo "<h3 class='table-title'>Lista de Clientes</h3>";
+
+					echo '
+					<div class="row">
+				      <div class="col s12">
+				        <h6><b>Buscar clientes:</b></h6><br>
+				        <div class="table-responsive" vertical-align="center">  
+				          <table class="table " id="clientes" > 
+				            <tr>
+				              <td class="vert-aligned">
+				                <div class="input-field">
+				                  <input type="text" id="rest1" class="validate" name ="rest1" onkeyup="obtenCliente(1)">
+				                  <label>Introduce el nombre...</label>
+				                  <div id="resultado1"></div>
+				                </div>
+				                <div>
+				                  <br>
+				                </div>
+				              </td>
+				            </tr>      
+				          </table>
+				        </div>
+				        <input type="hidden" value="" name="valorRestricciones" id="valorRestricciones"/>
+				      </div>
+				    </div>';
+
+				    /*
 					echo "<table class='consult-table'>";
 					echo "<thead>";
 					echo "<tr>";
@@ -42,6 +69,7 @@
 					echo "</tbody>";
 					echo "</table>";
 					
+					*/
 				}
 			}
 

@@ -1010,6 +1010,28 @@ function obtenerIngredient(){
    
 }
 
+function obtenerClient(){
+	  $db =connectDB();
+     
+    
+        $query="SELECT IDCliente, Nombre, Menu FROM Clientes";
+     
+       $registros = $db->query($query);
+
+       $datos=array();
+
+       if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+        	array_push($datos,array($row["IDCliente"],$row["Nombre"],$row["Menu"]));
+        } 
+    }
+     
+        closeDb($db);
+     
+        return $datos;
+   
+}
+
 function crearCliente($first_name, $nombremenu){
 
 	$db = connectDB();
