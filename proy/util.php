@@ -499,6 +499,10 @@
 		
 		$sql = "DELETE FROM IngredienteCategoria Where IDIngrediente = '$id'";
 		mysqli_query($link, $sql);
+		$sql = "DELETE FROM IngredientePreparado Where IDIngrediente = '$id'";
+		mysqli_query($link, $sql);
+		$sql = "DELETE FROM IngredienteReceta Where IDIngrediente = '$id'";
+		mysqli_query($link, $sql);
 		$sql = "DELETE FROM Ingredientes Where IDIngrediente = '$id'";
 		if(mysqli_query($link, $sql)){
 			$res = 1;
