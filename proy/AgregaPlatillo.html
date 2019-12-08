@@ -17,6 +17,28 @@
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col s6">
+        <h6>* <b>2. Selecciona los tiempos que el cliente desea contratar:</b></h6>
+        <div class="input-field col s4 offset-s2">
+          <?php
+            require_once("util.php");
+            obtenerTiempos();
+          ?>
+        </div>
+      </div>
+      <div class="col s5">
+        <h6>* <b>3. Selecciona el menú que se desee contratar:</b></h6>
+        <br><br>
+        <select required id="nombremenu" name="nombremenu">
+          <option value="" disabled selected>Selecciona...</option>
+              <?php
+                require_once("util.php");
+                obtenerMenu();
+              ?>
+        </select>
+      </div>
+    </div>
 
     <br><br><br><br><br>
 
