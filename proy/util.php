@@ -1039,6 +1039,18 @@ function crearCliente($first_name, $nombremenu){
 	   
 }
 
+function conseguirIDIngrediente($Ingrediente){
+
+	$db = connectDB();
+
+	$sql = "SELECT IDIngrediente FROM Ingredientes WHERE NombreIngrediente = '$Ingrediente'";
+	$IDIngrediente = mysqli_fetch_assoc(mysqli_query($db,$sql));
+
+	closeDB($db);
+
+	return $IDIngrediente;
+}
+
 function agregarRestriccionACliente($IDCliente, $IDIngrediente){
 	$db = connectDB();
 
