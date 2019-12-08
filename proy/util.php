@@ -8,7 +8,7 @@
 	    //TEST: Ambiente de pruebas
 
 
-	    $environment = "DEV";
+	    $environment = "PROD";
 
 	    
 	    if ($environment == "DEV") {
