@@ -56,10 +56,6 @@ function showDeleteModal(x, ing) {
   document.getElementById('confirmarEliminarIng').setAttribute('onclick','elimIng('+x+')');
 }
 
-<<<<<<< HEAD
-=======
-
-
 function showModifyModal(name, id, idg, grupo, categorias) {
   var instance =M.Modal.getInstance(document.getElementById('modifyModal'));
   instance.open();
@@ -102,9 +98,6 @@ function showModifyModal(name, id, idg, grupo, categorias) {
   
 }
 
-
-
->>>>>>> 8a3babe226a5a87eaee0ae23b9c47ba2ca7b4c83
 function showDeleteModalMenu(x, menu) {
 
 document.getElementById('MenuAEliminar').setAttribute('value',x);
