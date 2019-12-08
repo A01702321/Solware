@@ -177,6 +177,31 @@ function elimMenu(x){
 }
 
 
+/* AC*/
+
+function agregarRestriccion(ingrediente)
+{
+  var resultados = document.getElementById("resultados");
+  resultados.innerHTML += "<tr id='" + ingrediente + "-tabla'><td>" + ingrediente.toString() + "</td>" + '<td><a onclick="eliminarIngrediente(\'' +  ingrediente + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
+
+  var resultadosHidden = document.getElementById("resultadosHidden");
+  resultadosHidden.innerHTML += "<input type='hidden' value='" + ingrediente.toString() + "' name='restricciones[]' id='" + ingrediente.toString() + "'/>";
+
+}
+
+function eliminarIngrediente(ingrediente)
+{
+  var ingredienteDOM = document.getElementById(ingrediente.toString());
+  ingredienteDOM.parentNode.removeChild(ingredienteDOM); 
+
+  var ingredienteTabla = document.getElementById(ingrediente.toString() + "-tabla");
+  ingredienteTabla.parentNode.removeChild(ingredienteTabla);
+
+}
+
+/*AC*/
+
+
 
 
 
@@ -644,4 +669,31 @@ $(document).ready(function(){
 
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

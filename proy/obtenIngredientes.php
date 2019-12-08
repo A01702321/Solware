@@ -9,8 +9,8 @@ $datos=array();
 $mensaje = '<table id="tablaIngredientes">
             <thead>
                 <tr>
-                    <th>Seleccionar</th>
                     <th>Ingrediente</th>
+                    <th>Agregar</th>
                 </tr>
             </thead>
             <tbody>';
@@ -26,15 +26,10 @@ for($i=0; $i<count($result); $i++){
    {
       $size++;
       $mensaje.="<tr>
-                  <td>
-                    <p>
-                      <label>
-                        <input name='$nombre' type='checkbox' value='$id' />
-                        <span></span>
-                      </label>
-                    </p>
-                  </td> 
                   <td>".$ingrediente.'</td>
+                  <td>
+                  <a onclick="agregarRestriccion(\''. $ingrediente . '\')" class="btn-floating btn-small waves-effect waves-light"><i class="material-icons">add</i></a>
+                  </td> 
                 </tr>';
 
       $seleccionados=$id;
@@ -57,4 +52,3 @@ if($size>0){
 
 
 ?>
-
