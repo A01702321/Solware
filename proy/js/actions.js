@@ -523,44 +523,9 @@ $(document).ready(function(){
       
 
     $(document).on('click', '#submitIng', function(){ 
-/*
-<<<<<<< HEAD
-	    let DEBUG = 1;
-	      	/*
-		      for (x = 1; x<=o; x++){
-		        if($('#nombreIng').val() == "" || $('#grupo').val() == "" || $('#cat' + x).val() == "" ){
-		            alert("Por favor verifica los datos e intenta nuevamente");
-		            return false;
-		        }
-		      }
-		     */
-	      
-	    /* stop form from submitting normally 
-	    event.preventDefault();
-	      
-	    if (DEBUG) console.info('llamada asíncrona a IngredienteNom');
 
-	    /* get the action attribute from the <form action=""> element 
-	    url = "IngredienteNom.php";
-	    let categories = [];
-
-	    for (x = 1; x<=o; x++){
-	      
-	        categories.push($('#cat' + x).val());
-	    };
-	    
-=======*/
       let DEBUG = 1;
-          /*
-          for (x = 1; x<=o; x++){
-            if($('#nombreIng').val() == "" || $('#grupo').val() == "" || $('#cat' + x).val() == "" ){
-                alert("Por favor verifica los datos e intenta nuevamente");
-                return false;
-            }
-          }
-         */
-        
-      /* stop form from submitting normally */
+         
       event.preventDefault();
         
       if (DEBUG) console.info('llamada asíncrona a IngredienteNom');
