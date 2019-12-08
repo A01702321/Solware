@@ -32,8 +32,8 @@ for($i=0; $i<count($result); $i++){
                   </td> 
                 </tr>';
 
-      $seleccionados=$id;
-      echo $id;
+      //$seleccionados=$id;
+      //echo $id;
    }
 }
 $mensaje.='</tbody> </table>';
