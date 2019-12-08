@@ -182,7 +182,7 @@ function elimMenu(x){
 function agregarRestriccion(ingrediente)
 {
   var resultados = document.getElementById("resultados");
-  resultados.innerHTML += "<tr id='" + ingrediente + "-tabla'><td>" + ingrediente.toString() + "</td>" + '<td><a onclick="eliminarIngrediente(\'' +  ingrediente + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
+  resultados.innerHTML += "<tr id='" + ingrediente + "'><td style='width:80%'>" + ingrediente.toString() + "</td>" + '<td><a onclick="eliminarIngrediente(\'' +  ingrediente + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
 
   var resultadosHidden = document.getElementById("resultadosHidden");
   resultadosHidden.innerHTML += "<input type='hidden' value='" + ingrediente.toString() + "' name='restricciones[]' id='" + ingrediente.toString() + "'/>";
@@ -191,7 +191,7 @@ function agregarRestriccion(ingrediente)
 function agregarRestriccionR(receta)
 {
   var resultados = document.getElementById("resultadosR");
-  resultados.innerHTML += "<tr id='" + receta + "-tabla'><td>" + receta.toString() + "</td>" + '<td><a onclick="eliminarReceta(\'' +  receta + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
+  resultados.innerHTML += "<tr id='" + receta + "'><td style='width:80%'>" + receta.toString() + "</td>" + '<td><a onclick="eliminarReceta(\'' +  receta + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
 
   var resultadosHidden = document.getElementById("resultadosHiddenR");
   resultadosHidden.innerHTML += "<input type='hidden' value='" + receta.toString() + "' name='restriccionesR[]' id='" + receta.toString() + "'/>";
@@ -200,7 +200,7 @@ function agregarRestriccionR(receta)
 function agregarRestriccionP(preparado)
 {
   var resultados = document.getElementById("resultadosP");
-  resultados.innerHTML += "<tr id='" + preparado + "-tabla'><td>" + preparado.toString() + "</td>" + '<td><a onclick="eliminarPreparado(\'' +  preparado + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
+  resultados.innerHTML += "<tr id='" + preparado + "'><td style='width:80%'>" + preparado.toString() + "</td>" + '<td><a onclick="eliminarPreparado(\'' +  preparado + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
 
   var resultadosHidden = document.getElementById("resultadosHiddenP");
   resultadosHidden.innerHTML += "<input type='hidden' value='" + preparado.toString() + "' name='restriccionesP[]' id='" + preparado.toString() + "'/>";
@@ -317,6 +317,25 @@ function scrolled(){
     document.getElementById("beforeScr").style.display = "block";
   }
   if (scr.scrollTop === scr.scrollHeight - 400){
+    document.getElementById("afterScr").style.display = "none";
+  }
+  else { 
+    document.getElementById("afterScr").style.display = "block";
+  }
+  
+  
+}
+function scrolledSmall(){
+  var scr = document.getElementById("scrolledR");
+  
+  if(scr.scrollTop === 0){
+    document.getElementById("beforeScr").style.display = "none";
+    
+  }
+  else { 
+    document.getElementById("beforeScr").style.display = "block";
+  }
+  if (scr.scrollTop === scr.scrollHeight - 200){
     document.getElementById("afterScr").style.display = "none";
   }
   else { 

@@ -1031,6 +1031,27 @@ function obtenerPreparado(){
         return $datos;
    
 }
+function obtenerReceta(){
+	  $db =connectDB();
+     
+    
+        $query="SELECT NombreReceta,IDReceta FROM Recetas";
+     
+       $registros = $db->query($query);
+
+       $datos=array();
+
+       if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+        	array_push($datos,array($row["IDReceta"],$row["NombreReceta"]));
+        } 
+    }
+     
+        closeDb($db);
+     
+        return $datos;
+   
+}
 
 function crearCliente($first_name, $nombremenu){
 
