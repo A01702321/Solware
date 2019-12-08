@@ -188,6 +188,24 @@ function agregarRestriccion(ingrediente)
   resultadosHidden.innerHTML += "<input type='hidden' value='" + ingrediente.toString() + "' name='restricciones[]' id='" + ingrediente.toString() + "'/>";
 
 }
+function agregarRestriccionR(receta)
+{
+  var resultados = document.getElementById("resultadosR");
+  resultados.innerHTML += "<tr id='" + receta + "-tabla'><td>" + receta.toString() + "</td>" + '<td><a onclick="eliminarReceta(\'' +  receta + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
+
+  var resultadosHidden = document.getElementById("resultadosHiddenR");
+  resultadosHidden.innerHTML += "<input type='hidden' value='" + receta.toString() + "' name='restriccionesR[]' id='" + receta.toString() + "'/>";
+
+}
+function agregarRestriccionP(preparado)
+{
+  var resultados = document.getElementById("resultadosP");
+  resultados.innerHTML += "<tr id='" + preparado + "-tabla'><td>" + preparado.toString() + "</td>" + '<td><a onclick="eliminarPreparado(\'' +  preparado + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
+
+  var resultadosHidden = document.getElementById("resultadosHiddenP");
+  resultadosHidden.innerHTML += "<input type='hidden' value='" + preparado.toString() + "' name='restriccionesP[]' id='" + preparado.toString() + "'/>";
+
+}
 
 function eliminarIngrediente(ingrediente)
 {
@@ -196,6 +214,25 @@ function eliminarIngrediente(ingrediente)
 
   var ingredienteTabla = document.getElementById(ingrediente.toString() + "-tabla");
   ingredienteTabla.parentNode.removeChild(ingredienteTabla);
+
+}
+function eliminarReceta(receta)
+{
+  var recetaDOM = document.getElementById(receta.toString());
+  recetaDOM.parentNode.removeChild(recetaDOM); 
+
+  var recetaTabla = document.getElementById(receta.toString() + "-tabla");
+  recetaTabla.parentNode.removeChild(recetaTabla);
+
+}
+
+function eliminarPreparado(preparado)
+{
+  var preparadoDOM = document.getElementById(preparado.toString());
+  preparadoDOM.parentNode.removeChild(preparadoDOM); 
+
+  var preparadoTabla = document.getElementById(preparado.toString() + "-tabla");
+  preparadoTabla.parentNode.removeChild(preparadoTabla);
 
 }
 
