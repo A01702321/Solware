@@ -195,8 +195,8 @@ function eliminarIngrediente(ingrediente)
   var ingredienteDOM = document.getElementById(ingrediente.toString());
   ingredienteDOM.parentNode.removeChild(ingredienteDOM); 
 
-  var ingredienteTabla = document.getElementById(ingrediente.toString());
-  ingredienteTabla.parentNode.removeChild(ingredienteTabla);
+  /*var ingredienteTabla = document.getElementById(ingrediente.toString());
+  ingredienteTabla.parentNode.removeChild(ingredienteTabla);*/
 
 }
 
