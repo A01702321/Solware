@@ -183,7 +183,7 @@ function agregarRestriccion(ingrediente, id)
 {
 
   var resultados = document.getElementById("resultados");
-  resultados.innerHTML += "<tr id='" + id + "'><td>" + ingrediente.toString() + "</td>" + "<td>   <div class='switch'><label>Restricción<input type='checkbox'><span class='lever'></span>Alergia</label></div> </td>" + '<td><a onclick="eliminarIngrediente(\'' +  id + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
+  resultados.innerHTML += "<tr class='idTablaAux' id='" + id + "'><td>" + ingrediente.toString() + "</td>" + "<td>   <div class='switch'><label>Restricción<input type='checkbox'><span class='lever'></span>Alergia</label></div> </td>" + '<td><a onclick="eliminarIngrediente(\'' +  id + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
 
   var resultadosHidden = document.getElementById("resultadosHidden");
   resultadosHidden.innerHTML += "<input type='hidden' value='" + ingrediente.toString() + "' name='restricciones[]' id='" + ingrediente.toString() + "'/>";
@@ -202,6 +202,53 @@ function eliminarIngrediente(ingrediente)
 
 /*AC*/
 
+
+
+function ObtenerIDtablaAux(){
+  var tablaAux = document.getElementsByClassName("idTablaAux");
+  var ids = [];
+  var t = false;
+  let len = tablaAux.length;
+
+  for (x=0; x<len; x++){
+    t = true;
+    ids.push(tablaAux[x].id);
+  }
+  
+  if(t)return ids;
+  else return [""];
+
+
+
+}
+
+function agregarClienteConRestricciones() {
+  url = "agregaClienteControlador.php";
+  var tablaIDs = ObtenerIDtablaAux();
+  var firstname = $("#first_name").val();
+  var tiempos = [""];
+  if(document.getElementById("tiempomenu0").checked){
+    tiempos.push(document.getElementById("tiempomenu0").value);
+  } 
+
+  if(document.getElementById("tiempomenu1").checked){
+    tiempos.push(document.getElementById("tiempomenu1").value);
+  } 
+
+  if(document.getElementById("tiempomenu2").checked){
+    tiempos.push(document.getElementById("tiempomenu2").value);
+  } 
+  var nombreM = $("#nombremenu").val();
+
+  var posting = $.post(url, {menu : nombreM, name: firstname, tiempomenu: tiempos, ids: tablaIDs});
+
+
+  posting.done(function (data){
+    alert(data);
+  });
+
+
+}
 
 
 

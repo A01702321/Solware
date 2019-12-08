@@ -6,11 +6,14 @@
 
     if(isset($_SESSION["User"])){
 
+        include_once("header.html");
+        include_once("AgregaCliente.html");
+        include_once("footer.html");
+    } else {
+        header("location:../proy/index.php");
+    }
 
-    if(isset($_POST["first_name"]) && isset($_POST["tiempomenu"]) && isset($_POST["nombremenu"])){
-        $nombre= $_POST["first_name"];
-        $menu= $_POST["nombremenu"];
-
+/*
         if(!existe("Clientes","Nombre", $nombre, true)){
             if(!crearCliente($nombre,$menu)){
                 $id=ultimoCliente();
@@ -21,14 +24,14 @@
                     agregarPlanACliente($id,$tipo);
                 }
                 if(isset($_POST["valorRestricciones"])){
-                    for($i = 1; $i <= $_POST["valorRestricciones"];$i++){
-                        $tipo = "ingrediente".$i;
+                    for($i = 1; $i <= $restricciones;$i++){
+                        $tipo = $restricciones[$i];
 
-                        if($_POST[$tipo] != NULL){
-                            echo($_POST[$tipo]);
-                            echo($id);
-                            agregarRestriccionACliente($id,$_POST[$tipo]);
-                        }
+                        
+                        echo($tipo);
+                        echo($id);
+                        agregarRestriccionACliente($id,$tipo);
+                        
                     }
                 }
                 header("location:registroExitoso.php");
@@ -52,4 +55,7 @@
     else{
         header("location:../proy/index.php");
     }
+*/
+
+
 ?>

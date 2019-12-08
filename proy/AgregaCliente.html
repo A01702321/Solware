@@ -7,7 +7,7 @@
     <br><br>
   </div>
 
-  <form id="forma" method="POST" action="agregaCliente.php">  
+  <form id="forma">  
 
     <div class="row">
       <div class="input-field col s9 offset-s1">
@@ -33,7 +33,7 @@
       <div class="col s5">
         <h6>* <b>3. Selecciona el menú que se desee contratar:</b></h6>
         <br><br>
-        <select required id="nombremenu" name="nombremenu">
+        <select id="nombremenu" name="nombremenu">
           <option value="" disabled selected>Selecciona...</option>
               <?php
                 require_once("util.php");
@@ -103,7 +103,7 @@
       <h6><b>¿Terminaste?</b></h6><br>
       <div class="row">
         <div class="col s3">
-          <button class="waves-effect waves-light btn light-green lighten-2" type="submit" form="forma">Finalizar</button>
+          <button class="waves-effect waves-light btn light-green lighten-2" onclick="agregarClienteConRestricciones()" >Finalizar</button>
         </div>
       </div>
     </div>
