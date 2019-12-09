@@ -458,6 +458,61 @@ function agregarReceta() {
 
 }
 
+function agregarReceta() {
+  url = "agregarRecetaControlador.php";
+  var tablaIDsIng = ObtenerIDtablaAux();
+  var tablaIDsPrep = ObtenerIDtablaAuxP();
+  var tablaIDsRec = ObtenerIDtablaAuxR();
+  var tablaIDsMen = ObtenerIDtablaAuxM();
+  var tiempoz = ObtenerIDtablaAuxT();
+  var descripcion = $("#descReceta").val();
+  var name = $("#nombre_receta").val();
+
+  
+  var posting = $.post(url, {desc : descripcion, name: name, tiempos: tiempoz, idsI: tablaIDsIng, idsP: tablaIDsPrep, idsR: tablaIDsRec, idsM : tablaIDsMen});
+
+
+  posting.done(function (data){
+    if (data== 1){
+        M.toast({html: 'Receta creada exitosamente', classes: 'green rounded'});
+        
+        }
+    
+  });
+
+
+}
+function alimentarClientes() {
+  url = "agregarRecetaControlador.php";
+  var nombreMenu = $("#nombreMenu").val();
+  var nombreTiempo = $("#nombreTiempo").val();
+  var idPlatillo = $("#platillosTable").val();
+  var fecha = $("#fecha").val();
+   
+  alert(nombreMenu);
+  alert(nombreTiempo);
+  alert(idPlatillo);
+  alert(fecha);
+  return;
+  
+  var posting = $.post(url, {desc : descripcion, name: name, tiempos: tiempoz, idsI: tablaIDsIng, idsP: tablaIDsPrep, idsR: tablaIDsRec, idsM : tablaIDsMen});
+
+
+  posting.done(function (data){
+    if (data== 1){
+        M.toast({html: 'Receta creada exitosamente', classes: 'green rounded'});
+        
+        }
+    
+  });
+
+
+}
+
+
+
+
+
 function agregarPlatillo() {
   url = "agregaPlatilloControlador.php";
   var tablaIDsIng = ObtenerIDtablaAux();

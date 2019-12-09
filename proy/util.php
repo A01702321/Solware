@@ -1030,6 +1030,29 @@ function obtenerPlatillo(){
         return $datos;
    
 }
+function obtenerPlatillosRestricciones($menu, $tiempo){
+	// obtiene menus para poblar un dropdown
+    $db = connectDB();
+    $query="SELECT * FROM Platillos Where Menu = '$menu' and Tiempo = '$tiempo'";
+    $registros=mysqli_query($db,$query);
+    
+    $consulta = "";
+    
+    if (!$registros) {
+        return ($consulta);
+    }
+    $datos=array();
+    while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+
+      
+      echo"<option class='plats' name='".$row["Tiempo"]."-".$row["Menu"]."' value='".$row["IDPlatillo"]."'>".$row["NombrePlatillo"]."</option>";
+
+    }
+    
+    closeDB($db);
+    //var_dump($consulta);
+    return; 
+}
 
 function obtenerRecetas(){
 	  $db =connectDB();
