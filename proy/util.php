@@ -502,6 +502,8 @@
 		mysqli_query($link, $sql);
 		$sql = "DELETE FROM IngredienteReceta Where IDIngrediente = '$id'";
 		mysqli_query($link, $sql);
+		$sql = "DELETE FROM PlatilloIngrediente Where IDIngrediente = '$id'";
+		mysqli_query($link, $sql);
 		$sql = "DELETE FROM IngredientePreparado Where IDIngrediente = '$id'";
 		mysqli_query($link, $sql);
 		$sql = "DELETE FROM Ingredientes Where IDIngrediente = '$id'";
@@ -558,9 +560,61 @@
 
  		$res = 2;
 
+		$sql = "DELETE FROM PlatilloPreparado Where IDPreparado = '$id'";
+		mysqli_query($db, $sql);
+		$sql = "DELETE FROM PreparadoReceta Where IDPreparado = '$id'";
+		mysqli_query($db, $sql);
 		$sql = "DELETE FROM IngredientePreparado Where IDPreparado = '$id'";
 		mysqli_query($db, $sql);
 		$sql = "DELETE FROM Preparados Where IDPreparado = '$id'";
+		if(mysqli_query($db, $sql)){
+			$res = 1;
+		}
+		closeDB($db);
+		return $res;
+	}
+
+	function eliminarReceta($id) {
+		
+		$db = connectDB();
+
+ 		$res = 2;
+
+		$sql = "DELETE FROM IngredienteReceta Where IDReceta = '$id'";
+		mysqli_query($db, $sql);
+		$sql = "DELETE FROM PreparadoReceta Where IDReceta = '$id'";
+		mysqli_query($db, $sql);
+		$sql = "DELETE FROM MenuReceta Where IDReceta = '$id'";
+		mysqli_query($db, $sql);
+		$sql = "DELETE FROM RecetaReceta Where IDReceta = '$id'";
+		mysqli_query($db, $sql);
+		$sql = "DELETE FROM RecetaTiempo Where IDReceta = '$id'";
+		mysqli_query($db, $sql);
+		$sql = "DELETE FROM PlatilloReceta Where IDReceta = '$id'";
+		mysqli_query($db, $sql);
+		$sql = "DELETE FROM Recetas Where IDReceta = '$id'";
+		if(mysqli_query($db, $sql)){
+			$res = 1;
+		}
+		closeDB($db);
+		return $res;
+	}
+
+	function eliminarPlatillo($id) {
+		
+		$db = connectDB();
+
+ 		$res = 2;
+
+		$sql = "DELETE FROM ClientePlatillo Where IDPlatillo = '$id'";
+		mysqli_query($db, $sql);
+		$sql = "DELETE FROM PlatilloIngrediente Where IDPlatillo = '$id'";
+		mysqli_query($db, $sql);
+		$sql = "DELETE FROM PlatilloPreparado Where IDPlatillo = '$id'";
+		mysqli_query($db, $sql);
+		$sql = "DELETE FROM PlatilloReceta Where IDPlatillo = '$id'";
+		mysqli_query($db, $sql);
+		$sql = "DELETE FROM Platillos Where IDPlatillo = '$id'";
 		if(mysqli_query($db, $sql)){
 			$res = 1;
 		}
@@ -864,6 +918,207 @@
 	    mysqli_free_result($registros);
 	    echo $consulta;   
 	}
+
+function obtenerGrupos(){
+    $db = connectDB();
+    $query="SELECT * FROM GruposAlimenticios";
+    $registros = $db->query($query);
+    if (!$registros) {
+        return false;
+    }
+    $datos=array();
+    while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+      array_push($datos, array($row["IDGrupoAl"],$row["NombreGrupoAl"]));
+    }
+    for($i=0; $i<count($datos); $i++)
+
+    {
+        $id=$datos[$i][0];
+        $grupo=$datos[$i][1];
+        echo"$<option id='opt".$id."'' value=".$id.">$grupo</option>";
+
+
+    }
+    closeDB($db);  
+}
+
+
+function obtenerIngredient(){
+	  $db =connectDB();
+     
+    
+        $query="SELECT NombreIngrediente,IDIngrediente FROM Ingredientes";
+     
+       $registros = $db->query($query);
+
+       $datos=array();
+
+       if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+        	array_push($datos,array($row["IDIngrediente"],$row["NombreIngrediente"]));
+        } 
+    }
+     
+        closeDb($db);
+     
+        return $datos;
+   
+}
+
+function obtenerIngredientes(){
+	  $db =connectDB();
+     
+    
+       $query="SELECT NombreIngrediente,IDIngrediente,GrupoAlimenticio FROM Ingredientes";
+     
+       $registros = $db->query($query);
+
+       $datos=array();
+
+       if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+        	array_push($datos,array($row["IDIngrediente"],$row["NombreIngrediente"],$row["GrupoAlimenticio"]));
+        } 
+    }
+     
+        closeDb($db);
+     
+        return $datos;
+   
+}
+
+function obtenerClient(){
+	  $db =connectDB();
+     
+    
+        $query="SELECT IDCliente, Nombre, Menu FROM Clientes";
+     
+       $registros = $db->query($query);
+
+       $datos=array();
+
+       if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+        	array_push($datos,array($row["IDCliente"],$row["Nombre"],$row["Menu"]));
+        } 
+    }
+     
+        closeDb($db);
+     
+        return $datos;
+   
+}
+
+function obtenerPlatillo(){
+	  $db =connectDB();
+     
+    
+        $query="SELECT IDPlatillo, NombrePlatillo, Menu, Tiempo, Notas FROM Platillos";
+     
+       $registros = $db->query($query);
+
+       $datos=array();
+
+       if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+        	array_push($datos,array($row["IDPlatillo"],$row["NombrePlatillo"],$row["Menu"],$row["Tiempo"],$row["Notas"]));
+        } 
+    }
+     
+        closeDb($db);
+     
+        return $datos;
+   
+}
+
+function obtenerRecetas(){
+	  $db =connectDB();
+     
+    
+        $query="SELECT IDReceta, NombreReceta, Descripcion FROM Recetas";
+     
+       $registros = $db->query($query);
+
+       $datos=array();
+
+       if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+        	array_push($datos,array($row["IDReceta"],$row["NombreReceta"],$row["Descripcion"]));
+        } 
+    }
+     
+        closeDb($db);
+     
+        return $datos;
+   
+}
+
+function obtenerPrep(){
+	  $db =connectDB();
+     
+    
+        $query="SELECT IDPreparado, NombrePreparado FROM Preparados";
+     
+       $registros = $db->query($query);
+
+       $datos=array();
+
+       if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+        	array_push($datos,array($row["IDPreparado"],$row["NombrePreparado"]));
+        } 
+       }
+     
+        closeDb($db);
+     
+        return $datos;
+   
+}
+
+//function crearCliente($first_name, $nombremenu){
+
+function obtenerPreparado(){
+	  $db =connectDB();
+     
+    
+        $query="SELECT NombrePreparado,IDPreparado FROM Preparados";
+     
+       $registros = $db->query($query);
+       
+       $datos=array();
+       if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+        	array_push($datos,array($row["IDPreparado"],$row["NombrePreparado"]));
+        } 
+    }
+     
+        closeDb($db);
+     
+        return $datos;
+   
+}
+
+function obtenerReceta(){
+	  $db =connectDB();
+     
+    
+        $query="SELECT NombreReceta,IDReceta FROM Recetas";
+     
+       $registros = $db->query($query);
+
+       $datos=array();
+
+       if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+        	array_push($datos,array($row["IDReceta"],$row["NombreReceta"]));
+        } 
+    }
+     
+        closeDb($db);
+     
+        return $datos;
+   
+}
 
 	function obtenTiempos(){ // obtiene tiempos para poblar un dropdown
 	    $db = connectDB();

@@ -5,6 +5,7 @@
 		  <button id="showIngredientes" name="ingredientes" class="tablinks">Ingredientes</button>
 		  <button id="showPreparados" name="preparados" class="tablinks">Preparados</button>
 		   <button  id="showRecetas"name="recetas" class="tablinks">Recetas</button>
+		   <button  id="showPlatillos"name="platillos" class="tablinks">Platillos</button>
 		</div>
 		
 		<div id="clientes"  style="overflow-y:auto; height: 550px;" class="tabcontent">
@@ -24,6 +25,10 @@
 		<div id="recetas" style="overflow-y:auto; height: 550px;" class="tabcontent" onload="clickClientes()">
 		  <h3>Recetas</h3>
 		  <p>Recetas existentes</p>
+		</div>
+		<div id="platillos" style="overflow-y:auto; height: 550px;" class="tabcontent">
+		  <h3>Platillos</h3>
+		  <p>Platillos existentes</p>
 		</div>
 		<script>
 			function clickClientes(){
@@ -46,6 +51,40 @@
             		
             		<a href="#!" id="confirmarEliminarIng" onclick="" class="modal-action modal-close waves-effect waves-red btn-flat ">Eliminar</a>
    				</div>
+			</div>
+		</div>
+		<div id="modalPlacement" >
+
+			<div id='removeModalReceta' style="width: 30%;"class='modal center'>
+				
+				<div class='modal-content center'>
+					<h5 style="text-align: center;" >¿Estás seguro?</h5>
+					<br>
+					<h6 style="text-align: center;padding-left: 0;"  id="RecetaAEliminar" name="RecetaAEliminar" value="0"></h6>
+					
+					
+				</div>
+				<div class="modal-foote center">
+            		<a href="#!" class="modal-close waves-effect waves-grey btn-flat ">Cancelar</a>
+            		<a href="#!" id="confirmarEliminarReceta" onclick="" class="modal-action modal-close waves-effect waves-red btn-flat ">Eliminar</a>
+            		</div>
+			</div>
+		</div>
+		<div id="modalPlacement" >
+
+			<div id='removeModalPlatillo' style="width: 30%;"class='modal center'>
+				
+				<div class='modal-content center'>
+					<h5 style="text-align: center;" >¿Estás seguro?</h5>
+					<br>
+					<h6 style="text-align: center;padding-left: 0;"  id="PlatilloAEliminar" name="PlatilloAEliminar" value="0"></h6>
+					
+					
+				</div>
+				<div class="modal-foote center">
+            		<a href="#!" class="modal-close waves-effect waves-grey btn-flat ">Cancelar</a>
+            		<a href="#!" id="confirmarEliminarPlatillo" onclick="" class="modal-action modal-close waves-effect waves-red btn-flat ">Eliminar</a>
+            		</div>
 			</div>
 		</div>
 		<div id="modalPlacement" >

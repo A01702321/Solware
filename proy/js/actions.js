@@ -122,6 +122,26 @@ document.getElementById('ClienteAEliminar').innerText = "Cliente a eliminar: " +
 document.getElementById('confirmarEliminarCliente').setAttribute('onclick','elimCliente('+x+')');
 }
 
+function showDeleteModalPreparado(x, preparado) {
+
+document.getElementById('PreparadoAEliminar').setAttribute('value',x);
+document.getElementById('PreparadoAEliminar').innerText = "Preparado a eliminar: " + preparado;
+document.getElementById('confirmarEliminarPreparado').setAttribute('onclick','elimPreparado('+x+')');
+}
+
+function showDeleteModalReceta(x, receta) {
+
+document.getElementById('RecetaAEliminar').setAttribute('value',x);
+document.getElementById('RecetaAEliminar').innerText = "Receta a eliminar: " + receta;
+document.getElementById('confirmarEliminarReceta').setAttribute('onclick','elimReceta('+x+')');
+}
+
+function showDeleteModalPlatillo(x, platillo) {
+
+document.getElementById('PlatilloAEliminar').setAttribute('value',x);
+document.getElementById('PlatilloAEliminar').innerText = "Platillo a eliminar: " + platillo;
+document.getElementById('confirmarEliminarPlatillo').setAttribute('onclick','elimPlatillo('+x+')');
+}
 
 function elimIng(x){
   url = "eliminarIng.php";
@@ -153,6 +173,55 @@ function elimCliente(x){
         if (data== 2){
         M.toast({html: 'No se pudo eliminar cliente por favor intenta de nuevo mas tarde', classes: 'red rounded'});
         document.getElementById('showClientes').click();
+                }
+  });
+
+}
+
+function elimPreparado(x){
+  url = "eliminarPreparado.php";
+  var posting = $.post( url, { id: x});
+  posting.done(function( data ) {
+        
+        if (data== 1){
+        M.toast({html: 'Preparado eliminado exitosamente', classes: 'green rounded'});
+        document.getElementById('showPreparados').click();
+        }
+        if (data== 2){
+        M.toast({html: 'No se pudo eliminar preparado por favor intenta de nuevo mas tarde', classes: 'red rounded'});
+        document.getElementById('showPreparados').click();
+                }
+  });
+
+}
+function elimReceta(x){
+  url = "eliminarReceta.php";
+  var posting = $.post( url, { id: x});
+  posting.done(function( data ) {
+        
+        if (data== 1){
+        M.toast({html: 'Receta eliminado exitosamente', classes: 'green rounded'});
+        document.getElementById('showRecetas').click();
+        }
+        if (data== 2){
+        M.toast({html: 'No se pudo eliminar receta por favor intenta de nuevo mas tarde', classes: 'red rounded'});
+        document.getElementById('showRecetas').click();
+                }
+  });
+
+}
+function elimPlatillo(x){
+  url = "eliminarPlatillo.php";
+  var posting = $.post( url, { id: x});
+  posting.done(function( data ) {
+        
+        if (data== 1){
+        M.toast({html: 'Platillo eliminado exitosamente', classes: 'green rounded'});
+        document.getElementById('showPlatillos').click();
+        }
+        if (data== 2){
+        M.toast({html: 'No se pudo eliminar platillo por favor intenta de nuevo mas tarde', classes: 'red rounded'});
+        document.getElementById('showPlatillos').click();
                 }
   });
 
