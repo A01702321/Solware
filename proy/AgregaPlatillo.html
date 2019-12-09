@@ -22,7 +22,7 @@
       <div class="col s5 offset-s1">
         <h6>* <b>2. Selecciona el tiempo al que va a pertenecer:</b></h6>
         <br><br>
-        <select required id="nombremenu" name="nombremenu">
+        <select required id="tiempo" name="tiempo">
           <option value="" disabled selected>Selecciona...</option>
             <?php
               require_once("util.php");
@@ -151,7 +151,7 @@
       <div class="input-field col s8 offset-s2">
         <h6> <b>4. Introduce una descripción si lo crees necesario:</b></h6>
         <br><br>
-        <textarea id="descReceta" class="materialize-textarea" placeholder="ex: Hello world!"></textarea>
+        <textarea id="descPlatillo" name="descPlatillo" class="materialize-textarea" placeholder="ex: Hello world!"></textarea>
       </div>
     </div>
 
@@ -161,6 +161,16 @@
       <div class="input-field col s4" id="resultadosHiddenR"></div>
       <div class="input-field col s4" id="resultadosHiddenP"></div>
       <div class="input-field col s4" id="resultadosHidden"></div>
+  </div>
+  <div class="row">
+    <div class="col s4 offset-s5">
+      <h6><b>¿Terminaste?</b></h6><br>
+      <div class="row">
+        <div class="col s3">
+          <button class="waves-effect waves-light btn light-green lighten-2" onclick="agregarPlatillo()" >Finalizar</button>
+        </div>
+      </div>
+    </div>
   </div>
       
 
