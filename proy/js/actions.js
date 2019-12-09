@@ -482,31 +482,20 @@ function agregarReceta() {
 
 
 }
+
+
 function alimentarClientes() {
-  url = "agregarRecetaControlador.php";
+  url = "alimentarClientes.php";
   var nombreMenu = $("#nombreMenu").val();
   var nombreTiempo = $("#nombreTiempo").val();
   var idPlatillo = $("#platillosTable").val();
   var fechaF = $("#fecha").val();
-   
-  alert(nombreMenu);
-  alert(nombreTiempo);
-  alert(idPlatillo);
-  alert(fecha);
-  return;
-  
   var posting = $.post(url, {menu : nombreMenu, tiempo: nombreTiempo, id: idPlatillo, fecha: fechaF});
-
-
   posting.done(function (data){
     if (data== 1){
         M.toast({html: 'Receta creada exitosamente', classes: 'green rounded'});
-        
         }
-    
   });
-
-
 }
 
 

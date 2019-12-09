@@ -1076,6 +1076,95 @@ function obtenerRecetas(){
    
 }
 
+function getClientesTiempoMenu($menu,$tiempo){
+		$db = connectDB();
+
+		$query="SELECT C.IDCliente, C.Nombre FROM Clientes as C, Plan as P WHERE C.IDCliente = P.IDCliente AND P.NombreTiempo = '$tiempo' AND C.Menu = '$menu'";
+		$result=mysqli_query($db,$query);
+		
+		$arr = [];
+		while ($row=mysqli_fetch_assoc($result)) {
+
+			$id = $row['IDCliente'];
+			$nombre = $row['Nombre'];
+			array_push($arr,array($id,$nombre));
+		}
+		
+
+
+		closeDB($db);
+		return $arr;
+
+
+}
+function getRestriccionesTable($table){
+		
+		
+		$arr = [];
+
+		for($x=0; $x<sizeof($table); $x++) {
+
+			$id = $table[$x][0];
+			$nombre = $table[$x][1];
+			$res = getRestricciones($id);
+			array_push($arr,array($id,$nombre,$res));
+			
+		}
+		
+
+
+		
+		return $arr;
+
+
+}
+function getRestricciones($id){
+		$db = connectDB();
+
+		$query="SELECT * FROM Restriccion WHERE IDCliente= '$id'";
+		
+		$result=mysqli_query($db,$query);
+
+		$arr = [];
+			while ($row=mysqli_fetch_assoc($result)) {
+				
+				$res = $row['IDIngrediente'];
+				
+				array_push($arr, $res);
+			}
+
+		closeDB($db);
+		return $arr;
+	}
+function getIngredientesPlatillo($id){
+	$db = connectDB();
+
+	$query="SELECT PI.IDIngrediente FROM Ingredientes as I, Platillos as P, PlatilloIngrediente as PI WHERE PI.IDPlatillo = '$id'  AND PI.IDIngrediente = I.IDIngrediente group by PI.IDIngrediente
+UNION
+SELECT IP.IDIngrediente FROM Ingredientes as I, IngredientePreparado as IP WHERE IP.IDPreparado = (SELECT PP.IDPreparado FROM Preparados as Pr, Platillos as Pl, PlatilloPreparado as PP 
+	WHERE PP.IDPlatillo = '$id' AND PP.IDPreparado = Pr.IDPreparado group by PP.IDPreparado)group by IP.IDIngrediente
+UNION
+SELECT IR.IDIngrediente FROM IngredienteReceta as IR WHERE IR.IDReceta IN (SELECT PR.IDReceta FROM Recetas as R, Platillos as Pl, PlatilloReceta as PR 
+	WHERE PR.IDPlatillo = '$id' AND PR.IDReceta = R.IDReceta) group by IR.IDIngrediente
+UNION
+SELECT IP.IDIngrediente FROM IngredientePreparado as IP WHERE IP.IDPreparado IN (SELECT PRR.IDPreparado FROM PreparadoReceta as PRR 
+	WHERE PRR.IDReceta IN (SELECT PR.IDReceta FROM Recetas as R, Platillos as Pl, PlatilloReceta as PR WHERE PR.IDPlatillo = '$id' AND PR.IDReceta = R.IDReceta) ) group by IP.IDIngrediente;";
+	
+	$result=mysqli_query($db,$query);
+
+	$arr = [];
+		while ($row=mysqli_fetch_assoc($result)) {
+			
+			$res = $row['IDIngrediente'];
+			
+			array_push($arr, $res);
+		}
+
+	closeDB($db);
+	return $arr;
+}
+
+
 function obtenerPrep(){
 	  $db =connectDB();
      
