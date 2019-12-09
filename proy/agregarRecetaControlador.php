@@ -3,15 +3,17 @@ require_once("util.php");
 /* Attempt MySQL server connection. Assuming you are running MySQL
 server with default setting (user 'root' with no password) */
 
+$tiempos = $_POST['tiempos'];
 $name = $_POST['name'];
-$menu= $_POST['menu'];
-$ids = $_POST['ids'];
-$tiempos = $_POST['tiempomenu'];
+$desc = $_POST['desc'];
+$idsM= $_POST['idsM'];
+$idsI = $_POST['idsI'];
+$idsP= $_POST['idsP'];
+$idsR = $_POST['idsR'];
 
-if(crearClienteCompleto($name, $menu, $ids, $tiempos)){
+if(crearRecetaCompleta($name, $idsM, $tiempos, $idsI, $idsP, $idsR, $desc)){
 	echo(1);
 }
-
 
 
 

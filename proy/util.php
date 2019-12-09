@@ -1191,6 +1191,225 @@ function crearClienteCompleto($firstname, $nombremenu, $idsingrediente, $tiempos
 	return $worked;
 }
 
+function crearRecetaCompleta($name, $idsM, $tiempos, $idsI, $idsP, $idsR, $desc){
+
+	$worked = agregarReceta($name, $desc);
+	if (!$worked){
+		echo("agregar no funcionó");
+		return 0;
+	}
+	$IDReceta = RecetaRecienCreada($name);
+	for($i=0;$i<sizeof($tiempos);$i++){
+		$tiempo=$tiempos[$i];
+		if($tiempo !== ""){
+			$worked = ($worked && agregarTiempoAReceta($IDReceta, $tiempo));
+		}
+	}
+	for($i=0;$i<sizeof($idsI);$i++){
+		$id=$idsI[$i];
+		if($id !== ""){
+			$worked = ($worked && agregarIngAReceta($IDReceta, $id));
+		}
+	}
+	for($i=0;$i<sizeof($idsM);$i++){
+		$id=$idsM[$i];
+		if($id !== ""){
+			$worked = ($worked && agregarMenAReceta($IDReceta, $id));
+		}
+	}
+	for($i=0;$i<sizeof($idsP);$i++){
+		$id=$idsP[$i];
+		if($id !== ""){
+			$worked = ($worked && agregarPrepAReceta($IDReceta, $id));
+		}
+	}
+	for($i=0;$i<sizeof($idsR);$i++){
+		$id=$idsR[$i];
+		if($id !== ""){
+			$worked = ($worked && agregarRecAReceta($IDReceta, $id));
+		}
+	}
+	return $worked;
+
+}
+function agregarReceta($name, $desc){
+
+	$db = connectDB();
+	$worked = false;
+	$query='INSERT INTO Recetas(NombreReceta,Descripcion) VALUES (?,?)';
+
+
+
+	if (!($statement = $db->prepare($query))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
+
+	    }
+	if (!$statement->bind_param("ss", $name, $desc)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
+
+	    }
+	    
+	if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
+	else {
+		$worked = true;
+	}
+
+	closeDB($db);
+	 
+	return $worked;
+}
+function recetaRecienCreada($name){
+	$db = connectDB();
+	
+	$query="SELECT IDReceta FROM Recetas WHERE NombreReceta = '$name'";
+	$result=mysqli_query($db,$query);
+	
+	
+	while ($row=mysqli_fetch_assoc($result)) {
+		$id = $row['IDReceta'];
+	}
+
+	closeDB($db);
+	return $id;
+}
+function agregarIngAReceta($IDReceta, $ing){
+	$db = connectDB();
+
+	
+	$query='INSERT INTO IngredienteReceta(IDReceta,IDIngrediente) VALUES (?,?)';
+
+	$registros = $db->query($query);
+	$worked = false;
+	if (!($statement = $db->prepare($query))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
+
+	    }
+	    if (!$statement->bind_param("ss", $IDReceta, $ing)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
+
+	    }
+	    if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
+	    else{
+	    	$worked = true;
+	    }
+
+	    closeDB($db);
+	    return $worked;
+
+}
+function agregarRecAReceta($IDReceta, $rec){
+	$db = connectDB();
+
+	
+	$query='INSERT INTO RecetaReceta(IDReceta,IDRecetaAlt) VALUES (?,?)';
+
+	$registros = $db->query($query);
+	$worked = false;
+	if (!($statement = $db->prepare($query))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
+
+	    }
+	    if (!$statement->bind_param("ss", $IDReceta, $rec)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
+
+	    }
+	    if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
+	    else{
+	    	$worked = true;
+	    }
+
+	    closeDB($db);
+	    return $worked;
+
+}
+function agregarPrepAReceta($IDReceta, $prep){
+	$db = connectDB();
+
+	
+	$query='INSERT INTO PreparadoReceta(IDReceta,IDPreparado) VALUES (?,?)';
+
+	$registros = $db->query($query);
+	$worked = false;
+	if (!($statement = $db->prepare($query))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
+
+	    }
+	    if (!$statement->bind_param("ss", $IDReceta, $prep)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
+
+	    }
+	    if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
+	    else{
+	    	$worked = true;
+	    }
+
+	    closeDB($db);
+	    return $worked;
+
+}
+function agregarMenAReceta($IDReceta, $menu){
+	$db = connectDB();
+
+	
+	$query='INSERT INTO MenuReceta(IDMenu,IDReceta) VALUES (?,?)';
+
+	$registros = $db->query($query);
+	$worked = false;
+	if (!($statement = $db->prepare($query))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
+
+	    }
+	    if (!$statement->bind_param("ss", $menu,  $IDReceta)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
+
+	    }
+	    if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
+	    else{
+	    	$worked = true;
+	    }
+
+	    closeDB($db);
+	    return $worked;
+
+}
+function agregarTiempoAReceta($IDReceta, $NombreTiempo){
+	$db = connectDB();
+
+	
+	$query='INSERT INTO RecetaTiempo(NombreTiempo,IDReceta) VALUES (?,?)';
+
+	$registros = $db->query($query);
+	$worked = false;
+	if (!($statement = $db->prepare($query))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
+
+	    }
+	    if (!$statement->bind_param("ss", $NombreTiempo, $IDReceta )) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
+
+	    }
+	    if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
+	    else{
+	    	$worked = true;
+	    }
+
+	    closeDB($db);
+	    return $worked;
+
+}
+
 function crearPlatilloCompleto($name, $menu, $tiempo, $idsI, $idsP, $idsR, $desc){
 	$worked = agregarPlatillo($name, $menu, $tiempo, $desc);
 	if (!$worked){

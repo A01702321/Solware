@@ -365,7 +365,7 @@ function agregarClienteConRestricciones() {
 
 
 function agregarReceta() {
-  url = "agregaRecetaControlador.php";
+  url = "agregarRecetaControlador.php";
   var tablaIDsIng = ObtenerIDtablaAux();
   var tablaIDsPrep = ObtenerIDtablaAuxP();
   var tablaIDsRec = ObtenerIDtablaAuxR();
@@ -374,14 +374,7 @@ function agregarReceta() {
   var descripcion = $("#descReceta").val();
   var name = $("#nombre_receta").val();
 
-  alert(tablaIDsIng);
-  alert(tablaIDsPrep);
-  alert(tablaIDsRec);
-  alert(tablaIDsMen);
-  alert(tiempoz);
-  alert(descripcion);
-  alert(name);
-  return;
+  
   var posting = $.post(url, {desc : descripcion, name: name, tiempos: tiempoz, idsI: tablaIDsIng, idsP: tablaIDsPrep, idsR: tablaIDsRec, idsM : tablaIDsMen});
 
 
