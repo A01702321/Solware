@@ -65,6 +65,7 @@ function obtenIngrediente(number) {
             $(nombre1).html(data);
         }); 
 }
+
 function obtenPreparado(number) {
         let nombre ="#restP";
         let nombre1 ="#resultadoP";
@@ -79,6 +80,22 @@ function obtenPreparado(number) {
             $(nombre1).html(data);
         }); 
 }
+
+function obtenerIngredientes(number) {
+        let nombre ="#rest";
+        let nombre1 ="#resultado";
+        let numero = number;
+        nombre += number;
+        nombre1 += number;
+        $.get("obtenerIngredientes.php", {
+            pattern: $(nombre).val(),
+            indice: numero
+        }).done(function (data) {
+            $(nombre1)[0].style.visibility = "visible";
+            $(nombre1).html(data);
+        }); 
+}
+
 function obtenReceta(number) {
         let nombre ="#restR";
         let nombre1 ="#resultadoR";
@@ -93,6 +110,37 @@ function obtenReceta(number) {
             $(nombre1).html(data);
         }); 
 }
+
+function obtenCliente(number) {
+        let nombre ="#rest";
+        let nombre1 ="#resultado";
+        let numero = number;
+        nombre += number;
+        nombre1 += number;
+        $.get("obtenClientes.php", {
+            pattern: $(nombre).val(),
+            indice: numero
+        }).done(function (data) {
+            $(nombre1)[0].style.visibility = "visible";
+            $(nombre1).html(data);
+        }); 
+}
+
+function obtenPreparados(number) {
+        let nombre ="#rest";
+        let nombre1 ="#resultado";
+        let numero = number;
+        nombre += number;
+        nombre1 += number;
+        $.get("obtenPreparados.php", {
+            pattern: $(nombre).val(),
+            indice: numero
+        }).done(function (data) {
+            $(nombre1)[0].style.visibility = "visible";
+            $(nombre1).html(data);
+        }); 
+}
+
 function selectValue() {
 
     var list = document.getElementById("list");

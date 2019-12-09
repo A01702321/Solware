@@ -1010,6 +1010,75 @@ function obtenerIngredient(){
         return $datos;
    
 }
+
+function obtenerIngredientes(){
+	  $db =connectDB();
+     
+    
+       $query="SELECT NombreIngrediente,IDIngrediente,GrupoAlimenticio FROM Ingredientes";
+     
+       $registros = $db->query($query);
+
+       $datos=array();
+
+       if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+        	array_push($datos,array($row["IDIngrediente"],$row["NombreIngrediente"],$row["GrupoAlimenticio"]));
+        } 
+    }
+     
+        closeDb($db);
+     
+        return $datos;
+   
+}
+
+function obtenerClient(){
+	  $db =connectDB();
+     
+    
+        $query="SELECT IDCliente, Nombre, Menu FROM Clientes";
+     
+       $registros = $db->query($query);
+
+       $datos=array();
+
+       if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+        	array_push($datos,array($row["IDCliente"],$row["Nombre"],$row["Menu"]));
+        } 
+    }
+     
+        closeDb($db);
+     
+        return $datos;
+   
+}
+
+function obtenerPrep(){
+	  $db =connectDB();
+     
+    
+        $query="SELECT IDPreparado, NombrePreparado FROM Preparados";
+     
+       $registros = $db->query($query);
+
+       $datos=array();
+
+       if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+        	array_push($datos,array($row["IDPreparado"],$row["NombrePreparado"]));
+        } 
+       }
+     
+        closeDb($db);
+     
+        return $datos;
+   
+}
+
+//function crearCliente($first_name, $nombremenu){
+
 function obtenerPreparado(){
 	  $db =connectDB();
      
@@ -1017,9 +1086,8 @@ function obtenerPreparado(){
         $query="SELECT NombrePreparado,IDPreparado FROM Preparados";
      
        $registros = $db->query($query);
-
+       
        $datos=array();
-
        if(($registros->num_rows) > 0){
         while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
         	array_push($datos,array($row["IDPreparado"],$row["NombrePreparado"]));
@@ -1031,6 +1099,7 @@ function obtenerPreparado(){
         return $datos;
    
 }
+
 function obtenerReceta(){
 	  $db =connectDB();
      
