@@ -183,20 +183,64 @@ function agregarRestriccion(ingrediente, id)
 {
 
   var resultados = document.getElementById("resultados");
-  resultados.innerHTML += "<tr class='idTablaAux' id='" + id + "'><td>" + ingrediente.toString() + "</td>" + "<td>   <div class='switch'><label>Restricción<input type='checkbox'><span class='lever'></span>Alergia</label></div> </td>" + '<td><a onclick="eliminarIngrediente(\'' +  id + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
+
+  resultados.innerHTML += "<tr class='idTablaAux' id='ing" + id + "'><td style='width:80%'>" + ingrediente.toString() + "</td>" + '<td><a onclick="eliminarIngrediente(\'' +  id + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
+
 
   var resultadosHidden = document.getElementById("resultadosHidden");
   resultadosHidden.innerHTML += "<input type='hidden' value='" + ingrediente.toString() + "' name='restricciones[]' id='" + ingrediente.toString() + "'/>";
 
 }
-
-function eliminarIngrediente(ingrediente)
+function agregarRestriccionR(receta, id)
 {
-  var ingredienteDOM = document.getElementById(ingrediente.toString());
+  var resultados = document.getElementById("resultadosR");
+  resultados.innerHTML += "<tr id='rec" + id + "'><td style='width:80%'>" + receta.toString() + "</td>" + '<td><a onclick="eliminarReceta(\'' +  id + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
+
+  var resultadosHidden = document.getElementById("resultadosHiddenR");
+  resultadosHidden.innerHTML += "<input type='hidden' value='" + receta.toString() + "' name='restriccionesR[]' id='" + receta.toString() + "'/>";
+
+}
+function agregarRestriccionP(preparado, id)
+{
+  var resultados = document.getElementById("resultadosP");
+  resultados.innerHTML += "<tr id='prep" + id + "'><td style='width:80%'>" + preparado.toString() + "</td>" + '<td><a onclick="eliminarPreparado(\'' +  id + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
+
+  var resultadosHidden = document.getElementById("resultadosHiddenP");
+  resultadosHidden.innerHTML += "<input type='hidden' value='" + preparado.toString() + "' name='restriccionesP[]' id='" + preparado.toString() + "'/>";
+
+}
+
+function eliminarIngrediente(id)
+{
+  var ingredienteDOM = document.getElementById("ing"+ id);
   ingredienteDOM.parentNode.removeChild(ingredienteDOM); 
+
 
   /*var ingredienteTabla = document.getElementById(ingrediente.toString());
   ingredienteTabla.parentNode.removeChild(ingredienteTabla);*/
+
+  //var ingredienteTabla = document.getElementById("ing"+ id);
+  //ingredienteTabla.parentNode.removeChild(ingredienteTabla);
+
+}
+function eliminarReceta(id)
+{
+  var recetaDOM = document.getElementById("rec"+id );
+  recetaDOM.parentNode.removeChild(recetaDOM); 
+
+  //var recetaTabla = document.getElementById("rec"+id );
+  //recetaTabla.parentNode.removeChild(recetaTabla);
+
+}
+
+function eliminarPreparado(id)
+{
+  var preparadoDOM = document.getElementById("prep"+ id);
+  preparadoDOM.parentNode.removeChild(preparadoDOM); 
+
+  //var preparadoTabla = document.getElementById("prep"+ id);
+  //preparadoTabla.parentNode.removeChild(preparadoTabla);
+
 
 }
 
@@ -212,14 +256,42 @@ function ObtenerIDtablaAux(){
 
   for (x=0; x<len; x++){
     t = true;
-    ids.push(tablaAux[x].id);
+    ids.push(+(tablaAux[x].id.substring(3)));
   }
   
   if(t)return ids;
   else return [""];
+  alert(ids);
+}
+function ObtenerIDtablaAuxP(){
+  var tablaAux = document.getElementsByClassName("idTablaAuxP");
+  var ids = [];
+  var t = false;
+  let len = tablaAux.length;
 
+  for (x=0; x<len; x++){
+    t = true;
+    ids.push(+(tablaAux[x].id.substring(4)));
+  }
+  
+  if(t)return ids;
+  else return [""];
+  alert(ids);
+}
+function ObtenerIDtablaAuxR(){
+  var tablaAux = document.getElementsByClassName("idTablaAuxR");
+  var ids = [];
+  var t = false;
+  let len = tablaAux.length;
 
-
+  for (x=0; x<len; x++){
+    t = true;
+    ids.push(+(tablaAux[x].id.substring(3)));
+  }
+  
+  if(t)return ids;
+  else return [""];
+  alert(ids);
 }
 
 function agregarClienteConRestricciones() {
@@ -328,6 +400,25 @@ function scrolled(){
     document.getElementById("beforeScr").style.display = "block";
   }
   if (scr.scrollTop === scr.scrollHeight - 400){
+    document.getElementById("afterScr").style.display = "none";
+  }
+  else { 
+    document.getElementById("afterScr").style.display = "block";
+  }
+  
+  
+}
+function scrolledSmall(){
+  var scr = document.getElementById("scrolledR");
+  
+  if(scr.scrollTop === 0){
+    document.getElementById("beforeScr").style.display = "none";
+    
+  }
+  else { 
+    document.getElementById("beforeScr").style.display = "block";
+  }
+  if (scr.scrollTop === scr.scrollHeight - 200){
     document.getElementById("afterScr").style.display = "none";
   }
   else { 
@@ -617,8 +708,6 @@ $(document).ready(function(){
         console.info("form wasn't valid");
         return 0;
       }
-
-
       var posting = $.post( url, { name: $('#nombreIng').val(), grupo: $('#grupo').val(), categorias: categories} );
       /* Send the data using post with element id name and name2*/
         

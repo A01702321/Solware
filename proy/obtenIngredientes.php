@@ -6,11 +6,11 @@ $nombre = "ingrediente".$indice1;
 $words=array();
 $result=obtenerIngredient();
 $datos=array();
-$mensaje = '<table id="tablaIngredientes">
+$mensaje = '<table id="tablaIngredientes" vertical-align="top" style="width:100%; overflow-y:scroll; display:block; position:relative;height: 200px;" >
             <thead>
                 <tr>
                     <th>Ingrediente</th>
-                    <th>Agregar</th>
+                    <th style="text-align: right;">Agregar</th>
                 </tr>
             </thead>
             <tbody>';
@@ -28,11 +28,11 @@ for($i=0; $i<count($result); $i++){
    {
       $size++;
       $mensaje.="<tr>
-                  <td>".$ingrediente.'</td>
+                  <td style='width:80%;'>".$ingrediente."</td>
                   <td>
-                  <a onclick="agregarRestriccion(&quot;'. $ingrediente .'&quot;, '. $id . ')" class="btn-floating btn-small waves-effect waves-light"><i class="material-icons">add</i></a>
+                  <a onclick='agregarRestriccion(&quot;". $ingrediente . "&quot; , ".$id.")' class='right btn-floating btn-small waves-effect waves-light'><i class='material-icons'>add</i></a>
                   </td> 
-                </tr>';
+                </tr>";
 
       //$seleccionados=$id;
       //echo $id;

@@ -296,6 +296,7 @@
 		$result = mysqli_query($db, $sql);
 		$resArray = $result->fetch_assoc();
 		$name = $resArray['NombreGrupoAl'];
+
 		closeDB($db);
 
 		return $name;
@@ -1001,6 +1002,48 @@ function obtenerIngredient(){
        if(($registros->num_rows) > 0){
         while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
         	array_push($datos,array($row["IDIngrediente"],$row["NombreIngrediente"]));
+        } 
+    }
+     
+        closeDb($db);
+     
+        return $datos;
+   
+}
+function obtenerPreparado(){
+	  $db =connectDB();
+     
+    
+        $query="SELECT NombrePreparado,IDPreparado FROM Preparados";
+     
+       $registros = $db->query($query);
+
+       $datos=array();
+
+       if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+        	array_push($datos,array($row["IDPreparado"],$row["NombrePreparado"]));
+        } 
+    }
+     
+        closeDb($db);
+     
+        return $datos;
+   
+}
+function obtenerReceta(){
+	  $db =connectDB();
+     
+    
+        $query="SELECT NombreReceta,IDReceta FROM Recetas";
+     
+       $registros = $db->query($query);
+
+       $datos=array();
+
+       if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+        	array_push($datos,array($row["IDReceta"],$row["NombreReceta"]));
         } 
     }
      
