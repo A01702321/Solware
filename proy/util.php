@@ -1015,7 +1015,7 @@ function obtenerIngredient(){
 function agregarCliente($first_name, $nombremenu){
 
 	$db = connectDB();
-
+	$worked = false;
 	$query='INSERT INTO Clientes(Nombre,Menu) VALUES (?,?)';
 
 
@@ -1032,21 +1032,24 @@ function agregarCliente($first_name, $nombremenu){
 	if (!$statement->execute()) {
 	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
 	    } 
+	else {
+		$worked = true;
+	}
 
 	closeDB($db);
-	   
+	 
+	return $worked;
 }
 
 function clienteRecienCreado($first_name){
 	$db = connectDB();
 
-	$query='SELECT FROM Clientes(IDCliente) WHERE Nombre = "$first_name"';
+	$query="SELECT IDCliente FROM Clientes WHERE Nombre = '$first_name'";
 	$result=mysqli_query($db,$query);
-
-	if(mysqli_num_rows($result)){
-		while ($row=mysqli($result)) {
-			$id = $row['IDCliente'];
-		}
+	
+	
+	while ($row=mysqli_fetch_assoc($result)) {
+		$id = $row['IDCliente'];
 	}
 
 
@@ -1071,7 +1074,7 @@ function agregarRestriccionACliente($IDCliente, $IDIngrediente){
 	$db = connectDB();
 
 	$query='INSERT INTO Restriccion(IDCliente,IDIngrediente) VALUES (?,?)';
-
+	$worked = false;
 	$registros = $db->query($query);
 
 	if (!($statement = $db->prepare($query))) {
@@ -1086,18 +1089,22 @@ function agregarRestriccionACliente($IDCliente, $IDIngrediente){
 	    if (!$statement->execute()) {
 	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
 	    } 
+	    else{
+	    	$worked = true;
+	    }
 
 	    closeDB($db);
+	    return $worked;
 }
 
 function agregarPlanACliente($IDCliente, $NombreTiempo){
 	$db = connectDB();
 
-
+	
 	$query='INSERT INTO Plan(IDCliente,NombreTiempo) VALUES (?,?)';
 
 	$registros = $db->query($query);
-
+	$worked = false;
 	if (!($statement = $db->prepare($query))) {
 	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
 
@@ -1106,31 +1113,39 @@ function agregarPlanACliente($IDCliente, $NombreTiempo){
 	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
 
 	    }
-	    
 	    if (!$statement->execute()) {
 	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
 	    } 
+	    else{
+	    	$worked = true;
+	    }
 
 	    closeDB($db);
+	    return $worked;
+
 }
 
 function crearClienteCompleto($firstname, $nombremenu, $idsingrediente, $tiempos){
-	agregarCliente($firstname, $nombremenu);
+	$worked = agregarCliente($firstname, $nombremenu);
+	if (!$worked){
+		echo("agregar no funcionó");
+		return 0;
+	}
 	$IDCliente = clienteRecienCreado($firstname);
-	var_dump($IDCliente);
 
 	for($i=0;$i<sizeof($tiempos);$i++){
 		$tiempo=$tiempos[$i];
 		if($tiempo != ""){
-			agregarPlanACliente($IDCliente, $tiempos);
+			$worked = ($worked && agregarPlanACliente($IDCliente, $tiempo));
 		}
 	}
 	for($i=0;$i<sizeof($idsingrediente);$i++){
 		$id=$idsingrediente[$i];
 		if($id != ""){
-			agregarRestriccionACliente($IDCliente, $id);
+			$worked = ($worked && agregarRestriccionACliente($IDCliente, $id));
 		}
 	}
+	return $worked;
 }
 
 function existe($tabla,$nombreLlavePrimaria,$valorLlavePrimaria, $esString = false)
