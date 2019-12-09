@@ -879,7 +879,7 @@ function obtenTiempos(){ // obtiene tiempos para poblar un dropdown
 
     {
         $tiempo=$datos[$i][0];
-        echo"$<option value=".$id.">$tiempo</option>";
+        echo"$<option value=".$tiempo.">$tiempo</option>";
 
     }
     closeDB($db);  
@@ -887,7 +887,7 @@ function obtenTiempos(){ // obtiene tiempos para poblar un dropdown
 
 function obtenerPlatillos(){ // obtiene menus para poblar un dropdown
     $db = connectDB();
-    $query="SELECT NombrePlatillo FROM Platillos WHERE Menu = '$IDMenu' AND Tiempo = '$tiempo'";
+    $query="SELECT NombrePlatillo FROM Platillos";
     $registros = $db->query($query);
     if (!$registros) {
         return false;
@@ -900,7 +900,7 @@ function obtenerPlatillos(){ // obtiene menus para poblar un dropdown
 
     {
         $platillo=$datos[$i][0];
-        echo"$<option value=".$id.">$platillo</option>";
+        echo"$<option value=".$platillo.">$platillo</option>";
 
     }
     closeDB($db);  
