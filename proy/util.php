@@ -852,7 +852,7 @@ function obtenerTiempos(){ // obtiene tiempos para llenar checks
         	<td>
         		<p>
 		            <label>
-		            <input name="tiempomenu" id="tiempomenu'.$i.'" type="checkbox" value="'.$tiempo.'"/>
+		            <input class="idTablaAuxT" name="tiempomenu" id="tiempomenu'.$i.'" type="checkbox" value="'.$tiempo.'"/>
 		            <span></span>
 		            </label>
 		            '.$tiempo.'
@@ -948,7 +948,7 @@ function obtenerMenuChecks(){
 	        	<td>
 	        		<p>
 			            <label>
-			            <input name="menu" id="menu'.$id.'" type="checkbox" value="'.$id.'"/>
+			            <input class="idTablaAuxM" name="menu" id="menu'.$id.'" type="checkbox" value="'.$id.'"/>
 			            <span></span>
 			            </label>
 			            '.$name.'
