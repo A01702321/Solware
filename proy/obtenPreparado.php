@@ -6,7 +6,7 @@ $nombre = "preparado".$indice1;
 $words=array();
 $result=obtenerPreparado();
 $datos=array();
-$mensaje = '<table id="tablaPreparados">
+$mensaje = '<table id="tablaPreparados" vertical-align="top" style="width:100%; overflow-y:scroll; display:block; position:relative;height: 200px;" >
             <thead>
                 <tr>
                     <th>Preparado</th>
@@ -26,11 +26,11 @@ for($i=0; $i<count($result); $i++){
    {
       $size++;
       $mensaje.="<tr>
-                  <td>".$preparado.'</td>
+                  <td>".$preparado."</td>
                   <td>
-                  <a onclick="agregarRestriccionP(\''. $preparado . '\')" class="btn-floating btn-small waves-effect waves-light"><i class="material-icons">add</i></a>
+                  <a onclick='agregarRestriccionP(&quot;". $preparado . "&quot; , ".$id.")' class='btn-floating btn-small waves-effect waves-light'><i class='material-icons'>add</i></a>
                   </td> 
-                </tr>';
+                </tr>";
 
       $seleccionados=$id;
       echo $id;

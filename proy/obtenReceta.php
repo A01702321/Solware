@@ -6,7 +6,14 @@ $nombre = "receta".$indice1;
 $words=array();
 $result=obtenerReceta();
 $datos=array();
-
+$mensaje = '<table id="tablaRecetas" vertical-align="top" style="width:100%; overflow-y:scroll; display:block; position:relative;height: 200px;" >
+            <thead>
+                <tr>
+                    <th>Receta</th>
+                    <th>Agregar</th>
+                </tr>
+            </thead>
+            <tbody>';
 
 $size=0;
 
@@ -18,18 +25,18 @@ for($i=0; $i<count($result); $i++){
    if(!($pos===false))
    {
       $size++;
-      $mensaje="<tr>
-                  <td>".$receta.'</td>
+      $mensaje.="<tr>
+                  <td>".$receta."</td>
                   <td>
-                  <a onclick="agregarRestriccionR(\''. $receta . '\')" class="btn-floating btn-small waves-effect waves-light"><i class="material-icons">add</i></a>
+                  <a onclick='agregarRestriccionR(&quot;". $receta . "&quot; ,".$id.")' class='btn-floating btn-small waves-effect waves-light'><i class='material-icons'>add</i></a>
                   </td> 
-                </tr>';
+                </tr>";
 
       $seleccionados=$id;
       echo $id;
    }
 }
-
+$mensaje.='</tbody> </table>';
  
 if($size>0){
     echo $mensaje;

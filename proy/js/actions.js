@@ -179,60 +179,60 @@ function elimMenu(x){
 
 /* AC*/
 
-function agregarRestriccion(ingrediente)
+function agregarRestriccion(ingrediente, id)
 {
   var resultados = document.getElementById("resultados");
-  resultados.innerHTML += "<tr id='" + ingrediente + "'><td style='width:80%'>" + ingrediente.toString() + "</td>" + '<td><a onclick="eliminarIngrediente(\'' +  ingrediente + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
+  resultados.innerHTML += "<tr id='ing" + id + "'><td style='width:80%'>" + ingrediente.toString() + "</td>" + '<td><a onclick="eliminarIngrediente(\'' +  id + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
 
   var resultadosHidden = document.getElementById("resultadosHidden");
   resultadosHidden.innerHTML += "<input type='hidden' value='" + ingrediente.toString() + "' name='restricciones[]' id='" + ingrediente.toString() + "'/>";
 
 }
-function agregarRestriccionR(receta)
+function agregarRestriccionR(receta, id)
 {
   var resultados = document.getElementById("resultadosR");
-  resultados.innerHTML += "<tr id='" + receta + "'><td style='width:80%'>" + receta.toString() + "</td>" + '<td><a onclick="eliminarReceta(\'' +  receta + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
+  resultados.innerHTML += "<tr id='rec" + id + "'><td style='width:80%'>" + receta.toString() + "</td>" + '<td><a onclick="eliminarReceta(\'' +  id + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
 
   var resultadosHidden = document.getElementById("resultadosHiddenR");
   resultadosHidden.innerHTML += "<input type='hidden' value='" + receta.toString() + "' name='restriccionesR[]' id='" + receta.toString() + "'/>";
 
 }
-function agregarRestriccionP(preparado)
+function agregarRestriccionP(preparado, id)
 {
   var resultados = document.getElementById("resultadosP");
-  resultados.innerHTML += "<tr id='" + preparado + "'><td style='width:80%'>" + preparado.toString() + "</td>" + '<td><a onclick="eliminarPreparado(\'' +  preparado + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
+  resultados.innerHTML += "<tr id='prep" + id + "'><td style='width:80%'>" + preparado.toString() + "</td>" + '<td><a onclick="eliminarPreparado(\'' +  id + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
 
   var resultadosHidden = document.getElementById("resultadosHiddenP");
   resultadosHidden.innerHTML += "<input type='hidden' value='" + preparado.toString() + "' name='restriccionesP[]' id='" + preparado.toString() + "'/>";
 
 }
 
-function eliminarIngrediente(ingrediente)
+function eliminarIngrediente(id)
 {
-  var ingredienteDOM = document.getElementById(ingrediente.toString());
+  var ingredienteDOM = document.getElementById("ing"+ id);
   ingredienteDOM.parentNode.removeChild(ingredienteDOM); 
 
-  var ingredienteTabla = document.getElementById(ingrediente.toString() + "-tabla");
-  ingredienteTabla.parentNode.removeChild(ingredienteTabla);
+  //var ingredienteTabla = document.getElementById("ing"+ id);
+  //ingredienteTabla.parentNode.removeChild(ingredienteTabla);
 
 }
-function eliminarReceta(receta)
+function eliminarReceta(id)
 {
-  var recetaDOM = document.getElementById(receta.toString());
+  var recetaDOM = document.getElementById("rec"+id );
   recetaDOM.parentNode.removeChild(recetaDOM); 
 
-  var recetaTabla = document.getElementById(receta.toString() + "-tabla");
-  recetaTabla.parentNode.removeChild(recetaTabla);
+  //var recetaTabla = document.getElementById("rec"+id );
+  //recetaTabla.parentNode.removeChild(recetaTabla);
 
 }
 
-function eliminarPreparado(preparado)
+function eliminarPreparado(id)
 {
-  var preparadoDOM = document.getElementById(preparado.toString());
+  var preparadoDOM = document.getElementById("prep"+ id);
   preparadoDOM.parentNode.removeChild(preparadoDOM); 
 
-  var preparadoTabla = document.getElementById(preparado.toString() + "-tabla");
-  preparadoTabla.parentNode.removeChild(preparadoTabla);
+  //var preparadoTabla = document.getElementById("prep"+ id);
+  //preparadoTabla.parentNode.removeChild(preparadoTabla);
 
 }
 
@@ -625,8 +625,6 @@ $(document).ready(function(){
         console.info("form wasn't valid");
         return 0;
       }
-
-
       var posting = $.post( url, { name: $('#nombreIng').val(), grupo: $('#grupo').val(), categorias: categories} );
       /* Send the data using post with element id name and name2*/
         

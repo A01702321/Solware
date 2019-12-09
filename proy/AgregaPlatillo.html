@@ -108,16 +108,16 @@
       <div class="col s4">
           <table>
             <th>Receta</th>
-          <th style="text-align: right;">Eliminar</th>
+            <th style="text-align: right;">Eliminar</th>
           </table>
         <table  onscroll="scrolledSmall();" vertical-align="top" style="width:100%; overflow-y:scroll; display:block; position:relative;height: 200px;" id="scrolledR">
-          <tr id="beforeScr" display ="none" style="display: block; bottom: 0; width: 100%; left: 0;">
+          <tr id="beforeScr" display ="none" style="display: none; bottom: 0; width: 100%; left: 0;">
                     
                   </tr> 
           <tbody id="resultadosR" style="display:table;">
 
           </tbody>
-          <tr id="afterScr" display ="none" style="display: block; bottom: 0; width: 100%; left: 0;">
+          <tr id="afterScr" display ="none" style="display: none; bottom: 0; width: 100%; left: 0;">
                     
                   </tr> 
         </table>
@@ -144,8 +144,15 @@
           </tbody>
         </table>
       </div>
-    <br><br><br><br><br>
+    <br><br><br>
 
+    </div>
+    <div class="row">
+      <div class="input-field col s8 offset-s2">
+        <h6> <b>4. Introduce una descripción si lo crees necesario:</b></h6>
+        <br><br>
+        <textarea id="descReceta" class="materialize-textarea" placeholder="ex: Hello world!"></textarea>
+      </div>
     </div>
 
 
