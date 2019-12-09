@@ -1688,5 +1688,6 @@ function ultimoCliente(){
     closeDB($db);
     mysqli_free_result($registros);
     return $id;
+    
 }
 ?>
