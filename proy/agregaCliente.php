@@ -10,7 +10,7 @@
         include_once("AgregaCliente.html");
         include_once("footer.html");
     } else {
-        header("location:../proy/index.php");
+        header("location:../index.php");
     }
 
 /*

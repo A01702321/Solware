@@ -5,10 +5,13 @@ server with default setting (user 'root' with no password) */
 
 $name = $_POST['name'];
 $menu= $_POST['menu'];
-$ids = $_POST['ids'];
-$tiempos = $_POST['tiempomenu'];
+$tiempo = $_POST['tiempo'];
+$idsI = $_POST['idsI'];
+$idsP= $_POST['idsP'];
+$idsR = $_POST['idsR'];
+$desc = $_POST['desc'];
 
-if(crearClienteCompleto($name, $menu, $ids, $tiempos)){
+if(crearPlatilloCompleto($name, $menu, $tiempo, $idsI, $idsP, $idsR, $desc)){
 	echo(1);
 }
 

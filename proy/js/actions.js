@@ -316,6 +316,10 @@ function agregarClienteConRestricciones() {
 
 
   posting.done(function (data){
+    if (data== 1){
+        M.toast({html: 'Cliente creado exitosamente', classes: 'green rounded'});
+        
+        }
     
   });
 
@@ -329,17 +333,17 @@ function agregarPlatillo() {
   var tablaIDsRec = ObtenerIDtablaAuxR();
   var name = $("#platillo_name").val();
   var tiempoP = $("#tiempo").val();
-  var nombreM = $("#menu").val();
-  var descripcion = $("#menu").val();
+  var nombreM = $("#nombremenu").val();
+  var descripcion = $("#descPlatillo").val();
  
-
-  var posting = $.post(url, {menu : nombreM, name: firstname, tiempo: tiempoP, idsI: tablaIDsIng, idsP: tablaIDsPrep,idsR: tablaIDsRec});
+  var posting = $.post(url, {menu : nombreM, name: name, tiempo: tiempoP, idsI: tablaIDsIng, idsP: tablaIDsPrep, idsR: tablaIDsRec, desc : descripcion});
 
 
   posting.done(function (data){
-     if(data === 1){
+     if(data == 1){
         M.toast({html: 'Platillo creado exitosamente', classes: 'green rounded'});
     }
+
   });
 
 

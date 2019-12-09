@@ -1058,7 +1058,7 @@ function obtenerReceta(){
 function agregarCliente($first_name, $nombremenu){
 
 	$db = connectDB();
-
+	$worked = false;
 	$query='INSERT INTO Clientes(Nombre,Menu) VALUES (?,?)';
 
 
@@ -1075,21 +1075,24 @@ function agregarCliente($first_name, $nombremenu){
 	if (!$statement->execute()) {
 	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
 	    } 
+	else {
+		$worked = true;
+	}
 
 	closeDB($db);
-	   
+	 
+	return $worked;
 }
 
 function clienteRecienCreado($first_name){
 	$db = connectDB();
 
-	$query='SELECT FROM Clientes(IDCliente) WHERE Nombre = "$first_name"';
+	$query="SELECT IDCliente FROM Clientes WHERE Nombre = '$first_name'";
 	$result=mysqli_query($db,$query);
-
-	if(mysqli_num_rows($result)){
-		while ($row=mysqli($result)) {
-			$id = $row['IDCliente'];
-		}
+	
+	
+	while ($row=mysqli_fetch_assoc($result)) {
+		$id = $row['IDCliente'];
 	}
 
 
@@ -1114,7 +1117,7 @@ function agregarRestriccionACliente($IDCliente, $IDIngrediente){
 	$db = connectDB();
 
 	$query='INSERT INTO Restriccion(IDCliente,IDIngrediente) VALUES (?,?)';
-
+	$worked = false;
 	$registros = $db->query($query);
 
 	if (!($statement = $db->prepare($query))) {
@@ -1129,18 +1132,22 @@ function agregarRestriccionACliente($IDCliente, $IDIngrediente){
 	    if (!$statement->execute()) {
 	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
 	    } 
+	    else{
+	    	$worked = true;
+	    }
 
 	    closeDB($db);
+	    return $worked;
 }
 
 function agregarPlanACliente($IDCliente, $NombreTiempo){
 	$db = connectDB();
 
-
+	
 	$query='INSERT INTO Plan(IDCliente,NombreTiempo) VALUES (?,?)';
 
 	$registros = $db->query($query);
-
+	$worked = false;
 	if (!($statement = $db->prepare($query))) {
 	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
 
@@ -1149,32 +1156,195 @@ function agregarPlanACliente($IDCliente, $NombreTiempo){
 	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
 
 	    }
-	    
 	    if (!$statement->execute()) {
 	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
 	    } 
+	    else{
+	    	$worked = true;
+	    }
 
 	    closeDB($db);
+	    return $worked;
+
 }
 
 function crearClienteCompleto($firstname, $nombremenu, $idsingrediente, $tiempos){
-	agregarCliente($firstname, $nombremenu);
+	$worked = agregarCliente($firstname, $nombremenu);
+	if (!$worked){
+		echo("agregar no funcionó");
+		return 0;
+	}
 	$IDCliente = clienteRecienCreado($firstname);
-	var_dump($IDCliente);
 
 	for($i=0;$i<sizeof($tiempos);$i++){
 		$tiempo=$tiempos[$i];
-		if($tiempo != ""){
-			agregarPlanACliente($IDCliente, $tiempos);
+		if($tiempo !== ""){
+			$worked = ($worked && agregarPlanACliente($IDCliente, $tiempo));
 		}
 	}
 	for($i=0;$i<sizeof($idsingrediente);$i++){
 		$id=$idsingrediente[$i];
-		if($id != ""){
-			agregarRestriccionACliente($IDCliente, $id);
+		if($id !== ""){
+			$worked = ($worked && agregarRestriccionACliente($IDCliente, $id));
 		}
 	}
+	return $worked;
 }
+
+function crearPlatilloCompleto($name, $menu, $tiempo, $idsI, $idsP, $idsR, $desc){
+	$worked = agregarPlatillo($name, $menu, $tiempo, $desc);
+	if (!$worked){
+		echo("agregar no funcionó");
+		return 0;
+	}
+	$IDPlatillo = platilloRecienCreado($name);
+
+	for($i=0;$i<sizeof($idsI);$i++){
+		$id=$idsI[$i];
+		if($tiempo !== ""){
+			$worked = ($worked && agregarIngAPlatillo($IDPlatillo, $id));
+		}
+	}
+	for($i=0;$i<sizeof($idsP);$i++){
+		$id=$idsP[$i];
+		if($id !== ""){
+			$worked = ($worked && agregarPrepAPlatillo($IDPlatillo, $id));
+		}
+	}
+	for($i=0;$i<sizeof($idsR);$i++){
+		$id=$idsR[$i];
+		if($id !== ""){
+			$worked = ($worked && agregarRecAPlatillo($IDPlatillo, $id));
+		}
+	}
+
+	return $worked;
+}
+
+function agregarPlatillo($name, $menu, $tiempo, $notas){
+
+	$db = connectDB();
+	$worked = false;
+	$query='INSERT INTO Platillos(Menu,Tiempo,Notas,NombrePlatillo) VALUES (?,?,?,?)';
+
+
+
+	if (!($statement = $db->prepare($query))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
+
+	    }
+	if (!$statement->bind_param("ssss", $menu,$tiempo,$notas,$name)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
+
+	    }
+	    
+	if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
+	else {
+		$worked = true;
+	}
+
+	closeDB($db);
+	 
+	return $worked;
+}
+function platilloRecienCreado($name){
+	$db = connectDB();
+	
+	$query="SELECT IDPlatillo FROM Platillos WHERE NombrePlatillo = '$name'";
+	$result=mysqli_query($db,$query);
+	
+	
+	while ($row=mysqli_fetch_assoc($result)) {
+		$id = $row['IDPlatillo'];
+	}
+
+	closeDB($db);
+	return $id;
+}
+function agregarIngAPlatillo($IDPlatillo, $ing){
+	$db = connectDB();
+
+	
+	$query='INSERT INTO PlatilloIngrediente(IDPlatillo,IDIngrediente) VALUES (?,?)';
+
+	$registros = $db->query($query);
+	$worked = false;
+	if (!($statement = $db->prepare($query))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
+
+	    }
+	    if (!$statement->bind_param("ss", $IDPlatillo, $ing)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
+
+	    }
+	    if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
+	    else{
+	    	$worked = true;
+	    }
+
+	    closeDB($db);
+	    return $worked;
+
+}
+function agregarRecAPlatillo($IDPlatillo, $rec){
+	$db = connectDB();
+
+	
+	$query='INSERT INTO PlatilloReceta(IDPlatillo,IDReceta) VALUES (?,?)';
+
+	$registros = $db->query($query);
+	$worked = false;
+	if (!($statement = $db->prepare($query))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
+
+	    }
+	    if (!$statement->bind_param("ss", $IDPlatillo, $rec)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
+
+	    }
+	    if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
+	    else{
+	    	$worked = true;
+	    }
+
+	    closeDB($db);
+	    return $worked;
+
+}
+function agregarPrepAPlatillo($IDPlatillo, $prep){
+	$db = connectDB();
+
+	
+	$query='INSERT INTO PlatilloPreparado(IDPlatillo,IDPreparado) VALUES (?,?)';
+
+	$registros = $db->query($query);
+	$worked = false;
+	if (!($statement = $db->prepare($query))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
+
+	    }
+	    if (!$statement->bind_param("ss", $IDPlatillo, $prep)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
+
+	    }
+	    if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
+	    else{
+	    	$worked = true;
+	    }
+
+	    closeDB($db);
+	    return $worked;
+
+}
+
 
 function existe($tabla,$nombreLlavePrimaria,$valorLlavePrimaria, $esString = false)
 {
