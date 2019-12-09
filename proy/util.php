@@ -1131,6 +1131,28 @@ function obtenerPlatillo(){
    
 }
 
+function obtenerRecetas(){
+	  $db =connectDB();
+     
+    
+        $query="SELECT IDReceta, NombreReceta, Descripcion FROM Recetas";
+     
+       $registros = $db->query($query);
+
+       $datos=array();
+
+       if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+        	array_push($datos,array($row["IDReceta"],$row["NombreReceta"],$row["Descripcion"]));
+        } 
+    }
+     
+        closeDb($db);
+     
+        return $datos;
+   
+}
+
 function obtenerPrep(){
 	  $db =connectDB();
      
