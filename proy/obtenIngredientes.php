@@ -21,6 +21,8 @@ for($i=0; $i<count($result); $i++){
         $id=$result[$i][0];
         $ingrediente=$result[$i][1];
 
+
+
    $pos=stripos(strtolower($ingrediente),$pattern);
    if(!($pos===false))
    {
@@ -28,12 +30,12 @@ for($i=0; $i<count($result); $i++){
       $mensaje.="<tr>
                   <td>".$ingrediente.'</td>
                   <td>
-                  <a onclick="agregarRestriccion(\''. $ingrediente . '\')" class="btn-floating btn-small waves-effect waves-light"><i class="material-icons">add</i></a>
+                  <a onclick="agregarRestriccion(&quot;'. $ingrediente .'&quot;, '. $id . ')" class="btn-floating btn-small waves-effect waves-light"><i class="material-icons">add</i></a>
                   </td> 
                 </tr>';
 
-      $seleccionados=$id;
-      echo $id;
+      //$seleccionados=$id;
+      //echo $id;
    }
 }
 $mensaje.='</tbody> </table>';
