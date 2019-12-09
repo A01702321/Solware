@@ -502,6 +502,8 @@
 		mysqli_query($link, $sql);
 		$sql = "DELETE FROM IngredienteReceta Where IDIngrediente = '$id'";
 		mysqli_query($link, $sql);
+		$sql = "DELETE FROM PlatilloIngrediente Where IDIngrediente = '$id'";
+		mysqli_query($link, $sql);
 		$sql = "DELETE FROM IngredientePreparado Where IDIngrediente = '$id'";
 		mysqli_query($link, $sql);
 		$sql = "DELETE FROM Ingredientes Where IDIngrediente = '$id'";
@@ -558,9 +560,61 @@
 
  		$res = 2;
 
+		$sql = "DELETE FROM PlatilloPreparado Where IDPreparado = '$id'";
+		mysqli_query($db, $sql);
+		$sql = "DELETE FROM PreparadoReceta Where IDPreparado = '$id'";
+		mysqli_query($db, $sql);
 		$sql = "DELETE FROM IngredientePreparado Where IDPreparado = '$id'";
 		mysqli_query($db, $sql);
 		$sql = "DELETE FROM Preparados Where IDPreparado = '$id'";
+		if(mysqli_query($db, $sql)){
+			$res = 1;
+		}
+		closeDB($db);
+		return $res;
+	}
+
+	function eliminarReceta($id) {
+		
+		$db = connectDB();
+
+ 		$res = 2;
+
+		$sql = "DELETE FROM IngredienteReceta Where IDReceta = '$id'";
+		mysqli_query($db, $sql);
+		$sql = "DELETE FROM PreparadoReceta Where IDReceta = '$id'";
+		mysqli_query($db, $sql);
+		$sql = "DELETE FROM MenuReceta Where IDReceta = '$id'";
+		mysqli_query($db, $sql);
+		$sql = "DELETE FROM RecetaReceta Where IDReceta = '$id'";
+		mysqli_query($db, $sql);
+		$sql = "DELETE FROM RecetaTiempo Where IDReceta = '$id'";
+		mysqli_query($db, $sql);
+		$sql = "DELETE FROM PlatilloReceta Where IDReceta = '$id'";
+		mysqli_query($db, $sql);
+		$sql = "DELETE FROM Recetas Where IDReceta = '$id'";
+		if(mysqli_query($db, $sql)){
+			$res = 1;
+		}
+		closeDB($db);
+		return $res;
+	}
+
+	function eliminarPlatillo($id) {
+		
+		$db = connectDB();
+
+ 		$res = 2;
+
+		$sql = "DELETE FROM ClientePlatillo Where IDPlatillo = '$id'";
+		mysqli_query($db, $sql);
+		$sql = "DELETE FROM PlatilloIngrediente Where IDPlatillo = '$id'";
+		mysqli_query($db, $sql);
+		$sql = "DELETE FROM PlatilloPreparado Where IDPlatillo = '$id'";
+		mysqli_query($db, $sql);
+		$sql = "DELETE FROM PlatilloReceta Where IDPlatillo = '$id'";
+		mysqli_query($db, $sql);
+		$sql = "DELETE FROM Platillos Where IDPlatillo = '$id'";
 		if(mysqli_query($db, $sql)){
 			$res = 1;
 		}
@@ -1046,6 +1100,28 @@ function obtenerClient(){
        if(($registros->num_rows) > 0){
         while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
         	array_push($datos,array($row["IDCliente"],$row["Nombre"],$row["Menu"]));
+        } 
+    }
+     
+        closeDb($db);
+     
+        return $datos;
+   
+}
+
+function obtenerPlatillo(){
+	  $db =connectDB();
+     
+    
+        $query="SELECT IDPlatillo, NombrePlatillo, Menu, Tiempo, Notas FROM Platillos";
+     
+       $registros = $db->query($query);
+
+       $datos=array();
+
+       if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+        	array_push($datos,array($row["IDPlatillo"],$row["NombrePlatillo"],$row["Menu"],$row["Tiempo"],$row["Notas"]));
         } 
     }
      

@@ -221,6 +221,39 @@
 				}
 			}
 
+			if ($id == "platillos") {
+				$result = getRecetas();
+				if (mysqli_num_rows($result) > 0 ) {
+					# code...
+					echo "<h3 class='table-title'>Lista de Platillos</h3>";
+
+					echo '
+					<div class="row">
+				      <div class="col s12">
+				        <h6><b>Buscar Platillos:</b></h6><br>
+				        <div class="table-responsive" vertical-align="center">  
+				          <table class="table " id="platillos" > 
+				            <tr>
+				              <td class="vert-aligned">
+				                <div class="input-field">
+				                  <input type="text" id="rest1" class="validate" name ="rest1" onkeyup="obtenPlatillos(1)">
+				                  <label>Introduce el nombre de platillo...</label>
+				                  <div id="resultado1"></div>
+				                </div>
+				                <div>
+				                  <br>
+				                </div>
+				              </td>
+				            </tr>      
+				          </table>
+				        </div>
+				        <input type="hidden" value="" name="valorRestricciones" id="valorRestricciones"/>
+				      </div>
+				    </div>';
+					
+				}
+			}
+
 			
 		}
 

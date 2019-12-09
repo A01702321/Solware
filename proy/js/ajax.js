@@ -141,6 +141,21 @@ function obtenPreparados(number) {
         }); 
 }
 
+function obtenPlatillos(number) {
+        let nombre ="#rest";
+        let nombre1 ="#resultado";
+        let numero = number;
+        nombre += number;
+        nombre1 += number;
+        $.get("obtenPlatillos.php", {
+            pattern: $(nombre).val(),
+            indice: numero
+        }).done(function (data) {
+            $(nombre1)[0].style.visibility = "visible";
+            $(nombre1).html(data);
+        }); 
+}
+
 function selectValue() {
 
     var list = document.getElementById("list");
