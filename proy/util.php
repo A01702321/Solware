@@ -1611,7 +1611,7 @@ function obtenerReceta(){
 		$worked = false;
 		$query='INSERT INTO Platillos(Menu,Tiempo,Notas,NombrePlatillo) VALUES (?,?,?,?)';
 
-
+ 
 
 		if (!($statement = $db->prepare($query))) {
 		        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
