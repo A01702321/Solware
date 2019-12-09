@@ -111,7 +111,7 @@
 	}
 
 	function botonMenus(){
-		echo " <a class='col offset-s3 waves-effect waves-light btn' href='modificarMenu.php'>Modificar Menus</a>";
+		echo " <a class='col offset-s3 waves-effect waves-light btn light-green lighten-1' href='modificarMenu.php'>Modificar Menus</a>";
 	}
 
 
