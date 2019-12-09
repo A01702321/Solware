@@ -50,6 +50,25 @@ $(document).ready(function(){
   	 xhttp.send();
   });
 });
+var tiempo = document.getElementById("nombreTiempo");
+var activities = document.getElementById("nombreMenu");
+activities.addEventListener("change", function() {
+    if(activities.value != "")
+    {
+        poblarSelect(activities.value, tiempo.value);
+    }
+    console.log(activities.value);
+});
+
+tiempo.addEventListener("change", function() {
+    if(tiempo.value != "")
+    {
+        poblarSelect(activities.value, tiempo.value);
+    }
+    console.log(tiempo.value);
+});
+
+
 
 function obtenIngrediente(number) {
         let nombre ="#rest";
@@ -63,6 +82,21 @@ function obtenIngrediente(number) {
         }).done(function (data) {
             $(nombre1)[0].style.visibility = "visible";
             $(nombre1).html(data);
+        }); 
+}
+
+function poblarSelect(men, tiemp) {
+        
+        $.post("getPlatillos.php", {
+          menu : men, 
+          tiempo: tiemp})
+          .done(function (data) {
+            
+            sel = document.getElementById("nombrePlatillo");
+            
+            sel.innerHTML = "<select  id='platillosTable' name='platillosTable'><option value='' disabled selected>Seleccionar...</option>"+data+ "</select>";
+             $('select').formSelect();
+            
         }); 
 }
 
