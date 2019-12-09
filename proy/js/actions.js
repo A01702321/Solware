@@ -487,7 +487,7 @@ function alimentarClientes() {
   var nombreMenu = $("#nombreMenu").val();
   var nombreTiempo = $("#nombreTiempo").val();
   var idPlatillo = $("#platillosTable").val();
-  var fecha = $("#fecha").val();
+  var fechaF = $("#fecha").val();
    
   alert(nombreMenu);
   alert(nombreTiempo);
@@ -495,7 +495,7 @@ function alimentarClientes() {
   alert(fecha);
   return;
   
-  var posting = $.post(url, {desc : descripcion, name: name, tiempos: tiempoz, idsI: tablaIDsIng, idsP: tablaIDsPrep, idsR: tablaIDsRec, idsM : tablaIDsMen});
+  var posting = $.post(url, {menu : nombreMenu, tiempo: nombreTiempo, id: idPlatillo, fecha: fechaF});
 
 
   posting.done(function (data){
