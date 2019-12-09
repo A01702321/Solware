@@ -1,5 +1,4 @@
 $('.tabs').tabs();
-
 $('select').formSelect();
 $('.modal').modal();
 
@@ -122,6 +121,26 @@ document.getElementById('ClienteAEliminar').innerText = "Cliente a eliminar: " +
 document.getElementById('confirmarEliminarCliente').setAttribute('onclick','elimCliente('+x+')');
 }
 
+function showDeleteModalPreparado(x, preparado) {
+
+document.getElementById('PreparadoAEliminar').setAttribute('value',x);
+document.getElementById('PreparadoAEliminar').innerText = "Preparado a eliminar: " + preparado;
+document.getElementById('confirmarEliminarPreparado').setAttribute('onclick','elimPreparado('+x+')');
+}
+
+function showDeleteModalReceta(x, receta) {
+
+document.getElementById('RecetaAEliminar').setAttribute('value',x);
+document.getElementById('RecetaAEliminar').innerText = "Receta a eliminar: " + receta;
+document.getElementById('confirmarEliminarReceta').setAttribute('onclick','elimReceta('+x+')');
+}
+
+function showDeleteModalPlatillo(x, platillo) {
+
+document.getElementById('PlatilloAEliminar').setAttribute('value',x);
+document.getElementById('PlatilloAEliminar').innerText = "Platillo a eliminar: " + platillo;
+document.getElementById('confirmarEliminarPlatillo').setAttribute('onclick','elimPlatillo('+x+')');
+}
 
 function elimIng(x){
   url = "eliminarIng.php";
@@ -158,6 +177,55 @@ function elimCliente(x){
 
 }
 
+function elimPreparado(x){
+  url = "eliminarPreparado.php";
+  var posting = $.post( url, { id: x});
+  posting.done(function( data ) {
+        
+        if (data== 1){
+        M.toast({html: 'Preparado eliminado exitosamente', classes: 'green rounded'});
+        document.getElementById('showPreparados').click();
+        }
+        if (data== 2){
+        M.toast({html: 'No se pudo eliminar preparado por favor intenta de nuevo mas tarde', classes: 'red rounded'});
+        document.getElementById('showPreparados').click();
+                }
+  });
+
+}
+function elimReceta(x){
+  url = "eliminarReceta.php";
+  var posting = $.post( url, { id: x});
+  posting.done(function( data ) {
+        
+        if (data== 1){
+        M.toast({html: 'Receta eliminado exitosamente', classes: 'green rounded'});
+        document.getElementById('showRecetas').click();
+        }
+        if (data== 2){
+        M.toast({html: 'No se pudo eliminar receta por favor intenta de nuevo mas tarde', classes: 'red rounded'});
+        document.getElementById('showRecetas').click();
+                }
+  });
+
+}
+function elimPlatillo(x){
+  url = "eliminarPlatillo.php";
+  var posting = $.post( url, { id: x});
+  posting.done(function( data ) {
+        
+        if (data== 1){
+        M.toast({html: 'Platillo eliminado exitosamente', classes: 'green rounded'});
+        document.getElementById('showPlatillos').click();
+        }
+        if (data== 2){
+        M.toast({html: 'No se pudo eliminar platillo por favor intenta de nuevo mas tarde', classes: 'red rounded'});
+        document.getElementById('showPlatillos').click();
+                }
+  });
+
+}
+
 function elimMenu(x){
   url = "eliminarMenu.php";
   var posting = $.post( url, { id: x});
@@ -171,7 +239,11 @@ function elimMenu(x){
         M.toast({html: 'No se pudo eliminar menu por favor intenta de nuevo mas tarde', classes: 'red rounded'});
                 }
         if (data== 3){
-        M.toast({html: 'No se pudo eliminar Menú. Asegurate de no tener clientes con ese menú.', classes: 'orange rounded'});                }
+        M.toast({html: 'No se pudo eliminar Menú. Asegurate de no tener clientes con ese menú.', classes: 'orange rounded'});                
+        }
+        if (data== 4){
+        M.toast({html: 'No se pudo eliminar Menú. Asegurate de no tener platillos con ese menú.', classes: 'orange rounded'});                
+        }
   });
 
 }
@@ -381,13 +453,62 @@ function agregarReceta() {
   posting.done(function (data){
     if (data== 1){
         M.toast({html: 'Receta creada exitosamente', classes: 'green rounded'});
-        
+        document.getElementById("forma").reset(); 
         }
     
   });
 
 
 }
+
+function agregarReceta() {
+  url = "agregarRecetaControlador.php";
+  var tablaIDsIng = ObtenerIDtablaAux();
+  var tablaIDsPrep = ObtenerIDtablaAuxP();
+  var tablaIDsRec = ObtenerIDtablaAuxR();
+  var tablaIDsMen = ObtenerIDtablaAuxM();
+  var tiempoz = ObtenerIDtablaAuxT();
+  var descripcion = $("#descReceta").val();
+  var name = $("#nombre_receta").val();
+
+  
+  var posting = $.post(url, {desc : descripcion, name: name, tiempos: tiempoz, idsI: tablaIDsIng, idsP: tablaIDsPrep, idsR: tablaIDsRec, idsM : tablaIDsMen});
+
+
+  posting.done(function (data){
+    if (data== 1){
+        M.toast({html: 'Receta creada exitosamente', classes: 'green rounded'});
+        document.getElementById("forma").reset(); 
+        }
+    
+  });
+
+
+}
+
+
+function alimentarClientes() {
+  url = "alimentarClientes.php";
+  var nombreMenu = $("#nombreMenu").val();
+  var nombreTiempo = $("#nombreTiempo").val();
+  var idPlatillo = $("#platillosTable").val();
+  var fechaF = $("#fecha").val();
+  var posting = $.post(url, {menu : nombreMenu, tiempo: nombreTiempo, id: idPlatillo, fecha: fechaF});
+  posting.done(function (data){
+    if (data !== 1 ){
+        M.toast({html: 'Consulta exitosa', classes: 'green rounded'});
+        generateTablaAlimentar(data);
+    }
+    else
+    {
+        M.toast({html: 'Error alimentando clientes, intenta de nuevo mas tarde', classes: 'red rounded'});
+    }
+  });
+}
+
+
+
+
 
 function agregarPlatillo() {
   url = "agregaPlatilloControlador.php";
@@ -398,17 +519,34 @@ function agregarPlatillo() {
   var tiempoP = $("#tiempo").val();
   var nombreM = $("#nombremenu").val();
   var descripcion = $("#descPlatillo").val();
- 
   var posting = $.post(url, {menu : nombreM, name: name, tiempo: tiempoP, idsI: tablaIDsIng, idsP: tablaIDsPrep, idsR: tablaIDsRec, desc : descripcion});
-
-
+  
   posting.done(function (data){
      if(data == 1){
         M.toast({html: 'Platillo creado exitosamente', classes: 'green rounded'});
+
     }
+    
 
   });
+}
 
+function generateTablaAlimentar(tab){
+  tabla = JSON.parse(tab);
+  divi = document.getElementById("resultados");
+  if(tabla.length === 0){
+
+      M.toast({html: 'Ningún cliente contiene ese menú y tiempo', classes: 'red rounded'});
+      return;
+  }
+  divi = document.getElementById("resultados");
+    divi.innerHTML = "<table><thead><th>ID Cliente</th><th>Nombre Cliente</th><th>Conflictos</th><tbody id='tBodyRes'></tbody></table>"
+  table = document.getElementById("tBodyRes");
+  for (x=0;x<tabla.length;x++){
+    var val = tabla[x];
+    table.innerHTML += "<tr><td>"+val[0]+"</td><td>"+val[1]+"</td><td>"+val[2]+"</td><tr>"
+
+  }
 
 }
 

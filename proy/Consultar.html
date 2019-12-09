@@ -1,10 +1,11 @@
 <body>
 	<div class="consult-container">
 		<div class="tab">
-		  <button id="showClientes" name="clientes" class="tablinks">Clientes</button>
-		  <button id="showIngredientes" name="ingredientes" class="tablinks">Ingredientes</button>
-		  <button id="showPreparados" name="preparados" class="tablinks">Preparados</button>
-		   <button  id="showRecetas"name="recetas" class="tablinks">Recetas</button>
+		  <button id="showClientes" name="clientes" class="tablinks" onclick="obtenCliente(1);">Clientes</button>
+		  <button id="showIngredientes" name="ingredientes" class="tablinks" onclick="obtenerIngredientes(1)">Ingredientes</button>
+		  <button id="showPreparados" name="preparados" class="tablinks" onclick="obtenPreparados(1)">Preparados</button>
+		   <button  id="showRecetas"name="recetas" class="tablinks" onclick="obtenRecetas(1)">Recetas</button>
+		   <button  id="showPlatillos"name="platillos" class="tablinks" onclick="obtenPlatillos(1)">Platillos</button>
 		</div>
 		
 		<div id="clientes"  style="overflow-y:auto; height: 550px;" class="tabcontent">
@@ -21,16 +22,14 @@
 		  <h3>Preparados</h3>
 		  <p>Preparados existentes</p>
 		</div>
-		<div id="recetas" style="overflow-y:auto; height: 550px;" class="tabcontent" onload="clickClientes()">
+		<div id="recetas" style="overflow-y:auto; height: 550px;" class="tabcontent">
 		  <h3>Recetas</h3>
 		  <p>Recetas existentes</p>
 		</div>
-		<script>
-			function clickClientes(){
-				alert("lil bit");
-				document.getElementById('showClientes').click();
-			}
-		</script>
+		<div id="platillos" style="overflow-y:auto; height: 550px;" class="tabcontent">
+		  <h3>Platillos</h3>
+		  <p>Platillos existentes</p>
+		</div>
 		<!--LLenado de modal básico con campos vacios a ser cambiados con js-->
 		<div id="modalPlacement" >
 			<div id='removeModal' style="width: 30%;"class='modal center'>
@@ -46,6 +45,40 @@
             		
             		<a href="#!" id="confirmarEliminarIng" onclick="" class="modal-action modal-close waves-effect waves-red btn-flat ">Eliminar</a>
    				</div>
+			</div>
+		</div>
+		<div id="modalPlacement" >
+
+			<div id='removeModalReceta' style="width: 30%;"class='modal center'>
+				
+				<div class='modal-content center'>
+					<h5 style="text-align: center;" >¿Estás seguro?</h5>
+					<br>
+					<h6 style="text-align: center;padding-left: 0;"  id="RecetaAEliminar" name="RecetaAEliminar" value="0"></h6>
+					
+					
+				</div>
+				<div class="modal-foote center">
+            		<a href="#!" class="modal-close waves-effect waves-grey btn-flat ">Cancelar</a>
+            		<a href="#!" id="confirmarEliminarReceta" onclick="" class="modal-action modal-close waves-effect waves-red btn-flat ">Eliminar</a>
+            		</div>
+			</div>
+		</div>
+		<div id="modalPlacement" >
+
+			<div id='removeModalPlatillo' style="width: 30%;"class='modal center'>
+				
+				<div class='modal-content center'>
+					<h5 style="text-align: center;" >¿Estás seguro?</h5>
+					<br>
+					<h6 style="text-align: center;padding-left: 0;"  id="PlatilloAEliminar" name="PlatilloAEliminar" value="0"></h6>
+					
+					
+				</div>
+				<div class="modal-foote center">
+            		<a href="#!" class="modal-close waves-effect waves-grey btn-flat ">Cancelar</a>
+            		<a href="#!" id="confirmarEliminarPlatillo" onclick="" class="modal-action modal-close waves-effect waves-red btn-flat ">Eliminar</a>
+            		</div>
 			</div>
 		</div>
 		<div id="modalPlacement" >
