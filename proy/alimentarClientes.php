@@ -3,21 +3,37 @@ require_once("util.php");
 /* Attempt MySQL server connection. Assuming you are running MySQL
 server with default setting (user 'root' with no password) */
 
-$name = $_POST['name'];
-$group = $_POST['grupo'];
-$categories = $_POST['categorias'];
+$menu = $_POST['menu'];
+$tiempo = $_POST['tiempo'];
 $id = $_POST['id'];
+$fecha = $_POST['fecha'];
 
 
-$res = validateNullForm($name,$categories,$group);
-if($res === 5) {
 
-	$rest = modifyIng($id,$name,$categories,$group);
-	echo $rest;
-} else {
-	echo $res;
-	
+
+$table = getClientesTiempoMenu($menu,$tiempo);
+$newtable = getRestriccionesTable($table);
+$ingredients = getIngredientesPlatillo($id);
+$finalTable = alimentar($newtable, $ingredients);
+$added = alimentarClientesTabla($finalTable, $fecha, $menu, $tiempo, $id);
+
+
+
+
+if($added){
+
+	echo(json_encode($finalTable));
 }
+
+else{
+
+	echo(1);
+
+}
+
+
+
+
 
 
 

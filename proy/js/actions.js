@@ -485,31 +485,25 @@ function agregarReceta() {
 
 
 }
+
+
 function alimentarClientes() {
-  url = "agregarRecetaControlador.php";
+  url = "alimentarClientes.php";
   var nombreMenu = $("#nombreMenu").val();
   var nombreTiempo = $("#nombreTiempo").val();
   var idPlatillo = $("#platillosTable").val();
   var fechaF = $("#fecha").val();
-   
-  alert(nombreMenu);
-  alert(nombreTiempo);
-  alert(idPlatillo);
-  alert(fecha);
-  return;
-  
   var posting = $.post(url, {menu : nombreMenu, tiempo: nombreTiempo, id: idPlatillo, fecha: fechaF});
-
-
   posting.done(function (data){
-    if (data== 1){
-        M.toast({html: 'Receta creada exitosamente', classes: 'green rounded'});
-        
-        }
-    
+    if (data !== 1 ){
+        M.toast({html: 'Consulta exitosa', classes: 'green rounded'});
+        generateTablaAlimentar(data);
+    }
+    else
+    {
+        M.toast({html: 'Error alimentando clientes, intenta de nuevo mas tarde', classes: 'red rounded'});
+    }
   });
-
-
 }
 
 
@@ -525,17 +519,34 @@ function agregarPlatillo() {
   var tiempoP = $("#tiempo").val();
   var nombreM = $("#nombremenu").val();
   var descripcion = $("#descPlatillo").val();
- 
   var posting = $.post(url, {menu : nombreM, name: name, tiempo: tiempoP, idsI: tablaIDsIng, idsP: tablaIDsPrep, idsR: tablaIDsRec, desc : descripcion});
-
-
+  
   posting.done(function (data){
      if(data == 1){
         M.toast({html: 'Platillo creado exitosamente', classes: 'green rounded'});
+
     }
+    
 
   });
+}
 
+function generateTablaAlimentar(tab){
+  tabla = JSON.parse(tab);
+  divi = document.getElementById("resultados");
+  if(tabla.length === 0){
+
+      M.toast({html: 'Ningún cliente contiene ese menú y tiempo', classes: 'red rounded'});
+      return;
+  }
+  divi = document.getElementById("resultados");
+    divi.innerHTML = "<table><thead><th>ID Cliente</th><th>Nombre Cliente</th><th>Conflictos</th><tbody id='tBodyRes'></tbody></table>"
+  table = document.getElementById("tBodyRes");
+  for (x=0;x<tabla.length;x++){
+    var val = tabla[x];
+    table.innerHTML += "<tr><td>"+val[0]+"</td><td>"+val[1]+"</td><td>"+val[2]+"</td><tr>"
+
+  }
 
 }
 
