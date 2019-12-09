@@ -1010,6 +1010,28 @@ function obtenerIngredient(){
    
 }
 
+function obtenerIngredientes(){
+	  $db =connectDB();
+     
+    
+       $query="SELECT NombreIngrediente,IDIngrediente,GrupoAlimenticio FROM Ingredientes";
+     
+       $registros = $db->query($query);
+
+       $datos=array();
+
+       if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+        	array_push($datos,array($row["IDIngrediente"],$row["NombreIngrediente"],$row["GrupoAlimenticio"]));
+        } 
+    }
+     
+        closeDb($db);
+     
+        return $datos;
+   
+}
+
 function obtenerClient(){
 	  $db =connectDB();
      
