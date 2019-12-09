@@ -888,24 +888,45 @@ function obtenTiempos(){ // obtiene tiempos para poblar un dropdown
 
 function obtenerPlatillos(){ // obtiene menus para poblar un dropdown
     $db = connectDB();
-    $query="SELECT NombrePlatillo FROM Platillos";
+    $query="SELECT * FROM Platillos";
     $registros = $db->query($query);
     if (!$registros) {
         return false;
     }
     $datos=array();
     while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
-      array_push($datos, array($row["NombrePlatillo"]));
-    }
-    for($i=0; $i<count($datos); $i++)
 
-    {
-        $platillo=$datos[$i][0];
-        echo"$<option value=".$platillo.">$platillo</option>";
+      
+      echo"$<option class='plats' name='".$row["Tiempo"]."-".$row["Menu"]."' value='".$row["NombrePlatillo"]."'>".$row["NombrePlatillo"]."</option>";
 
     }
+    
     closeDB($db);  
 }
+function obtenerPlatillosRestricciones($menu, $tiempo){
+	// obtiene menus para poblar un dropdown
+    $db = connectDB();
+    $query="SELECT * FROM Platillos Where Menu = '$menu' and Tiempo = '$tiempo'";
+    $registros=mysqli_query($db,$query);
+    
+    $consulta = "";
+    
+    if (!$registros) {
+        return ($consulta);
+    }
+    $datos=array();
+    while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+
+      
+      echo"<option class='plats' name='".$row["Tiempo"]."-".$row["Menu"]."' value='".$row["NombrePlatillo"]."'>".$row["NombrePlatillo"]."</option>";
+
+    }
+    
+    closeDB($db);
+    //var_dump($consulta);
+    return; 
+}
+
 
 function obtenerMenu(){ // obtiene menus para poblar un dropdown
     $db = connectDB();
