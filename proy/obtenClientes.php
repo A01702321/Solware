@@ -1,10 +1,15 @@
 <?php
 require_once("util.php");
-$pattern=strtolower($_GET['pattern']);
+if(isset($_GET['pattern'])){
+  $pattern=strtolower($_GET['pattern']);
+}
+else{
+  $pattern = "";
+}
 $indice1 = $_GET['indice'];
 $nombre = "cliente".$indice1;
 $words=array();
-$result=obtenerClient();
+$result=obtenerClient($pattern);
 $datos=array();
 $mensaje = '<table class="striped" id="tablaClientes">
             <thead>
@@ -48,10 +53,13 @@ for($i=0; $i<count($result); $i++){
           else if($numrows == 2){
             $tmp[2][0] = "";
           }
+          }
+          else if(($tiempos->num_rows) == 0){
+            $tmp[0][0] = "";
+            $tmp[1][0] = "";
+            $tmp[2][0] = "";
+          }
 
-   $pos=stripos(strtolower($cliente),$pattern);
-   if(!($pos===false))
-   {
       $size++;
       $mensaje.="<tr>
                   <td>".$id."</td> 
@@ -60,11 +68,9 @@ for($i=0; $i<count($result); $i++){
                   <td>".$tmp[0][0] .'<br>'. $tmp[1][0] .'<br>'. $tmp[2][0]."</td>
                   <td style='text-align: right;     padding: 0px 0px; '><a onclick='showDeleteModalCliente(".$id.", &quot;".$cliente."&quot; )' href='#removeModalCliente' id='".$id."' style='display: none;' class='right  waves-effect waves-red btn-flat red-text modal-trigger'><i class='material-icons'>remove_circle</i></a></td>
                  </tr>";
-    }
 
       //$seleccionados=$id;
       //echo $id;
-   }
 }
 
 closeDB($bd);

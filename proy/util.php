@@ -995,12 +995,12 @@ function obtenerIngredientes(){
    
 }
 
-function obtenerClient(){
+function obtenerClient($pat){
 	  $db =connectDB();
      
     
-        $query="SELECT IDCliente, Nombre, Menu FROM Clientes";
-     
+        $query="SELECT IDCliente, Nombre, Menu FROM Clientes WHERE Nombre = '' OR Nombre LIKE '%$pat%'";
+
        $registros = $db->query($query);
 
        $datos=array();

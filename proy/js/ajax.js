@@ -160,9 +160,13 @@ function obtenRecetas(number) {
         }); 
 }
 function obtenCliente(number) {
+        console.log('b');
         let nombre ="#rest";
+        console.log(nombre);
         let nombre1 ="#resultado";
+        console.log(nombre1);
         let numero = number;
+        console.log(number);
         nombre += number;
         nombre1 += number;
         $.get("obtenClientes.php", {

@@ -6,6 +6,7 @@
 			$id = $_GET['q']; 
 
 			if ($id == "clientes") {
+				echo '<script>obtenCliente(1);</script>';
 				$result = getClients();
 				if (mysqli_num_rows($result) > 0 ) {
 					# code...
@@ -35,7 +36,6 @@
 				        <input type="hidden" value="" name="valorRestricciones" id="valorRestricciones"/>
 				      </div>
 				    </div>';
-
 				    /*
 					echo "<table class='consult-table'>";
 					echo "<thead>";
@@ -71,6 +71,7 @@
 					
 					*/
 				}
+
 			}
 
 			if ($id == "ingredientes") {
@@ -280,6 +281,9 @@
 					
 				}
 			}
+				    echo '<script type="text/javascript">',
+				    'obtenCliente(1);',
+				    '</script>';
 
 			
 		}

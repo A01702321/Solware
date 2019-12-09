@@ -1,7 +1,7 @@
 <body>
 	<div class="consult-container">
 		<div class="tab">
-		  <button id="showClientes" name="clientes" class="tablinks">Clientes</button>
+		  <button id="showClientes" name="clientes" class="tablinks" onclick="obtenCliente(1);">Clientes</button>
 		  <button id="showIngredientes" name="ingredientes" class="tablinks">Ingredientes</button>
 		  <button id="showPreparados" name="preparados" class="tablinks">Preparados</button>
 		   <button  id="showRecetas"name="recetas" class="tablinks">Recetas</button>
@@ -22,7 +22,7 @@
 		  <h3>Preparados</h3>
 		  <p>Preparados existentes</p>
 		</div>
-		<div id="recetas" style="overflow-y:auto; height: 550px;" class="tabcontent" onload="clickClientes()">
+		<div id="recetas" style="overflow-y:auto; height: 550px;" class="tabcontent">
 		  <h3>Recetas</h3>
 		  <p>Recetas existentes</p>
 		</div>
@@ -30,12 +30,6 @@
 		  <h3>Platillos</h3>
 		  <p>Platillos existentes</p>
 		</div>
-		<script>
-			function clickClientes(){
-				alert("lil bit");
-				document.getElementById('showClientes').click();
-			}
-		</script>
 		<!--LLenado de modal básico con campos vacios a ser cambiados con js-->
 		<div id="modalPlacement" >
 			<div id='removeModal' style="width: 30%;"class='modal center'>

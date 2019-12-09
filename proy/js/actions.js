@@ -1,5 +1,4 @@
 $('.tabs').tabs();
-
 $('select').formSelect();
 $('.modal').modal();
 
@@ -454,7 +453,7 @@ function agregarReceta() {
   posting.done(function (data){
     if (data== 1){
         M.toast({html: 'Receta creada exitosamente', classes: 'green rounded'});
-        
+        document.getElementById("forma").reset(); 
         }
     
   });
@@ -479,7 +478,7 @@ function agregarReceta() {
   posting.done(function (data){
     if (data== 1){
         M.toast({html: 'Receta creada exitosamente', classes: 'green rounded'});
-        
+        document.getElementById("forma").reset(); 
         }
     
   });
