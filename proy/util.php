@@ -1054,6 +1054,28 @@ function obtenerClient(){
    
 }
 
+function obtenerPrep(){
+	  $db =connectDB();
+     
+    
+        $query="SELECT IDPreparado, NombrePreparado FROM Preparados";
+     
+       $registros = $db->query($query);
+
+       $datos=array();
+
+       if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+        	array_push($datos,array($row["IDPreparado"],$row["NombrePreparado"]));
+        } 
+       }
+     
+        closeDb($db);
+     
+        return $datos;
+   
+}
+
 function crearCliente($first_name, $nombremenu){
 
 	$db = connectDB();

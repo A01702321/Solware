@@ -6,7 +6,7 @@ $nombre = "cliente".$indice1;
 $words=array();
 $result=obtenerClient();
 $datos=array();
-$mensaje = '<table id="tablaClientes">
+$mensaje = '<table class="striped" id="tablaClientes">
             <thead>
                 <tr>
                     <th>IDCliente</th>

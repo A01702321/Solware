@@ -6,7 +6,7 @@ $nombre = "ingrediente".$indice1;
 $words=array();
 $result=obtenerIngredientes();
 $datos=array();
-$mensaje = '<table id="tablaIngredientes">
+$mensaje = '<table class="striped" id="tablaIngredientes">
             <thead>
                 <tr>
                   <th>ID</th>
