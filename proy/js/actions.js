@@ -244,7 +244,10 @@ function agregarClienteConRestricciones() {
 
 
   posting.done(function (data){
-    alert(data);
+    if (data== 1){
+        M.toast({html: 'Cliente creado exitosamente', classes: 'green rounded'});
+        
+        }
   });
 
 

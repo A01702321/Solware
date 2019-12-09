@@ -8,7 +8,9 @@ $menu= $_POST['menu'];
 $ids = $_POST['ids'];
 $tiempos = $_POST['tiempomenu'];
 
-crearClienteCompleto($name, $menu, $ids, $tiempos);
+if(crearClienteCompleto($name, $menu, $ids, $tiempos)){
+	echo(1);
+}
 
 
 
