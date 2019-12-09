@@ -539,13 +539,21 @@
 		$bd = connectDB();
 
  		$res = 2;
- 		$sql = "SELECT IDMenu, NombreMenu FROM Menus";
-
+ 		$sql = "SELECT IDCliente FROM Clientes WHERE menu = '$id'";
  		$num = mysqli_query($bd, $sql);
  		if(mysqli_num_rows($num) > 0){
 			$res = 3;
+			return $res;
 		}
 
+ 		$sql = "SELECT IDPlatillo FROM Platillos WHERE menu = '$id'";
+ 		$plats = mysqli_query($bd,$sql);
+ 		if(mysqli_num_rows($plats) > 0){
+ 			$res = 4;
+ 		}
+
+		$sql = "DELETE FROM MenuReceta Where IDMenu = '$id'";
+		mysqli_query($bd, $sql);
 		$sql = "DELETE FROM Menus WHERE IDMenu = '$id'";
 		if(mysqli_query($bd, $sql)){
 			$res = 1;

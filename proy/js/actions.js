@@ -240,7 +240,11 @@ function elimMenu(x){
         M.toast({html: 'No se pudo eliminar menu por favor intenta de nuevo mas tarde', classes: 'red rounded'});
                 }
         if (data== 3){
-        M.toast({html: 'No se pudo eliminar Menú. Asegurate de no tener clientes con ese menú.', classes: 'orange rounded'});                }
+        M.toast({html: 'No se pudo eliminar Menú. Asegurate de no tener clientes con ese menú.', classes: 'orange rounded'});                
+        }
+        if (data== 4){
+        M.toast({html: 'No se pudo eliminar Menú. Asegurate de no tener platillos con ese menú.', classes: 'orange rounded'});                
+        }
   });
 
 }
