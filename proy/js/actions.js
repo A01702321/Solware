@@ -2,9 +2,6 @@ $('.tabs').tabs();
 
 $('select').formSelect();
 $('.modal').modal();
-$('.datepicker').datepicker({
-  
-});
 
 var her = 0;
 
@@ -59,9 +56,15 @@ function showDeleteModal(x, ing) {
   document.getElementById('confirmarEliminarIng').setAttribute('onclick','elimIng('+x+')');
 }
 
-
 function showModifyModal(name, id, idg, grupo, categorias) {
+  var instance =M.Modal.getInstance(document.getElementById('modifyModal'));
+  instance.open();
+  document.getElementById("afterScr").style.display = "none";
+  document.getElementById("beforeScr").style.display = "none";
+  document.getElementById("grupoHelper").style.display = 'none';
+  document.getElementById("nombreIng").className = "";
   var elems = document.getElementsByClassName('catego');
+  document.getElementsByClassName("select-dropdown dropdown-trigger")[0].setAttribute('style',"border-bottom-width: 1px;border-bottom-style: solid;border-bottom-color: #9e9e9e");
   let len = elems.length;
   
   for (i=0;i<len;i++){
@@ -86,8 +89,14 @@ function showModifyModal(name, id, idg, grupo, categorias) {
   }
   M.updateTextFields();
   document.getElementById('modifyIngButt').setAttribute('onclick','modifyIng('+id+')');
+  
+  var scr = document.getElementById("scrollable");
+  
+  if (scr.scrollHeight > 400){
+    document.getElementById("afterScr").style.display = "block";
+  }
+  
 }
-
 
 function showDeleteModalMenu(x, menu) {
 
@@ -112,14 +121,6 @@ document.getElementById('ClienteAEliminar').setAttribute('value',x);
 document.getElementById('ClienteAEliminar').innerText = "Cliente a eliminar: " + cliente;
 document.getElementById('confirmarEliminarCliente').setAttribute('onclick','elimCliente('+x+')');
 }
-
-function showDeleteModalPreparado(x, preparado) {
-
-document.getElementById('PreparadoAEliminar').setAttribute('value',x);
-document.getElementById('PreparadoAEliminar').innerText = "Preparado a eliminar: " + preparado;
-document.getElementById('confirmarEliminarPreparado').setAttribute('onclick','elimPreparado('+x+')');
-}
-
 
 
 function elimIng(x){
@@ -164,7 +165,7 @@ function elimMenu(x){
         
         if (data== 1){
         M.toast({html: 'Menu eliminado exitosamente', classes: 'green rounded'});
-        location.reload();
+        document.location = 'menu.php';
         }
         if (data== 2){
         M.toast({html: 'No se pudo eliminar menu por favor intenta de nuevo mas tarde', classes: 'red rounded'});
@@ -176,7 +177,350 @@ function elimMenu(x){
 }
 
 
+/* AC*/
+
+function agregarRestriccion(ingrediente, id)
+{
+
+  var resultados = document.getElementById("resultados");
+
+  resultados.innerHTML += "<tr class='idTablaAux' id='ing" + id + "'><td style='width:100%'>" + ingrediente.toString() + "</td>" + '<td><a onclick="eliminarIngrediente(\'' +  id + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
+
+
+  var resultadosHidden = document.getElementById("resultadosHidden");
+  resultadosHidden.innerHTML += "<input type='hidden' value='" + ingrediente.toString() + "' name='restricciones[]' id='" + ingrediente.toString() + "'/>";
+
+}
+function agregarRestriccionR(receta, id)
+{
+  var resultados = document.getElementById("resultadosR");
+  resultados.innerHTML += "<tr class='idTablaAuxR' id='rec" + id + "'><td style='width:100%'>" + receta.toString() + "</td>" + '<td><a onclick="eliminarReceta(\'' +  id + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
+
+  var resultadosHidden = document.getElementById("resultadosHiddenR");
+  resultadosHidden.innerHTML += "<input type='hidden' value='" + receta.toString() + "' name='restriccionesR[]' id='" + receta.toString() + "'/>";
+
+}
+function agregarRestriccionP(preparado, id)
+{
+  var resultados = document.getElementById("resultadosP");
+  resultados.innerHTML += "<tr class='idTablaAuxP' id='prep" + id + "'><td style='width:100%'>" + preparado.toString() + "</td>" + '<td><a onclick="eliminarPreparado(\'' +  id + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
+
+  var resultadosHidden = document.getElementById("resultadosHiddenP");
+  resultadosHidden.innerHTML += "<input type='hidden' value='" + preparado.toString() + "' name='restriccionesP[]' id='" + preparado.toString() + "'/>";
+
+}
+
+function eliminarIngrediente(id)
+{
+  var ingredienteDOM = document.getElementById("ing"+ id);
+  ingredienteDOM.parentNode.removeChild(ingredienteDOM); 
+
+
+  /*var ingredienteTabla = document.getElementById(ingrediente.toString());
+  ingredienteTabla.parentNode.removeChild(ingredienteTabla);*/
+
+  //var ingredienteTabla = document.getElementById("ing"+ id);
+  //ingredienteTabla.parentNode.removeChild(ingredienteTabla);
+
+}
+function eliminarReceta(id)
+{
+  var recetaDOM = document.getElementById("rec"+id );
+  recetaDOM.parentNode.removeChild(recetaDOM); 
+
+  //var recetaTabla = document.getElementById("rec"+id );
+  //recetaTabla.parentNode.removeChild(recetaTabla);
+
+}
+
+function eliminarPreparado(id)
+{
+  var preparadoDOM = document.getElementById("prep"+ id);
+  preparadoDOM.parentNode.removeChild(preparadoDOM); 
+
+  //var preparadoTabla = document.getElementById("prep"+ id);
+  //preparadoTabla.parentNode.removeChild(preparadoTabla);
+
+
+}
+
+/*AC*/
+
+
+
+function ObtenerIDtablaAux(){
+  var tablaAux = document.getElementsByClassName("idTablaAux");
+  var ids = [];
+  var t = false;
+  let len = tablaAux.length;
+
+  for (x=0; x<len; x++){
+    t = true;
+    ids.push(+(tablaAux[x].id.substring(3)));
+  }
+  
+  if(t)return ids;
+  else return [""];
+  alert(ids);
+}
+function ObtenerIDtablaAuxP(){
+  var tablaAux = document.getElementsByClassName("idTablaAuxP");
+  var ids = [];
+  var t = false;
+  let len = tablaAux.length;
+
+  for (x=0; x<len; x++){
+    t = true;
+    ids.push(+(tablaAux[x].id.substring(4)));
+  }
+  
+  if(t)return ids;
+  else return [""];
+  alert(ids);
+}
+function ObtenerIDtablaAuxR(){
+  var tablaAux = document.getElementsByClassName("idTablaAuxR");
+  var ids = [];
+  var t = false;
+  let len = tablaAux.length;
+
+  for (x=0; x<len; x++){
+    t = true;
+    ids.push(+(tablaAux[x].id.substring(3)));
+  }
+  
+  if(t)return ids;
+  else return [""];
+  alert(ids);
+}
+function ObtenerIDtablaAuxM(){
+  var tablaAux = document.getElementsByClassName("idTablaAuxM");
+  var ids = [];
+  var t = false;
+  let len = tablaAux.length;
+
+  for (x=0; x<len; x++){
+    t = true;
+    if(tablaAux[x].checked){
+    ids.push(tablaAux[x].value);
+  } 
+    
+  }
+  
+  if(t)return ids;
+  else return [""];
+  alert(ids);
+}
+function ObtenerIDtablaAuxT(){
+  var tablaAux = document.getElementsByClassName("idTablaAuxT");
+  var ids = [];
+  var t = false;
+  let len = tablaAux.length;
+
+  for (x=0; x<len; x++){
+    t = true;
+    if(tablaAux[x].checked){
+    ids.push(tablaAux[x].value);
+  } 
+    
+  }
+  
+  if(t)return ids;
+  else return [""];
+  alert(ids);
+}
+
+function agregarClienteConRestricciones() {
+  url = "agregaClienteControlador.php";
+  var tablaIDs = ObtenerIDtablaAux();
+  var firstname = $("#first_name").val();
+  var tiempos = [""];
+  if(document.getElementById("tiempomenu0").checked){
+    tiempos.push(document.getElementById("tiempomenu0").value);
+  } 
+
+  if(document.getElementById("tiempomenu1").checked){
+    tiempos.push(document.getElementById("tiempomenu1").value);
+  } 
+
+  if(document.getElementById("tiempomenu2").checked){
+    tiempos.push(document.getElementById("tiempomenu2").value);
+  } 
+  var nombreM = $("#nombremenu").val();
+
+  var posting = $.post(url, {menu : nombreM, name: firstname, tiempomenu: tiempos, ids: tablaIDs});
+
+
+  posting.done(function (data){
+    if (data== 1){
+        M.toast({html: 'Cliente creado exitosamente', classes: 'green rounded'});
+        
+        }
+    
+  });
+
+
+}
+
+
+
+function agregarReceta() {
+  url = "agregarRecetaControlador.php";
+  var tablaIDsIng = ObtenerIDtablaAux();
+  var tablaIDsPrep = ObtenerIDtablaAuxP();
+  var tablaIDsRec = ObtenerIDtablaAuxR();
+  var tablaIDsMen = ObtenerIDtablaAuxM();
+  var tiempoz = ObtenerIDtablaAuxT();
+  var descripcion = $("#descReceta").val();
+  var name = $("#nombre_receta").val();
+
+  
+  var posting = $.post(url, {desc : descripcion, name: name, tiempos: tiempoz, idsI: tablaIDsIng, idsP: tablaIDsPrep, idsR: tablaIDsRec, idsM : tablaIDsMen});
+
+
+  posting.done(function (data){
+    if (data== 1){
+        M.toast({html: 'Receta creada exitosamente', classes: 'green rounded'});
+        
+        }
+    
+  });
+
+
+}
+
+function agregarPlatillo() {
+  url = "agregaPlatilloControlador.php";
+  var tablaIDsIng = ObtenerIDtablaAux();
+  var tablaIDsPrep = ObtenerIDtablaAuxP();
+  var tablaIDsRec = ObtenerIDtablaAuxR();
+  var name = $("#platillo_name").val();
+  var tiempoP = $("#tiempo").val();
+  var nombreM = $("#nombremenu").val();
+  var descripcion = $("#descPlatillo").val();
+ 
+  var posting = $.post(url, {menu : nombreM, name: name, tiempo: tiempoP, idsI: tablaIDsIng, idsP: tablaIDsPrep, idsR: tablaIDsRec, desc : descripcion});
+
+
+  posting.done(function (data){
+     if(data == 1){
+        M.toast({html: 'Platillo creado exitosamente', classes: 'green rounded'});
+    }
+
+  });
+
+
+}
+
+
+
+
+function validateIngForm(name, group, categories){
+        var forbidden = ';';
+        var hasNumber = /\d/;
+        var passed1 = true;
+        passed = true;
+
+        document.getElementById("grupoHelper").style.display = 'none';
+        if(name === ''){
+          M.toast({html: 'Por favor introduce un nombre de ingrediente correcto', classes: 'red rounded'});
+          document.getElementById("nombreIng").className = "invalid";
+          document.getElementById("nombreIng").focus();
+          passed1 = false;
+        }
+        if(hasNumber.test(name)){
+          M.toast({html: 'El nombre de ingrediente no puede incluir números', classes: 'red rounded'});
+          document.getElementById("nombreIng").className = "invalid";
+          document.getElementById("nombreIng").focus();
+          passed1 = false;
+        }
+        
+        if(passed1){document.getElementById("nombreIng").className = "valid";}
+
+        if(name.includes(';')){
+           M.toast({html: 'El nombre de ingrediente no puede incluir ";"', classes: 'red rounded'});
+           document.getElementById("nombreIng").className = "invalid";
+          document.getElementById("nombreIng").focus();
+          passed = false;
+        }
+        else passed=true;
+        if(group === '' ){
+          M.toast({html: 'Por favor selecciona un grupo alimenticio válido', classes: 'red rounded'});
+
+          document.getElementsByClassName("select-dropdown dropdown-trigger")[0].setAttribute('style',"border-bottom-width: 1.5px;border-bottom-style: solid;border-bottom-color: red");
+          document.getElementById("grupoHelper").style.display = 'block';
+          document.getElementById("grupoHelper").focus();
+          
+          passed =  false;
+        }
+
+        if(passed)document.getElementsByClassName("select-dropdown dropdown-trigger")[0].setAttribute('style',"border-bottom-width: 1.5px;border-bottom-style: solid;border-bottom-color: #4CAF50");
+
+        
+        for(i=0; i<categories.length; i++){
+          try{
+            var cat = categories[i];
+            if(cat.includes(';')){
+              M.toast({html: 'Las categorías no pueden incluir ";"', classes: 'red rounded'});
+              passed =  false;
+              }
+            if(hasNumber.test(cat)){
+                 M.toast({html: 'Las categorías no pueden incluir números', classes: 'red rounded'});
+                 passed =  false;
+              }
+          }
+          catch{
+
+          }
+                      
+        }
+        
+        
+        return passed & passed1;
+}
+
+function scrolled(){
+  var scr = document.getElementById("scrollable");
+  
+  if(scr.scrollTop === 0){
+    document.getElementById("beforeScr").style.display = "none";
+    
+  }
+  else { 
+    document.getElementById("beforeScr").style.display = "block";
+  }
+  if (scr.scrollTop === scr.scrollHeight - 400){
+    document.getElementById("afterScr").style.display = "none";
+  }
+  else { 
+    document.getElementById("afterScr").style.display = "block";
+  }
+  
+  
+}
+function scrolledSmall(){
+  var scr = document.getElementById("scrolledR");
+  
+  if(scr.scrollTop === 0){
+    document.getElementById("beforeScr").style.display = "none";
+    
+  }
+  else { 
+    document.getElementById("beforeScr").style.display = "block";
+  }
+  if (scr.scrollTop === scr.scrollHeight - 200){
+    document.getElementById("afterScr").style.display = "none";
+  }
+  else { 
+    document.getElementById("afterScr").style.display = "block";
+  }
+  
+  
+}
+
 function modifyIng(y){
+
+
 
       url = "modificarIng.php";
       let categories = [''];
@@ -187,7 +531,11 @@ function modifyIng(y){
           categories.push($('#cat' + x).val());}
       };
       
-      
+      if(!validateIngForm($('#nombreIng').val(), $('#grupo').val(), categories)){
+        
+        console.info("form wasn't valid");
+        return 0;
+      }
 
       var posting = $.post( url, { name: $('#nombreIng').val(), grupo: $('#grupo').val(), categorias: categories, id: y} );
       /* Send the data using post with element id name and name2*/
@@ -195,11 +543,27 @@ function modifyIng(y){
       /* Alerts the results */
       posting.done(function( data ) {
         
-        if (data== 0){
+        if (data== 11){
         M.toast({html: 'Por favor introduce un nombre de ingrediente correcto', classes: 'red rounded'});
         
         }
-        else if (data== 22){
+        else if (data== 14){
+        M.toast({html: 'El nombre de ingrediente no puede incluir números', classes: 'red rounded'});
+        
+        }
+        else if (data== 31){
+        M.toast({html: 'Las categorías no pueden incluir números', classes: 'red rounded'});
+        
+        }
+        else if (data== 30){
+        M.toast({html: 'Las categorías no pueden incluir ";"', classes: 'red rounded'});
+        
+        }
+        else if (data== 12){
+        M.toast({html: 'El nombre de ingrediente no puede incluir ";"', classes: 'red rounded'});
+        
+        }
+        else if (data== 21){
         M.toast({html: 'Por favor selecciona un grupo alimenticio válido', classes: 'red rounded'});
                 }
         
@@ -207,14 +571,18 @@ function modifyIng(y){
         M.toast({html: 'Por favor verifica que todos los campos estén correctos', classes: 'red rounded'});
         
 
-        
         }
+        
         else if(data == 6){
           
           M.toast({html: 'Ingrediente modificado exitosamente', classes: 'green rounded'});
           var form = document.getElementById("agregar_ingrediente");
           form.reset();
+          
+          var instance =M.Modal.getInstance(document.getElementById('modifyModal'));
+          instance.close();
           document.getElementById('showIngredientes').click();
+
         }
         else{
           M.toast({html: 'Error insertando a la base de datos por favor verifica los datos', classes: 'red rounded'});
@@ -241,6 +609,7 @@ function elimPreparado(x){
 
 }
 
+
 function modMenu(x, menu){
   url = "modificaMenu.php";
   var form = document.getElementById('menuModInput');
@@ -254,24 +623,15 @@ function modMenu(x, menu){
         M.toast({html: 'Menu modificado exitosamente', classes: 'green rounded'});
         document.location = 'menu.php';
         }
-        else if (data== 2){
+        if (data== 2){
         M.toast({html: 'No se pudo modificar menu por favor intenta de nuevo mas tarde', classes: 'grey rounded'});
-                }
-        else if (data== 3){
-        M.toast({html: 'Se requiere llenar el campo.', classes: 'red rounded'});
-                }
-        else if (data== 4){
-        M.toast({html: 'Solo se permiten letras y espacios <br> No se puede iniciar con espacio', classes: 'red rounded'});
-                }
-        else if (data== 5){
-        M.toast({html: 'Ya existe un menú con ese nombre', classes: 'red rounded'});
                 }
   });
 
 }
 
 function remInp(){
-  if (her == 0) {
+  if (her === 0) {
     her = 0;
   }else
     her--;
@@ -299,7 +659,7 @@ function getMax(){
   return o;
 }
 
-//js para consultar/
+/js para consultar/
 
 function consultData(evt, consult) {
   // Declare all variables
@@ -323,7 +683,11 @@ function consultData(evt, consult) {
 }
 
 $(document).ready(function(){  
+
+
     
+    
+
     var i=1;  
     $('#add').click(function(){  
         i++;  
@@ -334,17 +698,22 @@ $(document).ready(function(){
         var button_id = $(this).attr("id");   
         $('#row'+button_id+'').remove();  
         i--;
+
+        document.getElementById("afterScr").style.display = "none";
     }); 
       
     var o=1;
     
     $('#addCat').click(function(){  
         
-        
         let o = +getMax();
         o += 1;
 
-        $('#dynamic_field2').append('<tr class="catego" style="border:none;" id="rowC'+o+'"><td><div class="input-field col s10" ><input type="text" name="cat'+o+'" id="cat'+o+'" class="validate" data-error="wrong" ><label for="validate-ingrediente">Categoria</label><span class="helper-text" data-error="Por favor introduce un nombre de categoría." data-success=""></span></div><div class="col s2"><br><a id="'+o+'" class="right btn-floating btn-medium btn-danger btn_removeC waves-effect waves-light red"><i class="material-icons center">remove</i></a></div></td></tr>');  
+        $('#dynamic_field2').append('<tr class="catego" style="border:none;" id="rowC'+o+'"><td><div class="input-field col s10" ><input type="text" name="cat'+o+'" id="cat'+o+'" class="validate" data-error="wrong" ><label for="validate-ingrediente">Categoria</label><span class="helper-text" data-error="Por favor introduce un nombre de categoría." data-success=""></span></div><div class="col s2"><br><a id="'+o+'" class="right btn-floating btn-medium btn-danger btn_removeC waves-effect waves-light red"><i class="material-icons center">remove</i></a></div></td></tr>'); 
+
+        document.getElementById("afterScr").style.display = "block";
+        
+
     });
 
     var j=1;
@@ -357,8 +726,11 @@ $(document).ready(function(){
 
     $(document).on('click', '.btn_removeC', function(){  
         var button_id = $(this).attr("id");   
+        var scr = document.getElementById("scrollable");
         $('#rowC'+button_id+'').remove();  
-        o--;
+        document.getElementById("afterScr").style.display = "none";
+        document.getElementById("beforeScr").style.display = "none";
+        
     }); 
 
     
@@ -377,7 +749,7 @@ $(document).ready(function(){
         for (x = 1; x<=i; x++){
           
             ingredients.push($('#ing' + x).val());
-        };
+        }
         
       var posting = $.post( url, { name: $('#nombreprep').val(),ingredients: ingredients} );
       /* Send the data using post with element id name and name2*/
@@ -406,59 +778,71 @@ $(document).ready(function(){
 
     $(document).on('click', '#submitIng', function(){ 
 
-	    let DEBUG = 1;
-	      	/*
-		      for (x = 1; x<=o; x++){
-		        if($('#nombreIng').val() == "" || $('#grupo').val() == "" || $('#cat' + x).val() == "" ){
-		            alert("Por favor verifica los datos e intenta nuevamente");
-		            return false;
-		        }
-		      }
-		     */
-	      
-	    /* stop form from submitting normally */
-	    event.preventDefault();
-	      
-	    if (DEBUG) console.info('llamada asíncrona a IngredienteNom');
+      let DEBUG = 1;
+         
+      event.preventDefault();
+        
+      if (DEBUG) console.info('llamada asíncrona a IngredienteNom');
 
-	    /* get the action attribute from the <form action=""> element */
-	    url = "IngredienteNom.php";
-	    let categories = [''];
+      /* get the action attribute from the <form action=""> element */
+      url = "IngredienteNom.php";
+      let categories = [''];
       var p = getMax();
-	    for (x = 0; x<=p; x++){
-	      
-	        categories.push($('#cat' + x).val());
-	    };
-	    
-
-	    var posting = $.post( url, { name: $('#nombreIng').val(), grupo: $('#grupo').val(), categorias: categories} );
-	    /* Send the data using post with element id name and name2*/
-	      
-	    /* Alerts the results */
-	    posting.done(function( data ) {
-	    	
-	    	if (data== 1){
+      for (x = 0; x<=p; x++){
+        
+          categories.push($('#cat' + x).val());
+      };
+      
+      if(!validateIngForm($('#nombreIng').val(), $('#grupo').val(), categories)){
+        
+        console.info("form wasn't valid");
+        return 0;
+      }
+      var posting = $.post( url, { name: $('#nombreIng').val(), grupo: $('#grupo').val(), categorias: categories} );
+      /* Send the data using post with element id name and name2*/
+        
+      /* Alerts the results */
+      posting.done(function( data ) {
+        
+        
+        if (data== 11){
         M.toast({html: 'Por favor introduce un nombre de ingrediente correcto', classes: 'red rounded'});
-				
-	    	}
-	    	else if (data== 2){
+        
+        }
+        if (data== 14){
+        M.toast({html: 'El nombre de ingrediente no puede incluir números', classes: 'red rounded'});
+        
+        }
+        if (data== 31){
+        M.toast({html: 'Las categorías no pueden incluir números', classes: 'red rounded'});
+        
+        }
+        if (data== 30){
+        M.toast({html: 'Las categorías no pueden incluir ";"', classes: 'red rounded'});
+        
+        }
+        if (data== 12){
+        M.toast({html: 'El nombre de ingrediente no puede incluir ";"', classes: 'red rounded'});
+        
+        }
+        else if (data== 21){
         M.toast({html: 'Por favor selecciona un grupo alimenticio válido', classes: 'red rounded'});
-					    	}
-	    	
-	    	else if (data== 4){
+                }
+        
+        else if (data== 4){
         M.toast({html: 'Por favor verifica que todos los campos estén correctos', classes: 'red rounded'});
         
 
-				
-	    	}
-	    	else if(data == 6){
+        }
+        else if(data == 6){
           
           M.toast({html: 'Ingrediente creado exitosamente', classes: 'green rounded'});
           var form = document.getElementById("agregar_ingrediente");
           form.reset();
           var elems = document.getElementsByClassName('catego');
           let len = elems.length;
-          
+          document.getElementsByClassName("select-dropdown dropdown-trigger")[0].setAttribute('style',"border-bottom-width: 1px;border-bottom-style: solid;border-bottom-color: #9e9e9e");
+  
           for (i=0;i<len;i++){
             
             elems[0].outerHTML = "";
@@ -468,7 +852,7 @@ $(document).ready(function(){
         else{
           M.toast({html: 'Error insertando a la base de datos por favor verifica los datos', classes: 'red rounded'});
         }
-	    });
+      });
     });
 
     
@@ -477,4 +861,31 @@ $(document).ready(function(){
 
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -111,7 +111,7 @@
 	}
 
 	function botonMenus(){
-		echo " <a class='col offset-s3 waves-effect waves-light btn' href='modificarMenu.php'>Modificar Menus</a>";
+		echo " <a class='col offset-s3 waves-effect waves-light btn light-green lighten-1' href='modificarMenu.php'>Modificar Menus</a>";
 	}
 
 
@@ -296,6 +296,7 @@
 		$result = mysqli_query($db, $sql);
 		$resArray = $result->fetch_assoc();
 		$name = $resArray['NombreGrupoAl'];
+
 		closeDB($db);
 
 		return $name;
@@ -498,6 +499,10 @@
  		$res = 2;
 		
 		$sql = "DELETE FROM IngredienteCategoria Where IDIngrediente = '$id'";
+		mysqli_query($link, $sql);
+		$sql = "DELETE FROM IngredienteReceta Where IDIngrediente = '$id'";
+		mysqli_query($link, $sql);
+		$sql = "DELETE FROM IngredientePreparado Where IDIngrediente = '$id'";
 		mysqli_query($link, $sql);
 		$sql = "DELETE FROM Ingredientes Where IDIngrediente = '$id'";
 		if(mysqli_query($link, $sql)){
@@ -761,21 +766,34 @@
 		if($name === ''){
 			return 11;
 		}
+		if(1 === preg_match('~[0-9]~', $name)){
+            return 14;
+		}
 		$array = str_split($name);
 		foreach ($array as $char) {
 			
 			 if($char === $forbidden)
-			 return 11;
+			 return 12;
 		}	
 		if($group === '' ){
-			return 22;
+			return 21;
 		}
 
 		
 		for($i=0; $i<sizeof($categories); $i++){
-			if($categories[$i]=== ''){
-				return 5;
+
+			$cat = $categories[$i];
+
+			$array = str_split($cat);
+			foreach ($array as $char) {
+		
+		 		if($char === $forbidden)
+		 		return 30;
+				}
+			if(1 === preg_match('~[0-9]~', $cat)){
+            return 31;
 			}
+			
 		}
 		
 		return 5;
@@ -811,7 +829,7 @@
 	}
 
 function obtenerTiempos(){ // obtiene tiempos para llenar checks
-         $db=connectDB();
+     $db=connectDB();
     $query="SELECT * FROM Tiempos";
     $registros = $db->query($query);
     $consulta = "";
@@ -834,7 +852,7 @@ function obtenerTiempos(){ // obtiene tiempos para llenar checks
         	<td>
         		<p>
 		            <label>
-		            <input name="tiempomenu[]" id="tiempomenu[]" type="checkbox" value="'.$tiempo.'"/>
+		            <input class="idTablaAuxT" name="tiempomenu" id="tiempomenu'.$i.'" type="checkbox" value="'.$tiempo.'"/>
 		            <span></span>
 		            </label>
 		            '.$tiempo.'
@@ -862,7 +880,7 @@ function obtenTiempos(){ // obtiene tiempos para poblar un dropdown
 
     {
         $tiempo=$datos[$i][0];
-        echo"$<option value=".$id.">$tiempo</option>";
+        echo"$<option value=".$tiempo.">$tiempo</option>";
 
     }
     closeDB($db);  
@@ -870,7 +888,7 @@ function obtenTiempos(){ // obtiene tiempos para poblar un dropdown
 
 function obtenerPlatillos(){ // obtiene menus para poblar un dropdown
     $db = connectDB();
-    $query="SELECT NombrePlatillo FROM Platillos WHERE Menu = '$IDMenu' AND Tiempo = '$tiempo'";
+    $query="SELECT NombrePlatillo FROM Platillos";
     $registros = $db->query($query);
     if (!$registros) {
         return false;
@@ -883,7 +901,7 @@ function obtenerPlatillos(){ // obtiene menus para poblar un dropdown
 
     {
         $platillo=$datos[$i][0];
-        echo"$<option value=".$id.">$platillo</option>";
+        echo"$<option value=".$platillo.">$platillo</option>";
 
     }
     closeDB($db);  
@@ -900,9 +918,7 @@ function obtenerMenu(){ // obtiene menus para poblar un dropdown
     while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
       array_push($datos, array($row["IDMenu"],$row["NombreMenu"]));
     }
-    for($i=0; $i<count($datos); $i++)
-
-    {
+    for($i=0; $i<count($datos); $i++){
         $id=$datos[$i][0];
         $menu=$datos[$i][1];
         echo"$<option value=".$id.">$menu</option>";
@@ -910,6 +926,44 @@ function obtenerMenu(){ // obtiene menus para poblar un dropdown
     }
     closeDB($db);
 }
+
+function obtenerMenuChecks(){
+         $db=connectDB();
+    $query="SELECT * FROM Menus";
+    $registros = $db->query($query);
+    $consulta = "";
+    if(!$registros)
+    {
+       $consulta="No se encontraron menus";
+    }
+    $datos=array();
+    
+    if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+        	$name = $row["NombreMenu"];
+        	$id = $row["IDMenu"];
+	         $consulta.='
+        	
+	        <tr> 
+	        	<td>
+	        		<p>
+			            <label>
+			            <input class="idTablaAuxM" name="menu" id="menu'.$id.'" type="checkbox" value="'.$id.'"/>
+			            <span></span>
+			            </label>
+			            '.$name.'
+		            </p>
+		        </td>
+	        </tr>';
+        } 
+    }
+    
+    closeDB($db);
+    mysqli_free_result($registros);
+    echo $consulta;   
+    }
+
+
 
 function obtenerGrupos(){
     $db = connectDB();
@@ -934,43 +988,6 @@ function obtenerGrupos(){
     closeDB($db);  
 }
 
-function obtenerMenuChecks(){
-         $db=connectDB();
-    $query="SELECT * FROM Menus";
-    $registros = $db->query($query);
-    $consulta = "";
-    if(!$registros)
-    {
-       $consulta="No se encontraron menus";
-    }
-    $datos=array();
-    
-    if(($registros->num_rows) > 0){
-        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
-          array_push($datos, array($row["IDMenu"]));
-        } 
-    }
-    for($i=0; $i<count($datos); $i++)
-    {
-        $tiempo=$datos[$i][0];
-        $consulta.='
-        <tr> 
-        	<td>
-        		<p>
-		            <label>
-		            <input name="tiempomenu[]" id="tiempomenu[]" type="checkbox" value="'.$tiempo.'"/>
-		            <span></span>
-		            </label>
-		            '.$tiempo.'
-	            </p>
-	        </td>
-        </tr>';
-    }
-    closeDB($db);
-    mysqli_free_result($registros);
-    echo $consulta;   
-    }
-
 
 function obtenerIngredient(){
 	  $db =connectDB();
@@ -994,40 +1011,182 @@ function obtenerIngredient(){
    
 }
 
-function crearCliente($first_name, $nombremenu){
+function obtenerIngredientes(){
+	  $db =connectDB();
+     
+    
+       $query="SELECT NombreIngrediente,IDIngrediente,GrupoAlimenticio FROM Ingredientes";
+     
+       $registros = $db->query($query);
+
+       $datos=array();
+
+       if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+        	array_push($datos,array($row["IDIngrediente"],$row["NombreIngrediente"],$row["GrupoAlimenticio"]));
+        } 
+    }
+     
+        closeDb($db);
+     
+        return $datos;
+   
+}
+
+function obtenerClient(){
+	  $db =connectDB();
+     
+    
+        $query="SELECT IDCliente, Nombre, Menu FROM Clientes";
+     
+       $registros = $db->query($query);
+
+       $datos=array();
+
+       if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+        	array_push($datos,array($row["IDCliente"],$row["Nombre"],$row["Menu"]));
+        } 
+    }
+     
+        closeDb($db);
+     
+        return $datos;
+   
+}
+
+function obtenerPrep(){
+	  $db =connectDB();
+     
+    
+        $query="SELECT IDPreparado, NombrePreparado FROM Preparados";
+     
+       $registros = $db->query($query);
+
+       $datos=array();
+
+       if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+        	array_push($datos,array($row["IDPreparado"],$row["NombrePreparado"]));
+        } 
+       }
+     
+        closeDb($db);
+     
+        return $datos;
+   
+}
+
+//function crearCliente($first_name, $nombremenu){
+
+function obtenerPreparado(){
+	  $db =connectDB();
+     
+    
+        $query="SELECT NombrePreparado,IDPreparado FROM Preparados";
+     
+       $registros = $db->query($query);
+       
+       $datos=array();
+       if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+        	array_push($datos,array($row["IDPreparado"],$row["NombrePreparado"]));
+        } 
+    }
+     
+        closeDb($db);
+     
+        return $datos;
+   
+}
+
+function obtenerReceta(){
+	  $db =connectDB();
+     
+    
+        $query="SELECT NombreReceta,IDReceta FROM Recetas";
+     
+       $registros = $db->query($query);
+
+       $datos=array();
+
+       if(($registros->num_rows) > 0){
+        while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
+        	array_push($datos,array($row["IDReceta"],$row["NombreReceta"]));
+        } 
+    }
+     
+        closeDb($db);
+     
+        return $datos;
+   
+}
+
+
+
+function agregarCliente($first_name, $nombremenu){
 
 	$db = connectDB();
-
+	$worked = false;
 	$query='INSERT INTO Clientes(Nombre,Menu) VALUES (?,?)';
 
-	$registros = $db->query($query);
 
-	if(!$registros){
-		echo $registros;
-	}else return true;
 
 	if (!($statement = $db->prepare($query))) {
 	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
 
 	    }
-	    if (!$statement->bind_param("ss", $first_name, $nombremenu)) {
+	if (!$statement->bind_param("ss", $first_name, $nombremenu)) {
 	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
 
 	    }
 	    
-	    if (!$statement->execute()) {
+	if (!$statement->execute()) {
 	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
 	    } 
+	else {
+		$worked = true;
+	}
 
-	    closeDB($db);
-	   
+	closeDB($db);
+	 
+	return $worked;
+}
+
+function clienteRecienCreado($first_name){
+	$db = connectDB();
+
+	$query="SELECT IDCliente FROM Clientes WHERE Nombre = '$first_name'";
+	$result=mysqli_query($db,$query);
+	
+	
+	while ($row=mysqli_fetch_assoc($result)) {
+		$id = $row['IDCliente'];
+	}
+
+
+
+	closeDB($db);
+	return $id;
+}
+
+function conseguirIDIngrediente($Ingrediente){
+
+	$db = connectDB();
+
+	$sql = "SELECT IDIngrediente FROM Ingredientes WHERE NombreIngrediente = '$Ingrediente'";
+	$IDIngrediente = mysqli_fetch_assoc(mysqli_query($db,$sql));
+
+	closeDB($db);
+
+	return $IDIngrediente;
 }
 
 function agregarRestriccionACliente($IDCliente, $IDIngrediente){
 	$db = connectDB();
 
 	$query='INSERT INTO Restriccion(IDCliente,IDIngrediente) VALUES (?,?)';
-
+	$worked = false;
 	$registros = $db->query($query);
 
 	if (!($statement = $db->prepare($query))) {
@@ -1042,18 +1201,22 @@ function agregarRestriccionACliente($IDCliente, $IDIngrediente){
 	    if (!$statement->execute()) {
 	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
 	    } 
+	    else{
+	    	$worked = true;
+	    }
 
 	    closeDB($db);
+	    return $worked;
 }
 
 function agregarPlanACliente($IDCliente, $NombreTiempo){
 	$db = connectDB();
 
-
+	
 	$query='INSERT INTO Plan(IDCliente,NombreTiempo) VALUES (?,?)';
 
 	$registros = $db->query($query);
-
+	$worked = false;
 	if (!($statement = $db->prepare($query))) {
 	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
 
@@ -1062,13 +1225,414 @@ function agregarPlanACliente($IDCliente, $NombreTiempo){
 	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
 
 	    }
-	    
 	    if (!$statement->execute()) {
 	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
 	    } 
+	    else{
+	    	$worked = true;
+	    }
 
 	    closeDB($db);
+	    return $worked;
+
 }
+
+function crearClienteCompleto($firstname, $nombremenu, $idsingrediente, $tiempos){
+	$worked = agregarCliente($firstname, $nombremenu);
+	if (!$worked){
+		echo("agregar no funcionó");
+		return 0;
+	}
+	$IDCliente = clienteRecienCreado($firstname);
+
+	for($i=0;$i<sizeof($tiempos);$i++){
+		$tiempo=$tiempos[$i];
+		if($tiempo !== ""){
+			$worked = ($worked && agregarPlanACliente($IDCliente, $tiempo));
+		}
+	}
+	for($i=0;$i<sizeof($idsingrediente);$i++){
+		$id=$idsingrediente[$i];
+		if($id !== ""){
+			$worked = ($worked && agregarRestriccionACliente($IDCliente, $id));
+		}
+	}
+	return $worked;
+}
+
+function crearRecetaCompleta($name, $idsM, $tiempos, $idsI, $idsP, $idsR, $desc){
+
+	$worked = agregarReceta($name, $desc);
+	if (!$worked){
+		echo("agregar no funcionó");
+		return 0;
+	}
+	$IDReceta = RecetaRecienCreada($name);
+	for($i=0;$i<sizeof($tiempos);$i++){
+		$tiempo=$tiempos[$i];
+		if($tiempo !== ""){
+			$worked = ($worked && agregarTiempoAReceta($IDReceta, $tiempo));
+		}
+	}
+	for($i=0;$i<sizeof($idsI);$i++){
+		$id=$idsI[$i];
+		if($id !== ""){
+			$worked = ($worked && agregarIngAReceta($IDReceta, $id));
+		}
+	}
+	for($i=0;$i<sizeof($idsM);$i++){
+		$id=$idsM[$i];
+		if($id !== ""){
+			$worked = ($worked && agregarMenAReceta($IDReceta, $id));
+		}
+	}
+	for($i=0;$i<sizeof($idsP);$i++){
+		$id=$idsP[$i];
+		if($id !== ""){
+			$worked = ($worked && agregarPrepAReceta($IDReceta, $id));
+		}
+	}
+	for($i=0;$i<sizeof($idsR);$i++){
+		$id=$idsR[$i];
+		if($id !== ""){
+			$worked = ($worked && agregarRecAReceta($IDReceta, $id));
+		}
+	}
+	return $worked;
+
+}
+function agregarReceta($name, $desc){
+
+	$db = connectDB();
+	$worked = false;
+	$query='INSERT INTO Recetas(NombreReceta,Descripcion) VALUES (?,?)';
+
+
+
+	if (!($statement = $db->prepare($query))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
+
+	    }
+	if (!$statement->bind_param("ss", $name, $desc)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
+
+	    }
+	    
+	if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
+	else {
+		$worked = true;
+	}
+
+	closeDB($db);
+	 
+	return $worked;
+}
+function recetaRecienCreada($name){
+	$db = connectDB();
+	
+	$query="SELECT IDReceta FROM Recetas WHERE NombreReceta = '$name'";
+	$result=mysqli_query($db,$query);
+	
+	
+	while ($row=mysqli_fetch_assoc($result)) {
+		$id = $row['IDReceta'];
+	}
+
+	closeDB($db);
+	return $id;
+}
+function agregarIngAReceta($IDReceta, $ing){
+	$db = connectDB();
+
+	
+	$query='INSERT INTO IngredienteReceta(IDReceta,IDIngrediente) VALUES (?,?)';
+
+	$registros = $db->query($query);
+	$worked = false;
+	if (!($statement = $db->prepare($query))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
+
+	    }
+	    if (!$statement->bind_param("ss", $IDReceta, $ing)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
+
+	    }
+	    if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
+	    else{
+	    	$worked = true;
+	    }
+
+	    closeDB($db);
+	    return $worked;
+
+}
+function agregarRecAReceta($IDReceta, $rec){
+	$db = connectDB();
+
+	
+	$query='INSERT INTO RecetaReceta(IDReceta,IDRecetaAlt) VALUES (?,?)';
+
+	$registros = $db->query($query);
+	$worked = false;
+	if (!($statement = $db->prepare($query))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
+
+	    }
+	    if (!$statement->bind_param("ss", $IDReceta, $rec)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
+
+	    }
+	    if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
+	    else{
+	    	$worked = true;
+	    }
+
+	    closeDB($db);
+	    return $worked;
+
+}
+function agregarPrepAReceta($IDReceta, $prep){
+	$db = connectDB();
+
+	
+	$query='INSERT INTO PreparadoReceta(IDReceta,IDPreparado) VALUES (?,?)';
+
+	$registros = $db->query($query);
+	$worked = false;
+	if (!($statement = $db->prepare($query))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
+
+	    }
+	    if (!$statement->bind_param("ss", $IDReceta, $prep)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
+
+	    }
+	    if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
+	    else{
+	    	$worked = true;
+	    }
+
+	    closeDB($db);
+	    return $worked;
+
+}
+function agregarMenAReceta($IDReceta, $menu){
+	$db = connectDB();
+
+	
+	$query='INSERT INTO MenuReceta(IDMenu,IDReceta) VALUES (?,?)';
+
+	$registros = $db->query($query);
+	$worked = false;
+	if (!($statement = $db->prepare($query))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
+
+	    }
+	    if (!$statement->bind_param("ss", $menu,  $IDReceta)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
+
+	    }
+	    if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
+	    else{
+	    	$worked = true;
+	    }
+
+	    closeDB($db);
+	    return $worked;
+
+}
+function agregarTiempoAReceta($IDReceta, $NombreTiempo){
+	$db = connectDB();
+
+	
+	$query='INSERT INTO RecetaTiempo(NombreTiempo,IDReceta) VALUES (?,?)';
+
+	$registros = $db->query($query);
+	$worked = false;
+	if (!($statement = $db->prepare($query))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
+
+	    }
+	    if (!$statement->bind_param("ss", $NombreTiempo, $IDReceta )) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
+
+	    }
+	    if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
+	    else{
+	    	$worked = true;
+	    }
+
+	    closeDB($db);
+	    return $worked;
+
+}
+
+function crearPlatilloCompleto($name, $menu, $tiempo, $idsI, $idsP, $idsR, $desc){
+	$worked = agregarPlatillo($name, $menu, $tiempo, $desc);
+	if (!$worked){
+		echo("agregar no funcionó");
+		return 0;
+	}
+	$IDPlatillo = platilloRecienCreado($name);
+
+	for($i=0;$i<sizeof($idsI);$i++){
+		$id=$idsI[$i];
+		if($tiempo !== ""){
+			$worked = ($worked && agregarIngAPlatillo($IDPlatillo, $id));
+		}
+	}
+	for($i=0;$i<sizeof($idsP);$i++){
+		$id=$idsP[$i];
+		if($id !== ""){
+			$worked = ($worked && agregarPrepAPlatillo($IDPlatillo, $id));
+		}
+	}
+	for($i=0;$i<sizeof($idsR);$i++){
+		$id=$idsR[$i];
+		if($id !== ""){
+			$worked = ($worked && agregarRecAPlatillo($IDPlatillo, $id));
+		}
+	}
+
+	return $worked;
+}
+
+function agregarPlatillo($name, $menu, $tiempo, $notas){
+
+	$db = connectDB();
+	$worked = false;
+	$query='INSERT INTO Platillos(Menu,Tiempo,Notas,NombrePlatillo) VALUES (?,?,?,?)';
+
+
+
+	if (!($statement = $db->prepare($query))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
+
+	    }
+	if (!$statement->bind_param("ssss", $menu,$tiempo,$notas,$name)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
+
+	    }
+	    
+	if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
+	else {
+		$worked = true;
+	}
+
+	closeDB($db);
+	 
+	return $worked;
+}
+function platilloRecienCreado($name){
+	$db = connectDB();
+	
+	$query="SELECT IDPlatillo FROM Platillos WHERE NombrePlatillo = '$name'";
+	$result=mysqli_query($db,$query);
+	
+	
+	while ($row=mysqli_fetch_assoc($result)) {
+		$id = $row['IDPlatillo'];
+	}
+
+	closeDB($db);
+	return $id;
+}
+function agregarIngAPlatillo($IDPlatillo, $ing){
+	$db = connectDB();
+
+	
+	$query='INSERT INTO PlatilloIngrediente(IDPlatillo,IDIngrediente) VALUES (?,?)';
+
+	$registros = $db->query($query);
+	$worked = false;
+	if (!($statement = $db->prepare($query))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
+
+	    }
+	    if (!$statement->bind_param("ss", $IDPlatillo, $ing)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
+
+	    }
+	    if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
+	    else{
+	    	$worked = true;
+	    }
+
+	    closeDB($db);
+	    return $worked;
+
+}
+function agregarRecAPlatillo($IDPlatillo, $rec){
+	$db = connectDB();
+
+	
+	$query='INSERT INTO PlatilloReceta(IDPlatillo,IDReceta) VALUES (?,?)';
+
+	$registros = $db->query($query);
+	$worked = false;
+	if (!($statement = $db->prepare($query))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
+
+	    }
+	    if (!$statement->bind_param("ss", $IDPlatillo, $rec)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
+
+	    }
+	    if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
+	    else{
+	    	$worked = true;
+	    }
+
+	    closeDB($db);
+	    return $worked;
+
+}
+function agregarPrepAPlatillo($IDPlatillo, $prep){
+	$db = connectDB();
+
+	
+	$query='INSERT INTO PlatilloPreparado(IDPlatillo,IDPreparado) VALUES (?,?)';
+
+	$registros = $db->query($query);
+	$worked = false;
+	if (!($statement = $db->prepare($query))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
+
+	    }
+	    if (!$statement->bind_param("ss", $IDPlatillo, $prep)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
+
+	    }
+	    if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
+	    else{
+	    	$worked = true;
+	    }
+
+	    closeDB($db);
+	    return $worked;
+
+}
+
 
 function existe($tabla,$nombreLlavePrimaria,$valorLlavePrimaria, $esString = false)
 {

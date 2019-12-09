@@ -2,11 +2,11 @@
   <title>Agregar Ingrediente</title>
 
 <body>  
-   <div class="row" style="  margin-top: 5%; width:40%; ">
+   <div class="row center" style="  margin-top: 5%; width:40%; ">
 
               <form id="agregar_ingrediente" name="agregar_ingrediente">
                   <div>
-                      <h5 id="modifyIngTitle" style="text-align: center;">Crear Ingrediente</h5>
+                      <h5 id="modifyIngTitle" style="text-align: center;">Modificar Ingrediente</h5>
                    </div>
                   
                   <div class="table-responsive" vertical-align="center">  
@@ -14,13 +14,10 @@
                         
                           <tr style="border:none;">
                             <td class="vert-aligned">
-                              <div class="input-field col" style=" width: 100%;margin-top: 0;margin-bottom: 0;">
-                                  <p style=";margin-top: 0;margin-bottom: 0;">*1. Nombre de el ingrediente</p>
-                              </div>
                               <div class="input-field col" style=" width: 100%;">
-                                  <input id="nombreIng" type="text" class="validate" name="nombreIng" data-error="wrong" required>
-                                  <label  for="n_ingrediente" class="">Nombre de Ingrediente</label>
-                                  <span class="helper-text" data-error="Por favor introduce un nombre de ingrediente." data-success=""></span>
+                                <p>*1. Nombre de el ingrediente a crear</p>
+                                  <input placeholder="Ej. Elote" id="nombreIng" type="text" class="" name="nombreIng" data-error="wrong" required>
+                                  <span class="helper-text" data-error="Por favor introduce un nombre de ingrediente válido." data-success=""></span>
                               </div>
                             </td>
                           </tr>
@@ -29,33 +26,44 @@
                               <td class="vert-aligned">
                               <div class="input-field col" style="width: 100%;margin-top: 0;">
                                   
-                                  <p>*2. Selecciona un grupo Alimenticio</p>
+                                  <p style="margin: 0">*2. Selecciona un grupo Alimenticio</p>
                                   
-                                  <select id="grupo" name="grupo" class="required">
+                                  <select id="grupo" name="grupo" class="red-text" style="border-bottom-color: red;">
                                     <option value="">Seleccionar</option>
                                     <?php
                                       require_once("util.php");
                                       obtenerGrupos();
                                     ?>
                                   </select>
-                                  <span class="helper-text" data-error="Por favor selecciona un grupo alimenticio." data-success=""></span>
+                                  <label id="grupoHelper" style="display: none;position: absolute;bottom: -5px;top: auto;" class="red-text"> Por favor selecciona un grupo alimenticio.</label>
                               </div>
                             </td>
                           </tr>
+                          <tr>
+                             <td class="vert-aligned" style="margin: 0;padding-left: 1rem;">
+
+
+                             <p style="margin: 0;margin-top:1rem;">3. Selecciona categorías a agregar</p>
+                            </td>
+                          </tr>
+                          
                           
 
                          
                     </table>
                     <tr style="border:none;" >
                           <td>
-                            <div class="col s12" style="padding-right: .5rem; text-align: center;">
-                                      <br>
-                                      <p>Agregar Categoría</p>
+                            <div class="col s12 top" style="padding-right: .5rem; padding-bottom: 1rem;">
+                                      
+                                      <p style="padding-top: .5rem;">Agregar Categoría</p>
                                       <a id="addCat" class="center btn-floating btn-medium waves-effect waves-light "><i class="material-icons">add</i></a>
                                     </div>
                                   </td>
-                            </tr>                    
-          <input style="   margin-left: 30%; width:40%" class="submit" id="submitIng" type="button" name="submit" value="Guardar Ingrediente"> 
+                            </tr>
+                    
+                
+                            
+          <input style=" width:40%" class="submit" id="submitIng" type="button" name="submit" value="Guardar Ingrediente"> 
         </div>
     </form>
   </div>

@@ -14,13 +14,165 @@
         <h6>* <b>1. Nombre del platillo:</b></h6><br><br>
         <div>
           <input id="platillo_name" name="platillo_name" type="text" placeholder="ex: Desayuno de champs">
+          <br><br><br>
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col s5 offset-s1">
+        <h6>* <b>2. Selecciona el tiempo al que va a pertenecer:</b></h6>
+        <br><br>
+        <select required id="tiempo" name="tiempo">
+          <option value="" disabled selected>Selecciona...</option>
+            <?php
+              require_once("util.php");
+              obtenTiempos();
+            ?>
+        </select>
+      </div>
+      <div class="col s5">
+        <h6>* <b>3. Selecciona el menú al que va a pertenecer:</b></h6>
+        <br><br>
+        <select required id="nombremenu" name="nombremenu">
+          <option value="" disabled selected>Selecciona...</option>
+              <?php
+                require_once("util.php");
+                obtenerMenu();
+              ?>
+        </select>
+      </div>
+    </div>
+<br><br><br><br>
+    <div class="row">
+      <div class="col s4">
+        <h6><b>Selecciona las recetas que conformaran a el platillo:</b></h6><br>
+        <div class="table-responsive" vertical-align="center">  
+          <table class="table " id="recetas" > 
+            <tr>
+              <td class="vert-aligned">
+                <div class="input-field col s12">
+                  <input type="text" id="restR1" class="validate" name ="restR1" onkeyup="obtenReceta(1)">
+                  <label>Introduce el nombre...</label>
+                  <div id="resultadoR1"></div>
+                </div>
+                
+              </td>
+            </tr>      
+          </table>
+        </div>
+        <input type="hidden" value="" name="valorRestricciones" id="valorRestricciones"/>
+      </div>
 
-    <br><br><br><br><br>
+      <div class="col s4">
+        <h6><b>Selecciona los preparados que tendrá el platillo:</b></h6><br>
+        <div class="table-responsive" vertical-align="center">  
+          <table class="table " id="preparados" > 
+            <tr>
+              <td class="vert-aligned">
+                <div class="input-field col s12">
+                  <input type="text" id="restP1" class="validate" name ="restP1" onkeyup="obtenPreparado(1)">
+                  <label>Introduce el nombre...</label>
+                  <div id="resultadoP1"></div>
+                </div>
+                
+              </td>
+            </tr>      
+          </table>
+        </div>
+        <input type="hidden" value="" name="valorRestricciones" id="valorRestricciones"/>
+      </div>
+
+      <div class="col s4">
+        <h6><b>Selecciona los ingredientes que tendrá el platillo:</b></h6><br>
+        <div class="table-responsive" vertical-align="center">  
+          <table class="table " id="ingredientes" > 
+            <tr>
+              <td class="vert-aligned">
+                <div class="input-field col s12">
+                  <input type="text" id="rest1" class="validate" name ="rest1" onkeyup="obtenIngrediente(1)">
+                  <label>Introduce el nombre...</label>
+                  <div id="resultado1"></div>
+                </div>
+                
+              </td>
+            </tr>      
+          </table>
+        </div>
+        <input type="hidden" value="" name="valorRestricciones" id="valorRestricciones"/>
+      </div>
+    </div>
+
+    
+      <br><br><br><br>
+    <div class="row">
+      <div class="col s4">
+          <table>
+            <th>Receta</th>
+            <th style="text-align: right;">Eliminar</th>
+          </table>
+        <table  onscroll="" vertical-align="top" style="width:100%; overflow-y:scroll; display:block; position:relative;height: 200px;" id="scrolledR">
+          <tr id="beforeScr" display ="none" style="display: none; bottom: 0; width: 100%; left: 0;">
+                    
+                  </tr> 
+          <tbody id="resultadosR" style="display:table;">
+
+          </tbody>
+          <tr id="afterScr" display ="none" style="display: none; bottom: 0; width: 100%; left: 0;">
+                    
+                  </tr> 
+        </table>
+      </div>
+      <div class="col s4">
+        <table>
+          <th>Preparado</th>
+          <th style="text-align: right;">Eliminar</th>
+        </table>
+        <table vertical-align="top" style="width:100%; overflow-y:scroll; display:block; position:relative;height: 200px;" >
+          <tbody id="resultadosP" style="display:table;">
+
+          </tbody>
+        </table>
+      </div>
+      <div class="col s4">
+        <table>
+          <th>Ingrediente</th>
+          <th style="text-align: right;">Eliminar</th>
+        </table>
+        <table vertical-align="top" style="width:100%; overflow-y:scroll; display:block; position:relative;height: 200px;" >
+          <tbody id="resultados" style="display:table;">
+
+          </tbody>
+        </table>
+      </div>
+    <br><br><br>
+
+    </div>
+    <div class="row">
+      <div class="input-field col s8 offset-s2">
+        <h6> <b>4. Introduce una descripción si lo crees necesario:</b></h6>
+        <br><br>
+        <textarea id="descPlatillo" name="descPlatillo" class="materialize-textarea" placeholder="ex: Hello world!"></textarea>
+      </div>
+    </div>
+
 
   </form>
+  <div class="row">
+      <div class="input-field col s4" id="resultadosHiddenR"></div>
+      <div class="input-field col s4" id="resultadosHiddenP"></div>
+      <div class="input-field col s4" id="resultadosHidden"></div>
+  </div>
+  <div class="row">
+    <div class="col s4 offset-s5">
+      <h6><b>¿Terminaste?</b></h6><br>
+      <div class="row">
+        <div class="col s3">
+          <button class="waves-effect waves-light btn light-green lighten-2" onclick="agregarPlatillo()" >Finalizar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+      
 
 
 </body>

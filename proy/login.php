@@ -8,7 +8,7 @@ $user = $_POST["User"];
 
 if($pwd == getQuery($user)){
     $_SESSION["User"] = $user;
-	header("location:../proy/menu.php");
+	header("location:../menu.php");
 } else {
 	echo "<script> 
             alert('El usuario o contraseña son incorrectos'); 
