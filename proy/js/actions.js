@@ -194,7 +194,7 @@ function agregarRestriccion(ingrediente, id)
 function agregarRestriccionR(receta, id)
 {
   var resultados = document.getElementById("resultadosR");
-  resultados.innerHTML += "<tr id='rec" + id + "'><td style='width:80%'>" + receta.toString() + "</td>" + '<td><a onclick="eliminarReceta(\'' +  id + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
+  resultados.innerHTML += "<tr class='idTablaAuxR' id='rec" + id + "'><td style='width:80%'>" + receta.toString() + "</td>" + '<td><a onclick="eliminarReceta(\'' +  id + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
 
   var resultadosHidden = document.getElementById("resultadosHiddenR");
   resultadosHidden.innerHTML += "<input type='hidden' value='" + receta.toString() + "' name='restriccionesR[]' id='" + receta.toString() + "'/>";
@@ -203,7 +203,7 @@ function agregarRestriccionR(receta, id)
 function agregarRestriccionP(preparado, id)
 {
   var resultados = document.getElementById("resultadosP");
-  resultados.innerHTML += "<tr id='prep" + id + "'><td style='width:80%'>" + preparado.toString() + "</td>" + '<td><a onclick="eliminarPreparado(\'' +  id + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
+  resultados.innerHTML += "<tr class='idTablaAuxP' id='prep" + id + "'><td style='width:80%'>" + preparado.toString() + "</td>" + '<td><a onclick="eliminarPreparado(\'' +  id + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
 
   var resultadosHidden = document.getElementById("resultadosHiddenP");
   resultadosHidden.innerHTML += "<input type='hidden' value='" + preparado.toString() + "' name='restriccionesP[]' id='" + preparado.toString() + "'/>";
@@ -316,7 +316,30 @@ function agregarClienteConRestricciones() {
 
 
   posting.done(function (data){
-    alert(data);
+    
+  });
+
+
+}
+
+function agregarPlatillo() {
+  url = "agregaPlatilloControlador.php";
+  var tablaIDsIng = ObtenerIDtablaAux();
+  var tablaIDsPrep = ObtenerIDtablaAuxP();
+  var tablaIDsRec = ObtenerIDtablaAuxR();
+  var name = $("#platillo_name").val();
+  var tiempoP = $("#tiempo").val();
+  var nombreM = $("#menu").val();
+  var descripcion = $("#menu").val();
+ 
+
+  var posting = $.post(url, {menu : nombreM, name: firstname, tiempo: tiempoP, idsI: tablaIDsIng, idsP: tablaIDsPrep,idsR: tablaIDsRec});
+
+
+  posting.done(function (data){
+     if(data === 1){
+        M.toast({html: 'Platillo creado exitosamente', classes: 'green rounded'});
+    }
   });
 
 
