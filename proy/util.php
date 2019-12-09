@@ -851,7 +851,7 @@ function obtenerTiempos(){ // obtiene tiempos para llenar checks
         	<td>
         		<p>
 		            <label>
-		            <input name="tiempomenu" id="tiempomenu'.$i.'" type="checkbox" value="'.$tiempo.'"/>
+		            <input name="tiempomenu[]" id="tiempomenu[]" type="checkbox" value="'.$tiempo.'"/>
 		            <span></span>
 		            </label>
 		            '.$tiempo.'
@@ -885,9 +885,9 @@ function obtenTiempos(){ // obtiene tiempos para poblar un dropdown
     closeDB($db);  
 }
 
-function obtenerPlatillos(){ // obtiene menus para poblar un dropdown
+function obtenerPlatillos($menu, $tiempo){ // obtiene menus para poblar un dropdown
     $db = connectDB();
-    $query="SELECT NombrePlatillo FROM Platillos";
+    $query="SELECT NombrePlatillo FROM Platillos WHERE menu = $menu AND tiempo = $tiempo";
     $registros = $db->query($query);
     if (!$registros) {
         return false;
@@ -1010,61 +1010,33 @@ function obtenerIngredient(){
    
 }
 
-
-
-function agregarCliente($first_name, $nombremenu){
+function crearCliente($first_name, $nombremenu){
 
 	$db = connectDB();
 
 	$query='INSERT INTO Clientes(Nombre,Menu) VALUES (?,?)';
 
+	$registros = $db->query($query);
 
+	if(!$registros){
+		echo $registros;
+	}else return true;
 
 	if (!($statement = $db->prepare($query))) {
 	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
 
 	    }
-	if (!$statement->bind_param("ss", $first_name, $nombremenu)) {
+	    if (!$statement->bind_param("ss", $first_name, $nombremenu)) {
 	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
 
 	    }
 	    
-	if (!$statement->execute()) {
+	    if (!$statement->execute()) {
 	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
 	    } 
 
-	closeDB($db);
+	    closeDB($db);
 	   
-}
-
-function clienteRecienCreado($first_name){
-	$db = connectDB();
-
-	$query='SELECT FROM Clientes(IDCliente) WHERE Nombre = "$first_name"';
-	$result=mysqli_query($db,$query);
-
-	if(mysqli_num_rows($result)){
-		while ($row=mysqli($result)) {
-			$id = $row['IDCliente'];
-		}
-	}
-
-
-
-	closeDB($db);
-	return $id;
-}
-
-function conseguirIDIngrediente($Ingrediente){
-
-	$db = connectDB();
-
-	$sql = "SELECT IDIngrediente FROM Ingredientes WHERE NombreIngrediente = '$Ingrediente'";
-	$IDIngrediente = mysqli_fetch_assoc(mysqli_query($db,$sql));
-
-	closeDB($db);
-
-	return $IDIngrediente;
 }
 
 function agregarRestriccionACliente($IDCliente, $IDIngrediente){
@@ -1112,25 +1084,6 @@ function agregarPlanACliente($IDCliente, $NombreTiempo){
 	    } 
 
 	    closeDB($db);
-}
-
-function crearClienteCompleto($firstname, $nombremenu, $idsingrediente, $tiempos){
-	agregarCliente($firstname, $nombremenu);
-	$IDCliente = clienteRecienCreado($firstname);
-	var_dump($IDCliente);
-
-	for($i=0;$i<sizeof($tiempos);$i++){
-		$tiempo=$tiempos[$i];
-		if($tiempo != ""){
-			agregarPlanACliente($IDCliente, $tiempos);
-		}
-	}
-	for($i=0;$i<sizeof($idsingrediente);$i++){
-		$id=$idsingrediente[$i];
-		if($id != ""){
-			agregarRestriccionACliente($IDCliente, $id);
-		}
-	}
 }
 
 function existe($tabla,$nombreLlavePrimaria,$valorLlavePrimaria, $esString = false)
