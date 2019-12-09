@@ -492,9 +492,9 @@ function alimentarClientes() {
   var fechaF = $("#fecha").val();
   var posting = $.post(url, {menu : nombreMenu, tiempo: nombreTiempo, id: idPlatillo, fecha: fechaF});
   posting.done(function (data){
-    if (data== 1){
+    if (data !== 1){
         M.toast({html: 'Receta creada exitosamente', classes: 'green rounded'});
-        }
+  }
   });
 }
 
@@ -511,16 +511,24 @@ function agregarPlatillo() {
   var tiempoP = $("#tiempo").val();
   var nombreM = $("#nombremenu").val();
   var descripcion = $("#descPlatillo").val();
- 
   var posting = $.post(url, {menu : nombreM, name: name, tiempo: tiempoP, idsI: tablaIDsIng, idsP: tablaIDsPrep, idsR: tablaIDsRec, desc : descripcion});
-
-
+  
   posting.done(function (data){
      if(data == 1){
         M.toast({html: 'Platillo creado exitosamente', classes: 'green rounded'});
-    }
 
+    }
   });
+}
+
+function generateTablaAlimentar(tabla){
+  divi = document.getElementById("resultados");
+    divi.innerHTML = "<table><thead><th>ID Cliente</th><th>Nombre Cliente</th><th>Conflictos</th><tbody id='tBodyRes'></tbody></table>"
+  table = document.getElementById("tBodyRes");
+  for (x=0;x<tabla.length;x++){
+    divi.innerHTML += 
+
+  }
 
 
 }

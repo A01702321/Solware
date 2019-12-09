@@ -14,10 +14,23 @@ $fecha = $_POST['fecha'];
 $table = getClientesTiempoMenu($menu,$tiempo);
 $newtable = getRestriccionesTable($table);
 $ingredients = getIngredientesPlatillo($id);
+$finalTable = alimentar($newtable, $ingredients);
+$added = alimentarClientesTabla($finalTable, $fecha, $menu, $tiempo, $id);
 
 
-echo(json_encode($newtable));
-echo(json_encode($ingredients));
+
+if($added){
+
+	echo(json_encode($finalTable));
+}
+
+else{
+
+	echo(1);
+	
+}
+
+
 
 
 

@@ -1118,6 +1118,96 @@ function getRestriccionesTable($table){
 
 
 }
+function alimentar($table, $ings){
+		
+		
+		$arr = [];
+
+		for($x=0; $x<sizeof($table); $x++) {
+			$id = $table[$x][0];
+			$nombre = $table[$x][1];
+			$ingsC = $table[$x][2];
+			for($i=0; $i<sizeof($ingsC); $i++) {
+				$conflictos = [];
+				$ingC = $ingsC[$i];
+				if(in_array( $ingC, $ings, true )){
+					$nameIng = getIngrediente($ingC);
+					array_push($conflictos,$nameIng);
+				}
+			}
+			array_push($arr,array($id,$nombre,$conflictos));
+		}
+		
+		return $arr ;
+}
+
+function alimentarCliente($IDC,$IDP, $fecha, $Menu, $Tiempo){
+
+	$db = connectDB();
+	$worked = false;
+	$query='INSERT INTO Alimentar(IDCliente,IDPlatillo,Fecha,Menu,Tiempo) VALUES (?,?,?,?,?)';
+
+
+
+	if (!($statement = $db->prepare($query))) {
+	        die("No se pudo preparar la consulta para la bd: (" . $db->errno . ") " . $db->error);
+
+	    }
+	if (!$statement->bind_param("sssss", $IDC, $IDP, $fecha, $Menu, $Tiempo)) {
+	        die("Falló la vinculación de los parámetros: (" . $statement->errno . ") " . $statement->error);
+
+	    }
+	    
+	if (!$statement->execute()) {
+	        die("Falló la ejecución de la consulta: (" . $statement->errno . ") " . $statement->error);
+	    } 
+	else {
+		$worked = true;
+	}
+
+	closeDB($db);
+	 
+	return $worked;
+
+}
+function alimentarClientesTabla($table, $fecha, $menu, $tiempo, $idP){
+	$worked = true;
+	for($x=0; $x<sizeof($table); $x++) {
+
+			$idC = $table[$x][0];
+			$ings = $table[$x][2];
+			if(sizeof($ings) !== 0){
+				$worked = ($worked and alimentarCliente($idC,$idP, $fecha, $menu, $tiempo));
+			}
+			
+		}
+	return $worked;
+
+}
+function getIngrediente($ingC){
+	$db = connectDB();
+
+	$query="SELECT NombreIngrediente FROM Ingredientes WHERE IDIngrediente= '$ingC'";
+		
+	$result=mysqli_query($db,$query);
+
+	$arr = [];
+	while ($row=mysqli_fetch_assoc($result)) {
+		
+		$res = $row['NombreIngrediente'];
+		
+		array_push($arr, $res);
+	}
+
+	closeDB($db);
+	return $arr[0];
+
+
+}
+
+
+
+
 function getRestricciones($id){
 		$db = connectDB();
 
@@ -1136,6 +1226,9 @@ function getRestricciones($id){
 		closeDB($db);
 		return $arr;
 	}
+
+
+
 function getIngredientesPlatillo($id){
 	$db = connectDB();
 
@@ -1163,6 +1256,8 @@ SELECT IP.IDIngrediente FROM IngredientePreparado as IP WHERE IP.IDPreparado IN 
 	closeDB($db);
 	return $arr;
 }
+
+
 
 
 function obtenerPrep(){
