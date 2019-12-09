@@ -19,6 +19,7 @@ $added = alimentarClientesTabla($finalTable, $fecha, $menu, $tiempo, $id);
 
 
 
+
 if($added){
 
 	echo(json_encode($finalTable));
@@ -27,7 +28,7 @@ if($added){
 else{
 
 	echo(1);
-	
+
 }
 
 

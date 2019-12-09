@@ -25,14 +25,15 @@
 
 		<form>  
 		    <div class="row">
-		      <div class="col s2 offset-s2">
-		        <h6><b>Fecha:</b></h6>
+		      <div class="col s3 offset-s1" style="
+    			margin-left: 3%;">
+		        <h6><b>*Fecha:</b></h6>
 		        <!--<i class="material-icons prefix">date_range</i>-->
 		        <input name="fecha" id="fecha" type="date" class="datepicker" placeholder="Selecciona una fecha">
 		        <!--<label for="fecha">Selecciona la fecha</label>-->
 		      </div>
-		      <div class="col s2 offset-s1">
-		        <h6><b>Selecciona el menú:</b></h6>
+		      <div class="col s3 offset-s1">
+		        <h6><b>*Selecciona el menú:</b></h6>
 		        <select  id="nombreMenu" name="nombreMenu">
 		          <option value="" disabled selected>Menu</option>
 		              <?php
@@ -40,8 +41,8 @@
 		              ?>
 		        </select>
 		      </div>
-		      <div class="col s2 offset-s1">
-		        <h6><b>Selecciona tiempo:</b></h6>
+		      <div class="col s3 offset-s1">
+		        <h6><b>*Selecciona tiempo:</b></h6>
 		        <select  id="nombreTiempo" name="nombreTiempo">
 		          <option value="" disabled selected>Tiempo</option>
 		            <?php
@@ -52,7 +53,7 @@
 		    </div>
 		    <br><br>
 		     <div class="row">
-		      <div style="width:60%; margin-left: 13%;">
+		      <div style="width:75%; margin-left: 12.5%;">
 		        <h6><b>Selecciona el platillo:</b></h6>
 		      </div>
 		    </div>
@@ -60,11 +61,15 @@
 		    	<div style="width:60%; margin-left: 20%;" id="nombrePlatillo">
 		    	</div>
 		    </div>
+		    <br><br>
+
 		    <div class="row" >
-		      <div class="input-field col s10" id="resultados">
+		    	<h5 class="center"><b>Clientes a alimentar:</b></h5>
+		      <div class="input-field col s8 offset-s2" id="resultados">
 
 		      </div>
 		    </div>
+		     <br><br>
 		    <div class="row">
 			    <div class="col s4 offset-s5">
 			      <h6><b>¿Terminaste?</b></h6><br>

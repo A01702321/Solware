@@ -1142,7 +1142,7 @@ function alimentar($table, $ings){
 }
 
 function alimentarCliente($IDC,$IDP, $fecha, $Menu, $Tiempo){
-
+	
 	$db = connectDB();
 	$worked = false;
 	$query='INSERT INTO Alimentar(IDCliente,IDPlatillo,Fecha,Menu,Tiempo) VALUES (?,?,?,?,?)';
@@ -1172,11 +1172,13 @@ function alimentarCliente($IDC,$IDP, $fecha, $Menu, $Tiempo){
 }
 function alimentarClientesTabla($table, $fecha, $menu, $tiempo, $idP){
 	$worked = true;
+	
 	for($x=0; $x<sizeof($table); $x++) {
 
 			$idC = $table[$x][0];
 			$ings = $table[$x][2];
-			if(sizeof($ings) !== 0){
+			
+			if(sizeof($ings) === 0){
 				$worked = ($worked and alimentarCliente($idC,$idP, $fecha, $menu, $tiempo));
 			}
 			
