@@ -26,14 +26,14 @@ for($i=0; $i<count($result); $i++){
    {
       $size++;
       $mensaje.="<tr>
-                  <td style='width:80%;'>".$preparado."</td>
+                  <td style='width:100%;'>".$preparado."</td>
                   <td>
                   <a onclick='agregarRestriccionP(&quot;". $preparado . "&quot; , ".$id.")' class='right btn-floating btn-small waves-effect waves-light'><i class='material-icons'>add</i></a>
                   </td> 
                 </tr>";
 
       $seleccionados=$id;
-      echo $id;
+     
    }
 }
 $mensaje.='</tbody> </table>';

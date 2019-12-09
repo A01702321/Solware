@@ -184,7 +184,7 @@ function agregarRestriccion(ingrediente, id)
 
   var resultados = document.getElementById("resultados");
 
-  resultados.innerHTML += "<tr class='idTablaAux' id='ing" + id + "'><td style='width:80%'>" + ingrediente.toString() + "</td>" + '<td><a onclick="eliminarIngrediente(\'' +  id + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
+  resultados.innerHTML += "<tr class='idTablaAux' id='ing" + id + "'><td style='width:100%'>" + ingrediente.toString() + "</td>" + '<td><a onclick="eliminarIngrediente(\'' +  id + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
 
 
   var resultadosHidden = document.getElementById("resultadosHidden");
@@ -194,7 +194,7 @@ function agregarRestriccion(ingrediente, id)
 function agregarRestriccionR(receta, id)
 {
   var resultados = document.getElementById("resultadosR");
-  resultados.innerHTML += "<tr class='idTablaAuxR' id='rec" + id + "'><td style='width:80%'>" + receta.toString() + "</td>" + '<td><a onclick="eliminarReceta(\'' +  id + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
+  resultados.innerHTML += "<tr class='idTablaAuxR' id='rec" + id + "'><td style='width:100%'>" + receta.toString() + "</td>" + '<td><a onclick="eliminarReceta(\'' +  id + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
 
   var resultadosHidden = document.getElementById("resultadosHiddenR");
   resultadosHidden.innerHTML += "<input type='hidden' value='" + receta.toString() + "' name='restriccionesR[]' id='" + receta.toString() + "'/>";
@@ -203,7 +203,7 @@ function agregarRestriccionR(receta, id)
 function agregarRestriccionP(preparado, id)
 {
   var resultados = document.getElementById("resultadosP");
-  resultados.innerHTML += "<tr class='idTablaAuxP' id='prep" + id + "'><td style='width:80%'>" + preparado.toString() + "</td>" + '<td><a onclick="eliminarPreparado(\'' +  id + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
+  resultados.innerHTML += "<tr class='idTablaAuxP' id='prep" + id + "'><td style='width:100%'>" + preparado.toString() + "</td>" + '<td><a onclick="eliminarPreparado(\'' +  id + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
 
   var resultadosHidden = document.getElementById("resultadosHiddenP");
   resultadosHidden.innerHTML += "<input type='hidden' value='" + preparado.toString() + "' name='restriccionesP[]' id='" + preparado.toString() + "'/>";

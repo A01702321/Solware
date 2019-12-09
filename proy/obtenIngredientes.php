@@ -28,7 +28,7 @@ for($i=0; $i<count($result); $i++){
    {
       $size++;
       $mensaje.="<tr>
-                  <td style='width:80%;'>".$ingrediente."</td>
+                  <td style='width:100%;'>".$ingrediente."</td>
                   <td>
                   <a onclick='agregarRestriccion(&quot;". $ingrediente . "&quot; , ".$id.")' class='right btn-floating btn-small waves-effect waves-light'><i class='material-icons'>add</i></a>
                   </td> 

@@ -829,7 +829,7 @@
 	}
 
 function obtenerTiempos(){ // obtiene tiempos para llenar checks
-         $db=connectDB();
+     $db=connectDB();
     $query="SELECT * FROM Tiempos";
     $registros = $db->query($query);
     $consulta = "";
@@ -940,29 +940,29 @@ function obtenerMenuChecks(){
     
     if(($registros->num_rows) > 0){
         while($row = mysqli_fetch_array($registros,MYSQLI_BOTH)){
-          array_push($datos, array($row["IDMenu"]));
+        	$name = $row["NombreMenu"];
+        	$id = $row["IDMenu"];
+	         $consulta.='
+        	
+	        <tr> 
+	        	<td>
+	        		<p>
+			            <label>
+			            <input name="menu" id="menu'.$id.'" type="checkbox" value="'.$id.'"/>
+			            <span></span>
+			            </label>
+			            '.$name.'
+		            </p>
+		        </td>
+	        </tr>';
         } 
     }
-    for($i=0; $i<count($datos); $i++)
-    {
-        $tiempo=$datos[$i][0];
-        $consulta.='
-        <tr> 
-        	<td>
-        		<p>
-		            <label>
-		            <input name="tiempomenu[]" id="tiempomenu[]" type="checkbox" value="'.$tiempo.'"/>
-		            <span></span>
-		            </label>
-		            '.$tiempo.'
-	            </p>
-	        </td>
-        </tr>';
-    }
+    
     closeDB($db);
     mysqli_free_result($registros);
     echo $consulta;   
     }
+
 
 
 function obtenerGrupos(){
