@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Mina" rel="stylesheet"> 
+  <!--<img add src="/res/add_button.png"> -->
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   
+  <div class="topnav">
+    <div class="row">
+      <img class = "logo" src="res/Logo_!.png">
+    </div>
+  </div>
+
+  <div class="topnav">
+    <a href="menu.php" class="active">Tablero</a>
+    <a href="alimentar.php" class="active">Alimentar</a> 
+    <a href="Consultar.php" class="active">Consultar</a>
+    <div class="h_dropdown">
+        <button class="h_dropbtn">Agregar<i style="
+    position: absolute;" class="material-icons">expand_more</i></button>
+        <div class="h_dropdown-content">
+          <a href="agregaCliente.php">Cliente</a>
+          <a href="agregaIngrediente.php">Ingrediente</a>
+          <a href="agregaPreparado.php">Preparado</a>
+          <a href="agregaReceta.php">Receta</a>
+          <a href="agregaPlatillo.php">Platillo</a>
+          <a href="agregaMenu.php">Menu</a>
+        </div>
+	</div>
+  	<div>
+  		<a href="logout.php" class="logout">Cerrar Sesión</a> 
+	</div>
+  </div>
+</head>
+<body>
+	<div id="dvData">
+  <table>
+    <tr>
+      <th>Column One</th>
+      <th>Column Two</th>
+      <th>Column Three</th>
+    </tr>
+    <tr>
+      <td>row1 Col1</td>
+      <td>row1 Col2</td>
+      <td>row1 Col3</td>
+    </tr>
+    <tr>
+      <td>row2 Col1</td>
+      <td>row2 Col2</td>
+      <td>row2 Col3</td>
+    </tr>
+    <tr>
+      <td>row3 Col1</td>
+      <td>row3 Col2</td>
+      <td>row3 Col3</td>
+    </tr>
+    <tr>
+      <td>row4 'Col1'</td>
+      <td>row4 'Col2'</td>
+      <td>row4 'Col3'</td>
+    </tr>
+    <tr>
+      <td>row5 &quot;Col1&quot;</td>
+      <td>row5 &quot;Col2&quot;</td>
+      <td>row5 &quot;Col3&quot;</td>
+    </tr>
+    <tr>
+      <td>row6 "Col1"</td>
+      <td>row6 "Col2"</td>
+      <td>row6 "Col3"</td>
+    </tr>
+  </table>
+</div>
+
+ <div class="row">
+    <div class="col s4 offset-s5">
+      <h6><b>Exportar a CSV</b></h6><br>
+      <div class="row">
+        <div class="col s3">
+          <a class="waves-effect waves-light btn light-green lighten-2 export"  >Exportar</a>
+        </div>
+      </div>
+    </div>
+  </div></body>
+<footer style="bottom: 0px;padding-top: 20px;color: #fff;background-color:#001437;">
+	        <div class="container">
+	          	<div class="row">
+	            	<div class="col s9">
+	              		<div>
+	        				<img class = "logo" src="res/Logo_!.png">
+	      				</div>
+	            	</div>
+	          	</div>
+	        </div>
+	        <div class="footer-copyright">
+	         	<div class="container">
+	          		© Habeats
+	          	</div>
+	        </div>
+      	</footer>
+      	<script src="js/jquery-3.4.1.min.js"></script>
+      	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+      	
+		<!-- Compiled and minified JavaScript -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+		<script type="text/javascript" src="js/ajax.js"></script>
+		<script type="text/javascript" src="js/actions.js"></script>
+     </body>
+</html> 
