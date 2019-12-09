@@ -160,7 +160,6 @@ function obtenRecetas(number) {
         }); 
 }
 function obtenCliente(number) {
-        console.log('b');
         let nombre ="#rest";
         console.log(nombre);
         let nombre1 ="#resultado";

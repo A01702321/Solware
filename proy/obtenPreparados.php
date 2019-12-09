@@ -1,10 +1,15 @@
 <?php
 require_once("util.php");
-$pattern=strtolower($_GET['pattern']);
+if(isset($_GET['pattern'])){
+  $pattern=strtolower($_GET['pattern']);
+}
+else{
+  $pattern = "";
+}
 $indice1 = $_GET['indice'];
 $nombre = "preparado".$indice1;
 $words=array();
-$result=obtenerPrep();
+$result=obtenerPrep($pattern);
 $datos=array();
 $mensaje = '<table class="striped" id="tablaPreparados">
             <thead>
@@ -42,9 +47,6 @@ for($i=0; $i<count($result); $i++){
 
           //<td>".$ings[0][0] .'<br>'. $ings[1][0] .'<br>'. $ings[2][0].'<br>'. $ings[3][0].'<br>'. $ings[4][0].'<br>'. $ings[5][0].'<br>'. $ings[6][0].'<br>'. $ings[7][0].'<br>'. $ings[8][0].'<br>'. $ings[9][0]."</td>
 
-   $pos=stripos(strtolower($preparado),$pattern);
-   if(!($pos===false))
-   {
       $size++;
       $mensaje.="<tr>
                   <td>".$id."</td> 
@@ -52,7 +54,6 @@ for($i=0; $i<count($result); $i++){
                   <td>".$ings[0][0] .'<br>'. $ings[1][0] .'<br>'. $ings[2][0].'<br>'. $ings[3][0].'<br>'. $ings[4][0].'<br>'. $ings[5][0].'<br>'. $ings[6][0].'<br>'. $ings[7][0].'<br>'. $ings[8][0].'<br>'. $ings[9][0]."</td>
                   <td style='text-align: right;     padding: 0px 0px; '><a onclick='showDeleteModalPreparado(".$id.", &quot;".$preparado."&quot;)' href='#removeModalPreparado' id='".$id."' style='display: none;' class='right  waves-effect waves-red btn-flat red-text modal-trigger'><i class='material-icons'>remove_circle</i></a></td>
                  </tr>";
-    }
 
       //$seleccionados=$id;
       //echo $id;

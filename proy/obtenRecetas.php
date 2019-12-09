@@ -1,10 +1,15 @@
 <?php
 require_once("util.php");
-$pattern=strtolower($_GET['pattern']);
+if(isset($_GET['pattern'])){
+  $pattern=strtolower($_GET['pattern']);
+}
+else{
+  $pattern = "";
+}
 $indice1 = $_GET['indice'];
 $nombre = "receta".$indice1;
 $words=array();
-$result=obtenerRecetas();
+$result=obtenerRecetas($pattern);
 $datos=array();
 $mensaje = '<table class="striped" id="tablaRecetas">
             <thead>
@@ -26,10 +31,7 @@ for($i=0; $i<count($result); $i++){
         $id=$result[$i][0];
         $receta=$result[$i][1];
         $desc=$result[$i][2];
-
-   $pos=stripos(strtolower($receta),$pattern);
-   if(!($pos===false))
-   {
+        
       $size++;
       $mensaje.="<tr>
                   <td>".$id."</td> 
@@ -37,8 +39,6 @@ for($i=0; $i<count($result); $i++){
                   <td>".$desc."</td>
                   <td style='text-align: right;     padding: 0px 0px; '><a onclick='showDeleteModalReceta(".$id.", &quot;".$receta."&quot; )' href='#removeModalReceta' id='".$id."' style='display: none;' class='right  waves-effect waves-red btn-flat red-text modal-trigger'><i class='material-icons'>remove_circle</i></a></td>
                  </tr>";
-    }
-
       //$seleccionados=$id;
       //echo $id;
    }

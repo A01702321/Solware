@@ -973,11 +973,11 @@ function obtenerIngredient(){
    
 }
 
-function obtenerIngredientes(){
+function obtenerIngredientes($pat){
 	  $db =connectDB();
      
     
-       $query="SELECT NombreIngrediente,IDIngrediente,GrupoAlimenticio FROM Ingredientes";
+       $query="SELECT NombreIngrediente,IDIngrediente,GrupoAlimenticio FROM Ingredientes WHERE NombreIngrediente = '' OR NombreIngrediente LIKE '%$pat%'";
      
        $registros = $db->query($query);
 
@@ -1017,11 +1017,11 @@ function obtenerClient($pat){
    
 }
 
-function obtenerPlatillo(){
+function obtenerPlatillo($pat){
 	  $db =connectDB();
      
     
-        $query="SELECT IDPlatillo, NombrePlatillo, Menu, Tiempo, Notas FROM Platillos";
+        $query="SELECT IDPlatillo, NombrePlatillo, Menu, Tiempo, Notas FROM Platillos WHERE NombrePlatillo = '' OR NombrePlatillo LIKE '%$pat%'";
      
        $registros = $db->query($query);
 
@@ -1062,11 +1062,11 @@ function obtenerPlatillosRestricciones($menu, $tiempo){
     return; 
 }
 
-function obtenerRecetas(){
+function obtenerRecetas($pat){
 	  $db =connectDB();
      
     
-        $query="SELECT IDReceta, NombreReceta, Descripcion FROM Recetas";
+        $query="SELECT IDReceta, NombreReceta, Descripcion FROM Recetas WHERE NombreReceta = '' OR NombreReceta LIKE '%$pat%'";
      
        $registros = $db->query($query);
 
@@ -1084,11 +1084,11 @@ function obtenerRecetas(){
    
 }
 
-function obtenerPrep(){
+function obtenerPrep($pat){
 	  $db =connectDB();
      
     
-        $query="SELECT IDPreparado, NombrePreparado FROM Preparados";
+        $query="SELECT IDPreparado, NombrePreparado FROM Preparados WHERE NombrePreparado = '' OR NombrePreparado LIKE '%$pat%'";
      
        $registros = $db->query($query);
 

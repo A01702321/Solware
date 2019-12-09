@@ -1,10 +1,15 @@
 <?php
 require_once("util.php");
-$pattern=strtolower($_GET['pattern']);
+if(isset($_GET['pattern'])){
+  $pattern=strtolower($_GET['pattern']);
+}
+else{
+  $pattern = "";
+}
 $indice1 = $_GET['indice'];
 $nombre = "ingrediente".$indice1;
 $words=array();
-$result=obtenerIngredientes();
+$result=obtenerIngredientes($pattern);
 $datos=array();
 $mensaje = '<table class="striped" id="tablaIngredientes">
             <thead>
@@ -33,9 +38,6 @@ for($i=0; $i<count($result); $i++){
 
         //<a onclick='showModifyModal(&quot;".$ingrediente."&quot;,".$id.",".$grupoAl.", &quot;".$grupo."&quot;, ".$categorias."  )' href='#modifyModal' id='".$id."' style='display: block;' class='right  waves-effect waves-grey btn-flat grey-text '><i class='material-icons'>create</i></a>
 
-   $pos=stripos(strtolower($ingrediente),$pattern);
-   if(!($pos===false))
-   {
       $size++;
       $mensaje.="<tr>
                   <td>".$id."</td>
@@ -46,7 +48,6 @@ for($i=0; $i<count($result); $i++){
 
       //$seleccionados=$id;
       //echo $id;
-   }
 }
 
 closeDB($bd);

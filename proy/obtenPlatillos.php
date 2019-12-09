@@ -1,10 +1,15 @@
 <?php
 require_once("util.php");
-$pattern=strtolower($_GET['pattern']);
+if(isset($_GET['pattern'])){
+  $pattern=strtolower($_GET['pattern']);
+}
+else{
+  $pattern = "";
+}
 $indice1 = $_GET['indice'];
 $nombre = "platillo".$indice1;
 $words=array();
-$result=obtenerPlatillo();
+$result=obtenerPlatillo($pattern);
 $datos=array();
 $mensaje = '<table class="striped" id="tablaPlatillos">
             <thead>
@@ -34,9 +39,6 @@ for($i=0; $i<count($result); $i++){
           $menus = mysqli_query($bd, $sql);
           $menu = mysqli_fetch_assoc($menus);
 
-   $pos=stripos(strtolower($platillo),$pattern);
-   if(!($pos===false))
-   {
       $size++;
       $mensaje.="<tr>
                   <td>".$id."</td> 
@@ -46,7 +48,6 @@ for($i=0; $i<count($result); $i++){
                   <td>".$notas."</td>
                   <td style='text-align: right;     padding: 0px 0px; '><a onclick='showDeleteModalPlatillo(".$id.", &quot;".$platillo."&quot; )' href='#removeModalPlatillo' id='".$id."' style='display: none;' class='right  waves-effect waves-red btn-flat red-text modal-trigger'><i class='material-icons'>remove_circle</i></a></td>
                  </tr>";
-    }
 
       //$seleccionados=$id;
       //echo $id;
