@@ -19,19 +19,19 @@ $mensaje = '<table id="tablaIngredientes">
 
 $size=0;
 
+$bd = connectDB();
 
 for($i=0; $i<count($result); $i++){
-$bd = connectDB();
         $id=$result[$i][0];
         $ingrediente=$result[$i][1];
         $grupoAl=$result[$i][2];
           $sql = "SELECT NombreGrupoAl FROM GruposAlimenticios Where IDGrupoAl = '$grupoAl'";
           $grupos =  mysqli_fetch_assoc(mysqli_query($bd, $sql));
-closeDB($bd);
 
-           $grupo = getGrupos($grupoAl);
-           $categorias = json_encode(getCategorias($id));
+          // $grupo = getGrupos($grupoAl);
+          // $categorias = json_encode(getCategorias($id));
 
+        //<a onclick='showModifyModal(&quot;".$ingrediente."&quot;,".$id.",".$grupoAl.", &quot;".$grupo."&quot;, ".$categorias."  )' href='#modifyModal' id='".$id."' style='display: block;' class='right  waves-effect waves-grey btn-flat grey-text '><i class='material-icons'>create</i></a>
 
    $pos=stripos(strtolower($ingrediente),$pattern);
    if(!($pos===false))
@@ -41,8 +41,7 @@ closeDB($bd);
                   <td>".$id."</td>
                   <td>".$ingrediente."</td>
                   <td>".$grupos["NombreGrupoAl"]."</td>
-                  <td style='text-align: right;     padding: 0px 0px; width:10%; '><a onclick='showModifyModal(&quot;".$ingrediente."&quot;,".$id.",".$grupoAl.", &quot;".$grupo."&quot;, ".$categorias."  )' href='#modifyModal' id='".$id."' style='display: block;' class='right  waves-effect waves-grey btn-flat grey-text '><i class='material-icons'>create</i></a>
-                    <a onclick='showDeleteModal(".$id.", &quot;".$ingrediente."&quot; )' href='#removeModal' id='".$id."' style='display: none;' class='right  waves-effect waves-red btn-flat red-text modal-trigger'><i class='material-icons'>remove_circle</i></a></td>
+                  <td style='text-align: right;     padding: 0px 0px; width:10%; '><a onclick='showDeleteModal(".$id.", &quot;".$ingrediente."&quot; )' href='#removeModal' id='".$id."' style='display: none;' class='right  waves-effect waves-red btn-flat red-text modal-trigger'><i class='material-icons'>remove_circle</i></a></td>
                 </tr>";
 
       //$seleccionados=$id;
@@ -50,6 +49,7 @@ closeDB($bd);
    }
 }
 
+closeDB($bd);
 
 $mensaje.='</tbody> </table>';
  
