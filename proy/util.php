@@ -524,9 +524,9 @@
 		mysqli_query($db, $sql);
 		$sql = "DELETE FROM Plan Where IDCliente = '$id'";
 		mysqli_query($db, $sql);
-		$sql = "DELETE FROM ClientePlatillo Where IDCliente = '$id'";
-		mysqli_query($db, $sql);
 		$sql = "DELETE FROM Alimentar Where IDCliente = '$id'";
+		mysqli_query($db, $sql);
+		$sql = "DELETE FROM ClientePlatillo Where IDCliente = '$id'";
 		mysqli_query($db, $sql);
 		$sql = "DELETE FROM Clientes Where IDCliente = '$id'";
 		if(mysqli_query($db, $sql)){
