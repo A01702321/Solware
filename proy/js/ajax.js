@@ -97,3 +97,17 @@ $(document).on('click', '#subi', function(){
       alert('Mandado');
       });
 });
+
+var menuSelec;
+var tiempoSelec;
+ $(document).on('change', '#nombreMenu', function() {
+    menuSelec = $(this).val();
+    return menuSelec;
+   // alert(menuSelec);  
+});
+
+ $(document).on('change', '#nombreTiempo', function() {
+    tiempoSelec = $(this).val();
+    //alert(tiempoSelec);  
+});
+
