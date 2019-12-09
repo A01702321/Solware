@@ -111,3 +111,7 @@ var tiempoSelec;
     //alert(tiempoSelec);  
 });
 
+ $(document).on('click', '#continuar', function() {
+    document.getElementById("platilloDiv").style.display="block";
+    //alert(tiempoSelec);  
+});

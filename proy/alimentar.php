@@ -12,7 +12,7 @@ session_start();
         if(isset($_POST["fecha"]) && isset($_POST["nombreMenu"]) && isset($_POST["nombreTiempo"]) && isset($_POST["nombrePlatillo"])){
              if (empty($_POST["fecha"])  || empty($_POST["nombreMenu"]) || empty($_POST["nombreTiempo"])) {
                     echo "<script>M.toast({html: 'Se requiere llenar el campo.', classes: 'red rounded'});</script>";
-                    
+                    echo $_POST["nombreMenu"];
              }else{
                     echo "<script>M.toast({html: 'Preparado creado Existosamente', classes: 'green rounded'});</script>";
                    
