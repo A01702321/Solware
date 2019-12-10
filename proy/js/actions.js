@@ -581,6 +581,7 @@ function agregarPlatillo() {
   });
 }
 
+
 function generateTablaAlimentar(tab){
   tabla = JSON.parse(tab);
   divi = document.getElementById("resultados");
@@ -594,7 +595,12 @@ function generateTablaAlimentar(tab){
   table = document.getElementById("tBodyRes");
   for (x=0;x<tabla.length;x++){
     var val = tabla[x];
-    table.innerHTML += "<tr><td>"+val[0]+"</td><td>"+val[1]+"</td><td>"+val[2]+"</td><tr>"
+    if(val[2].length === 0){
+      table.innerHTML += "<tr><td>"+val[0]+"</td><td>"+val[1]+"</td><td>"+val[2]+"</td><tr>";
+    }
+    else{
+      table.innerHTML += "<tr class='red lighten-2'><td>"+val[0]+"</td><td>"+val[1]+"</td><td>"+val[2]+"</td><tr>";
+    }
 
   }
 
