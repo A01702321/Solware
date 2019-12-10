@@ -10,6 +10,6 @@
 	}
 
 	else{
-		header("location:../proy/registroExitoso.php");
+		header("location:../registroExitoso.php");
 	}
 ?>

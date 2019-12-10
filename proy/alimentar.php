@@ -23,6 +23,6 @@ session_start();
     }
 
     else{
-        header("location:../proy/index.php");
+        header("location:../index.php");
     }
 ?>
