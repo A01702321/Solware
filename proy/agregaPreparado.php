@@ -3,12 +3,12 @@
     session_start();
 
     require_once "util.php";
-     echo "<script src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js'></script>";
+    // echo "<script src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js'></script>";
 
     if(isset($_SESSION["User"])){
     	include("header.html");
     	include_once("AgregaPreparado.html");
-    	  if(isset($_POST["nombreprep"])){
+    	/*  if(isset($_POST["nombreprep"])){
              if (empty($_POST["nombreprep"]) || empty($_POST["ing1"])) {
                 echo "<script>M.toast({html: 'No puede haber campos vacios', classes: 'red rounded'});</script>";
             }  
@@ -58,7 +58,7 @@
                 //include_once("AgregaPreparado.html");
             } 
             }
-        }
+        }*/
         
         include_once("footer.html");
     }

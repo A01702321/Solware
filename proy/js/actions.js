@@ -282,6 +282,19 @@ function agregarRestriccionP(preparado, id)
 
 }
 
+function agregarIngredientePrep(ingrediente, id)
+{
+
+  var resultados = document.getElementById("resultadosIP");
+
+  resultados.innerHTML += "<tr class='idTablaAuxIP' id='ing" + id + "'><td style='width:100%'>" + ingrediente.toString() + "</td>" + '<td><a onclick="eliminarIngrediente(\'' +  id + '\')" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td></tr>';
+
+
+  var resultadosHidden = document.getElementById("resultadosHiddenIP");
+  resultadosHidden.innerHTML += "<input type='hidden' value='" + ingrediente.toString() + "' name='ingsP[]' id='" + ingrediente.toString() + "'/>";
+ // alert(id);
+}
+
 function eliminarIngrediente(id)
 {
   var ingredienteDOM = document.getElementById("ing"+ id);
@@ -402,6 +415,23 @@ function ObtenerIDtablaAuxT(){
   alert(ids);
 }
 
+function ObtenerIDtablaAuxIP(){
+  var tablaAux = document.getElementsByClassName("idTablaAuxIP");
+  var ids = [];
+  var t = false;
+  let len = tablaAux.length;
+
+  for (x=0; x<len; x++){
+    t = true;
+    ids.push(+(tablaAux[x].id.substring(3)));
+   // alert(ids);
+  }
+  
+  if(t)return ids;
+  else return [""];
+  alert(ids);
+}
+
 function agregarClienteConRestricciones() {
   url = "agregaClienteControlador.php";
   var tablaIDs = ObtenerIDtablaAux();
@@ -434,7 +464,24 @@ function agregarClienteConRestricciones() {
 
 }
 
+function agregarPreparado(){
+  url = "agregaPreparadoControlador.php";
+  var tablasINGS = ObtenerIDtablaAuxIP();
+  var nombrePrep = $("#nombreprep").val();
 
+  var posting = $.post(url, {nombre: nombrePrep, ings: tablasINGS});
+  //alert(tablasINGS);
+  posting.done(function (data){
+    //alert(nombrePrep);
+    if (data== 1){
+        M.toast({html: 'Preparado creado exitosamente', classes: 'green rounded'});
+        
+        }else{
+           M.toast({html: 'Preparado NO creado', classes: 'red rounded'});
+        }
+    
+  });
+}
 
 function agregarReceta() {
   url = "agregarRecetaControlador.php";
@@ -460,6 +507,9 @@ function agregarReceta() {
 
 
 }
+
+
+
 
 function agregarReceta() {
   url = "agregarRecetaControlador.php";
@@ -531,6 +581,7 @@ function agregarPlatillo() {
   });
 }
 
+
 function generateTablaAlimentar(tab){
   tabla = JSON.parse(tab);
   divi = document.getElementById("resultados");
@@ -544,7 +595,12 @@ function generateTablaAlimentar(tab){
   table = document.getElementById("tBodyRes");
   for (x=0;x<tabla.length;x++){
     var val = tabla[x];
-    table.innerHTML += "<tr><td>"+val[0]+"</td><td>"+val[1]+"</td><td>"+val[2]+"</td><tr>"
+    if(val[2].length === 0){
+      table.innerHTML += "<tr><td>"+val[0]+"</td><td>"+val[1]+"</td><td>"+val[2]+"</td><tr>";
+    }
+    else{
+      table.innerHTML += "<tr class='red lighten-2'><td>"+val[0]+"</td><td>"+val[1]+"</td><td>"+val[2]+"</td><tr>";
+    }
 
   }
 
