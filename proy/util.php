@@ -735,6 +735,45 @@
 		closeDB($link);
 	}
 
+
+	function crearPreparadoCompleto($prep, $ings){
+		$worked = crearPreparado($prep);
+		if (!$worked){
+			echo("agregar no funcionó");
+			return 0;
+		}
+
+		$IDPreparado = preparadoRecienCreado($prep);
+
+		
+		for($i=0;$i<sizeof($ings);$i++){
+			$id=$ings[$i];
+			if($id !== ""){
+				$worked = ($worked && agregarIngPreparado($IDPreparado, $id));
+			}
+		}
+		return $worked;
+
+	}
+
+
+	function preparadoRecienCreado($prep){
+		$db = connectDB();
+
+		$query="SELECT IDPreparado FROM Preparados WHERE NombrePreparado = '$prep'";
+		$result=mysqli_query($db,$query);
+		
+		
+		while ($row=mysqli_fetch_assoc($result)) {
+			$id = $row['IDPreparado'];
+		}
+
+
+
+		closeDB($db);
+		return $id;
+	}
+
 	function agregarCategoriaIng($name, $category) {
 		$worked = false;
 		$link = connectDB();
