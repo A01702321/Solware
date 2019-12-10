@@ -711,7 +711,7 @@
 		
 	   $sql = "
 
-		INSERT INTO IngredientePreparado (IDPreparado, IDIngrediente) VALUES ((SELECT p.IDPreparado FROM Preparados p WHERE p.NombrePreparado = ?), (SELECT z.IDIngrediente FROM Ingredientes z WHERE z.NombreIngrediente = ? ) )";
+		INSERT INTO IngredientePreparado (IDPreparado, IDIngrediente) VALUES ((SELECT p.IDPreparado FROM Preparados p WHERE p.IDPreparado = ?), (SELECT z.IDIngrediente FROM Ingredientes z WHERE z.NombreIngrediente = ? ) )";
 
 	   // Preparing the statement 
 	    if (!($statement = $link->prepare($sql))) {

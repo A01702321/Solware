@@ -469,6 +469,7 @@ function agregarPreparado(){
   var posting = $.post(url, {nombre: nombrePrep, ings: tablasINGS});
   //alert(tablasINGS);
   posting.done(function (data){
+    //alert(nombrePrep);
     if (data== 1){
         M.toast({html: 'Preparado creado exitosamente', classes: 'green rounded'});
         
