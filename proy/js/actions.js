@@ -585,13 +585,14 @@ function agregarPlatillo() {
 function generateTablaAlimentar(tab){
   tabla = JSON.parse(tab);
   divi = document.getElementById("resultados");
+  rep = document.getElementById("comb");
   if(tabla.length === 0){
 
       M.toast({html: 'Ningún cliente contiene ese menú y tiempo', classes: 'red rounded'});
       return;
   }
   divi = document.getElementById("resultados");
-    divi.innerHTML = "<table><thead><th>ID Cliente</th><th>Nombre Cliente</th><th>Conflictos</th><tbody id='tBodyRes'></tbody></table>"
+    divi.innerHTML = "<table id='reporte'><thead><th>ID Cliente</th><th>Nombre Cliente</th><th>Conflictos</th><tbody id='tBodyRes'></tbody></table>"
   table = document.getElementById("tBodyRes");
   for (x=0;x<tabla.length;x++){
     var val = tabla[x];
@@ -599,14 +600,45 @@ function generateTablaAlimentar(tab){
       table.innerHTML += "<tr><td>"+val[0]+"</td><td>"+val[1]+"</td><td>"+val[2]+"</td><tr>";
     }
     else{
-      table.innerHTML += "<tr class='red lighten-2'><td>"+val[0]+"</td><td>"+val[1]+"</td><td>"+val[2]+"</td><tr>";
+      table.innerHTML += "<tr style='background-color: red'><td>"+val[0]+"</td><td>"+val[1]+"</td><td>"+val[2]+"</td><tr>";
     }
 
   }
+   rep.innerHTML = "<button onclick=exportTableToExcel('reporte')>Export Table Data To Excel File</button>";
 
 }
 
-
+function exportTableToExcel(tableID, filename = ''){
+    var downloadLink;
+    var dataType = 'application/vnd.ms-excel;charset=UTF-8';
+    var tableSelect = document.getElementById(tableID);
+    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+    var excelF = "\uFEFF"+tableHTML;
+    
+    // Specify file name
+    filename = filename?filename+'.xls':'reporte.xls';
+    
+    // Create download link element
+    downloadLink = document.createElement("a");
+    
+    document.body.appendChild(downloadLink);
+    
+    if(navigator.msSaveOrOpenBlob){
+        var blob = new Blob([excelF], {
+            type: dataType
+        });
+        navigator.msSaveOrOpenBlob( blob, filename);
+    }else{
+        // Create a link to the file
+        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+    
+        // Setting the file name
+        downloadLink.download = filename;
+        
+        //triggering the function
+        downloadLink.click();
+    }
+}
 
 
 function validateIngForm(name, group, categories){
