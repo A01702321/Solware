@@ -585,7 +585,7 @@ function agregarPlatillo() {
 function generateTablaAlimentar(tab){
   tabla = JSON.parse(tab);
   divi = document.getElementById("resultados");
-  rep = document.getElementById("comb");
+  rep = document.getElementById("exc_button");
   if(tabla.length === 0){
 
       M.toast({html: 'Ningún cliente contiene ese menú y tiempo', classes: 'red rounded'});
@@ -604,21 +604,22 @@ function generateTablaAlimentar(tab){
     }
 
   }
-   rep.innerHTML = "<button onclick=exportTableToExcel('reporte')>Export Table Data To Excel File</button>";
+   rep.innerHTML = "<button class='waves-effect waves-light btn light-green lighten-1' onclick=exportTableToExcel('reporte')>Finalizar</button>";
 
 }
 
 function exportTableToExcel(tableID, filename = ''){
     var downloadLink;
+    var tiempo = document.getElementById("nombreTiempo");
+    var time = tiempo.options[tiempo.selectedIndex].value;
+    var date = document.getElementById("fecha").value;
     var dataType = 'application/vnd.ms-excel;charset=UTF-8';
     var tableSelect = document.getElementById(tableID);
     var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
-    var excelF = "\uFEFF"+tableHTML;
+    var excelF = "\uFEFF"+tableHTML; //Se supone que es para los acentos
     
-    // Specify file name
-    filename = filename?filename+'.xls':'reporte.xls';
+    filename = filename?filename+'.xls':time+'_'+date+'.xls';
     
-    // Create download link element
     downloadLink = document.createElement("a");
     
     document.body.appendChild(downloadLink);
