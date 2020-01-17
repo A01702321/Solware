@@ -586,6 +586,7 @@ function generateTablaAlimentar(tab){
   tabla = JSON.parse(tab);
   divi = document.getElementById("resultados");
   rep = document.getElementById("exc_button");
+  fin = document.getElementById("fin_button");
   if(tabla.length === 0){
 
       M.toast({html: 'Ningún cliente contiene ese menú y tiempo', classes: 'red rounded'});
@@ -600,11 +601,12 @@ function generateTablaAlimentar(tab){
       table.innerHTML += "<tr><td>"+val[0]+"</td><td>"+val[1]+"</td><td>"+val[2]+"</td><tr>";
     }
     else{
-      table.innerHTML += "<tr style='background-color: red'><td>"+val[0]+"</td><td>"+val[1]+"</td><td>"+val[2]+"</td><tr>";
+      table.innerHTML += "<tr style='background-color: red; color: white'><td>"+val[0]+"</td><td>"+val[1]+"</td><td>"+val[2]+"</td><tr>";
     }
 
   }
-   rep.innerHTML = "<button class='waves-effect waves-light btn light-green lighten-1' onclick=exportTableToExcel('reporte')>Finalizar</button>";
+   rep.innerHTML = "<button type='button' class='waves-effect waves-light btn  cyan accent-4' style='border-radius: 50%;' onclick=exportTableToExcel('reporte')>Descargar</button><br><br>";
+   fin.innerHTML = "<br><a href='menu.php' class='waves-effect waves-light btn green darken-4'>Finalizar</a>";
 
 }
 
@@ -612,13 +614,15 @@ function exportTableToExcel(tableID, filename = ''){
     var downloadLink;
     var tiempo = document.getElementById("nombreTiempo");
     var time = tiempo.options[tiempo.selectedIndex].value;
+    var men = document.getElementById("nombreMenu");
+    var menu = men.options[men.selectedIndex].text;
     var date = document.getElementById("fecha").value;
     var dataType = 'application/vnd.ms-excel;charset=UTF-8';
     var tableSelect = document.getElementById(tableID);
     var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
     var excelF = "\uFEFF"+tableHTML; //Se supone que es para los acentos
     
-    filename = filename?filename+'.xls':time+'_'+date+'.xls';
+    filename = filename?filename+'.xls':time+menu+'_'+date+'.xls';
     
     downloadLink = document.createElement("a");
     
