@@ -624,6 +624,8 @@
 		mysqli_query($db, $sql);
 		$sql = "DELETE FROM PlatilloReceta Where IDPlatillo = '$id'";
 		mysqli_query($db, $sql);
+		$sql = "DELETE FROM Alimentar Where IDPlatillo = '$id'";
+		mysqli_query($db, $sql);
 		$sql = "DELETE FROM Platillos Where IDPlatillo = '$id'";
 		if(mysqli_query($db, $sql)){
 			$res = 1;

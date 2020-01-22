@@ -1,0 +1,117 @@
+<title>Modifica Cliente</title>
+
+<body>  
+
+  <div>
+    <h2 class="col s10">Modificar Cliente</h2>
+    <br><br>
+  </div>
+
+  <form id="formina">  
+
+    <div class="row">
+      <div class="input-field col s9 offset-s1">
+        <h6>* <b>1. Nombre completo del cliente:</b></h6><br><br>
+        <div>
+          <input id="first_name" name="first_name" type="text" placeholder="ex: Obi Wan Kenobi" value="<?php $_POST['nomCliente'] ?>">
+        </div>
+      </div>
+    </div>
+
+    <br><br><br><br><br>
+
+    <div class="row">
+      <div class="col s6">
+        <h6>* <b>2. Selecciona los tiempos que el cliente desea contratar:</b></h6>
+        <div class="input-field col s4 offset-s2">
+          <?php
+            require_once("util.php");
+            obtenerTiempos();
+          ?>
+        </div>
+      </div>
+      <div class="col s5">
+        <h6>* <b>3. Selecciona el menú que se desee contratar:</b></h6>
+        <br><br>
+        <select id="nombremenu" name="nombremenu">
+          <option value="" disabled selected>Selecciona...</option>
+              <?php
+                require_once("util.php");
+                obtenerMenu();
+              ?>
+        </select>
+      </div>
+    </div>
+    
+    <br><br><br><br>
+
+
+    <div class="row">
+      <div class="col s5 offset-s4">
+        <h4>Agregar restricciones</h4>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col s10 offset-s1">
+        <h6><b>Selecciona los ingredientes que el cliente no puede o no quisiera comer en sus platillos:</b></h6><br>
+        <div class="table-responsive" vertical-align="center">  
+          <table class="table " id="restricciones" > 
+            <tr>
+              <td class="vert-aligned">
+                <div class="input-field col s8 offset-s1">
+                  <input type="text" id="rest1" class="validate" name ="rest1" onkeyup="obtenIngrediente(1)">
+                  <label>Introduce el nombre...</label>
+                  <div id="resultado1"></div>
+                </div>
+                <div>
+                  <br>
+                </div>
+              </td>
+            </tr>      
+          </table>
+        </div>
+        <input type="hidden" value="" name="valorRestricciones" id="valorRestricciones"/>
+      </div>
+    </div>
+  </form>
+
+  <br><br>
+  <div class="row">
+      <div class="col s8 offset-s2">
+    <table>
+      <tbody id="resultados">
+        <tr>
+          <th>Ingrediente</th>
+          <th>Tipo de Restricción</th>
+          <th>Eliminar</th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  </div>
+
+  <div class="row" >
+      <div class="input-field col s10" id="resultados">
+      </div>
+  </div>
+  <div class="row">
+    <div class="col s4 offset-s5">
+      <h6><b>¿Terminaste?</b></h6><br>
+      <div class="row">
+        <div class="col s3">
+          <button class="waves-effect waves-light btn light-green lighten-1" onclick="agregarClienteConRestricciones()" >Finalizar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+
+
+    <br><br><br><br><br><br>
+
+</body>
